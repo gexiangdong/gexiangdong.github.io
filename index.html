@@ -305,6 +305,155 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://gexiangdong.github.io/2019/05/17/base64-java-lang-illegalargumentexception-illegal-base64-character-20/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/05/17/base64-java-lang-illegalargumentexception-illegal-base64-character-20/" class="post-title-link" itemprop="url">Base64 java.lang.IllegalArgumentException: Illegal base64 character 20</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-17 08:53:57 / 修改时间：09:00:08" itemprop="dateCreated datePublished" datetime="2019-05-17T08:53:57+08:00">2019-05-17</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="java-Base64-解码遇到-java-lang-IllegalArgumentException-Illegal-base64-character-20"><a href="#java-Base64-解码遇到-java-lang-IllegalArgumentException-Illegal-base64-character-20" class="headerlink" title="java Base64 解码遇到 java.lang.IllegalArgumentException: Illegal base64 character 20"></a>java Base64 解码遇到 java.lang.IllegalArgumentException: Illegal base64 character 20</h1><p>JDK8 调用 java.util.Base64解码时出现异常：java.lang.IllegalArgumentException: Illegal base64 character 20</p>
+<p>character 20 是空格，如果待解码的字符串没错，可能是遇到了编码标准的问题。 Base64有几个规范：</p>
+<ul>
+<li>RFC4648 / RFC2045 这两个规范规定encode后的字符包括：0-9,a-z,A-Z,+/</li>
+<li>RFC1521 这个规范除上述的0-9,a-z,A-Z,+/外，还包含空格符和换行符</li>
+</ul>
+<p>JDK8的Base64遵守的是第一个无空格符和换行符的规范，所以遇到空格或换行会抛异常。</p>
+<p>知道了原因，解决起来就很简单了，换支持RFC1521标准的decoder解码就可以了。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://gexiangdong.github.io/2019/04/14/mac-commands/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -685,7 +834,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-count">3</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
