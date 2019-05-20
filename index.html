@@ -305,6 +305,153 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://gexiangdong.github.io/2019/05/20/springmvc-x-frame-options-deny/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/05/20/springmvc-x-frame-options-deny/" class="post-title-link" itemprop="url">SpringMVC X-Frame-Options:Deny</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-20 08:29:57 / 修改时间：08:35:20" itemprop="dateCreated datePublished" datetime="2019-05-20T08:29:57+08:00">2019-05-20</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><p>使用 SpringMVC 做的也没，前端嵌套在 iframe/frame 中内容不显示，一片空白。</p>
+<p>打开浏览器的网页检查器，会在主控台发现错误信息：</p>
+<pre><code>Refused to display ‘http://x.x.x.x/xx/’ in a frame because it set ‘X-Frame-Options’ to ‘DENY’.
+</code></pre><p>查看 Response Header 会发现 spring security 加了一个header</p>
+<pre><code>X-Frame-Options: Deny
+</code></pre><h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>通过在 Spring Security 中设置<br><code>httpSecurity.headers().frameOptions().disable()</code><br>禁止调这个头信息即可。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://gexiangdong.github.io/2019/05/18/spring-return-403-when-post/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -367,7 +514,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-05-19 09:24:00" itemprop="dateModified" datetime="2019-05-19T09:24:00+08:00">2019-05-19</time>
+                <time title="修改时间：2019-05-20 08:30:50" itemprop="dateModified" datetime="2019-05-20T08:30:50+08:00">2019-05-20</time>
               
             
           </span>
@@ -689,7 +836,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-05-18 14:53:13" itemprop="dateModified" datetime="2019-05-18T14:53:13+08:00">2019-05-18</time>
+                <time title="修改时间：2019-05-19 22:06:47" itemprop="dateModified" datetime="2019-05-19T22:06:47+08:00">2019-05-19</time>
               
             
           </span>
@@ -1019,7 +1166,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-count">5</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1046,7 +1193,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">6</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">9</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
