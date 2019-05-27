@@ -305,6 +305,158 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://gexiangdong.github.io/2019/05/25/制作https双向认证的网站/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/05/25/制作https双向认证的网站/" class="post-title-link" itemprop="url">制作HTTPS双向认证的网站</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-25 16:50:19 / 修改时间：16:57:57" itemprop="dateCreated datePublished" datetime="2019-05-25T16:50:19+08:00">2019-05-25</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>使用NGINX做双向认证的网站，访问时需要客户端安装有证书才可继续访问。可用于仅限特定用户群的网站，例如企业内部的业务管理系统，可提高系统安全性，阻止未授权用户访问。</p>
+<p>在下述方法中，客户端证书采用自制（可节约成本），服务器端证书可自制也可购买，两者不必同一个CA，建议购买（有免费的域名证书）因为自制的浏览器会出现不信任标志。</p>
+<p>自制证书使用openssl工具，使用前需要先安装.</p>
+<h1 id="制作证书"><a href="#制作证书" class="headerlink" title="制作证书"></a>制作证书</h1><h3 id="CA证书"><a href="#CA证书" class="headerlink" title="CA证书"></a>CA证书</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#制作CA私钥</span></span><br><span class="line">openssl genrsa -out ca.key 2048</span><br><span class="line"> </span><br><span class="line"><span class="comment">#制作CA根证书（包含公钥），会要求填写信息</span></span><br><span class="line">openssl req -new -x509 -days 3650 -key ca.key -out ca.crt</span><br></pre></td></tr></table></figure>
+<h3 id="服务器证书"><a href="#服务器证书" class="headerlink" title="服务器证书"></a>服务器证书</h3><p>如果使用购买的服务器证书，可忽略此部分</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#制作服务器端私钥：</span></span><br><span class="line">openssl genrsa -out server.key 2048</span><br><span class="line"><span class="comment">#服务器端公钥</span></span><br><span class="line">openssl rsa -<span class="keyword">in</span> server.key -out server.public.key</span><br><span class="line"> </span><br><span class="line"><span class="comment">#生成CSR（证书签发请求）</span></span><br><span class="line">openssl req -new -key server.public.key -out server.csr</span><br><span class="line"> </span><br><span class="line"><span class="comment">#用CA私钥签发证书</span></span><br><span class="line">openssl x509 -req -sha256 -<span class="keyword">in</span> server.csr -CA ca.crt -CAkey ca.key -CAcreateserial -days 3650 -out server.crt</span><br></pre></td></tr></table></figure>
+<h3 id="客户端浏览器证书"><a href="#客户端浏览器证书" class="headerlink" title="客户端浏览器证书"></a>客户端浏览器证书</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#制作客户端私钥</span></span><br><span class="line">openssl genrsa -out client.key 2048</span><br><span class="line"><span class="comment">#客户端公钥</span></span><br><span class="line">openssl rsa -<span class="keyword">in</span> client.key -out client.public.key</span><br><span class="line"> </span><br><span class="line"><span class="comment">#生成CSR（签发请求）</span></span><br><span class="line">openssl req -new -key client.public.key -out client.csr</span><br><span class="line"> </span><br><span class="line"><span class="comment">#用CA私钥签发证书</span></span><br><span class="line">openssl x509 -req -sha256 -<span class="keyword">in</span> client.csr -CA ca.crt -CAkey ca.key -CAcreateserial -days 365 -out client.crt</span><br><span class="line"> </span><br><span class="line"><span class="comment">#转成pfx格式</span></span><br><span class="line">openssl pkcs12 -<span class="built_in">export</span> -clcerts -<span class="keyword">in</span> client.crt -inkey client.key -out client.pfx</span><br></pre></td></tr></table></figure>
+<h1 id="更改nginx配置"><a href="#更改nginx配置" class="headerlink" title="更改nginx配置"></a>更改nginx配置</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 443;</span><br><span class="line">    server_name admin.devmgr.cn;</span><br><span class="line">    ssl on;</span><br><span class="line">    # 服务器端证书配置，具体参数请根据证书发行方提供的帮助配置</span><br><span class="line">    ssl_certificate /etc/nginx/certs/1_admin.devmgr.cn_bundle.crt;</span><br><span class="line">    ssl_certificate_key /etc/nginx/certs/2_admin.devmgr.cn.key;</span><br><span class="line">    ssl_session_timeout 5m;</span><br><span class="line">    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;</span><br><span class="line">    ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;</span><br><span class="line">    ssl_prefer_server_ciphers on;</span><br><span class="line"> </span><br><span class="line">    # 下面是配置客户端认证，需要配置使用的CA证书</span><br><span class="line">    ssl_client_certificate /etc/nginx/certs/ca.crt;</span><br><span class="line">    ssl_verify_client on;</span><br><span class="line"> </span><br><span class="line">    root /var/www/admin;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="在后端程序内获取客户端证书信息"><a href="#在后端程序内获取客户端证书信息" class="headerlink" title="在后端程序内获取客户端证书信息"></a>在后端程序内获取客户端证书信息</h1><p>NGINX会把客户端证书做成内置变量，可通过proxy_set_header传递给应用，在应用内获取request header即可得到证书对应的信息。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">location /webapp &#123;</span><br><span class="line">   proxy_pass http://127.0.0.1:8080;</span><br><span class="line">   proxy_set_header Host $host;</span><br><span class="line">   proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">   proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">   # 把客户端证书的主题信息作为request header (Client-Cert)传递给应用</span><br><span class="line">   proxy_set_header Client-Cert $ssl_client_s_dn;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>除了 $ssl_client_s_dn 外，NGINX还提供很多内置变量对应证书的其他部分内容，想起请参考 nginx的ngx_http_ssl_module 模块文档。使用时需要注意nginx版本是否支持对应的变量。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://gexiangdong.github.io/2019/05/20/springmvc-x-frame-options-deny/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1178,7 +1330,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-count">6</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1211,7 +1363,15 @@
                     
                       
                     
-                    <span class="site-state-item-count">9</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">13</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
