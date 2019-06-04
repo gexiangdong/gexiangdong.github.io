@@ -28,6 +28,9 @@
 
 
 
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
 
 
 
@@ -352,13 +355,9 @@
                 
               
 
-              <time title="创建时间：2018-04-13 22:21:16 / 修改时间：22:21:00" itemprop="dateCreated datePublished" datetime="2018-04-13T22:21:16+08:00">2018-04-13</time>
+              <time title="创建时间：2018-04-13 22:21:16" itemprop="dateCreated datePublished" datetime="2018-04-13T22:21:16+08:00">2018-04-13</time>
             
 
-            
-              
-
-              
             
           </span>
 
@@ -404,13 +403,12 @@
 Caused by: java.security.InvalidAlgorithmParameterException: parameter object not a ECParameterSpec
     at org.bouncycastle.jce.provider.JDKKeyPairGenerator$EC.initialize(Unknown Source)
     at sun.security.ssl.ECDHCrypt.&lt;init&gt;(ECDHCrypt.java:77)
-    ... 110 common frames omitted
-</code></pre><h1 id="出现的原因和解决办法"><a href="#出现的原因和解决办法" class="headerlink" title="出现的原因和解决办法"></a>出现的原因和解决办法</h1><p>发现maven打包依赖时加入org.bouncycastle:bcprov-jdk14导致，老版本的bcp只支持1024位加密，遇到2048位加密就出这个异常了。</p>
+    ... 110 common frames omitted</code></pre><h1 id="出现的原因和解决办法"><a href="#出现的原因和解决办法" class="headerlink" title="出现的原因和解决办法"></a>出现的原因和解决办法</h1><p>发现maven打包依赖时加入org.bouncycastle:bcprov-jdk14导致，老版本的bcp只支持1024位加密，遇到2048位加密就出这个异常了。</p>
 <p>有两个办法解决，推荐第一个，彻底解决：</p>
 <pre><code>* 找到依赖org.bouncycastle:bcprov-jdk14的配置，用exclusion排除它，并加入最新的bcprov。
-* 在java命令行加参数: -Dcom.sun.net.ssl.enableECC=false
-</code></pre><p>我的项目出错是由于itextpdf-5.0依赖了bcprov-jdk14，升级到itextpdf-5.5.13并增加了对bcprov-jdk15的依赖。 由于itextpdf-5.5.13中对bcprov-jdk15的依赖是optional，需要另外增加bcprov-jdk15</p>
+* 在java命令行加参数: -Dcom.sun.net.ssl.enableECC=false</code></pre><p>我的项目出错是由于itextpdf-5.0依赖了bcprov-jdk14，升级到itextpdf-5.5.13并增加了对bcprov-jdk15的依赖。 由于itextpdf-5.5.13中对bcprov-jdk15的依赖是optional，需要另外增加bcprov-jdk15</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.bouncycastle<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>bcprov-jdk15on<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.59<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://stackoverflow.com/questions/42238313/java-security-invalidalgorithmparameterexception-parameter-object-not-a-ecparam" target="_blank" rel="noopener">https://stackoverflow.com/questions/42238313/java-security-invalidalgorithmparameterexception-parameter-object-not-a-ecparam</a></p>
 
       
@@ -453,6 +451,10 @@ Caused by: java.security.InvalidAlgorithmParameterException: parameter object no
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/09/23/每周定期发布新版本的版本管理策略/" rel="next" title="每周定期发布新版本的版本管理策略">
+                <i class="fa fa-chevron-left"></i> 每周定期发布新版本的版本管理策略
+              </a>
             
           </div>
 
@@ -534,7 +536,7 @@ Caused by: java.security.InvalidAlgorithmParameterException: parameter object no
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-count">14</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -579,7 +581,27 @@ Caused by: java.security.InvalidAlgorithmParameterException: parameter object no
                     
                       
                     
-                    <span class="site-state-item-count">15</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">25</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

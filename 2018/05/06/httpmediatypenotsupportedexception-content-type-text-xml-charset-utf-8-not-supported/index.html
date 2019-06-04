@@ -28,6 +28,9 @@
 
 
 
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
 
 
 
@@ -352,13 +355,9 @@
                 
               
 
-              <time title="创建时间：2018-05-06 22:30:05 / 修改时间：22:30:00" itemprop="dateCreated datePublished" datetime="2018-05-06T22:30:05+08:00">2018-05-06</time>
+              <time title="创建时间：2018-05-06 22:30:05" itemprop="dateCreated datePublished" datetime="2018-05-06T22:30:05+08:00">2018-05-06</time>
             
 
-            
-              
-
-              
             
           </span>
 
@@ -392,6 +391,7 @@
       
         <h1 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h1><p>在使用Spring REST时，有一个需要返回xml格式数据的方法：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostMapping</span>(value = <span class="string">"/payment"</span>, consumes = &#123;MediaType.TEXT_XML_VALUE&#125;, produces = &#123;MediaType.ALL_VALUE&#125;)</span><br><span class="line"><span class="function"><span class="keyword">public</span> Map&lt;String, String&gt; <span class="title">wxPayCallback</span><span class="params">(@RequestBody Map&lt;String, String&gt; paraMap)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>被调用时”org.springframework.web.HttpMediaTypeNotSupportedException: Content type ‘text/xml;charset=UTF-8′ not supported”异常。</p>
 <pre><code>[http-nio-8085-exec-7] ERROR c.s.m.r.e.ControllerExceptionHandler - 异常：415
 org.springframework.web.HttpMediaTypeNotSupportedException: Content type &apos;text/xml;charset=UTF-8&apos; not supported
@@ -409,11 +409,12 @@ org.springframework.web.HttpMediaTypeNotSupportedException: Content type &apos;t
     at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:925)
     at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:978)
     at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:881)
-    at javax.servlet.http.HttpServlet.service(HttpServlet.java:661)
-</code></pre><h1 id="原因和解决办法"><a href="#原因和解决办法" class="headerlink" title="原因和解决办法"></a>原因和解决办法</h1><p>乍一看似乎是consumes指定的content-type不对导致，实际上是缺少依赖导致，spring rest默认只包含json格式的转换，不包含xml格式的转换，因此pom内增加依赖来解决。</p>
+    at javax.servlet.http.HttpServlet.service(HttpServlet.java:661)</code></pre><h1 id="原因和解决办法"><a href="#原因和解决办法" class="headerlink" title="原因和解决办法"></a>原因和解决办法</h1><p>乍一看似乎是consumes指定的content-type不对导致，实际上是缺少依赖导致，spring rest默认只包含json格式的转换，不包含xml格式的转换，因此pom内增加依赖来解决。</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.fasterxml.jackson.dataformat<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jackson-dataformat-xml<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
 <p>增加上述依赖后，上面的方法会正常访问，但如果RestController上没有指明produces，增加上述依赖后，会默认输出xml，而不再是json。<br>可以通过</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebAppConfigurer</span> <span class="keyword">extends</span> <span class="title">WebMvcConfigurationSupport</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configureContentNegotiation</span><span class="params">(ContentNegotiationConfigurer configurer)</span> </span>&#123;</span><br><span class="line">        configurer.defaultContentType(MediaType.APPLICATION_JSON);</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>来修改默认的produces。</p>
 
       
@@ -541,7 +542,7 @@ org.springframework.web.HttpMediaTypeNotSupportedException: Content type &apos;t
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-count">14</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -586,7 +587,27 @@ org.springframework.web.HttpMediaTypeNotSupportedException: Content type &apos;t
                     
                       
                     
-                    <span class="site-state-item-count">15</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">25</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

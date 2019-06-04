@@ -28,6 +28,9 @@
 
 
 
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
 
 
 
@@ -305,6 +308,206 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://gexiangdong.github.io/2019/06/04/redmine和git集成/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/06/04/redmine和git集成/" class="post-title-link" itemprop="url">redmine和git集成</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-06-04 13:52:48" itemprop="dateCreated datePublished" datetime="2019-06-04T13:52:48+08:00">2019-06-04</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="安装redmine"><a href="#安装redmine" class="headerlink" title="安装redmine"></a>安装redmine</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install redmine redmine-pgsql apache2 libapache2-mod-passenger apparmor</span><br></pre></td></tr></table></figure>
+
+<p>如果安装过程后自动启动的配置出错，可以随时使用如下命令启动配置redmine的进程</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dpkg-reconfigure -plow redmine</span><br></pre></td></tr></table></figure>
+
+<p>安装完后配置remine，在Apache的000-default.conf中映射<br>在/web/htdocs(网站根目录）下创建一个连接</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s /usr/share/redmine/public redmine</span><br></pre></td></tr></table></figure>
+
+<p>在apache 0000-default.conf中加入（也可在其他部分）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;Directory /web/htdocs/redmine&gt;</span><br><span class="line">  RailsBaseURI /redmine</span><br><span class="line">  PassengerResolveSymlinksInDocumentRoot on</span><br><span class="line">&lt;/Directory&gt;</span><br></pre></td></tr></table></figure>
+
+<p>之后可以用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service restart apache2</span><br></pre></td></tr></table></figure>
+
+<p>重启apache，并在浏览器输入 <code>http://localhost/redmine/</code> 查看是否已经成功。</p>
+<p>如果出现类似如下错误：</p>
+<pre><code>Web application could not be started
+cannot load such file -- bundler/setup (LoadError)
+  /usr/lib/ruby/1.9.1/rubygems/custom_require.rb:36:in `require&apos;
+  /usr/lib/ruby/1.9.1/rubygems/custom_require.rb:36:in `require&apos;
+  /usr/lib/ruby/vendor_ruby/phusion_passenger/loader_shared_helpers.rb:245:in `block in run_load_path_setup_code&apos;
+  /usr/lib/ruby/vendor_ruby/phusion_passenger/loader_shared_helpers.rb:348:in `running_bundler&apos;
+  /usr/lib/ruby/vendor_ruby/phusion_passenger/loader_shared_helpers.rb:243:in `run_load_path_setup_code&apos;
+  /usr/share/passenger/helper-scripts/rack-preloader.rb:100:in `preload_app&apos;
+  /usr/share/passenger/helper-scripts/rack-preloader.rb:158:in `&lt;module:App&gt;&apos;
+  /usr/share/passenger/helper-scripts/rack-preloader.rb:29:in `&lt;module:PhusionPassenger&gt;&apos;
+  /usr/share/passenger/helper-scripts/rack-preloader.rb:28:in `&lt;main&gt;&apos;
+Application root
+/usr/share/redmine
+...</code></pre><p>可能是ruby 没有安装bundle所致，用如下命令安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gem install bundle</span><br></pre></td></tr></table></figure>
+
+<p>安装好后，要把目录权限修改下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chown -R nobody:nogroup /usr/share/redmine</span><br></pre></td></tr></table></figure>
+
+<p>注意上面的nobody nogroup是apache用户和组</p>
+<h1 id="安装-git"><a href="#安装-git" class="headerlink" title="安装 git"></a>安装 git</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install git-core</span><br></pre></td></tr></table></figure>
+
+<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><p>在/var/lib/redmine下创建一个repos目录，也可以放其他地方。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd /var/lib/redmine</span><br><span class="line">mkdir repos</span><br><span class="line">git clone --mirror /home/git/projects/test.git  </span><br><span class="line">chown -R git:git test.git</span><br></pre></td></tr></table></figure>
+
+<p>注意：不需要单独创建项目的.git目录，git clone会自动创建。</p>
+<p>设置hooks</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /home/git/projects/test.git/hooks</span><br></pre></td></tr></table></figure>
+
+<p>创建post-receive文件，文件内容</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">/usr/bin/git push --mirror /var/lib/redmine/repos/test.git</span><br><span class="line">curl <span class="string">"http://127.0.0.1/redmine/sys/fetch_changesets?key=&#123;apikey&#125;"</span> &amp;</span><br></pre></td></tr></table></figure>
+
+<p>apikey在redmine 管理-&gt;配置-&gt;版本库下面，选中“启用用于版本库管理的WebService”，然后生成一个API key。并把生成的key拷贝到这里。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chmod 755 post-receive</span><br><span class="line">chown git:git post-receive</span><br></pre></td></tr></table></figure>
+
+<p>修改mirror里地权限设置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /var/lib/redmine/repos/test.git</span><br><span class="line">chmod a+rX -R ./</span><br><span class="line">git config --add core.sharedRepository 644</span><br></pre></td></tr></table></figure>
+
+<p>以上设置是为了确保redmine程序对这里有读取的权限。</p>
+<p>进入redmine对应的项目-&gt;配置-&gt;版本库，选择新增版本库<br>SCM选择Git，库路径处输入 /var/lib/redmine/repos/test.git，并设置其他项目最后保存。</p>
+<p>从redmine里版本库标签看到的是master分支的源码，可以前后到其他标签，如果默认想看其他标签的，例如develop分支</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /var/lib/redmine/repos/test.git</span><br><span class="line">git symbolic-ref HEAD refs/heads/develop</span><br></pre></td></tr></table></figure>
+
+<p>这样默认就是develop分支了</p>
+<p>以后push到git server的更新，commit message中有 #101 字样的提交会被自动关联到101号问题。</p>
+<p>例如：</p>
+<pre><code>fixed bug #101 @1h 30m </code></pre><p>如果需要自动更改问题状态，请在管理-&gt;配置-&gt;版本库处设置关键字。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://gexiangdong.github.io/2019/05/25/制作https双向认证的网站/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -350,13 +553,9 @@
                 
               
 
-              <time title="创建时间：2019-05-25 16:50:19 / 修改时间：16:57:57" itemprop="dateCreated datePublished" datetime="2019-05-25T16:50:19+08:00">2019-05-25</time>
+              <time title="创建时间：2019-05-25 16:50:19" itemprop="dateCreated datePublished" datetime="2019-05-25T16:50:19+08:00">2019-05-25</time>
             
 
-            
-              
-
-              
             
           </span>
 
@@ -394,12 +593,17 @@
 <p>在下述方法中，客户端证书采用自制（可节约成本），服务器端证书可自制也可购买，两者不必同一个CA，建议购买（有免费的域名证书）因为自制的浏览器会出现不信任标志。</p>
 <p>自制证书使用openssl工具，使用前需要先安装.</p>
 <h1 id="制作证书"><a href="#制作证书" class="headerlink" title="制作证书"></a>制作证书</h1><h3 id="CA证书"><a href="#CA证书" class="headerlink" title="CA证书"></a>CA证书</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#制作CA私钥</span></span><br><span class="line">openssl genrsa -out ca.key 2048</span><br><span class="line"> </span><br><span class="line"><span class="comment">#制作CA根证书（包含公钥），会要求填写信息</span></span><br><span class="line">openssl req -new -x509 -days 3650 -key ca.key -out ca.crt</span><br></pre></td></tr></table></figure>
+
 <h3 id="服务器证书"><a href="#服务器证书" class="headerlink" title="服务器证书"></a>服务器证书</h3><p>如果使用购买的服务器证书，可忽略此部分</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#制作服务器端私钥：</span></span><br><span class="line">openssl genrsa -out server.key 2048</span><br><span class="line"><span class="comment">#服务器端公钥</span></span><br><span class="line">openssl rsa -<span class="keyword">in</span> server.key -out server.public.key</span><br><span class="line"> </span><br><span class="line"><span class="comment">#生成CSR（证书签发请求）</span></span><br><span class="line">openssl req -new -key server.public.key -out server.csr</span><br><span class="line"> </span><br><span class="line"><span class="comment">#用CA私钥签发证书</span></span><br><span class="line">openssl x509 -req -sha256 -<span class="keyword">in</span> server.csr -CA ca.crt -CAkey ca.key -CAcreateserial -days 3650 -out server.crt</span><br></pre></td></tr></table></figure>
+
 <h3 id="客户端浏览器证书"><a href="#客户端浏览器证书" class="headerlink" title="客户端浏览器证书"></a>客户端浏览器证书</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#制作客户端私钥</span></span><br><span class="line">openssl genrsa -out client.key 2048</span><br><span class="line"><span class="comment">#客户端公钥</span></span><br><span class="line">openssl rsa -<span class="keyword">in</span> client.key -out client.public.key</span><br><span class="line"> </span><br><span class="line"><span class="comment">#生成CSR（签发请求）</span></span><br><span class="line">openssl req -new -key client.public.key -out client.csr</span><br><span class="line"> </span><br><span class="line"><span class="comment">#用CA私钥签发证书</span></span><br><span class="line">openssl x509 -req -sha256 -<span class="keyword">in</span> client.csr -CA ca.crt -CAkey ca.key -CAcreateserial -days 365 -out client.crt</span><br><span class="line"> </span><br><span class="line"><span class="comment">#转成pfx格式</span></span><br><span class="line">openssl pkcs12 -<span class="built_in">export</span> -clcerts -<span class="keyword">in</span> client.crt -inkey client.key -out client.pfx</span><br></pre></td></tr></table></figure>
+
 <h1 id="更改nginx配置"><a href="#更改nginx配置" class="headerlink" title="更改nginx配置"></a>更改nginx配置</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 443;</span><br><span class="line">    server_name admin.devmgr.cn;</span><br><span class="line">    ssl on;</span><br><span class="line">    # 服务器端证书配置，具体参数请根据证书发行方提供的帮助配置</span><br><span class="line">    ssl_certificate /etc/nginx/certs/1_admin.devmgr.cn_bundle.crt;</span><br><span class="line">    ssl_certificate_key /etc/nginx/certs/2_admin.devmgr.cn.key;</span><br><span class="line">    ssl_session_timeout 5m;</span><br><span class="line">    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;</span><br><span class="line">    ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;</span><br><span class="line">    ssl_prefer_server_ciphers on;</span><br><span class="line"> </span><br><span class="line">    # 下面是配置客户端认证，需要配置使用的CA证书</span><br><span class="line">    ssl_client_certificate /etc/nginx/certs/ca.crt;</span><br><span class="line">    ssl_verify_client on;</span><br><span class="line"> </span><br><span class="line">    root /var/www/admin;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h1 id="在后端程序内获取客户端证书信息"><a href="#在后端程序内获取客户端证书信息" class="headerlink" title="在后端程序内获取客户端证书信息"></a>在后端程序内获取客户端证书信息</h1><p>NGINX会把客户端证书做成内置变量，可通过proxy_set_header传递给应用，在应用内获取request header即可得到证书对应的信息。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">location /webapp &#123;</span><br><span class="line">   proxy_pass http://127.0.0.1:8080;</span><br><span class="line">   proxy_set_header Host $host;</span><br><span class="line">   proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">   proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">   # 把客户端证书的主题信息作为request header (Client-Cert)传递给应用</span><br><span class="line">   proxy_set_header Client-Cert $ssl_client_s_dn;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>除了 $ssl_client_s_dn 外，NGINX还提供很多内置变量对应证书的其他部分内容，想起请参考 nginx的ngx_http_ssl_module 模块文档。使用时需要注意nginx版本是否支持对应的变量。</p>
 
           
@@ -506,22 +710,6 @@
             
 
             
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-05-21 20:26:20" itemprop="dateModified" datetime="2019-05-21T20:26:20+08:00">2019-05-21</time>
-              
-            
           </span>
 
           
@@ -556,10 +744,8 @@
           
             <h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><p>使用 SpringMVC + Spring Security 做的网页，前端嵌套在 iframe/frame 中内容不显示，一片空白。</p>
 <p>打开浏览器的网页检查器，会在主控台发现错误信息：</p>
-<pre><code>Refused to display ‘http://x.x.x.x/xx/’ in a frame because it set ‘X-Frame-Options’ to ‘DENY’.
-</code></pre><p>查看 Response Header 会发现 spring security 加了一个header</p>
-<pre><code>X-Frame-Options: Deny
-</code></pre><h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>通过在 Spring Security 中设置<br><code>httpSecurity.headers().frameOptions().disable()</code><br>禁止调这个头信息即可。</p>
+<pre><code>Refused to display ‘http://x.x.x.x/xx/’ in a frame because it set ‘X-Frame-Options’ to ‘DENY’.</code></pre><p>查看 Response Header 会发现 spring security 加了一个header</p>
+<pre><code>X-Frame-Options: Deny</code></pre><h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>通过在 Spring Security 中设置<br><code>httpSecurity.headers().frameOptions().disable()</code><br>禁止调这个头信息即可。</p>
 
           
         
@@ -665,22 +851,6 @@
             
 
             
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-05-20 08:30:50" itemprop="dateModified" datetime="2019-05-20T08:30:50+08:00">2019-05-20</time>
-              
-            
           </span>
 
           
@@ -719,8 +889,9 @@
 <p><a href="https://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#csrf-include-csrf-token" target="_blank" rel="noopener">https://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#csrf-include-csrf-token</a></p>
 <p>SpringMVC中可以在form中增加：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">”hidden”</span> <span class="attr">th:name</span>=<span class="string">”$&#123;_csrf.parameterName&#125;”</span> <span class="attr">th:value</span>=<span class="string">”$&#123;_csrf.token&#125;”/</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
 <p>RESTful API需要把这2个值作为http header传递给后端。</p>
-<h3 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h3><p>CSRF是网络攻击的一种，<a href="https://study.163.com/course/courseLearn.htm?courseId=1006121037&amp;share=2&amp;shareId=400000000447005#/learn/video?lessonId=1053739036&amp;courseId=1006121037" target="_blank" rel="noopener">此处有详细说明</a>。</p>
+<h3 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h3><p>CSRF是网络攻击的一种，<a href="https://study.163.com/course/courseLearn.htm?courseId=1006121037&share=2&shareId=400000000447005#/learn/video?lessonId=1053739036&courseId=1006121037" target="_blank" rel="noopener">此处有详细说明</a>。</p>
 
           
         
@@ -825,22 +996,6 @@
               <time title="创建时间：2019-05-17 08:53:57" itemprop="dateCreated datePublished" datetime="2019-05-17T08:53:57+08:00">2019-05-17</time>
             
 
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-05-18 21:47:19" itemprop="dateModified" datetime="2019-05-18T21:47:19+08:00">2019-05-18</time>
-              
             
           </span>
 
@@ -987,22 +1142,6 @@
             
 
             
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-05-19 22:06:47" itemprop="dateModified" datetime="2019-05-19T22:06:47+08:00">2019-05-19</time>
-              
-            
           </span>
 
           
@@ -1043,9 +1182,12 @@
 <h3 id="find"><a href="#find" class="headerlink" title="find"></a>find</h3><p>整个硬盘查询，速度慢。</p>
 <p>使用方法： <code>find / -name filename</code></p>
 <h2 id="ls-的参数"><a href="#ls-的参数" class="headerlink" title="ls 的参数"></a>ls 的参数</h2><h3 id="显示完整日期"><a href="#显示完整日期" class="headerlink" title="显示完整日期"></a>显示完整日期</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ls --full-time</span><br><span class="line">ls -l --time-style=full</span><br><span class="line">ls -l --timestyle <span class="string">'+%Y%m%d %H:%M:%S'</span></span><br></pre></td></tr></table></figure>
+
 <p>如果经常使用，也可以把TIME_STYLE设置到环境变量里，以后ls -l即可</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export TIME_STYLE=&apos;+%Y%m%d %H:%M:%S&apos;</span><br><span class="line">ls -l</span><br></pre></td></tr></table></figure>
+
 <h4 id="ls排序"><a href="#ls排序" class="headerlink" title="ls排序"></a>ls排序</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ls --sort=extension</span><br><span class="line">ls --sort=size</span><br><span class="line">ls --sort=time</span><br><span class="line">ls --sort=version</span><br><span class="line">ls --sort=none</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>-t 按修改日期排序；DESC</li>
 <li>-S 按文件大小排序，DESC</li>
@@ -1053,16 +1195,24 @@
 <li>-U 使用创建日期，不使用修改日期（显示和排序）</li>
 </ul>
 <h2 id="统计文件个数"><a href="#统计文件个数" class="headerlink" title="统计文件个数"></a>统计文件个数</h2><h4 id="统计某文件夹下文件的个数"><a href="#统计某文件夹下文件的个数" class="headerlink" title="统计某文件夹下文件的个数"></a>统计某文件夹下文件的个数</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -l |grep <span class="string">"^-"</span>|wc -l</span><br></pre></td></tr></table></figure>
+
 <h4 id="统计某文件夹下目录的个数"><a href="#统计某文件夹下目录的个数" class="headerlink" title="统计某文件夹下目录的个数"></a>统计某文件夹下目录的个数</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -l |grep <span class="string">"^ｄ"</span>|wc -l</span><br></pre></td></tr></table></figure>
+
 <h4 id="统计文件夹下文件的个数，包括子文件夹里的"><a href="#统计文件夹下文件的个数，包括子文件夹里的" class="headerlink" title="统计文件夹下文件的个数，包括子文件夹里的"></a>统计文件夹下文件的个数，包括子文件夹里的</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -lR|grep <span class="string">"^-"</span>|wc -l</span><br></pre></td></tr></table></figure>
+
 <p>如统计/home/temp 目录(包含子目录)下的所有文件包含java的文件：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -lR /home/temp | grep java | wc -l</span><br></pre></td></tr></table></figure>
+
 <p>统计文件夹下目录的个数，包括子文件夹里的</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -lR | grep <span class="string">"^d"</span> | wc -l</span><br></pre></td></tr></table></figure>
+
 <h4 id="查看目录下所有文件大小"><a href="#查看目录下所有文件大小" class="headerlink" title="查看目录下所有文件大小"></a>查看目录下所有文件大小</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">du -d 1 -h</span><br></pre></td></tr></table></figure>
+
 <p>命令查看当前目录下所有文件夹的大小 -d 指深度，后面加一个数值，表示统计到几级子目录。</p>
 <h2 id="修改文件创建-修改时间"><a href="#修改文件创建-修改时间" class="headerlink" title="修改文件创建/修改时间"></a>修改文件创建/修改时间</h2><h4 id="修改文件创建时间"><a href="#修改文件创建时间" class="headerlink" title="修改文件创建时间"></a>修改文件创建时间</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch -mt YYYYMMDDhhmm filename</span><br></pre></td></tr></table></figure>
+
 <h4 id="修改文件更新时间"><a href="#修改文件更新时间" class="headerlink" title="修改文件更新时间"></a>修改文件更新时间</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch -t  YYYYMMDDhhmm filename</span><br></pre></td></tr></table></figure>
+
 
           
         
@@ -1164,13 +1314,9 @@
                 
               
 
-              <time title="创建时间：2018-05-06 22:30:05 / 修改时间：22:30:00" itemprop="dateCreated datePublished" datetime="2018-05-06T22:30:05+08:00">2018-05-06</time>
+              <time title="创建时间：2018-05-06 22:30:05" itemprop="dateCreated datePublished" datetime="2018-05-06T22:30:05+08:00">2018-05-06</time>
             
 
-            
-              
-
-              
             
           </span>
 
@@ -1206,6 +1352,7 @@
           
             <h1 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h1><p>在使用Spring REST时，有一个需要返回xml格式数据的方法：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostMapping</span>(value = <span class="string">"/payment"</span>, consumes = &#123;MediaType.TEXT_XML_VALUE&#125;, produces = &#123;MediaType.ALL_VALUE&#125;)</span><br><span class="line"><span class="function"><span class="keyword">public</span> Map&lt;String, String&gt; <span class="title">wxPayCallback</span><span class="params">(@RequestBody Map&lt;String, String&gt; paraMap)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>被调用时”org.springframework.web.HttpMediaTypeNotSupportedException: Content type ‘text/xml;charset=UTF-8′ not supported”异常。</p>
 <pre><code>[http-nio-8085-exec-7] ERROR c.s.m.r.e.ControllerExceptionHandler - 异常：415
 org.springframework.web.HttpMediaTypeNotSupportedException: Content type &apos;text/xml;charset=UTF-8&apos; not supported
@@ -1223,11 +1370,12 @@ org.springframework.web.HttpMediaTypeNotSupportedException: Content type &apos;t
     at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:925)
     at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:978)
     at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:881)
-    at javax.servlet.http.HttpServlet.service(HttpServlet.java:661)
-</code></pre><h1 id="原因和解决办法"><a href="#原因和解决办法" class="headerlink" title="原因和解决办法"></a>原因和解决办法</h1><p>乍一看似乎是consumes指定的content-type不对导致，实际上是缺少依赖导致，spring rest默认只包含json格式的转换，不包含xml格式的转换，因此pom内增加依赖来解决。</p>
+    at javax.servlet.http.HttpServlet.service(HttpServlet.java:661)</code></pre><h1 id="原因和解决办法"><a href="#原因和解决办法" class="headerlink" title="原因和解决办法"></a>原因和解决办法</h1><p>乍一看似乎是consumes指定的content-type不对导致，实际上是缺少依赖导致，spring rest默认只包含json格式的转换，不包含xml格式的转换，因此pom内增加依赖来解决。</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.fasterxml.jackson.dataformat<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jackson-dataformat-xml<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
 <p>增加上述依赖后，上面的方法会正常访问，但如果RestController上没有指明produces，增加上述依赖后，会默认输出xml，而不再是json。<br>可以通过</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebAppConfigurer</span> <span class="keyword">extends</span> <span class="title">WebMvcConfigurationSupport</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configureContentNegotiation</span><span class="params">(ContentNegotiationConfigurer configurer)</span> </span>&#123;</span><br><span class="line">        configurer.defaultContentType(MediaType.APPLICATION_JSON);</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>来修改默认的produces。</p>
 
           
@@ -1330,13 +1478,9 @@ org.springframework.web.HttpMediaTypeNotSupportedException: Content type &apos;t
                 
               
 
-              <time title="创建时间：2018-04-13 22:21:16 / 修改时间：22:21:00" itemprop="dateCreated datePublished" datetime="2018-04-13T22:21:16+08:00">2018-04-13</time>
+              <time title="创建时间：2018-04-13 22:21:16" itemprop="dateCreated datePublished" datetime="2018-04-13T22:21:16+08:00">2018-04-13</time>
             
 
-            
-              
-
-              
             
           </span>
 
@@ -1384,14 +1528,392 @@ org.springframework.web.HttpMediaTypeNotSupportedException: Content type &apos;t
 Caused by: java.security.InvalidAlgorithmParameterException: parameter object not a ECParameterSpec
     at org.bouncycastle.jce.provider.JDKKeyPairGenerator$EC.initialize(Unknown Source)
     at sun.security.ssl.ECDHCrypt.&lt;init&gt;(ECDHCrypt.java:77)
-    ... 110 common frames omitted
-</code></pre><h1 id="出现的原因和解决办法"><a href="#出现的原因和解决办法" class="headerlink" title="出现的原因和解决办法"></a>出现的原因和解决办法</h1><p>发现maven打包依赖时加入org.bouncycastle:bcprov-jdk14导致，老版本的bcp只支持1024位加密，遇到2048位加密就出这个异常了。</p>
+    ... 110 common frames omitted</code></pre><h1 id="出现的原因和解决办法"><a href="#出现的原因和解决办法" class="headerlink" title="出现的原因和解决办法"></a>出现的原因和解决办法</h1><p>发现maven打包依赖时加入org.bouncycastle:bcprov-jdk14导致，老版本的bcp只支持1024位加密，遇到2048位加密就出这个异常了。</p>
 <p>有两个办法解决，推荐第一个，彻底解决：</p>
 <pre><code>* 找到依赖org.bouncycastle:bcprov-jdk14的配置，用exclusion排除它，并加入最新的bcprov。
-* 在java命令行加参数: -Dcom.sun.net.ssl.enableECC=false
-</code></pre><p>我的项目出错是由于itextpdf-5.0依赖了bcprov-jdk14，升级到itextpdf-5.5.13并增加了对bcprov-jdk15的依赖。 由于itextpdf-5.5.13中对bcprov-jdk15的依赖是optional，需要另外增加bcprov-jdk15</p>
+* 在java命令行加参数: -Dcom.sun.net.ssl.enableECC=false</code></pre><p>我的项目出错是由于itextpdf-5.0依赖了bcprov-jdk14，升级到itextpdf-5.5.13并增加了对bcprov-jdk15的依赖。 由于itextpdf-5.5.13中对bcprov-jdk15的依赖是optional，需要另外增加bcprov-jdk15</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.bouncycastle<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>bcprov-jdk15on<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.59<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://stackoverflow.com/questions/42238313/java-security-invalidalgorithmparameterexception-parameter-object-not-a-ecparam" target="_blank" rel="noopener">https://stackoverflow.com/questions/42238313/java-security-invalidalgorithmparameterexception-parameter-object-not-a-ecparam</a></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://gexiangdong.github.io/2015/09/23/每周定期发布新版本的版本管理策略/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2015/09/23/每周定期发布新版本的版本管理策略/" class="post-title-link" itemprop="url">每周定期发布新版本的版本管理策略</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2015-09-23 14:10:44" itemprop="dateCreated datePublished" datetime="2015-09-23T14:10:44+08:00">2015-09-23</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>今年开始在团队内使用新的版本管理策略，以便达到每周定期发布的模式。以前按功能发布，经常有大功能需要几周开发，并行的小功能需要几天，而导致小功能需要等大功能开发测试完毕才能发布，拖延了一些重要功能，不适合互联网开发模式。新的版本策略每周定期发布新版本，只发布已经测试完毕的功能，未经过测试的留待以后发布。</p>
+<h1 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h1><ul>
+<li>使用git做版本管理 【必须】</li>
+<li>redmine作为开发+测试（不含测试用例管理）的日常工具 【可选】</li>
+<li>pmwiki管理文档 【可选】</li>
+</ul>
+<h1 id="分支策略"><a href="#分支策略" class="headerlink" title="分支策略"></a>分支策略</h1><p>下图是一个简单地分支模型，当多个项目有公共的部分时，master, prerelease分支要有对应的多份。</p>
+<p><img src="https://raw.githubusercontent.com/gexiangdong/gexiangdong.github.io/master/images/version-branchs.png" alt="分支模型"> </p>
+<ul>
+<li><p>develop分支，开发的主干分支，所有开发以此分支为基础且只有开发完毕的功能才会提交到此分支。每天会自动从develop取出程序发布到测试服务器，形成nightly version，供提前测试发现问题。</p>
+</li>
+<li><p>master 是发布到生产环境的版本。</p>
+</li>
+<li><p>prerelease仅仅在测试开始时才创建，测试完成后删除。</p>
+</li>
+<li><p>feature_x在开发新功能时创建，功能开发完毕后删除。</p>
+</li>
+<li><p>当有新功能需要开发时：</p>
+<ol>
+<li>创建一个feature_xx分支，xx以功能的名字命名（注意不要用中文，中文会导致redmine出问题）</li>
+<li>其他开发人员checkout此分支，大家日常提交代码到此分支</li>
+<li>开发人员每日从feature_xx拉取其他人（共同开发此feature_xx功能的同事）提交的代码，也要从远程develop分支合并到本地（图中#1，合并后不提交到远程服务器），这是为了避免最后合并冲突麻烦。</li>
+<li>开发完成后，合并代码到develop分支，并删除feature_xx分支</li>
+</ol>
+</li>
+<li><p>需要发布新版本前</p>
+<ol>
+<li>确认需要发布的功能都已经提交到develop分支后，从develop分支创建prerelease分支</li>
+<li>测试prerelease分支</li>
+<li>如果有bug则在prerelease分支修改，改后合并到develop分支，注意千万不要在develop分支修改，改后合并到prerelease分支，这样会把其他人提交的东西也合并到prerelease分支；如果bug被允许在后续版本中修复，则bug另建feature分支修改</li>
+<li>测试通过后，提交prerelease分支到master分支，并打TAG标记（标签采用 前缀+日期+序号 形式）。之后删除prerelease分支<br>从master分支提取代码部署到生产环境</li>
+</ol>
+</li>
+<li><p>当生产环境发现重要bug，需要紧急修复时</p>
+<ol>
+<li>如上图#3红色节点</li>
+<li>从master分支checkout出对应的代码，修复后测试通过提交到对应的master分支，并形成下一个TAG和生产环境发型版本。</li>
+<li>提交修复到develop分支</li>
+<li>如果存在prerelease分支，则提交到prerelease分支。（不存在prerelease分支时，不需要此步骤）</li>
+</ol>
+</li>
+<li><p>测试组一般工作在prerelease分支上，开发组一般在feature（开发期间）和prerelease（测试期间）工作</p>
+</li>
+<li><p>紧急修复时测试和开发都在hotfix上工作</p>
+</li>
+</ul>
+<h1 id="Commit-Message"><a href="#Commit-Message" class="headerlink" title="Commit Message"></a>Commit Message</h1><ul>
+<li>每次提交都必须写Commit Message，不要写无意义的信息。</li>
+<li>提交内容和redmine有关联时，要关联redmine上对应的问题编号，例如：<ul>
+<li>修改了101号问题，耗时3个半小时，但没有全部完成则可按照如下格式写<code>refs #101 @3h 30m {中文注释}</code></li>
+<li>如果101号问题修改完毕，则用fixed关键字开头 <code>fixed #101 @2h {中文注释}</code></li>
+<li>时间只写此次提交内容花费的修改时间，redmine会自动累加。</li>
+<li>中文注释写解决问题的技术实现办法，不用描述问题本身，因为问题已经在redmine上有说明。</li>
+</ul>
+</li>
+</ul>
+<h1 id="开发测试日常工作流程"><a href="#开发测试日常工作流程" class="headerlink" title="开发测试日常工作流程"></a>开发测试日常工作流程</h1><ol>
+<li>周一确定一周开发内容</li>
+<li>周一~周二测试上周发布到release分支的内容，并修改bug</li>
+<li>周三发布到生产服务器</li>
+<li>开发人员在周五完成本周开发内容后提交到develop分支，周五下班前提交到release分支。</li>
+<li>release log，每周从周一开始记录直至发布</li>
+</ol>
+<p>注：上述流程看上去程序员会同时做很多事，开发、修改bug等等，其实大部分时间这些不是并行，因为每周要发布的内容中不是包含所有程序员的工作，可能一个程序员负责的部分2周甚至更长时间才有新功能发布一次。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://gexiangdong.github.io/2015/09/22/glusterfs同步文件/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2015/09/22/glusterfs同步文件/" class="post-title-link" itemprop="url">GlusterFS同步文件</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2015-09-22 14:21:09" itemprop="dateCreated datePublished" datetime="2015-09-22T14:21:09+08:00">2015-09-22</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>glusterfs可以用来给同步两台机器（或更多）做文件镜像，而且是所有节点都在线可用得实时热备份。</p>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install glusterfs-server</span><br></pre></td></tr></table></figure>
+
+<p>即可完成安装，也有glusterfs-client可用。</p>
+<h1 id="配置Gluster节点"><a href="#配置Gluster节点" class="headerlink" title="配置Gluster节点"></a>配置Gluster节点</h1><p>先在2个机器的hosts文件里加入类似的域名指向，以便后面使用<br>【以下方案仅限于2台主机同步，3台不可行】</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">192.168.1.10  node1</span><br><span class="line">192.168.1.11  node2</span><br></pre></td></tr></table></figure>
+
+<p>注意：文件里不要有127.0.0.1 node1这样的行（如果node1和机器名重名会出现此现象）</p>
+<p>在node1上运行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gluster peer probe node2</span><br></pre></td></tr></table></figure>
+
+<p>在node2上运行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gluster peer probe node1</span><br></pre></td></tr></table></figure>
+
+<p>之后可以使用下面的命令查看状态</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gluster peer status</span><br></pre></td></tr></table></figure>
+
+<h1 id="配置镜像的卷"><a href="#配置镜像的卷" class="headerlink" title="配置镜像的卷"></a>配置镜像的卷</h1><p>实际使用中应该用一个单独的逻辑分区，此处仅仅是使用了一个目录<br>在两个机器上都分别运行下面命令创建一个目录。（不要使用已经存在的目录）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir /home/gluster-test</span><br></pre></td></tr></table></figure>
+
+<p>然后在任意一台机器上运行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gluster volume create gv0 replica 2 node1:/home/gluster-test node2:/home/gluster-test force</span><br><span class="line">gluster volume start gv0</span><br></pre></td></tr></table></figure>
+
+<p>注意force是因为使用root用户创建，gluster建议不用root创建。命令在任意一个机器上运行后，另外一个机器会自动同步。</p>
+<p>如果出现</p>
+<pre><code>volume create: gv0: failed: /home/gluster-test or a prefix of it is already part of a volume</code></pre><p>或类似的错误信息，可以用如下命令删除文件后，重新再运行 <code>gluster volume create</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">setfattr -x trusted.glusterfs.volume-id /home/gluster-test</span><br><span class="line">setfattr -x trusted.gfid /home/gluster-test</span><br><span class="line">rm -rf /home/gluster-test/.glusterfs</span><br></pre></td></tr></table></figure>
+
+<p>如果没有setfattr，可以通过 <code>apt-get install attr</code> 来安装。</p>
+<p>可以使用 <code>gluster volume info</code> 查看上述卷状态。</p>
+<p>注意：卷创建成功后，不要去修改/home/gluster-test目录下地任何文件、目录等（如果是单独分区，不mount最好）</p>
+<h1 id="挂载gluster的卷"><a href="#挂载gluster的卷" class="headerlink" title="挂载gluster的卷"></a>挂载gluster的卷</h1><p>在需要使用文件的机器上执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mount -t glusterfs node1:/gv0 /mnt</span><br></pre></td></tr></table></figure>
+
+<p>此命令会把上一步骤创建的卷挂载到/mnt目录下，以后可以访问/mnt目录，读写文件。文件会自动同步到node1,node2的节点。</p>
+<p>如果不需要访问，只供备份的节点可以不用此步骤。</p>
+<p>在/etc/fstab文件里加入如下行，可以避免每次启动都要手工mount，可自动mount</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node1:/gv0   /web    glusterfs     defaults,nobootwait,_netdev  0  0</span><br></pre></td></tr></table></figure>
+
+<p>注意一共6部分，空格区分，每部分之间不要有空格</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="http://gluster.readthedocs.org/en/latest/Quick-Start-Guide/Quickstart/" target="_blank" rel="noopener">http://gluster.readthedocs.org/en/latest/Quick-Start-Guide/Quickstart/</a></p>
 
           
         
@@ -1436,6 +1958,10 @@ Caused by: java.security.InvalidAlgorithmParameterException: parameter object no
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
 
 
           </div>
@@ -1478,7 +2004,7 @@ Caused by: java.security.InvalidAlgorithmParameterException: parameter object no
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-count">14</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1523,7 +2049,27 @@ Caused by: java.security.InvalidAlgorithmParameterException: parameter object no
                     
                       
                     
-                    <span class="site-state-item-count">15</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">25</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

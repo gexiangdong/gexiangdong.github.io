@@ -28,6 +28,9 @@
 
 
 
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
 
 
 
@@ -96,18 +99,18 @@
 
 
 
-  <meta name="description" content="遇到的问题使用 SpringMVC + Spring Security 做的网页，前端嵌套在 iframe/frame 中内容不显示，一片空白。 打开浏览器的网页检查器，会在主控台发现错误信息： Refused to display ‘http://x.x.x.x/xx/’ in a frame because it set ‘X-Frame-Options’ to ‘DENY’. 查看 Resp">
+  <meta name="description" content="遇到的问题使用 SpringMVC + Spring Security 做的网页，前端嵌套在 iframe/frame 中内容不显示，一片空白。 打开浏览器的网页检查器，会在主控台发现错误信息： Refused to display ‘http://x.x.x.x/xx/’ in a frame because it set ‘X-Frame-Options’ to ‘DENY’.查看 Respo">
 <meta name="keywords" content="java,后端,SpringMVC,spring boot,spring security">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SpringMVC X-Frame-Options:Deny">
 <meta property="og:url" content="http://gexiangdong.github.io/2019/05/20/springmvc-x-frame-options-deny/index.html">
 <meta property="og:site_name" content="GeXiangDong">
-<meta property="og:description" content="遇到的问题使用 SpringMVC + Spring Security 做的网页，前端嵌套在 iframe/frame 中内容不显示，一片空白。 打开浏览器的网页检查器，会在主控台发现错误信息： Refused to display ‘http://x.x.x.x/xx/’ in a frame because it set ‘X-Frame-Options’ to ‘DENY’. 查看 Resp">
+<meta property="og:description" content="遇到的问题使用 SpringMVC + Spring Security 做的网页，前端嵌套在 iframe/frame 中内容不显示，一片空白。 打开浏览器的网页检查器，会在主控台发现错误信息： Refused to display ‘http://x.x.x.x/xx/’ in a frame because it set ‘X-Frame-Options’ to ‘DENY’.查看 Respo">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-21T12:26:20.685Z">
+<meta property="og:updated_time" content="2019-05-21T12:26:20.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SpringMVC X-Frame-Options:Deny">
-<meta name="twitter:description" content="遇到的问题使用 SpringMVC + Spring Security 做的网页，前端嵌套在 iframe/frame 中内容不显示，一片空白。 打开浏览器的网页检查器，会在主控台发现错误信息： Refused to display ‘http://x.x.x.x/xx/’ in a frame because it set ‘X-Frame-Options’ to ‘DENY’. 查看 Resp">
+<meta name="twitter:description" content="遇到的问题使用 SpringMVC + Spring Security 做的网页，前端嵌套在 iframe/frame 中内容不显示，一片空白。 打开浏览器的网页检查器，会在主控台发现错误信息： Refused to display ‘http://x.x.x.x/xx/’ in a frame because it set ‘X-Frame-Options’ to ‘DENY’.查看 Respo">
 
 
 
@@ -356,22 +359,6 @@
             
 
             
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-05-21 20:26:20" itemprop="dateModified" datetime="2019-05-21T20:26:20+08:00">2019-05-21</time>
-              
-            
           </span>
 
           
@@ -404,10 +391,8 @@
       
         <h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><p>使用 SpringMVC + Spring Security 做的网页，前端嵌套在 iframe/frame 中内容不显示，一片空白。</p>
 <p>打开浏览器的网页检查器，会在主控台发现错误信息：</p>
-<pre><code>Refused to display ‘http://x.x.x.x/xx/’ in a frame because it set ‘X-Frame-Options’ to ‘DENY’.
-</code></pre><p>查看 Response Header 会发现 spring security 加了一个header</p>
-<pre><code>X-Frame-Options: Deny
-</code></pre><h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>通过在 Spring Security 中设置<br><code>httpSecurity.headers().frameOptions().disable()</code><br>禁止调这个头信息即可。</p>
+<pre><code>Refused to display ‘http://x.x.x.x/xx/’ in a frame because it set ‘X-Frame-Options’ to ‘DENY’.</code></pre><p>查看 Response Header 会发现 spring security 加了一个header</p>
+<pre><code>X-Frame-Options: Deny</code></pre><h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>通过在 Spring Security 中设置<br><code>httpSecurity.headers().frameOptions().disable()</code><br>禁止调这个头信息即可。</p>
 
       
     </div>
@@ -536,7 +521,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-count">14</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -581,7 +566,27 @@
                     
                       
                     
-                    <span class="site-state-item-count">15</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">25</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
