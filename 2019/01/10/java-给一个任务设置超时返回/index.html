@@ -103,11 +103,11 @@
 <meta name="keywords" content="java,CompletableFuture">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java 给一个任务设置超时返回">
-<meta property="og:url" content="http://gexiangdong.github.io/2019/01/10/java-给一个任务设置超时返回/index.html">
+<meta property="og:url" content="https://devmgr.cn/2019/01/10/java-给一个任务设置超时返回/index.html">
 <meta property="og:site_name" content="GeXiangDong">
 <meta property="og:description" content="可以通过CompletableFuture 来执行某个任务，超时后放弃任务。 12345678910111213141516171819202122232425262728293031323334import java.util.concurrent.CompletableFuture;import java.util.concurrent.ExecutionException;import ja">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-06-05T03:02:30.758Z">
+<meta property="og:updated_time" content="2019-06-07T10:51:02.981Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java 给一个任务设置超时返回">
 <meta name="twitter:description" content="可以通过CompletableFuture 来执行某个任务，超时后放弃任务。 12345678910111213141516171819202122232425262728293031323334import java.util.concurrent.CompletableFuture;import java.util.concurrent.ExecutionException;import ja">
@@ -117,7 +117,7 @@
 
 
 
-  <link rel="canonical" href="http://gexiangdong.github.io/2019/01/10/java-给一个任务设置超时返回/">
+  <link rel="canonical" href="https://devmgr.cn/2019/01/10/java-给一个任务设置超时返回/">
 
 
 
@@ -192,7 +192,7 @@
     </div>
     
       
-        <p class="site-subtitle">精通Java、SQL、Spring的拼写，擅长Linux、Windows的开关机</p>
+        <h1 class="site-subtitle" itemprop="description">精通Java、SQL、Spring的拼写，擅长Linux、Windows的开关机</h1>
       
     
     
@@ -312,7 +312,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://gexiangdong.github.io/2019/01/10/java-给一个任务设置超时返回/">
+    <link itemprop="mainEntityOfPage" href="https://devmgr.cn/2019/01/10/java-给一个任务设置超时返回/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="GeXiangDong">
@@ -329,11 +329,11 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Java 给一个任务设置超时返回
+          <h2 class="post-title" itemprop="name headline">Java 给一个任务设置超时返回
 
               
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
@@ -393,6 +393,9 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.CompletableFuture;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.ExecutionException;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.TimeUnit;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.TimeoutException;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CompletableFutureTester</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] argvs)</span> </span>&#123;</span><br><span class="line">        CompletableFuture&lt;String&gt; cf1 = CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">"enter cf"</span>);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">//sleep 3秒</span></span><br><span class="line">                Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(<span class="string">"s1"</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"done"</span>;</span><br><span class="line">        &#125;);</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//试图在2秒内得到结果，否则算超时</span></span><br><span class="line">            String result = cf1.get(<span class="number">2</span>, TimeUnit.SECONDS);</span><br><span class="line">            System.out.println(<span class="string">"result is : "</span> + result);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ExecutionException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (TimeoutException e) &#123;</span><br><span class="line">            System.out.println(<span class="string">"超时未得到结果"</span>);</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
+
+<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2019/01/10/java-给一个任务设置超时返回/">https://devmgr.cn/2019/01/10/java-给一个任务设置超时返回/</a> <br><strong>版权声明</strong>：本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议。转载需注明出处。</p>
+
       
     </div>
 
@@ -440,8 +443,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/04/14/mac-commands/" rel="prev" title="Mac 下几个实用命令">
-                Mac 下几个实用命令 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/02/06/在非spring项目中使用slf4j和logback/" rel="prev" title="在非spring项目中使用slf4j和logback">
+                在非spring项目中使用slf4j和logback <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -505,7 +508,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">39</span>
+                    <span class="site-state-item-count">60</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -624,7 +627,55 @@
                     
                       
                     
-                    <span class="site-state-item-count">52</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">75</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -678,7 +729,7 @@
                   </li>
                 
                   <li class="links-of-blogroll-item">
-                    <a href="https://devmgr.cn/front-end-vue/" title="https://devmgr.cn/front-end-vue/" rel="noopener" target="_blank">前端工程化入门：VUE的实践</a>
+                    <a href="https://devmgr.cn/front-end-vue/" title="https://devmgr.cn/front-end-vue/">前端工程化入门：VUE的实践</a>
                   </li>
                 
               </ul>

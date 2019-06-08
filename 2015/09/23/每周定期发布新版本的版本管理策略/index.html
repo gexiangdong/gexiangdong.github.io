@@ -103,23 +103,23 @@
 <meta name="keywords" content="git,开发管理">
 <meta property="og:type" content="article">
 <meta property="og:title" content="每周定期发布新版本的版本管理策略">
-<meta property="og:url" content="http://gexiangdong.github.io/2015/09/23/每周定期发布新版本的版本管理策略/index.html">
+<meta property="og:url" content="https://devmgr.cn/2015/09/23/每周定期发布新版本的版本管理策略/index.html">
 <meta property="og:site_name" content="GeXiangDong">
 <meta property="og:description" content="今年开始在团队内使用新的版本管理策略，以便达到每周定期发布的模式。以前按功能发布，经常有大功能需要几周开发，并行的小功能需要几天，而导致小功能需要等大功能开发测试完毕才能发布，拖延了一些重要功能，不适合互联网开发模式。新的版本策略每周定期发布新版本，只发布已经测试完毕的功能，未经过测试的留待以后发布。 工具 使用git做版本管理 【必须】 redmine作为开发+测试（不含测试用例管理）的日常工具">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/gexiangdong/gexiangdong.github.io/master/images/version-branchs.png">
-<meta property="og:updated_time" content="2019-06-04T06:20:06.106Z">
+<meta property="og:image" content="https://devmgr.cn/images/version-branchs.png">
+<meta property="og:updated_time" content="2019-06-07T10:51:02.981Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="每周定期发布新版本的版本管理策略">
 <meta name="twitter:description" content="今年开始在团队内使用新的版本管理策略，以便达到每周定期发布的模式。以前按功能发布，经常有大功能需要几周开发，并行的小功能需要几天，而导致小功能需要等大功能开发测试完毕才能发布，拖延了一些重要功能，不适合互联网开发模式。新的版本策略每周定期发布新版本，只发布已经测试完毕的功能，未经过测试的留待以后发布。 工具 使用git做版本管理 【必须】 redmine作为开发+测试（不含测试用例管理）的日常工具">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/gexiangdong/gexiangdong.github.io/master/images/version-branchs.png">
+<meta name="twitter:image" content="https://devmgr.cn/images/version-branchs.png">
 
 
 
 
 
 
-  <link rel="canonical" href="http://gexiangdong.github.io/2015/09/23/每周定期发布新版本的版本管理策略/">
+  <link rel="canonical" href="https://devmgr.cn/2015/09/23/每周定期发布新版本的版本管理策略/">
 
 
 
@@ -194,7 +194,7 @@
     </div>
     
       
-        <p class="site-subtitle">精通Java、SQL、Spring的拼写，擅长Linux、Windows的开关机</p>
+        <h1 class="site-subtitle" itemprop="description">精通Java、SQL、Spring的拼写，擅长Linux、Windows的开关机</h1>
       
     
     
@@ -314,7 +314,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://gexiangdong.github.io/2015/09/23/每周定期发布新版本的版本管理策略/">
+    <link itemprop="mainEntityOfPage" href="https://devmgr.cn/2015/09/23/每周定期发布新版本的版本管理策略/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="GeXiangDong">
@@ -331,11 +331,11 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">每周定期发布新版本的版本管理策略
+          <h2 class="post-title" itemprop="name headline">每周定期发布新版本的版本管理策略
 
               
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
@@ -398,7 +398,7 @@
 <li>pmwiki管理文档 【可选】</li>
 </ul>
 <h1 id="分支策略"><a href="#分支策略" class="headerlink" title="分支策略"></a>分支策略</h1><p>下图是一个简单地分支模型，当多个项目有公共的部分时，master, prerelease分支要有对应的多份。</p>
-<p><img src="https://raw.githubusercontent.com/gexiangdong/gexiangdong.github.io/master/images/version-branchs.png" alt="分支模型"> </p>
+<p><img src="/images/version-branchs.png" alt="分支模型"> </p>
 <ul>
 <li><p>develop分支，开发的主干分支，所有开发以此分支为基础且只有开发完毕的功能才会提交到此分支。每天会自动从develop取出程序发布到测试服务器，形成nightly version，供提前测试发现问题。</p>
 </li>
@@ -455,6 +455,7 @@
 <li>release log，每周从周一开始记录直至发布</li>
 </ol>
 <p>注：上述流程看上去程序员会同时做很多事，开发、修改bug等等，其实大部分时间这些不是并行，因为每周要发布的内容中不是包含所有程序员的工作，可能一个程序员负责的部分2周甚至更长时间才有新功能发布一次。</p>
+<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2015/09/23/每周定期发布新版本的版本管理策略/">https://devmgr.cn/2015/09/23/每周定期发布新版本的版本管理策略/</a> <br><strong>版权声明</strong>：本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议。转载需注明出处。</p>
 
       
     </div>
@@ -577,7 +578,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">39</span>
+                    <span class="site-state-item-count">60</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -696,7 +697,55 @@
                     
                       
                     
-                    <span class="site-state-item-count">52</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">75</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -750,7 +799,7 @@
                   </li>
                 
                   <li class="links-of-blogroll-item">
-                    <a href="https://devmgr.cn/front-end-vue/" title="https://devmgr.cn/front-end-vue/" rel="noopener" target="_blank">前端工程化入门：VUE的实践</a>
+                    <a href="https://devmgr.cn/front-end-vue/" title="https://devmgr.cn/front-end-vue/">前端工程化入门：VUE的实践</a>
                   </li>
                 
               </ul>

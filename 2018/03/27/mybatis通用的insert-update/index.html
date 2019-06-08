@@ -100,14 +100,14 @@
 
 
   <meta name="description" content="Mybatis写mapper时，每个表都需要INSERT UPDATE写很长的语句比较麻烦，80%的表和java bean是简单的一一对应关系，因此考虑使用mybatis的SQLProvider注解减少这部分重复劳动。SELECT和DELETE语句由于涉及字段较少，写起来还在可接收范围内，所以没做通用的。 也可以把javabean增加写注解，类似JPA那样指定表名、字段名、主键等，但做得太多就失去">
-<meta name="keywords" content="java,后端,mybatis">
+<meta name="keywords" content="后端,java,mybatis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mybatis通用的Insert&#x2F;Update">
-<meta property="og:url" content="http://gexiangdong.github.io/2018/03/27/mybatis通用的insert-update/index.html">
+<meta property="og:url" content="https://devmgr.cn/2018/03/27/mybatis通用的insert-update/index.html">
 <meta property="og:site_name" content="GeXiangDong">
 <meta property="og:description" content="Mybatis写mapper时，每个表都需要INSERT UPDATE写很长的语句比较麻烦，80%的表和java bean是简单的一一对应关系，因此考虑使用mybatis的SQLProvider注解减少这部分重复劳动。SELECT和DELETE语句由于涉及字段较少，写起来还在可接收范围内，所以没做通用的。 也可以把javabean增加写注解，类似JPA那样指定表名、字段名、主键等，但做得太多就失去">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-06-05T02:48:21.017Z">
+<meta property="og:updated_time" content="2019-06-07T10:51:02.981Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mybatis通用的Insert&#x2F;Update">
 <meta name="twitter:description" content="Mybatis写mapper时，每个表都需要INSERT UPDATE写很长的语句比较麻烦，80%的表和java bean是简单的一一对应关系，因此考虑使用mybatis的SQLProvider注解减少这部分重复劳动。SELECT和DELETE语句由于涉及字段较少，写起来还在可接收范围内，所以没做通用的。 也可以把javabean增加写注解，类似JPA那样指定表名、字段名、主键等，但做得太多就失去">
@@ -117,7 +117,7 @@
 
 
 
-  <link rel="canonical" href="http://gexiangdong.github.io/2018/03/27/mybatis通用的insert-update/">
+  <link rel="canonical" href="https://devmgr.cn/2018/03/27/mybatis通用的insert-update/">
 
 
 
@@ -192,7 +192,7 @@
     </div>
     
       
-        <p class="site-subtitle">精通Java、SQL、Spring的拼写，擅长Linux、Windows的开关机</p>
+        <h1 class="site-subtitle" itemprop="description">精通Java、SQL、Spring的拼写，擅长Linux、Windows的开关机</h1>
       
     
     
@@ -312,7 +312,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://gexiangdong.github.io/2018/03/27/mybatis通用的insert-update/">
+    <link itemprop="mainEntityOfPage" href="https://devmgr.cn/2018/03/27/mybatis通用的insert-update/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="GeXiangDong">
@@ -329,11 +329,11 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Mybatis通用的Insert/Update
+          <h2 class="post-title" itemprop="name headline">Mybatis通用的Insert/Update
 
               
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
@@ -396,6 +396,9 @@
 <h2 id="使用通用provider的Mapper类"><a href="#使用通用provider的Mapper类" class="headerlink" title="使用通用provider的Mapper类"></a>使用通用provider的Mapper类</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.ibatis.annotations.InsertProvider;</span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.annotations.Options;</span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.annotations.UpdateProvider;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Repository;</span><br><span class="line"> </span><br><span class="line"><span class="meta">@Repository</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">GenericDao</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="meta">@UpdateProvider</span>(type=InsertUpdateSqlProvider.class, method=<span class="string">"updateById"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">updateById</span><span class="params">(Object bean)</span></span>;</span><br><span class="line">     </span><br><span class="line">    <span class="meta">@UpdateProvider</span>(type=InsertUpdateSqlProvider.class, method=<span class="string">"updateNonNullById"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">updateNonNullById</span><span class="params">(Object bean)</span></span>;</span><br><span class="line">     </span><br><span class="line">    <span class="meta">@Options</span>(useGeneratedKeys=<span class="keyword">true</span>, keyProperty=<span class="string">"id"</span>, keyColumn=<span class="string">"id"</span>)</span><br><span class="line">    <span class="meta">@InsertProvider</span>(type=InsertUpdateSqlProvider.class, method=<span class="string">"insert"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">insert</span><span class="params">(Object bean)</span></span>;</span><br><span class="line">     </span><br><span class="line">    <span class="meta">@InsertProvider</span>(type=InsertUpdateSqlProvider.class, method=<span class="string">"insert"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">insertWithoutGeneratedKey</span><span class="params">(Object bean)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
+
+<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2018/03/27/mybatis通用的insert-update/">https://devmgr.cn/2018/03/27/mybatis通用的insert-update/</a> <br><strong>版权声明</strong>：本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议。转载需注明出处。</p>
+
       
     </div>
 
@@ -418,9 +421,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/java/" rel="tag"># java</a>
-          
             <a href="/tags/后端/" rel="tag"># 后端</a>
+          
+            <a href="/tags/java/" rel="tag"># java</a>
           
             <a href="/tags/mybatis/" rel="tag"># mybatis</a>
           
@@ -435,8 +438,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/03/15/捕获spring-restcontroller中的异常，并记录日志/" rel="next" title="捕获spring restcontroller中的异常，并记录日志">
-                <i class="fa fa-chevron-left"></i> 捕获spring restcontroller中的异常，并记录日志
+              <a href="/2018/03/26/spring项目开发过程的hot-swapping/" rel="next" title="Spring项目开发过程的Hot Swapping">
+                <i class="fa fa-chevron-left"></i> Spring项目开发过程的Hot Swapping
               </a>
             
           </div>
@@ -445,8 +448,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/04/13/could-not-generate-dh-keypair/" rel="prev" title="异常：Could not generate DH keypair">
-                异常：Could not generate DH keypair <i class="fa fa-chevron-right"></i>
+              <a href="/2018/04/06/设置json中的日期时间格式/" rel="prev" title="设置JSON中的日期时间格式">
+                设置JSON中的日期时间格式 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -519,7 +522,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">39</span>
+                    <span class="site-state-item-count">60</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -638,7 +641,55 @@
                     
                       
                     
-                    <span class="site-state-item-count">52</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">75</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -692,7 +743,7 @@
                   </li>
                 
                   <li class="links-of-blogroll-item">
-                    <a href="https://devmgr.cn/front-end-vue/" title="https://devmgr.cn/front-end-vue/" rel="noopener" target="_blank">前端工程化入门：VUE的实践</a>
+                    <a href="https://devmgr.cn/front-end-vue/" title="https://devmgr.cn/front-end-vue/">前端工程化入门：VUE的实践</a>
                   </li>
                 
               </ul>

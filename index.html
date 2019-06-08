@@ -101,7 +101,7 @@
 
   <meta property="og:type" content="website">
 <meta property="og:title" content="GeXiangDong">
-<meta property="og:url" content="http://gexiangdong.github.io/index.html">
+<meta property="og:url" content="https://devmgr.cn/index.html">
 <meta property="og:site_name" content="GeXiangDong">
 <meta property="og:locale" content="zh-CN">
 <meta name="twitter:card" content="summary">
@@ -112,7 +112,7 @@
 
 
 
-  <link rel="canonical" href="http://gexiangdong.github.io/">
+  <link rel="canonical" href="https://devmgr.cn/">
 
 
 
@@ -188,7 +188,7 @@
     </div>
     
       
-        <p class="site-subtitle">精通Java、SQL、Spring的拼写，擅长Linux、Windows的开关机</p>
+        <h1 class="site-subtitle" itemprop="description">精通Java、SQL、Spring的拼写，擅长Linux、Windows的开关机</h1>
       
     
     
@@ -308,7 +308,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://gexiangdong.github.io/2019/06/06/java打印的三种方法/">
+    <link itemprop="mainEntityOfPage" href="https://devmgr.cn/2019/06/08/value-vs-configurationproperties/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="GeXiangDong">
@@ -325,13 +325,554 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/06/08/value-vs-configurationproperties/" class="post-title-link" itemprop="url">@Value vs. @ConfigurationProperties</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-06-08 16:09:11" itemprop="dateCreated datePublished" datetime="2019-06-08T16:09:11+08:00">2019-06-08</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>@Value和@ConfigurationProperties两个注解都可以从配置文件获取值并设置到属性中，用法上有区别。</p>
+<p>@Value适用一些比较简单的情形，用得比较普遍；而@ConfigurationProperties则可适用一些@Value无法处理更复杂的情形。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">myapp:</span></span><br><span class="line"><span class="attr">  simple:</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">ABC</span></span><br><span class="line"><span class="attr">    count:</span> <span class="number">15</span></span><br><span class="line"><span class="attr">    countries:</span> <span class="string">CN,US,UK</span></span><br><span class="line"><span class="attr">  complex:</span></span><br><span class="line"><span class="attr">    list:</span></span><br><span class="line"><span class="attr">      - id:</span> <span class="string">k1</span></span><br><span class="line"><span class="attr">        value:</span> <span class="string">hello</span></span><br><span class="line"><span class="attr">      - id:</span> <span class="string">k2</span></span><br><span class="line"><span class="attr">        value:</span> <span class="string">nihao</span></span><br><span class="line"><span class="attr">      - id:</span> <span class="string">k3</span></span><br><span class="line"><span class="attr">        value:</span> <span class="string">konichiha</span></span><br><span class="line"><span class="attr">    nested:</span></span><br><span class="line"><span class="attr">      name:</span> <span class="string">John</span></span><br><span class="line"><span class="attr">      address:</span></span><br><span class="line"><span class="attr">        province:</span> <span class="string">jiangsu</span></span><br><span class="line"><span class="attr">        city:</span> <span class="string">nanjing</span></span><br></pre></td></tr></table></figure>
+
+<p>例如上面的配置myapp.simple下的属性都可以用@value获取到，甚至myapp.simple.countries也可以被设置到String[]类型的属性上，但是下面的myapp.complex.list设置的配置，@Value就无法把它转成一个List&lt;Map&lt;String, Object&gt;&gt;类型的属性了，而@ConfigurationProperties可以。甚至myapp.complex.nested还可以被@ConfigurationProperties付值到带有两个属性(province, city)的子类中（参照下面的@ NestedConfigurationProperty注解）</p>
+<h1 id="Value"><a href="#Value" class="headerlink" title="@Value"></a>@Value</h1><h2 id="可处理的类型"><a href="#可处理的类型" class="headerlink" title="可处理的类型"></a>可处理的类型</h2><p>只可处理String、数值等简单类型，和简单的数组类型，不能处理map、List等复杂类型</p>
+<h2 id="位置"><a href="#位置" class="headerlink" title="位置"></a>位置</h2><p>直接写在需要从配置文件读取值的成员变量上即可。<br>例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">XxxxService</span></span>&#123;</span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"xxx.yyy"</span>)</span><br><span class="line">    <span class="keyword">private</span> String xxxYyy;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h2><p>只有一个字符型参数value，用于标记配置文件中的key</p>
+<table>
+<thead>
+<tr>
+<th align="left">参数名称</th>
+<th align="center">类型</th>
+<th align="center">默认值</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">value</td>
+<td align="center">String</td>
+<td align="center"></td>
+<td align="left">从配置文件中哪一项读取值，支持Spring EL</td>
+</tr>
+</tbody></table>
+<h1 id="ConfigurationProperties"><a href="#ConfigurationProperties" class="headerlink" title="@ConfigurationProperties"></a>@ConfigurationProperties</h1><h2 id="可处理的类型-1"><a href="#可处理的类型-1" class="headerlink" title="可处理的类型"></a>可处理的类型</h2><h2 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h2><p>@ConfigurationProperties注解需要写到类上，为该类所有有setter方法的属性从配置文件中读取并付值。<br>如果类里面的某个属性是</p>
+<p>例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ConfigurationProperties</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">xxxYyy</span></span>&#123;</span><br><span class="line">   <span class="keyword">private</span> String name;</span><br><span class="line">   <span class="meta">@NestedConfigurationProperty</span> Address address;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span></span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.name = name;</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAddress</span><span class="params">(Address address)</span></span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.address = address;</span><br><span class="line">   &#125; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Address</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String province;</span><br><span class="line">    <span class="keyword">private</span> String city;</span><br><span class="line">   </span><br><span class="line">    <span class="comment">//---略过setter方法</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="参数-1"><a href="#参数-1" class="headerlink" title="参数"></a>参数</h2><table>
+<thead>
+<tr>
+<th align="left">参数名称</th>
+<th align="center">类型</th>
+<th align="center">默认值</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">ignoreInvalidFields</td>
+<td align="center">boolean</td>
+<td align="center">false</td>
+<td align="left">java中被绑定的属性类型与配置文件中设置的值类型不同时是否忽略</td>
+</tr>
+<tr>
+<td align="left">ignoreUnknownFields</td>
+<td align="center">boolean</td>
+<td align="center">true</td>
+<td align="left">Flag to indicate that when binding to this object invalid fields should be ignored</td>
+</tr>
+<tr>
+<td align="left">prefix</td>
+<td align="center">String</td>
+<td align="center"></td>
+<td align="left">The name prefix of the properties that are valid to bind to this object.</td>
+</tr>
+<tr>
+<td align="left">value</td>
+<td align="center">String</td>
+<td align="center"></td>
+<td align="left">同prefix，简写，支持Spring EL</td>
+</tr>
+</tbody></table>
+<h2 id="前置条件"><a href="#前置条件" class="headerlink" title="前置条件"></a>前置条件</h2><p>1、需要增加依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-configuration-processor<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>2、需要先开始使用配置属性的功能（不开启不出错，但不会读取配置并设置到类上）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@EnableConfigurationProperties</span></span><br></pre></td></tr></table></figure>
+
+<p>@EnableConfigurationProperties需要写在Spring Boot的启动类或配置类上。</p>
+<h1 id="从其他配置文件中读取"><a href="#从其他配置文件中读取" class="headerlink" title="从其他配置文件中读取"></a>从其他配置文件中读取</h1><p>如果信息配置在了自定义的配置文件中（不是applicaiton.yml)，则可以使用@PropertySource注解来告诉spring从哪个文件读取配置信息，例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PropertySource</span>(<span class="string">"classpath:configprops.properties"</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2019/06/08/value-vs-configurationproperties/">https://devmgr.cn/2019/06/08/value-vs-configurationproperties/</a> <br><strong>版权声明</strong>：本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议。转载需注明出处。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://devmgr.cn/2019/06/08/传输压缩的json/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/06/08/传输压缩的json/" class="post-title-link" itemprop="url">传输压缩的JSON</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-06-08 15:00:52" itemprop="dateCreated datePublished" datetime="2019-06-08T15:00:52+08:00">2019-06-08</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>有时客户端给服务器传输的JSON比较大，几兆甚至几十兆，网络传输占用时间较多，而json都是文本格式，压缩率较高。因此考虑传输压缩后的格式。</p>
+<p>HTTP协议在相应部分支持Content-Encoding:gzip，压缩response body，而没有压缩request body的设计，这也很合理，因为在客户端发起请求时并不知道服务器是否支持压缩。因此没法通过http自身解决，只能增加些程序。</p>
+<p><strong>压缩和解压都消耗CPU时间</strong>，需要根据实际情况决定是否使用压缩方案，一般内网（微服务）调用启用压缩后有可能得不偿失。在网速较慢的情况下才会有意义。</p>
+<h1 id="方案"><a href="#方案" class="headerlink" title="方案"></a>方案</h1><p>考虑到通用性，仿效response的header Content-Encoding:gzip方式。 </p>
+<p>客户端把压缩过的json作为post-body传输，然后增加一个request header: Content-Encoding: gzip来告诉服务器端是压缩的格式。</p>
+<p>服务端增加一个Filter，对request头进行检查，如果有Content-Encoding则解压缩后继续。这样不影响现有程序。</p>
+<blockquote>
+<p>服务端还有另外一个解决方案，在NGINX反向代理处增加一个插件（需要去找实现这种功能的插件，官方未提供）把解压缩后的request body传给应用服务器(tomcat)。</p>
+<p>参照 <a href="http://www.pataliebre.net/howto-make-nginx-decompress-a-gzipped-request.html#.XBToGi276i5" target="_blank" rel="noopener">http://www.pataliebre.net/howto-make-nginx-decompress-a-gzipped-request.html#.XBToGi276i5</a></p>
+</blockquote>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="服务器端-Spring"><a href="#服务器端-Spring" class="headerlink" title="服务器端(Spring)"></a>服务器端(Spring)</h2><p>增加2个类:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.devmgr.springcloud;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.slf4j.Logger;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.LoggerFactory;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Service;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.filter.OncePerRequestFilter;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.FilterChain;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ContentEncodingFilter</span> <span class="keyword">extends</span> <span class="title">OncePerRequestFilter</span> </span>&#123;</span><br><span class="line">    Logger logger = LoggerFactory.getLogger(ContentEncodingFilter.class);</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doFilterInternal</span><span class="params">(HttpServletRequest request, HttpServletResponse response,</span></span></span><br><span class="line"><span class="function"><span class="params">                                    FilterChain chain)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line"></span><br><span class="line">        String conentEncoding = request.getHeader(<span class="string">"Content-Encoding"</span>);</span><br><span class="line">        <span class="keyword">if</span>(conentEncoding != <span class="keyword">null</span> &amp;&amp; (<span class="string">"gzip"</span>.equalsIgnoreCase(conentEncoding) || <span class="string">"deflate"</span>.equalsIgnoreCase(conentEncoding)))&#123;</span><br><span class="line">            logger.trace(<span class="string">"Content-Encoding: &#123;&#125;"</span>, conentEncoding);</span><br><span class="line">            chain.doFilter(<span class="keyword">new</span> GZIPRequestWrapper(request), response);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        chain.doFilter(request, response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.devmgr.springcloud;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.slf4j.Logger;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.LoggerFactory;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.ReadListener;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletInputStream;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequestWrapper;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.UnsupportedEncodingException;</span><br><span class="line"><span class="keyword">import</span> java.util.zip.DeflaterInputStream;</span><br><span class="line"><span class="keyword">import</span> java.util.zip.GZIPInputStream;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GZIPRequestWrapper</span> <span class="keyword">extends</span> <span class="title">HttpServletRequestWrapper</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> Logger logger = LoggerFactory.getLogger(GZIPRequestWrapper.class);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> HttpServletRequest request;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">GZIPRequestWrapper</span><span class="params">(HttpServletRequest request)</span></span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(request);</span><br><span class="line">        <span class="keyword">this</span>.request = request;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ServletInputStream <span class="title">getInputStream</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        ServletInputStream sis = request.getInputStream();</span><br><span class="line">        InputStream is = <span class="keyword">null</span>;</span><br><span class="line">        String conentEncoding = request.getHeader(<span class="string">"Content-Encoding"</span>);</span><br><span class="line">        <span class="keyword">if</span>(<span class="string">"gzip"</span>.equalsIgnoreCase(conentEncoding))&#123;</span><br><span class="line">            is = <span class="keyword">new</span> GZIPInputStream(sis);</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="string">"deflate"</span>.equalsIgnoreCase(conentEncoding))&#123;</span><br><span class="line">            is = <span class="keyword">new</span> DeflaterInputStream(sis);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> UnsupportedEncodingException(conentEncoding + <span class="string">" is not supported."</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">final</span> InputStream compressInputStream = is;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ServletInputStream()&#123;</span><br><span class="line">            ReadListener readListener;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">read</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">                <span class="keyword">int</span> b = compressInputStream.read();</span><br><span class="line">                <span class="keyword">if</span>(b == -<span class="number">1</span> &amp;&amp; readListener != <span class="keyword">null</span>) &#123;</span><br><span class="line">                    readListener.onAllDataRead();</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> b;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isFinished</span><span class="params">()</span></span>&#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    <span class="keyword">return</span> compressInputStream.available() == <span class="number">0</span>;</span><br><span class="line">                &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                    logger.error(<span class="string">"error"</span>, e);</span><br><span class="line">                    <span class="keyword">if</span>(readListener != <span class="keyword">null</span>) &#123;</span><br><span class="line">                        readListener.onError(e);</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isReady</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    <span class="keyword">return</span> compressInputStream.available() &gt; <span class="number">0</span>;</span><br><span class="line">                &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                    logger.error(<span class="string">"error"</span>, e);</span><br><span class="line">                    <span class="keyword">if</span>(readListener != <span class="keyword">null</span>) &#123;</span><br><span class="line">                        readListener.onError(e);</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setReadListener</span><span class="params">(<span class="keyword">final</span> ReadListener readListener)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">this</span>.readListener = readListener;</span><br><span class="line">                sis.setReadListener(<span class="keyword">new</span> ReadListener() &#123;</span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDataAvailable</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">                        logger.trace(<span class="string">"onDataAvailable"</span>);</span><br><span class="line">                        <span class="keyword">if</span>(readListener != <span class="keyword">null</span>)&#123;</span><br><span class="line">                            readListener.onDataAvailable();</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAllDataRead</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">                        logger.trace(<span class="string">"onAllDataRead"</span>);</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable throwable)</span> </span>&#123;</span><br><span class="line">                        logger.error(<span class="string">"onError"</span>, throwable);</span><br><span class="line">                        <span class="keyword">if</span>(readListener != <span class="keyword">null</span>)&#123;</span><br><span class="line">                            readListener.onError(throwable);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h2><h2 id="CURL的测试命令"><a href="#CURL的测试命令" class="headerlink" title="CURL的测试命令"></a>CURL的测试命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">'&#123;"type": "json", "length": 2222&#125;'</span> | gzip &gt; body.gz</span><br><span class="line">curl -v -i http://127.0.0.1:8080/ss -H <span class="string">'Content-Encoding: gzip'</span> -H <span class="string">'Content-Type:application/json'</span> --data-binary @body.gz</span><br></pre></td></tr></table></figure>
+
+<h2 id="RestTemplate"><a href="#RestTemplate" class="headerlink" title="RestTemplate"></a>RestTemplate</h2><p>使用RestTemplate可以通过配置interceptor来统一增加压缩。实现代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.devmgr.springcloud;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.slf4j.Logger;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.LoggerFactory;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.http.HttpRequest;</span><br><span class="line"><span class="keyword">import</span> org.springframework.http.client.ClientHttpRequestExecution;</span><br><span class="line"><span class="keyword">import</span> org.springframework.http.client.ClientHttpRequestInterceptor;</span><br><span class="line"><span class="keyword">import</span> org.springframework.http.client.ClientHttpResponse;</span><br><span class="line"><span class="keyword">import</span> org.springframework.util.CollectionUtils;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.client.RestTemplate;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.ByteArrayOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.zip.GZIPOutputStream;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RestClientConfig</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> Logger logger = LoggerFactory.getLogger(RestClientConfig.class);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * request body超过1M时，自动开启压缩模式；（需要服务端支持）</span></span><br><span class="line"><span class="comment">     * 压缩和解压会增加程序处理时间，一般内网调用不压缩速度会更快；压缩只是在网络环境较差的情况下有使用意义。</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> RestTemplate <span class="title">restTemplate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        RestTemplate restTemplate = <span class="keyword">new</span> RestTemplate();</span><br><span class="line"></span><br><span class="line">        List&lt;ClientHttpRequestInterceptor&gt; interceptors = restTemplate.getInterceptors();</span><br><span class="line">        <span class="keyword">if</span> (CollectionUtils.isEmpty(interceptors)) &#123;</span><br><span class="line">            interceptors = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        &#125;</span><br><span class="line">        interceptors.add(<span class="keyword">new</span> RestTemplateCompressInterceptor());</span><br><span class="line"></span><br><span class="line">        restTemplate.setInterceptors(interceptors);</span><br><span class="line">        <span class="keyword">return</span> restTemplate;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">RestTemplateCompressInterceptor</span> <span class="keyword">implements</span> <span class="title">ClientHttpRequestInterceptor</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> ClientHttpResponse <span class="title">intercept</span><span class="params">(HttpRequest request, <span class="keyword">byte</span>[] body,</span></span></span><br><span class="line"><span class="function"><span class="params">                                            ClientHttpRequestExecution execution)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">            logger.trace(<span class="string">"RestTemplateCompressInterceptor:intercept() body-length: &#123;&#125;"</span>, body == <span class="keyword">null</span> ? <span class="number">0</span> : body.length);</span><br><span class="line">            <span class="keyword">byte</span>[] newBody = <span class="keyword">null</span>;</span><br><span class="line">            <span class="keyword">if</span>(body == <span class="keyword">null</span> || body.length &lt; <span class="number">1024</span> * <span class="number">1024</span>)&#123;</span><br><span class="line">                <span class="comment">// 小于1M不开启压缩模式</span></span><br><span class="line">                logger.trace(<span class="string">"&#123;&#125;不需要压缩"</span>, body == <span class="keyword">null</span> ? <span class="number">0</span> : body.length);</span><br><span class="line">                newBody = body;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                logger.trace(<span class="string">"&#123;&#125;开启压缩模式"</span>, body.length);</span><br><span class="line">                request.getHeaders().add(<span class="string">"Content-Encoding"</span>, <span class="string">"gzip"</span>);</span><br><span class="line">                ByteArrayOutputStream baos = <span class="keyword">new</span> ByteArrayOutputStream();</span><br><span class="line">                GZIPOutputStream gzip;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    gzip = <span class="keyword">new</span> GZIPOutputStream(baos);</span><br><span class="line">                    gzip.write(body);</span><br><span class="line">                    gzip.close();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                    logger.error(<span class="string">"压缩request body出错."</span>, e);</span><br><span class="line">                    <span class="keyword">throw</span>(e);</span><br><span class="line">                &#125;</span><br><span class="line">                newBody = baos.toByteArray();</span><br><span class="line">                logger.trace(<span class="string">"压缩后大小 &#123;&#125;"</span>, newBody.length);</span><br><span class="line">            &#125;</span><br><span class="line">            ClientHttpResponse response = execution.execute(request, newBody);</span><br><span class="line">            <span class="keyword">return</span> response;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2019/06/08/传输压缩的json/">https://devmgr.cn/2019/06/08/传输压缩的json/</a> <br><strong>版权声明</strong>：本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议。转载需注明出处。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://devmgr.cn/2019/06/08/把spring-boot编译的jar作为service运行/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/06/08/把spring-boot编译的jar作为service运行/" class="post-title-link" itemprop="url">把spring boot编译的jar作为service运行</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-06-08 14:53:01" itemprop="dateCreated datePublished" datetime="2019-06-08T14:53:01+08:00">2019-06-08</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="windows"><a href="#windows" class="headerlink" title="windows"></a>windows</h1><p>可以使用Windows service wrapper来把任何命令行执行的程序做成windows service.</p>
+<p>Windows Service Wrapper简称WinSW，可以在<a href="https://github.com/kohsuke/winsw/releases" target="_blank" rel="noopener">https://github.com/kohsuke/winsw/releases</a> 下载到</p>
+<h2 id="编写一个配置文件"><a href="#编写一个配置文件" class="headerlink" title="编写一个配置文件"></a>编写一个配置文件</h2><p>编写一个xml文件，可参照下例：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">id</span>&gt;</span>tutorial-service<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>Tutorial Service<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">description</span>&gt;</span><span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">executable</span>&gt;</span>java<span class="tag">&lt;/<span class="name">executable</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">arguments</span>&gt;</span>-jar c:\tutorial\tutorial-section-01-1.0-SNAPSHOT.jar<span class="tag">&lt;/<span class="name">arguments</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">logmode</span>&gt;</span>rotate<span class="tag">&lt;/<span class="name">logmode</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>文件保存为 tutorial-service.xml，然后把winsw.exe拷贝到相同目录下，并改成和xml一样的名字（扩展名仍旧是exe不变）tutorial-service.exe</p>
+<h2 id="安装service和卸载service"><a href="#安装service和卸载service" class="headerlink" title="安装service和卸载service"></a>安装service和卸载service</h2><p>在命令行下执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tutorial-service.exe install</span><br></pre></td></tr></table></figure>
+
+<p>可把前面设置的xml中命令安装为windows service（执行上述命名需要具有windows管理员权限。</p>
+<p>如果需要卸载可用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tutorial-service.exe uninstall</span><br></pre></td></tr></table></figure>
+
+<h1 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h1><p>ubuntu/debian下可以用sytemd。</p>
+<h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><p>创建配置文件，内容如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[Unit]  </span><br><span class="line">Description=tutorial</span><br><span class="line">After=syslog.target  </span><br><span class="line">  </span><br><span class="line">[Service]  </span><br><span class="line">ExecStart=/usr/lib/jvm/java-8-oracle/bin/java -jar -Xms256m -Xmx1G -Dserver.port=8087 -Dautostart=true -Dlog.level.console=WARN /web/webapps/tutorial-1.0.0.jar --spring.profiles.active=development </span><br><span class="line">SuccessExitStatus=143  </span><br><span class="line"></span><br><span class="line">User=www-data</span><br><span class="line">Group=www-data</span><br><span class="line">UMask=0007</span><br><span class="line">RestartSec=10</span><br><span class="line">Restart=always</span><br><span class="line"></span><br><span class="line">[Install]  </span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+
+<p>配置文件放入/lib/systemd/system/tutorial.service</p>
+<h2 id="安装后台服务"><a href="#安装后台服务" class="headerlink" title="安装后台服务"></a>安装后台服务</h2><p>然后执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> tutorial.service</span><br><span class="line">systemctl daemon-reload</span><br></pre></td></tr></table></figure>
+
+<h2 id="管理后台服务"><a href="#管理后台服务" class="headerlink" title="管理后台服务"></a>管理后台服务</h2><p>安装好之后可以使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">systemctl start tutorial</span><br><span class="line">systemctl stop tutorial</span><br><span class="line">systemctl restart tutorial</span><br><span class="line">systemctl status tutorial</span><br></pre></td></tr></table></figure>
+
+<p>等命令来管理服务</p>
+<p>如果你更习惯老版本linux下的service命令，也可以</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service tutorial start</span><br></pre></td></tr></table></figure>
+
+<p>以上内容中tutorial应该替换成自己的项目名</p>
+<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2019/06/08/把spring-boot编译的jar作为service运行/">https://devmgr.cn/2019/06/08/把spring-boot编译的jar作为service运行/</a> <br><strong>版权声明</strong>：本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议。转载需注明出处。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://devmgr.cn/2019/06/06/java打印的三种方法/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
                 
                 
                 <a href="/2019/06/06/java打印的三种方法/" class="post-title-link" itemprop="url">Java打印的三种方法</a>
               
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
@@ -400,6 +941,9 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> Canvas canvas = <span class="keyword">new</span> Canvas(<span class="number">250</span>,<span class="number">250</span>);</span><br><span class="line">GraphicsContext gc = canvas.getGraphicsContext2D();</span><br><span class="line">gc.fillText(<span class="string">"hello, world."</span>, <span class="number">10</span>, <span class="number">10</span>);</span><br><span class="line">PrinterJob printerJob = PrinterJob.createPrinterJob();</span><br><span class="line">printerJob.printPage(canvas);</span><br></pre></td></tr></table></figure>
 
 
+
+<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2019/06/06/java打印的三种方法/">https://devmgr.cn/2019/06/06/java打印的三种方法/</a> <br><strong>版权声明</strong>：本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议。转载需注明出处。</p>
+
           
         
       
@@ -455,7 +999,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://gexiangdong.github.io/2019/06/05/java动态编译并通过反射执行/">
+    <link itemprop="mainEntityOfPage" href="https://devmgr.cn/2019/06/06/requestmapping的produces参数/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="GeXiangDong">
@@ -472,13 +1016,326 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/06/06/requestmapping的produces参数/" class="post-title-link" itemprop="url">RequestMapping的produces参数</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-06-06 18:21:37" itemprop="dateCreated datePublished" datetime="2019-06-06T18:21:37+08:00">2019-06-06</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="RequestMapping-注解的-produce-参数"><a href="#RequestMapping-注解的-produce-参数" class="headerlink" title="@RequestMapping 注解的 produce 参数"></a>@RequestMapping 注解的 produce 参数</h1><p>produces参数指明方法可返回给客户端的内容格式，spring会去和request头的Accept部分比较，如果发现相符合，则把方法返回值转换成相符合的格式（例如json, xml等），如果没有符合的，则返回406</p>
+<p>RestController的方法上这么写</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostMapping</span>(consumes = &#123;MediaType.TEXT_XML_VALUE&#125;, </span><br><span class="line">             produces = &#123;MediaType.TEXT_XML_VALUE&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>用下面的命令测试没问题，因为Accept和上面的相符合，会返回xml</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">curl -v \</span><br><span class="line">  -d <span class="string">'&lt;TvSeriesDto&gt;&lt;id&gt;1&lt;/id&gt;&lt;name&gt;West Wrold&lt;/name&gt;&lt;originRelease&gt;2016-10-02&lt;/originRelease&gt;&lt;/TvSeriesDto&gt;'</span> \</span><br><span class="line">  -X POST -H <span class="string">'Content-type:text/xml'</span>  \</span><br><span class="line">  -H <span class="string">'Accept:text/xml'</span>  \</span><br><span class="line">  http://localhost:8080/tvseries</span><br></pre></td></tr></table></figure>
+
+<p>如果用下面的命令，则会返回406，  Could not find acceptable representation。因为request头accept设置的信息和方法注解produces参数设置没有相符合（applicaiton/xml和text/xml被认为是不同的）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">curl -v  \</span><br><span class="line">  -d <span class="string">'&lt;TvSeriesDto&gt;&lt;id&gt;1&lt;/id&gt;&lt;name&gt;West Wrold&lt;/name&gt;&lt;originRelease&gt;2016-10-02&lt;/originRelease&gt;&lt;/TvSeriesDto&gt;'</span> \</span><br><span class="line">  -X POST -H <span class="string">'Content-type:text/xml'</span> \</span><br><span class="line">  -H <span class="string">'Accept:application/xml'</span> \</span><br><span class="line">  http://localhost:8080/tvseries</span><br></pre></td></tr></table></figure>
+
+<h1 id="多个produces参数的顺序的影响"><a href="#多个produces参数的顺序的影响" class="headerlink" title="多个produces参数的顺序的影响"></a>多个produces参数的顺序的影响</h1><p>RestController上的RequestMapping的produces参数可以设置多个MediaType, 多个MediaType的顺序也会对结果有些影响，例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostMapping</span>(consumes = &#123;MediaType.TEXT_XML_VALUE&#125;, </span><br><span class="line">             produces = &#123;MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_XML_VALUE&#125;)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">curl -v -d <span class="string">'&lt;TvSeriesDto&gt;&lt;id&gt;1&lt;/id&gt;&lt;name&gt;West Wrold&lt;/name&gt;&lt;originRelease&gt;2016-10-02&lt;/originRelease&gt;&lt;/TvSeriesDto&gt;'</span> \</span><br><span class="line">    -X POST \</span><br><span class="line">    -H <span class="string">'Content-type:text/xml'</span> \</span><br><span class="line">    -H <span class="string">'Accept:*/*'</span> http://localhost:8080/tvseries</span><br></pre></td></tr></table></figure>
+
+<p>得到的是JSON格式，如果把produces参数顺序调整成</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostMapping</span>(consumes = &#123;MediaType.TEXT_XML_VALUE&#125;, </span><br><span class="line">             produces = &#123;MediaType.TEXT_XML_VALUE, MediaType.APPLICATION_JSON_VALUE&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>用同样的curl命令，则得到的是XML格式。</p>
+<h1 id="设置默认的格式"><a href="#设置默认的格式" class="headerlink" title="设置默认的格式"></a>设置默认的格式</h1><p>可以通过配置，修改默认的格式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebAppConfigurer</span> <span class="keyword">extends</span> <span class="title">WebMvcConfigurationSupport</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configureContentNegotiation</span><span class="params">(ContentNegotiationConfigurer configurer)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 这里设置默认的返回格式</span></span><br><span class="line">        configurer.defaultContentType(MediaType.APPLICATION_JSON);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2019/06/06/requestmapping的produces参数/">https://devmgr.cn/2019/06/06/requestmapping的produces参数/</a> <br><strong>版权声明</strong>：本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议。转载需注明出处。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://devmgr.cn/2019/06/06/spring-boot项目启动长时间后无法上传文件/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/06/06/spring-boot项目启动长时间后无法上传文件/" class="post-title-link" itemprop="url">Spring Boot项目启动长时间后无法上传文件</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-06-06 14:30:20" itemprop="dateCreated datePublished" datetime="2019-06-06T14:30:20+08:00">2019-06-06</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h1><p>Spring boot项目启动过一段较长时间后，在使用上传文件相关功能时，会出现错误。错误信息和下面的类似，临时目录不存在了</p>
+<pre><code>Could not parse multipart servlet request; 
+nested exception is java.io.IOException: 
+The temporary upload location [/tmp/tomcat.7313397276953595407.8090/work/Tomcat/localhost/ROOT] is not valid。
+
+Could not parse multipart servlet request; 
+nested exception is java.io.IOException: 
+The temporary upload location [C:\Users\Administrator\AppData\Local\Temp\tomcat.7174298170552445669.8002\work\Tomcat\localhost\server] is not valid</code></pre><h1 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h1><p>这是由于tomcat默认使用的临时目录是在系统临时目录下创建的，而系统临时目录被系统清理了，删除了tomcat的临时目录。</p>
+<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><p>知道原因后解决办法也就有了：把tomcat的临时目录设置到一个固定的不会被清理的目录下。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MultipartConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function">MultipartConfigElement <span class="title">multipartConfigElement</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        MultipartConfigFactory factory = <span class="keyword">new</span> MultipartConfigFactory();</span><br><span class="line">        String tempLocation = <span class="string">"c:\\temp"</span>;</span><br><span class="line">        File tmpFile = <span class="keyword">new</span> File(tempLocation);</span><br><span class="line">        <span class="keyword">if</span> (!tmpFile.exists()) &#123;</span><br><span class="line">            tmpFile.mkdirs();</span><br><span class="line">        &#125;</span><br><span class="line">        factory.setLocation(tempLocation);</span><br><span class="line">        <span class="keyword">return</span> factory.createMultipartConfig();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2019/06/06/spring-boot项目启动长时间后无法上传文件/">https://devmgr.cn/2019/06/06/spring-boot项目启动长时间后无法上传文件/</a> <br><strong>版权声明</strong>：本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议。转载需注明出处。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://devmgr.cn/2019/06/05/java动态编译并通过反射执行/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
                 
                 
                 <a href="/2019/06/05/java动态编译并通过反射执行/" class="post-title-link" itemprop="url">Java动态编译并通过反射执行</a>
               
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
@@ -540,6 +1397,9 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">import</span> java.net.URI;</span><br><span class="line"><span class="keyword">import</span> java.net.URL;</span><br><span class="line"><span class="keyword">import</span> java.net.URLClassLoader;</span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.tools.JavaCompiler;</span><br><span class="line"><span class="keyword">import</span> javax.tools.JavaFileObject;</span><br><span class="line"><span class="keyword">import</span> javax.tools.SimpleJavaFileObject;</span><br><span class="line"><span class="keyword">import</span> javax.tools.ToolProvider;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DynamicCompiler</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 动态编译传入的类源码并返回编译好的类</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Class <span class="title">compile</span><span class="params">(String sourceCode)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        File distDir = <span class="keyword">new</span> File(<span class="string">"target"</span>);</span><br><span class="line">        <span class="keyword">if</span> (!distDir.exists()) &#123;</span><br><span class="line">            distDir.mkdirs();</span><br><span class="line">        &#125;</span><br><span class="line">        JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();</span><br><span class="line">        String className = getFullClassNameFromCode(sourceCode);</span><br><span class="line">        JavaFileObject javaFileObject = <span class="keyword">new</span> CodeJavaFileObject(className, sourceCode);</span><br><span class="line">        JavaCompiler.CompilationTask task = compiler.getTask(<span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>,</span><br><span class="line">                Arrays.asList(<span class="string">"-d"</span>, distDir.getAbsolutePath()), <span class="keyword">null</span>,</span><br><span class="line">                Arrays.asList(javaFileObject));</span><br><span class="line">        <span class="keyword">boolean</span> compileSuccess = task.call();</span><br><span class="line">        <span class="keyword">if</span> (!compileSuccess) &#123;</span><br><span class="line">            System.out.println(<span class="string">"compile failed"</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">//动态执行 (反射执行)</span></span><br><span class="line">            System.out.println(<span class="string">"compile successed "</span> + distDir.getAbsolutePath());</span><br><span class="line">            <span class="comment">//URL 需要以 file:// 开始； 如果是目录需要以 / 结束；也可以是jar</span></span><br><span class="line">            URL[] urls = <span class="keyword">new</span> URL[] &#123;<span class="keyword">new</span> URL(<span class="string">"file://"</span> + distDir.getAbsolutePath() + <span class="string">"/"</span>)&#125;;</span><br><span class="line">            URLClassLoader classLoader = <span class="keyword">new</span> URLClassLoader(urls);</span><br><span class="line">            Class dynamicClass = classLoader.loadClass(className);</span><br><span class="line">            <span class="keyword">return</span> dynamicClass;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">CodeJavaFileObject</span> <span class="keyword">extends</span> <span class="title">SimpleJavaFileObject</span></span>&#123;</span><br><span class="line">        <span class="keyword">private</span> String code;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">CodeJavaFileObject</span><span class="params">(String className, String code)</span></span>&#123;</span><br><span class="line">            <span class="keyword">super</span>(URI.create(className.replaceAll(<span class="string">"\\."</span>, <span class="string">"/"</span>) + Kind.SOURCE.extension), Kind.SOURCE);</span><br><span class="line">            <span class="keyword">this</span>.code = code;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> CharSequence <span class="title">getCharContent</span><span class="params">(<span class="keyword">boolean</span> ignoreEncodingErrors)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> code;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> String <span class="title">getFullClassNameFromCode</span><span class="params">(String code)</span></span>&#123;</span><br><span class="line">        String t = code.substring(<span class="number">0</span>, code.indexOf(<span class="string">'&#123;'</span>));</span><br><span class="line">        String s = t.replaceAll(<span class="string">"[\r\n\t]"</span>, <span class="string">" "</span>).trim();</span><br><span class="line">        String[] ary = s.split(<span class="string">"[;]"</span>);</span><br><span class="line">        String packageName = <span class="keyword">null</span>;</span><br><span class="line">        String className = getLastPart((ary[ary.length - <span class="number">1</span>]));</span><br><span class="line">        <span class="keyword">if</span>(ary[<span class="number">0</span>].startsWith(<span class="string">"package "</span>))&#123;</span><br><span class="line">            packageName = getLastPart(ary[<span class="number">0</span>]);</span><br><span class="line">            <span class="keyword">return</span> packageName + <span class="string">"."</span> + className;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> className;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> String <span class="title">getLastPart</span><span class="params">(String s)</span></span>&#123;</span><br><span class="line">        String[] ary = s.trim().split(<span class="string">" "</span>);</span><br><span class="line">        <span class="keyword">return</span> ary[ary.length - <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] argvs)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        StringBuffer buf = <span class="keyword">new</span> StringBuffer();</span><br><span class="line">        buf.append(<span class="string">"package a.b.c;\r\npublic class ANumber&#123;"</span>)</span><br><span class="line">                .append(<span class="string">"public int getNumber() &#123;"</span>)</span><br><span class="line">                .append(<span class="string">"System.out.println(\"Hello World in getNumber()!\"); return 999;"</span>)</span><br><span class="line">                .append(<span class="string">"&#125;"</span>)</span><br><span class="line">                .append(<span class="string">"&#125;"</span>);</span><br><span class="line"></span><br><span class="line">        DynamicCompiler dc = <span class="keyword">new</span> DynamicCompiler();</span><br><span class="line">        Class cls = dc.compile(buf.toString());</span><br><span class="line">        System.out.println(cls.getName());</span><br><span class="line">        Object obj = cls.getDeclaredConstructor().newInstance();</span><br><span class="line">        Method method = cls.getDeclaredMethod(<span class="string">"getNumber"</span>);</span><br><span class="line">        Object r = method.invoke(obj);</span><br><span class="line">        System.out.println(<span class="string">"result is "</span> + r);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
+
+<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2019/06/05/java动态编译并通过反射执行/">https://devmgr.cn/2019/06/05/java动态编译并通过反射执行/</a> <br><strong>版权声明</strong>：本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议。转载需注明出处。</p>
+
           
         
       
@@ -595,7 +1455,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://gexiangdong.github.io/2019/06/05/jwt-token的生成和解析/">
+    <link itemprop="mainEntityOfPage" href="https://devmgr.cn/2019/06/05/jwt-token的生成和解析/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="GeXiangDong">
@@ -612,13 +1472,13 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
+          <h2 class="post-title" itemprop="name headline">
                 
                 
                 <a href="/2019/06/05/jwt-token的生成和解析/" class="post-title-link" itemprop="url">JWT token的生成和解析</a>
               
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
@@ -684,6 +1544,7 @@
 <h1 id="解析token"><a href="#解析token" class="headerlink" title="解析token"></a>解析token</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** 解析JWT **/</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> User <span class="title">parseJwt</span><span class="params">(String token)</span></span>&#123;</span><br><span class="line">    User = <span class="keyword">new</span> User();</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        Algorithm algorithm = Algorithm.HMAC256(<span class="string">"xxxxx"</span>); <span class="comment">// 另外一端解析时也需要这个密码</span></span><br><span class="line">        JWTVerifier verifier = JWT.require(algorithm).acceptExpiresAt(<span class="number">5</span>).build(); <span class="comment">// Reusable verifier instance</span></span><br><span class="line">        DecodedJWT jwt = verifier.verify(token);</span><br><span class="line">        String userId = jwt.getClaim(<span class="string">"user_id"</span>).asString();</span><br><span class="line">        String name = jwt.getClaim(<span class="string">"name"</span>).asString();</span><br><span class="line">        String email = jwt.getClaim(<span class="string">"email"</span>).asString();</span><br><span class="line">        user.setId(userId);</span><br><span class="line">        user.setName(name);</span><br><span class="line">        user.setEmail(email);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (JWTVerificationException | IllegalArgumentException | UnsupportedEncodingException e) &#123;</span><br><span class="line">        log.error(<span class="string">"无效的token"</span> + token, e);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">        log.error(<span class="string">"验证token异常："</span> + token, e);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> user;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>上面是用了相同的密码做的签名，也可以用RSA的公钥私钥。</p>
+<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2019/06/05/jwt-token的生成和解析/">https://devmgr.cn/2019/06/05/jwt-token的生成和解析/</a> <br><strong>版权声明</strong>：本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议。转载需注明出处。</p>
 
           
         
@@ -740,7 +1601,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://gexiangdong.github.io/2019/06/05/css中用svg图片做背景图/">
+    <link itemprop="mainEntityOfPage" href="https://devmgr.cn/2019/06/05/css中用svg图片做背景图/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="GeXiangDong">
@@ -757,13 +1618,13 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
+          <h2 class="post-title" itemprop="name headline">
                 
                 
                 <a href="/2019/06/05/css中用svg图片做背景图/" class="post-title-link" itemprop="url">CSS中用SVG图片做背景图</a>
               
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
@@ -842,6 +1703,9 @@
 <h2 id="test-html"><a href="#test-html" class="headerlink" title="test.html"></a>test.html</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>svg background<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">        div &#123;margin: 50px; border: 1px solid #CDCDCD; padding:5px; height:150px; width:300px; background-repeat: no-repeat; background-position: center center; float:left;&#125;</span></span><br><span class="line"><span class="undefined">        .bg1&#123;background-image: url('bg.svg');&#125;</span></span><br><span class="line"><span class="undefined">        .bg2&#123;background-image: url('data:image/svg+xml;charset=utf-8,%3Csvg%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220%22%20y%3D%220%22%20width%3D%22100%22%20height%3D%22100%22%20viewBox%3D%220%2C%200%2C%20100%2C%20100%22%20fill%3D%22%23ECECEC%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2250%22%2F%3E%3C%2Fsvg%3E');&#125;</span></span><br><span class="line"><span class="undefined">        .bg3&#123;background-image: url('data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwLCAwLCAxMDAsIDEwMCIgZmlsbD0iI0VDRUNFQyI+PGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iNTAiLz48L3N2Zz4=');&#125;</span></span><br><span class="line"><span class="xml">        .bg4&#123;background-image: url('data:image/svg+xml;charset=utf-8,<span class="tag">&lt;<span class="name">svg</span> <span class="attr">version</span>=<span class="string">"1.1"</span> <span class="attr">xmlns</span>=<span class="string">"http://www.w3.org/2000/svg"</span> <span class="attr">xmlns:xlink</span>=<span class="string">"http://www.w3.org/1999/xlink"</span> <span class="attr">x</span>=<span class="string">"0"</span> <span class="attr">y</span>=<span class="string">"0"</span> <span class="attr">width</span>=<span class="string">"100"</span> <span class="attr">height</span>=<span class="string">"100"</span> <span class="attr">viewBox</span>=<span class="string">"0, 0, 100, 100"</span> <span class="attr">fill</span>=<span class="string">"#ECECEC"</span>&gt;</span><span class="tag">&lt;<span class="name">circle</span> <span class="attr">cx</span>=<span class="string">"50"</span> <span class="attr">cy</span>=<span class="string">"50"</span> <span class="attr">r</span>=<span class="string">"50"</span>/&gt;</span><span class="tag">&lt;/<span class="name">svg</span>&gt;</span>');&#125;</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"bg1"</span>&gt;</span>使用独立的svg文件<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"bg2"</span>&gt;</span>urlencode, urlencode编码，注意空格需要编码成%20，空格转义成加号的方式无效<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"bg3"</span>&gt;</span>base64，用base64编码后的<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"bg4"</span>&gt;</span>直接写，这是不规范的写法，可能有部分浏览器会生效，能看到背景图<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 
+
+<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2019/06/05/css中用svg图片做背景图/">https://devmgr.cn/2019/06/05/css中用svg图片做背景图/</a> <br><strong>版权声明</strong>：本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议。转载需注明出处。</p>
+
           
         
       
@@ -897,7 +1761,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://gexiangdong.github.io/2019/05/18/spring-return-403-when-post/">
+    <link itemprop="mainEntityOfPage" href="https://devmgr.cn/2019/05/18/spring-return-403-when-post/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="GeXiangDong">
@@ -914,13 +1778,13 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
+          <h2 class="post-title" itemprop="name headline">
                 
                 
                 <a href="/2019/05/18/spring-return-403-when-post/" class="post-title-link" itemprop="url">SpringMVC POST 时返回403禁止访问</a>
               
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
@@ -978,765 +1842,17 @@
       
         
           
-            <h2 id="出现的问题及原因"><a href="#出现的问题及原因" class="headerlink" title="出现的问题及原因"></a>出现的问题及原因</h2><p>Spring boot 在 SpringMVC / REST 和Spring Security一起使用时，编写的RestController 或 Controller 中的方法，GET不出错， POST 403，这可能是CSRF保护导致的。</p>
-<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>可以通过 <code>httpSecurity.csrf().disable()</code> 关闭csrf防护。</p>
+            <h1 id="出现的问题及原因"><a href="#出现的问题及原因" class="headerlink" title="出现的问题及原因"></a>出现的问题及原因</h1><p>Spring boot 在 SpringMVC / REST 和Spring Security一起使用时，编写的RestController 或 Controller 中的方法，GET不出错， POST 403，这可能是CSRF保护导致的。</p>
+<h1 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h1><p>可以通过 <code>httpSecurity.csrf().disable()</code> 关闭csrf防护。</p>
 <p>但这不是推荐的做法。官方推荐的做法是增加csrf token</p>
 <p><a href="https://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#csrf-include-csrf-token" target="_blank" rel="noopener">https://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#csrf-include-csrf-token</a></p>
 <p>SpringMVC中可以在form中增加：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">”hidden”</span> <span class="attr">th:name</span>=<span class="string">”$&#123;_csrf.parameterName&#125;”</span> <span class="attr">th:value</span>=<span class="string">”$&#123;_csrf.token&#125;”/</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>RESTful API需要把这2个值作为http header传递给后端。</p>
-<h3 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h3><p>CSRF是网络攻击的一种，<a href="https://study.163.com/course/courseLearn.htm?courseId=1006121037&share=2&shareId=400000000447005#/learn/video?lessonId=1053739036&courseId=1006121037" target="_blank" rel="noopener">此处有详细说明</a>。</p>
+<h1 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h1><p>CSRF是网络攻击的一种，<a href="https://study.163.com/course/courseLearn.htm?courseId=1006121037&share=2&shareId=400000000447005#/learn/video?lessonId=1053739036&courseId=1006121037" target="_blank" rel="noopener">此处有详细说明</a>。</p>
+<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2019/05/18/spring-return-403-when-post/">https://devmgr.cn/2019/05/18/spring-return-403-when-post/</a> <br><strong>版权声明</strong>：本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议。转载需注明出处。</p>
 
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://gexiangdong.github.io/2019/05/17/base64-java-lang-illegalargumentexception-illegal-base64-character-20/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/05/17/base64-java-lang-illegalargumentexception-illegal-base64-character-20/" class="post-title-link" itemprop="url">Base64 java.lang.IllegalArgumentException: Illegal base64 character 20</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-05-17 08:53:57" itemprop="dateCreated datePublished" datetime="2019-05-17T08:53:57+08:00">2019-05-17</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="出现的问题"><a href="#出现的问题" class="headerlink" title="出现的问题"></a>出现的问题</h2><p>JDK8 调用 java.util.Base64解码时出现异常：java.lang.IllegalArgumentException: Illegal base64 character 20</p>
-<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>character 20 是空格，如果待解码的字符串没错，可能是遇到了编码标准的问题。 Base64有几个规范：</p>
-<ul>
-<li>RFC4648 / RFC2045 这两个规范规定encode后的字符包括：0-9,a-z,A-Z,+/</li>
-<li>RFC1521 这个规范除上述的0-9,a-z,A-Z,+/外，还包含空格符和换行符</li>
-</ul>
-<p>JDK8的Base64遵守的是第一个无空格符和换行符的规范，所以遇到空格或换行会抛异常。</p>
-<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>知道了原因，解决起来就很简单了，换支持RFC1521标准的decoder解码就可以了，例如apache commons-codec。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://gexiangdong.github.io/2019/04/14/mac-commands/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/04/14/mac-commands/" class="post-title-link" itemprop="url">Mac 下几个实用命令</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-04-14 08:48:36" itemprop="dateCreated datePublished" datetime="2019-04-14T08:48:36+08:00">2019-04-14</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="查找某个命令-文件所在的位置"><a href="#查找某个命令-文件所在的位置" class="headerlink" title="查找某个命令/文件所在的位置"></a>查找某个命令/文件所在的位置</h2><h3 id="whereis"><a href="#whereis" class="headerlink" title="whereis"></a>whereis</h3><p>只查询标准的可执行路径内文件（默认只有 /usr/bin, /bin, /usr/sbin, /sbin 等四个目录）</p>
-<p>使用方法：  <code>whereis  filename</code></p>
-<h3 id="which"><a href="#which" class="headerlink" title="which"></a>which</h3><p>查询PATH环境变量中设置的所有目录。</p>
-<p>使用方法：  <code>which  filename</code> 或 <code>which -a filename</code> -a 参数表示查询并列出所有，不加此参数只列出第一个。</p>
-<h3 id="locate"><a href="#locate" class="headerlink" title="locate"></a>locate</h3><p>整个磁盘查询，但需要先建立索引数据库。 <code>sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.locate.plist</code> 用来建索引</p>
-<h3 id="find"><a href="#find" class="headerlink" title="find"></a>find</h3><p>整个硬盘查询，速度慢。</p>
-<p>使用方法： <code>find / -name filename</code></p>
-<h2 id="ls-的参数"><a href="#ls-的参数" class="headerlink" title="ls 的参数"></a>ls 的参数</h2><h3 id="显示完整日期"><a href="#显示完整日期" class="headerlink" title="显示完整日期"></a>显示完整日期</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ls --full-time</span><br><span class="line">ls -l --time-style=full</span><br><span class="line">ls -l --timestyle <span class="string">'+%Y%m%d %H:%M:%S'</span></span><br></pre></td></tr></table></figure>
-
-<p>如果经常使用，也可以把TIME_STYLE设置到环境变量里，以后ls -l即可</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export TIME_STYLE=&apos;+%Y%m%d %H:%M:%S&apos;</span><br><span class="line">ls -l</span><br></pre></td></tr></table></figure>
-
-<h4 id="ls排序"><a href="#ls排序" class="headerlink" title="ls排序"></a>ls排序</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ls --sort=extension</span><br><span class="line">ls --sort=size</span><br><span class="line">ls --sort=time</span><br><span class="line">ls --sort=version</span><br><span class="line">ls --sort=none</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>-t 按修改日期排序；DESC</li>
-<li>-S 按文件大小排序，DESC</li>
-<li>-r 反转排序，变成DESC</li>
-<li>-U 使用创建日期，不使用修改日期（显示和排序）</li>
-</ul>
-<h2 id="统计文件个数"><a href="#统计文件个数" class="headerlink" title="统计文件个数"></a>统计文件个数</h2><h4 id="统计某文件夹下文件的个数"><a href="#统计某文件夹下文件的个数" class="headerlink" title="统计某文件夹下文件的个数"></a>统计某文件夹下文件的个数</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -l |grep <span class="string">"^-"</span>|wc -l</span><br></pre></td></tr></table></figure>
-
-<h4 id="统计某文件夹下目录的个数"><a href="#统计某文件夹下目录的个数" class="headerlink" title="统计某文件夹下目录的个数"></a>统计某文件夹下目录的个数</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -l |grep <span class="string">"^ｄ"</span>|wc -l</span><br></pre></td></tr></table></figure>
-
-<h4 id="统计文件夹下文件的个数，包括子文件夹里的"><a href="#统计文件夹下文件的个数，包括子文件夹里的" class="headerlink" title="统计文件夹下文件的个数，包括子文件夹里的"></a>统计文件夹下文件的个数，包括子文件夹里的</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -lR|grep <span class="string">"^-"</span>|wc -l</span><br></pre></td></tr></table></figure>
-
-<p>如统计/home/temp 目录(包含子目录)下的所有文件包含java的文件：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -lR /home/temp | grep java | wc -l</span><br></pre></td></tr></table></figure>
-
-<p>统计文件夹下目录的个数，包括子文件夹里的</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -lR | grep <span class="string">"^d"</span> | wc -l</span><br></pre></td></tr></table></figure>
-
-<h4 id="查看目录下所有文件大小"><a href="#查看目录下所有文件大小" class="headerlink" title="查看目录下所有文件大小"></a>查看目录下所有文件大小</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">du -d 1 -h</span><br></pre></td></tr></table></figure>
-
-<p>命令查看当前目录下所有文件夹的大小 -d 指深度，后面加一个数值，表示统计到几级子目录。</p>
-<h2 id="修改文件创建-修改时间"><a href="#修改文件创建-修改时间" class="headerlink" title="修改文件创建/修改时间"></a>修改文件创建/修改时间</h2><h4 id="修改文件创建时间"><a href="#修改文件创建时间" class="headerlink" title="修改文件创建时间"></a>修改文件创建时间</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch -mt YYYYMMDDhhmm filename</span><br></pre></td></tr></table></figure>
-
-<h4 id="修改文件更新时间"><a href="#修改文件更新时间" class="headerlink" title="修改文件更新时间"></a>修改文件更新时间</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch -t  YYYYMMDDhhmm filename</span><br></pre></td></tr></table></figure>
-
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://gexiangdong.github.io/2019/01/10/java-给一个任务设置超时返回/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/01/10/java-给一个任务设置超时返回/" class="post-title-link" itemprop="url">Java 给一个任务设置超时返回</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-01-10 11:01:05" itemprop="dateCreated datePublished" datetime="2019-01-10T11:01:05+08:00">2019-01-10</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>可以通过CompletableFuture 来执行某个任务，超时后放弃任务。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.CompletableFuture;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.ExecutionException;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.TimeUnit;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.TimeoutException;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CompletableFutureTester</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] argvs)</span> </span>&#123;</span><br><span class="line">        CompletableFuture&lt;String&gt; cf1 = CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">"enter cf"</span>);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">//sleep 3秒</span></span><br><span class="line">                Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(<span class="string">"s1"</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"done"</span>;</span><br><span class="line">        &#125;);</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//试图在2秒内得到结果，否则算超时</span></span><br><span class="line">            String result = cf1.get(<span class="number">2</span>, TimeUnit.SECONDS);</span><br><span class="line">            System.out.println(<span class="string">"result is : "</span> + result);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ExecutionException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (TimeoutException e) &#123;</span><br><span class="line">            System.out.println(<span class="string">"超时未得到结果"</span>);</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://gexiangdong.github.io/2018/12/27/springmvc-x-frame-options-deny/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/12/27/springmvc-x-frame-options-deny/" class="post-title-link" itemprop="url">SpringMVC X-Frame-Options:Deny</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-12-27 08:29:57" itemprop="dateCreated datePublished" datetime="2018-12-27T08:29:57+08:00">2018-12-27</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><p>使用 SpringMVC + Spring Security 做的网页，前端嵌套在 iframe/frame 中内容不显示，一片空白。</p>
-<p>打开浏览器的网页检查器，会在主控台发现错误信息：</p>
-<pre><code>Refused to display ‘http://x.x.x.x/xx/’ in a frame because it set ‘X-Frame-Options’ to ‘DENY’.</code></pre><p>查看 Response Header 会发现 spring security 加了一个header</p>
-<pre><code>X-Frame-Options: Deny</code></pre><h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>通过在 Spring Security 中设置<br><code>httpSecurity.headers().frameOptions().disable()</code><br>禁止调这个头信息即可。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://gexiangdong.github.io/2018/11/25/java正则表达式从字符串提取信息/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/11/25/java正则表达式从字符串提取信息/" class="post-title-link" itemprop="url">java正则表达式从字符串提取信息</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-25 10:58:50" itemprop="dateCreated datePublished" datetime="2018-11-25T10:58:50+08:00">2018-11-25</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>使用正则表达式，从markdown文件中提取链接显示的字符和链接到的地址。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">String content = <span class="string">"这是段.md文件的内容。其中[这是一个链接](./html/README.md)，还有其他内容，这里又有一个[another link](another.md)，这次链接到了another.md。"</span>;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//括号用于分组；需要匹配括号则用\c</span></span><br><span class="line"><span class="comment">//[^\]] 表示任意不是']'的字符，后面的*表示任意多个</span></span><br><span class="line">Pattern p = Pattern.compile(<span class="string">"\\[([^\\]]*)\\]\\(([^\\)]*)\\)"</span>, Pattern.CASE_INSENSITIVE);</span><br><span class="line"> </span><br><span class="line">Matcher matcher = p.matcher(content);</span><br><span class="line"><span class="keyword">while</span>(matcher != <span class="keyword">null</span> &amp;&amp; matcher.find()) &#123;</span><br><span class="line">    String link = matcher.group();</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;= matcher.groupCount(); i++)&#123;</span><br><span class="line">        <span class="comment">//得到的分组，第0个是整个字串，例如第一次发现时打印：[这是一个链接](./html/README.md)</span></span><br><span class="line">        <span class="comment">//第一个是正则表达式中第一个括号匹配到的内容，例如第一次发现时打印：这是一个链接</span></span><br><span class="line">        System.out.println(matcher.group(i));</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>运行结果:</p>
-<pre><code>[这是一个链接](https://blog.devmgr.cn)
-这是一个链接
-./html/README.md
-
-[another link](https://www.google.com)
-another link
-another.md</code></pre>
           
         
       
@@ -1781,7 +1897,7 @@ another.md</code></pre>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1826,7 +1942,7 @@ another.md</code></pre>
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">39</span>
+                    <span class="site-state-item-count">60</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1945,7 +2061,55 @@ another.md</code></pre>
                     
                       
                     
-                    <span class="site-state-item-count">52</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">75</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1999,7 +2163,7 @@ another.md</code></pre>
                   </li>
                 
                   <li class="links-of-blogroll-item">
-                    <a href="https://devmgr.cn/front-end-vue/" title="https://devmgr.cn/front-end-vue/" rel="noopener" target="_blank">前端工程化入门：VUE的实践</a>
+                    <a href="https://devmgr.cn/front-end-vue/" title="https://devmgr.cn/front-end-vue/">前端工程化入门：VUE的实践</a>
                   </li>
                 
               </ul>

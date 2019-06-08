@@ -100,14 +100,14 @@
 
 
   <meta name="description" content="在使用spring的时候，如果Controller中抛出异常，会被spring显示在客户端界面，而日志中一般没有记录。客户端对异常的显示也是经spring处理后的信息，没有堆栈，这不方便找错和改错。 可以通过RestControllerAdvice注解定义一个异常处理类来解决这个问题。代码如下 注：也可以不继承ResponseEntityExceptionHandler类，此处继承只是省了一些通用">
-<meta name="keywords" content="java,后端,spring boot">
+<meta name="keywords" content="后端,spring boot,java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="捕获spring restcontroller中的异常，并记录日志">
-<meta property="og:url" content="http://gexiangdong.github.io/2018/03/15/捕获spring-restcontroller中的异常，并记录日志/index.html">
+<meta property="og:url" content="https://devmgr.cn/2018/03/15/捕获spring-restcontroller中的异常，并记录日志/index.html">
 <meta property="og:site_name" content="GeXiangDong">
 <meta property="og:description" content="在使用spring的时候，如果Controller中抛出异常，会被spring显示在客户端界面，而日志中一般没有记录。客户端对异常的显示也是经spring处理后的信息，没有堆栈，这不方便找错和改错。 可以通过RestControllerAdvice注解定义一个异常处理类来解决这个问题。代码如下 注：也可以不继承ResponseEntityExceptionHandler类，此处继承只是省了一些通用">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-06-05T04:04:39.886Z">
+<meta property="og:updated_time" content="2019-06-07T10:51:02.981Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="捕获spring restcontroller中的异常，并记录日志">
 <meta name="twitter:description" content="在使用spring的时候，如果Controller中抛出异常，会被spring显示在客户端界面，而日志中一般没有记录。客户端对异常的显示也是经spring处理后的信息，没有堆栈，这不方便找错和改错。 可以通过RestControllerAdvice注解定义一个异常处理类来解决这个问题。代码如下 注：也可以不继承ResponseEntityExceptionHandler类，此处继承只是省了一些通用">
@@ -117,7 +117,7 @@
 
 
 
-  <link rel="canonical" href="http://gexiangdong.github.io/2018/03/15/捕获spring-restcontroller中的异常，并记录日志/">
+  <link rel="canonical" href="https://devmgr.cn/2018/03/15/捕获spring-restcontroller中的异常，并记录日志/">
 
 
 
@@ -192,7 +192,7 @@
     </div>
     
       
-        <p class="site-subtitle">精通Java、SQL、Spring的拼写，擅长Linux、Windows的开关机</p>
+        <h1 class="site-subtitle" itemprop="description">精通Java、SQL、Spring的拼写，擅长Linux、Windows的开关机</h1>
       
     
     
@@ -312,7 +312,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://gexiangdong.github.io/2018/03/15/捕获spring-restcontroller中的异常，并记录日志/">
+    <link itemprop="mainEntityOfPage" href="https://devmgr.cn/2018/03/15/捕获spring-restcontroller中的异常，并记录日志/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="GeXiangDong">
@@ -329,11 +329,11 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">捕获spring restcontroller中的异常，并记录日志
+          <h2 class="post-title" itemprop="name headline">捕获spring restcontroller中的异常，并记录日志
 
               
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
@@ -394,6 +394,9 @@
 <pre><code>注：也可以不继承ResponseEntityExceptionHandler类，此处继承只是省了一些通用异常的处理。</code></pre><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> org.apache.commons.logging.Log;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.logging.LogFactory;</span><br><span class="line"><span class="keyword">import</span> org.springframework.http.HttpHeaders;</span><br><span class="line"><span class="keyword">import</span> org.springframework.http.HttpStatus;</span><br><span class="line"><span class="keyword">import</span> org.springframework.http.ResponseEntity;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.ExceptionHandler;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.ResponseBody;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestControllerAdvice;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.context.request.WebRequest;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.NoHandlerFoundException;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * RestController执行过程中发生异常会被此处捕获处理</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@RestControllerAdvice</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ControllerExceptionHandler</span> <span class="keyword">extends</span> <span class="title">ResponseEntityExceptionHandler</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Log log = LogFactory.getLog(ControllerExceptionHandler.class);</span><br><span class="line">     </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 通过ExceptionHandler来设置待捕获的异常，Throwable可捕获任何异常，但优先级最低，因此</span></span><br><span class="line"><span class="comment">     * HttpRequestMethodNotSupportedException HttpMediaTypeNotSupportedException</span></span><br><span class="line"><span class="comment">     * HttpMediaTypeNotAcceptableException MissingPathVariableException</span></span><br><span class="line"><span class="comment">     * MissingServletRequestParameterException ServletRequestBindingException</span></span><br><span class="line"><span class="comment">     * ConversionNotSupportedException TypeMismatchException</span></span><br><span class="line"><span class="comment">     * HttpMessageNotReadableException HttpMessageNotWritableException</span></span><br><span class="line"><span class="comment">     * MethodArgumentNotValidException MissingServletRequestPartException</span></span><br><span class="line"><span class="comment">     * BindException NoHandlerFoundException AsyncRequestTimeoutException</span></span><br><span class="line"><span class="comment">     * 等已经在父类声明捕获的异常不会被此方法处理。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@ExceptionHandler</span>(Throwable.class)</span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function">ResponseEntity&lt;Object&gt; <span class="title">handleControllerException</span><span class="params">(Throwable ex, WebRequest request)</span> </span>&#123;</span><br><span class="line">        Map&lt;String,String&gt; responseBody = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="comment">// 这里控制返回给客户端的信息</span></span><br><span class="line">        responseBody.put(<span class="string">"message"</span>,<span class="string">"internal server error. "</span> + ex.getMessage());</span><br><span class="line">         </span><br><span class="line">        Exception e;</span><br><span class="line">        <span class="keyword">if</span>(ex <span class="keyword">instanceof</span> Exception) &#123;</span><br><span class="line">            e = (Exception) ex;</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            e = <span class="keyword">new</span> Exception(ex);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> handleExceptionInternal(e, responseBody, <span class="keyword">new</span> HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 需要覆盖这个方法，并且在此方法里记录日志；查看ResponseEntityExceptionHandler源码可知，</span></span><br><span class="line"><span class="comment">     * 有些异常被父类捕获，不会进入此类的handleControllerException，因此如果在handleControllerException</span></span><br><span class="line"><span class="comment">     * 记录异常日志，会导致部分异常无日志</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> ResponseEntity&lt;Object&gt; <span class="title">handleExceptionInternal</span><span class="params">(Exception ex, Object body,</span></span></span><br><span class="line"><span class="function"><span class="params">            HttpHeaders headers, HttpStatus status, WebRequest request)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(log.isErrorEnabled()) &#123;</span><br><span class="line">            log.error(<span class="string">"内部错误"</span>, ex);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.handleExceptionInternal(ex, body, headers, status, request);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
+
+<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2018/03/15/捕获spring-restcontroller中的异常，并记录日志/">https://devmgr.cn/2018/03/15/捕获spring-restcontroller中的异常，并记录日志/</a> <br><strong>版权声明</strong>：本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议。转载需注明出处。</p>
+
       
     </div>
 
@@ -416,11 +419,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/java/" rel="tag"># java</a>
-          
             <a href="/tags/后端/" rel="tag"># 后端</a>
           
             <a href="/tags/spring-boot/" rel="tag"># spring boot</a>
+          
+            <a href="/tags/java/" rel="tag"># java</a>
           
         </div>
       
@@ -443,8 +446,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/03/27/mybatis通用的insert-update/" rel="prev" title="Mybatis通用的Insert/Update">
-                Mybatis通用的Insert/Update <i class="fa fa-chevron-right"></i>
+              <a href="/2018/03/26/spring项目开发过程的hot-swapping/" rel="prev" title="Spring项目开发过程的Hot Swapping">
+                Spring项目开发过程的Hot Swapping <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -508,7 +511,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">39</span>
+                    <span class="site-state-item-count">60</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -627,7 +630,55 @@
                     
                       
                     
-                    <span class="site-state-item-count">52</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">75</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -681,7 +732,7 @@
                   </li>
                 
                   <li class="links-of-blogroll-item">
-                    <a href="https://devmgr.cn/front-end-vue/" title="https://devmgr.cn/front-end-vue/" rel="noopener" target="_blank">前端工程化入门：VUE的实践</a>
+                    <a href="https://devmgr.cn/front-end-vue/" title="https://devmgr.cn/front-end-vue/">前端工程化入门：VUE的实践</a>
                   </li>
                 
               </ul>

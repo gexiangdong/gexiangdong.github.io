@@ -100,14 +100,14 @@
 
 
   <meta name="description" content="出现的问题及原因Spring boot 在 SpringMVC / REST 和Spring Security一起使用时，编写的RestController 或 Controller 中的方法，GET不出错， POST 403，这可能是CSRF保护导致的。 解决方法可以通过 httpSecurity.csrf().disable() 关闭csrf防护。 但这不是推荐的做法。官方推荐的做法是增加cs">
-<meta name="keywords" content="java,后端,SpringMVC,spring boot,spring security">
+<meta name="keywords" content="后端,spring boot,java,SpringMVC,spring security">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SpringMVC POST 时返回403禁止访问">
-<meta property="og:url" content="http://gexiangdong.github.io/2019/05/18/spring-return-403-when-post/index.html">
+<meta property="og:url" content="https://devmgr.cn/2019/05/18/spring-return-403-when-post/index.html">
 <meta property="og:site_name" content="GeXiangDong">
 <meta property="og:description" content="出现的问题及原因Spring boot 在 SpringMVC / REST 和Spring Security一起使用时，编写的RestController 或 Controller 中的方法，GET不出错， POST 403，这可能是CSRF保护导致的。 解决方法可以通过 httpSecurity.csrf().disable() 关闭csrf防护。 但这不是推荐的做法。官方推荐的做法是增加cs">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-20T00:30:50.000Z">
+<meta property="og:updated_time" content="2019-06-07T10:51:02.981Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SpringMVC POST 时返回403禁止访问">
 <meta name="twitter:description" content="出现的问题及原因Spring boot 在 SpringMVC / REST 和Spring Security一起使用时，编写的RestController 或 Controller 中的方法，GET不出错， POST 403，这可能是CSRF保护导致的。 解决方法可以通过 httpSecurity.csrf().disable() 关闭csrf防护。 但这不是推荐的做法。官方推荐的做法是增加cs">
@@ -117,7 +117,7 @@
 
 
 
-  <link rel="canonical" href="http://gexiangdong.github.io/2019/05/18/spring-return-403-when-post/">
+  <link rel="canonical" href="https://devmgr.cn/2019/05/18/spring-return-403-when-post/">
 
 
 
@@ -192,7 +192,7 @@
     </div>
     
       
-        <p class="site-subtitle">精通Java、SQL、Spring的拼写，擅长Linux、Windows的开关机</p>
+        <h1 class="site-subtitle" itemprop="description">精通Java、SQL、Spring的拼写，擅长Linux、Windows的开关机</h1>
       
     
     
@@ -312,7 +312,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://gexiangdong.github.io/2019/05/18/spring-return-403-when-post/">
+    <link itemprop="mainEntityOfPage" href="https://devmgr.cn/2019/05/18/spring-return-403-when-post/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="GeXiangDong">
@@ -329,11 +329,11 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">SpringMVC POST 时返回403禁止访问
+          <h2 class="post-title" itemprop="name headline">SpringMVC POST 时返回403禁止访问
 
               
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
@@ -389,15 +389,16 @@
       
 
       
-        <h2 id="出现的问题及原因"><a href="#出现的问题及原因" class="headerlink" title="出现的问题及原因"></a>出现的问题及原因</h2><p>Spring boot 在 SpringMVC / REST 和Spring Security一起使用时，编写的RestController 或 Controller 中的方法，GET不出错， POST 403，这可能是CSRF保护导致的。</p>
-<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>可以通过 <code>httpSecurity.csrf().disable()</code> 关闭csrf防护。</p>
+        <h1 id="出现的问题及原因"><a href="#出现的问题及原因" class="headerlink" title="出现的问题及原因"></a>出现的问题及原因</h1><p>Spring boot 在 SpringMVC / REST 和Spring Security一起使用时，编写的RestController 或 Controller 中的方法，GET不出错， POST 403，这可能是CSRF保护导致的。</p>
+<h1 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h1><p>可以通过 <code>httpSecurity.csrf().disable()</code> 关闭csrf防护。</p>
 <p>但这不是推荐的做法。官方推荐的做法是增加csrf token</p>
 <p><a href="https://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#csrf-include-csrf-token" target="_blank" rel="noopener">https://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#csrf-include-csrf-token</a></p>
 <p>SpringMVC中可以在form中增加：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">”hidden”</span> <span class="attr">th:name</span>=<span class="string">”$&#123;_csrf.parameterName&#125;”</span> <span class="attr">th:value</span>=<span class="string">”$&#123;_csrf.token&#125;”/</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>RESTful API需要把这2个值作为http header传递给后端。</p>
-<h3 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h3><p>CSRF是网络攻击的一种，<a href="https://study.163.com/course/courseLearn.htm?courseId=1006121037&share=2&shareId=400000000447005#/learn/video?lessonId=1053739036&courseId=1006121037" target="_blank" rel="noopener">此处有详细说明</a>。</p>
+<h1 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h1><p>CSRF是网络攻击的一种，<a href="https://study.163.com/course/courseLearn.htm?courseId=1006121037&share=2&shareId=400000000447005#/learn/video?lessonId=1053739036&courseId=1006121037" target="_blank" rel="noopener">此处有详细说明</a>。</p>
+<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2019/05/18/spring-return-403-when-post/">https://devmgr.cn/2019/05/18/spring-return-403-when-post/</a> <br><strong>版权声明</strong>：本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议。转载需注明出处。</p>
 
       
     </div>
@@ -421,13 +422,13 @@
       
         <div class="post-tags">
           
-            <a href="/tags/java/" rel="tag"># java</a>
-          
             <a href="/tags/后端/" rel="tag"># 后端</a>
           
-            <a href="/tags/springmvc/" rel="tag"># SpringMVC</a>
-          
             <a href="/tags/spring-boot/" rel="tag"># spring boot</a>
+          
+            <a href="/tags/java/" rel="tag"># java</a>
+          
+            <a href="/tags/springmvc/" rel="tag"># SpringMVC</a>
           
             <a href="/tags/spring-security/" rel="tag"># spring security</a>
           
@@ -526,7 +527,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">39</span>
+                    <span class="site-state-item-count">60</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -645,7 +646,55 @@
                     
                       
                     
-                    <span class="site-state-item-count">52</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">75</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -699,7 +748,7 @@
                   </li>
                 
                   <li class="links-of-blogroll-item">
-                    <a href="https://devmgr.cn/front-end-vue/" title="https://devmgr.cn/front-end-vue/" rel="noopener" target="_blank">前端工程化入门：VUE的实践</a>
+                    <a href="https://devmgr.cn/front-end-vue/" title="https://devmgr.cn/front-end-vue/">前端工程化入门：VUE的实践</a>
                   </li>
                 
               </ul>
@@ -724,7 +773,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#出现的问题及原因"><span class="nav-number">1.</span> <span class="nav-text">出现的问题及原因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决方法"><span class="nav-number">2.</span> <span class="nav-text">解决方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CSRF"><span class="nav-number">2.1.</span> <span class="nav-text">CSRF</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#出现的问题及原因"><span class="nav-number">1.</span> <span class="nav-text">出现的问题及原因</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解决方法"><span class="nav-number">2.</span> <span class="nav-text">解决方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CSRF"><span class="nav-number">3.</span> <span class="nav-text">CSRF</span></a></li></ol></div>
             
 
           </div>

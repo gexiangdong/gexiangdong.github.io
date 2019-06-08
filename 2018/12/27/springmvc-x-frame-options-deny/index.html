@@ -100,14 +100,14 @@
 
 
   <meta name="description" content="遇到的问题使用 SpringMVC + Spring Security 做的网页，前端嵌套在 iframe/frame 中内容不显示，一片空白。 打开浏览器的网页检查器，会在主控台发现错误信息： Refused to display ‘http://x.x.x.x/xx/’ in a frame because it set ‘X-Frame-Options’ to ‘DENY’.查看 Respo">
-<meta name="keywords" content="java,后端,SpringMVC,spring boot,spring security">
+<meta name="keywords" content="后端,spring boot,java,SpringMVC,spring security">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SpringMVC X-Frame-Options:Deny">
-<meta property="og:url" content="http://gexiangdong.github.io/2018/12/27/springmvc-x-frame-options-deny/index.html">
+<meta property="og:url" content="https://devmgr.cn/2018/12/27/springmvc-x-frame-options-deny/index.html">
 <meta property="og:site_name" content="GeXiangDong">
 <meta property="og:description" content="遇到的问题使用 SpringMVC + Spring Security 做的网页，前端嵌套在 iframe/frame 中内容不显示，一片空白。 打开浏览器的网页检查器，会在主控台发现错误信息： Refused to display ‘http://x.x.x.x/xx/’ in a frame because it set ‘X-Frame-Options’ to ‘DENY’.查看 Respo">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-06-04T06:36:05.314Z">
+<meta property="og:updated_time" content="2019-06-07T10:51:02.981Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SpringMVC X-Frame-Options:Deny">
 <meta name="twitter:description" content="遇到的问题使用 SpringMVC + Spring Security 做的网页，前端嵌套在 iframe/frame 中内容不显示，一片空白。 打开浏览器的网页检查器，会在主控台发现错误信息： Refused to display ‘http://x.x.x.x/xx/’ in a frame because it set ‘X-Frame-Options’ to ‘DENY’.查看 Respo">
@@ -117,7 +117,7 @@
 
 
 
-  <link rel="canonical" href="http://gexiangdong.github.io/2018/12/27/springmvc-x-frame-options-deny/">
+  <link rel="canonical" href="https://devmgr.cn/2018/12/27/springmvc-x-frame-options-deny/">
 
 
 
@@ -192,7 +192,7 @@
     </div>
     
       
-        <p class="site-subtitle">精通Java、SQL、Spring的拼写，擅长Linux、Windows的开关机</p>
+        <h1 class="site-subtitle" itemprop="description">精通Java、SQL、Spring的拼写，擅长Linux、Windows的开关机</h1>
       
     
     
@@ -312,7 +312,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://gexiangdong.github.io/2018/12/27/springmvc-x-frame-options-deny/">
+    <link itemprop="mainEntityOfPage" href="https://devmgr.cn/2018/12/27/springmvc-x-frame-options-deny/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="GeXiangDong">
@@ -329,11 +329,11 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">SpringMVC X-Frame-Options:Deny
+          <h2 class="post-title" itemprop="name headline">SpringMVC X-Frame-Options:Deny
 
               
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
@@ -393,6 +393,7 @@
 <p>打开浏览器的网页检查器，会在主控台发现错误信息：</p>
 <pre><code>Refused to display ‘http://x.x.x.x/xx/’ in a frame because it set ‘X-Frame-Options’ to ‘DENY’.</code></pre><p>查看 Response Header 会发现 spring security 加了一个header</p>
 <pre><code>X-Frame-Options: Deny</code></pre><h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>通过在 Spring Security 中设置<br><code>httpSecurity.headers().frameOptions().disable()</code><br>禁止调这个头信息即可。</p>
+<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2018/12/27/springmvc-x-frame-options-deny/">https://devmgr.cn/2018/12/27/springmvc-x-frame-options-deny/</a> <br><strong>版权声明</strong>：本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议。转载需注明出处。</p>
 
       
     </div>
@@ -416,13 +417,13 @@
       
         <div class="post-tags">
           
-            <a href="/tags/java/" rel="tag"># java</a>
-          
             <a href="/tags/后端/" rel="tag"># 后端</a>
           
-            <a href="/tags/springmvc/" rel="tag"># SpringMVC</a>
-          
             <a href="/tags/spring-boot/" rel="tag"># spring boot</a>
+          
+            <a href="/tags/java/" rel="tag"># java</a>
+          
+            <a href="/tags/springmvc/" rel="tag"># SpringMVC</a>
           
             <a href="/tags/spring-security/" rel="tag"># spring security</a>
           
@@ -521,7 +522,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">39</span>
+                    <span class="site-state-item-count">60</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -640,7 +641,55 @@
                     
                       
                     
-                    <span class="site-state-item-count">52</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">75</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -694,7 +743,7 @@
                   </li>
                 
                   <li class="links-of-blogroll-item">
-                    <a href="https://devmgr.cn/front-end-vue/" title="https://devmgr.cn/front-end-vue/" rel="noopener" target="_blank">前端工程化入门：VUE的实践</a>
+                    <a href="https://devmgr.cn/front-end-vue/" title="https://devmgr.cn/front-end-vue/">前端工程化入门：VUE的实践</a>
                   </li>
                 
               </ul>

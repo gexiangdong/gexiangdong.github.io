@@ -100,14 +100,14 @@
 
 
   <meta name="description" content="Java的异常默认都有堆栈信息，详细显示出来调用层次，这对查找错误原因很有帮助。今日遇到一个无堆栈信息的java.lang.NullPointerException经查询原来是HotSpot VM提供的一种叫fast throw的优化导致的。 Fast Throw有些特定的隐式异常类型（NullPointerException、ArithmeticException（ / 0）之类）如果在代码里某">
-<meta name="keywords" content="java,后端,Fast Throw">
+<meta name="keywords" content="后端,java,Fast Throw">
 <meta property="og:type" content="article">
 <meta property="og:title" content="java 不带堆栈信息的异常">
-<meta property="og:url" content="http://gexiangdong.github.io/2017/09/18/java-不带堆栈信息的异常/index.html">
+<meta property="og:url" content="https://devmgr.cn/2017/09/18/java-不带堆栈信息的异常/index.html">
 <meta property="og:site_name" content="GeXiangDong">
 <meta property="og:description" content="Java的异常默认都有堆栈信息，详细显示出来调用层次，这对查找错误原因很有帮助。今日遇到一个无堆栈信息的java.lang.NullPointerException经查询原来是HotSpot VM提供的一种叫fast throw的优化导致的。 Fast Throw有些特定的隐式异常类型（NullPointerException、ArithmeticException（ / 0）之类）如果在代码里某">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-06-05T02:26:25.013Z">
+<meta property="og:updated_time" content="2019-06-07T10:51:02.981Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java 不带堆栈信息的异常">
 <meta name="twitter:description" content="Java的异常默认都有堆栈信息，详细显示出来调用层次，这对查找错误原因很有帮助。今日遇到一个无堆栈信息的java.lang.NullPointerException经查询原来是HotSpot VM提供的一种叫fast throw的优化导致的。 Fast Throw有些特定的隐式异常类型（NullPointerException、ArithmeticException（ / 0）之类）如果在代码里某">
@@ -117,7 +117,7 @@
 
 
 
-  <link rel="canonical" href="http://gexiangdong.github.io/2017/09/18/java-不带堆栈信息的异常/">
+  <link rel="canonical" href="https://devmgr.cn/2017/09/18/java-不带堆栈信息的异常/">
 
 
 
@@ -192,7 +192,7 @@
     </div>
     
       
-        <p class="site-subtitle">精通Java、SQL、Spring的拼写，擅长Linux、Windows的开关机</p>
+        <h1 class="site-subtitle" itemprop="description">精通Java、SQL、Spring的拼写，擅长Linux、Windows的开关机</h1>
       
     
     
@@ -312,7 +312,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://gexiangdong.github.io/2017/09/18/java-不带堆栈信息的异常/">
+    <link itemprop="mainEntityOfPage" href="https://devmgr.cn/2017/09/18/java-不带堆栈信息的异常/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="GeXiangDong">
@@ -329,11 +329,11 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">java 不带堆栈信息的异常
+          <h2 class="post-title" itemprop="name headline">java 不带堆栈信息的异常
 
               
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
@@ -400,6 +400,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NpeThief</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">callManyNPEInLoop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> preLen = -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10000000</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                ((Object)<span class="keyword">null</span>).getClass();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                <span class="keyword">if</span>(e.getStackTrace().length != preLen)&#123;</span><br><span class="line">                    System.out.println(<span class="string">"#"</span> + i + <span class="string">"   "</span> + e.getStackTrace().length);</span><br><span class="line">                    preLen = e.getStackTrace().length;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        NpeThief thief = <span class="keyword">new</span> NpeThief();</span><br><span class="line">        thief.callManyNPEInLoop();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>用java NpeThief运行，会输出2、0两行<br>用java -XX:-OmitStackTraceInFastThrow NpeTHief运行，则只会有2一行,也能直接感觉到Fast Throw优化带来的运行速度的提升。</p>
+<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2017/09/18/java-不带堆栈信息的异常/">https://devmgr.cn/2017/09/18/java-不带堆栈信息的异常/</a> <br><strong>版权声明</strong>：本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议。转载需注明出处。</p>
 
       
     </div>
@@ -423,9 +424,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/java/" rel="tag"># java</a>
-          
             <a href="/tags/后端/" rel="tag"># 后端</a>
+          
+            <a href="/tags/java/" rel="tag"># java</a>
           
             <a href="/tags/fast-throw/" rel="tag"># Fast Throw</a>
           
@@ -524,7 +525,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">39</span>
+                    <span class="site-state-item-count">60</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -643,7 +644,55 @@
                     
                       
                     
-                    <span class="site-state-item-count">52</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">75</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -697,7 +746,7 @@
                   </li>
                 
                   <li class="links-of-blogroll-item">
-                    <a href="https://devmgr.cn/front-end-vue/" title="https://devmgr.cn/front-end-vue/" rel="noopener" target="_blank">前端工程化入门：VUE的实践</a>
+                    <a href="https://devmgr.cn/front-end-vue/" title="https://devmgr.cn/front-end-vue/">前端工程化入门：VUE的实践</a>
                   </li>
                 
               </ul>

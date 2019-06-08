@@ -103,11 +103,11 @@
 <meta name="keywords" content="linux,mac,command">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mac 下几个实用命令">
-<meta property="og:url" content="http://gexiangdong.github.io/2019/04/14/mac-commands/index.html">
+<meta property="og:url" content="https://devmgr.cn/2019/04/14/mac-commands/index.html">
 <meta property="og:site_name" content="GeXiangDong">
 <meta property="og:description" content="查找某个命令/文件所在的位置whereis只查询标准的可执行路径内文件（默认只有 /usr/bin, /bin, /usr/sbin, /sbin 等四个目录） 使用方法：  whereis  filename which查询PATH环境变量中设置的所有目录。 使用方法：  which  filename 或 which -a filename -a 参数表示查询并列出所有，不加此参数只列出第一个">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-19T14:06:47.000Z">
+<meta property="og:updated_time" content="2019-06-07T11:22:52.132Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mac 下几个实用命令">
 <meta name="twitter:description" content="查找某个命令/文件所在的位置whereis只查询标准的可执行路径内文件（默认只有 /usr/bin, /bin, /usr/sbin, /sbin 等四个目录） 使用方法：  whereis  filename which查询PATH环境变量中设置的所有目录。 使用方法：  which  filename 或 which -a filename -a 参数表示查询并列出所有，不加此参数只列出第一个">
@@ -117,7 +117,7 @@
 
 
 
-  <link rel="canonical" href="http://gexiangdong.github.io/2019/04/14/mac-commands/">
+  <link rel="canonical" href="https://devmgr.cn/2019/04/14/mac-commands/">
 
 
 
@@ -192,7 +192,7 @@
     </div>
     
       
-        <p class="site-subtitle">精通Java、SQL、Spring的拼写，擅长Linux、Windows的开关机</p>
+        <h1 class="site-subtitle" itemprop="description">精通Java、SQL、Spring的拼写，擅长Linux、Windows的开关机</h1>
       
     
     
@@ -312,7 +312,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://gexiangdong.github.io/2019/04/14/mac-commands/">
+    <link itemprop="mainEntityOfPage" href="https://devmgr.cn/2019/04/14/mac-commands/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="GeXiangDong">
@@ -329,11 +329,11 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Mac 下几个实用命令
+          <h2 class="post-title" itemprop="name headline">Mac 下几个实用命令
 
               
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
@@ -389,19 +389,19 @@
       
 
       
-        <h2 id="查找某个命令-文件所在的位置"><a href="#查找某个命令-文件所在的位置" class="headerlink" title="查找某个命令/文件所在的位置"></a>查找某个命令/文件所在的位置</h2><h3 id="whereis"><a href="#whereis" class="headerlink" title="whereis"></a>whereis</h3><p>只查询标准的可执行路径内文件（默认只有 /usr/bin, /bin, /usr/sbin, /sbin 等四个目录）</p>
+        <h1 id="查找某个命令-文件所在的位置"><a href="#查找某个命令-文件所在的位置" class="headerlink" title="查找某个命令/文件所在的位置"></a>查找某个命令/文件所在的位置</h1><h2 id="whereis"><a href="#whereis" class="headerlink" title="whereis"></a>whereis</h2><p>只查询标准的可执行路径内文件（默认只有 /usr/bin, /bin, /usr/sbin, /sbin 等四个目录）</p>
 <p>使用方法：  <code>whereis  filename</code></p>
-<h3 id="which"><a href="#which" class="headerlink" title="which"></a>which</h3><p>查询PATH环境变量中设置的所有目录。</p>
+<h2 id="which"><a href="#which" class="headerlink" title="which"></a>which</h2><p>查询PATH环境变量中设置的所有目录。</p>
 <p>使用方法：  <code>which  filename</code> 或 <code>which -a filename</code> -a 参数表示查询并列出所有，不加此参数只列出第一个。</p>
-<h3 id="locate"><a href="#locate" class="headerlink" title="locate"></a>locate</h3><p>整个磁盘查询，但需要先建立索引数据库。 <code>sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.locate.plist</code> 用来建索引</p>
-<h3 id="find"><a href="#find" class="headerlink" title="find"></a>find</h3><p>整个硬盘查询，速度慢。</p>
+<h2 id="locate"><a href="#locate" class="headerlink" title="locate"></a>locate</h2><p>整个磁盘查询，但需要先建立索引数据库。 <code>sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.locate.plist</code> 用来建索引</p>
+<h2 id="find"><a href="#find" class="headerlink" title="find"></a>find</h2><p>整个硬盘查询，速度慢。</p>
 <p>使用方法： <code>find / -name filename</code></p>
-<h2 id="ls-的参数"><a href="#ls-的参数" class="headerlink" title="ls 的参数"></a>ls 的参数</h2><h3 id="显示完整日期"><a href="#显示完整日期" class="headerlink" title="显示完整日期"></a>显示完整日期</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ls --full-time</span><br><span class="line">ls -l --time-style=full</span><br><span class="line">ls -l --timestyle <span class="string">'+%Y%m%d %H:%M:%S'</span></span><br></pre></td></tr></table></figure>
+<h1 id="ls-的参数"><a href="#ls-的参数" class="headerlink" title="ls 的参数"></a>ls 的参数</h1><h2 id="显示完整日期"><a href="#显示完整日期" class="headerlink" title="显示完整日期"></a>显示完整日期</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ls --full-time</span><br><span class="line">ls -l --time-style=full</span><br><span class="line">ls -l --timestyle <span class="string">'+%Y%m%d %H:%M:%S'</span></span><br></pre></td></tr></table></figure>
 
 <p>如果经常使用，也可以把TIME_STYLE设置到环境变量里，以后ls -l即可</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export TIME_STYLE=&apos;+%Y%m%d %H:%M:%S&apos;</span><br><span class="line">ls -l</span><br></pre></td></tr></table></figure>
 
-<h4 id="ls排序"><a href="#ls排序" class="headerlink" title="ls排序"></a>ls排序</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ls --sort=extension</span><br><span class="line">ls --sort=size</span><br><span class="line">ls --sort=time</span><br><span class="line">ls --sort=version</span><br><span class="line">ls --sort=none</span><br></pre></td></tr></table></figure>
+<h2 id="ls排序"><a href="#ls排序" class="headerlink" title="ls排序"></a>ls排序</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ls --sort=extension</span><br><span class="line">ls --sort=size</span><br><span class="line">ls --sort=time</span><br><span class="line">ls --sort=version</span><br><span class="line">ls --sort=none</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>-t 按修改日期排序；DESC</li>
@@ -409,11 +409,11 @@
 <li>-r 反转排序，变成DESC</li>
 <li>-U 使用创建日期，不使用修改日期（显示和排序）</li>
 </ul>
-<h2 id="统计文件个数"><a href="#统计文件个数" class="headerlink" title="统计文件个数"></a>统计文件个数</h2><h4 id="统计某文件夹下文件的个数"><a href="#统计某文件夹下文件的个数" class="headerlink" title="统计某文件夹下文件的个数"></a>统计某文件夹下文件的个数</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -l |grep <span class="string">"^-"</span>|wc -l</span><br></pre></td></tr></table></figure>
+<h1 id="统计文件个数"><a href="#统计文件个数" class="headerlink" title="统计文件个数"></a>统计文件个数</h1><h2 id="统计某文件夹下文件的个数"><a href="#统计某文件夹下文件的个数" class="headerlink" title="统计某文件夹下文件的个数"></a>统计某文件夹下文件的个数</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -l |grep <span class="string">"^-"</span>|wc -l</span><br></pre></td></tr></table></figure>
 
-<h4 id="统计某文件夹下目录的个数"><a href="#统计某文件夹下目录的个数" class="headerlink" title="统计某文件夹下目录的个数"></a>统计某文件夹下目录的个数</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -l |grep <span class="string">"^ｄ"</span>|wc -l</span><br></pre></td></tr></table></figure>
+<h2 id="统计某文件夹下目录的个数"><a href="#统计某文件夹下目录的个数" class="headerlink" title="统计某文件夹下目录的个数"></a>统计某文件夹下目录的个数</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -l |grep <span class="string">"^ｄ"</span>|wc -l</span><br></pre></td></tr></table></figure>
 
-<h4 id="统计文件夹下文件的个数，包括子文件夹里的"><a href="#统计文件夹下文件的个数，包括子文件夹里的" class="headerlink" title="统计文件夹下文件的个数，包括子文件夹里的"></a>统计文件夹下文件的个数，包括子文件夹里的</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -lR|grep <span class="string">"^-"</span>|wc -l</span><br></pre></td></tr></table></figure>
+<h2 id="统计文件夹下文件的个数，包括子文件夹里的"><a href="#统计文件夹下文件的个数，包括子文件夹里的" class="headerlink" title="统计文件夹下文件的个数，包括子文件夹里的"></a>统计文件夹下文件的个数，包括子文件夹里的</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -lR|grep <span class="string">"^-"</span>|wc -l</span><br></pre></td></tr></table></figure>
 
 <p>如统计/home/temp 目录(包含子目录)下的所有文件包含java的文件：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -lR /home/temp | grep java | wc -l</span><br></pre></td></tr></table></figure>
@@ -421,13 +421,16 @@
 <p>统计文件夹下目录的个数，包括子文件夹里的</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -lR | grep <span class="string">"^d"</span> | wc -l</span><br></pre></td></tr></table></figure>
 
-<h4 id="查看目录下所有文件大小"><a href="#查看目录下所有文件大小" class="headerlink" title="查看目录下所有文件大小"></a>查看目录下所有文件大小</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">du -d 1 -h</span><br></pre></td></tr></table></figure>
+<h1 id="查看目录下所有文件大小"><a href="#查看目录下所有文件大小" class="headerlink" title="查看目录下所有文件大小"></a>查看目录下所有文件大小</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">du -d 1 -h</span><br></pre></td></tr></table></figure>
 
 <p>命令查看当前目录下所有文件夹的大小 -d 指深度，后面加一个数值，表示统计到几级子目录。</p>
-<h2 id="修改文件创建-修改时间"><a href="#修改文件创建-修改时间" class="headerlink" title="修改文件创建/修改时间"></a>修改文件创建/修改时间</h2><h4 id="修改文件创建时间"><a href="#修改文件创建时间" class="headerlink" title="修改文件创建时间"></a>修改文件创建时间</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch -mt YYYYMMDDhhmm filename</span><br></pre></td></tr></table></figure>
+<h1 id="修改文件创建-修改时间"><a href="#修改文件创建-修改时间" class="headerlink" title="修改文件创建/修改时间"></a>修改文件创建/修改时间</h1><h2 id="修改文件创建时间"><a href="#修改文件创建时间" class="headerlink" title="修改文件创建时间"></a>修改文件创建时间</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch -mt YYYYMMDDhhmm filename</span><br></pre></td></tr></table></figure>
 
-<h4 id="修改文件更新时间"><a href="#修改文件更新时间" class="headerlink" title="修改文件更新时间"></a>修改文件更新时间</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch -t  YYYYMMDDhhmm filename</span><br></pre></td></tr></table></figure>
+<h2 id="修改文件更新时间"><a href="#修改文件更新时间" class="headerlink" title="修改文件更新时间"></a>修改文件更新时间</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch -t  YYYYMMDDhhmm filename</span><br></pre></td></tr></table></figure>
 
+
+
+<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2019/04/14/mac-commands/">https://devmgr.cn/2019/04/14/mac-commands/</a> <br><strong>版权声明</strong>：本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议。转载需注明出处。</p>
 
       
     </div>
@@ -468,8 +471,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/01/10/java-给一个任务设置超时返回/" rel="next" title="Java 给一个任务设置超时返回">
-                <i class="fa fa-chevron-left"></i> Java 给一个任务设置超时返回
+              <a href="/2019/03/06/java8-用imageio处理tiff图片/" rel="next" title="Java8 用ImageIO处理TIFF图片">
+                <i class="fa fa-chevron-left"></i> Java8 用ImageIO处理TIFF图片
               </a>
             
           </div>
@@ -478,8 +481,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/05/17/base64-java-lang-illegalargumentexception-illegal-base64-character-20/" rel="prev" title="Base64 java.lang.IllegalArgumentException: Illegal base64 character 20">
-                Base64 java.lang.IllegalArgumentException: Illegal base64 character 20 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/05/05/动态的创建接口的实例/" rel="prev" title="动态的创建接口的实例">
+                动态的创建接口的实例 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -552,7 +555,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">39</span>
+                    <span class="site-state-item-count">60</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -671,7 +674,55 @@
                     
                       
                     
-                    <span class="site-state-item-count">52</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">75</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -725,7 +776,7 @@
                   </li>
                 
                   <li class="links-of-blogroll-item">
-                    <a href="https://devmgr.cn/front-end-vue/" title="https://devmgr.cn/front-end-vue/" rel="noopener" target="_blank">前端工程化入门：VUE的实践</a>
+                    <a href="https://devmgr.cn/front-end-vue/" title="https://devmgr.cn/front-end-vue/">前端工程化入门：VUE的实践</a>
                   </li>
                 
               </ul>
@@ -750,7 +801,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#查找某个命令-文件所在的位置"><span class="nav-number">1.</span> <span class="nav-text">查找某个命令/文件所在的位置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#whereis"><span class="nav-number">1.1.</span> <span class="nav-text">whereis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#which"><span class="nav-number">1.2.</span> <span class="nav-text">which</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#locate"><span class="nav-number">1.3.</span> <span class="nav-text">locate</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#find"><span class="nav-number">1.4.</span> <span class="nav-text">find</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ls-的参数"><span class="nav-number">2.</span> <span class="nav-text">ls 的参数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#显示完整日期"><span class="nav-number">2.1.</span> <span class="nav-text">显示完整日期</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ls排序"><span class="nav-number">2.1.1.</span> <span class="nav-text">ls排序</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#统计文件个数"><span class="nav-number">3.</span> <span class="nav-text">统计文件个数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#统计某文件夹下文件的个数"><span class="nav-number">3.0.1.</span> <span class="nav-text">统计某文件夹下文件的个数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#统计某文件夹下目录的个数"><span class="nav-number">3.0.2.</span> <span class="nav-text">统计某文件夹下目录的个数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#统计文件夹下文件的个数，包括子文件夹里的"><span class="nav-number">3.0.3.</span> <span class="nav-text">统计文件夹下文件的个数，包括子文件夹里的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查看目录下所有文件大小"><span class="nav-number">3.0.4.</span> <span class="nav-text">查看目录下所有文件大小</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#修改文件创建-修改时间"><span class="nav-number">4.</span> <span class="nav-text">修改文件创建/修改时间</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#修改文件创建时间"><span class="nav-number">4.0.1.</span> <span class="nav-text">修改文件创建时间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修改文件更新时间"><span class="nav-number">4.0.2.</span> <span class="nav-text">修改文件更新时间</span></a></li></ol></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#查找某个命令-文件所在的位置"><span class="nav-number">1.</span> <span class="nav-text">查找某个命令/文件所在的位置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#whereis"><span class="nav-number">1.1.</span> <span class="nav-text">whereis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#which"><span class="nav-number">1.2.</span> <span class="nav-text">which</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#locate"><span class="nav-number">1.3.</span> <span class="nav-text">locate</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#find"><span class="nav-number">1.4.</span> <span class="nav-text">find</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ls-的参数"><span class="nav-number">2.</span> <span class="nav-text">ls 的参数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#显示完整日期"><span class="nav-number">2.1.</span> <span class="nav-text">显示完整日期</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ls排序"><span class="nav-number">2.2.</span> <span class="nav-text">ls排序</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#统计文件个数"><span class="nav-number">3.</span> <span class="nav-text">统计文件个数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#统计某文件夹下文件的个数"><span class="nav-number">3.1.</span> <span class="nav-text">统计某文件夹下文件的个数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#统计某文件夹下目录的个数"><span class="nav-number">3.2.</span> <span class="nav-text">统计某文件夹下目录的个数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#统计文件夹下文件的个数，包括子文件夹里的"><span class="nav-number">3.3.</span> <span class="nav-text">统计文件夹下文件的个数，包括子文件夹里的</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#查看目录下所有文件大小"><span class="nav-number">4.</span> <span class="nav-text">查看目录下所有文件大小</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#修改文件创建-修改时间"><span class="nav-number">5.</span> <span class="nav-text">修改文件创建/修改时间</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#修改文件创建时间"><span class="nav-number">5.1.</span> <span class="nav-text">修改文件创建时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改文件更新时间"><span class="nav-number">5.2.</span> <span class="nav-text">修改文件更新时间</span></a></li></ol></li></ol></div>
             
 
           </div>

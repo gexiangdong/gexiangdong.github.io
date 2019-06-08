@@ -100,14 +100,14 @@
 
 
   <meta name="description" content="遇到的问题在使用Spring REST时，有一个需要返回xml格式数据的方法： 123@PostMapping(value = &quot;/payment&quot;, consumes = &amp;#123;MediaType.TEXT_XML_VALUE&amp;#125;, produces = &amp;#123;MediaType.ALL_VALUE&amp;#125;)public Map&amp;lt;String, String&amp;gt;">
-<meta name="keywords" content="java,后端,spring,REST">
+<meta name="keywords" content="后端,java,spring,REST">
 <meta property="og:type" content="article">
 <meta property="og:title" content="HttpMediaTypeNotSupportedException: Content type ‘text&#x2F;xml;charset=UTF-8′ not supported">
-<meta property="og:url" content="http://gexiangdong.github.io/2018/05/06/httpmediatypenotsupportedexception-content-type-text-xml-charset-utf-8-not-supported/index.html">
+<meta property="og:url" content="https://devmgr.cn/2018/05/06/httpmediatypenotsupportedexception-content-type-text-xml-charset-utf-8-not-supported/index.html">
 <meta property="og:site_name" content="GeXiangDong">
 <meta property="og:description" content="遇到的问题在使用Spring REST时，有一个需要返回xml格式数据的方法： 123@PostMapping(value = &quot;/payment&quot;, consumes = &amp;#123;MediaType.TEXT_XML_VALUE&amp;#125;, produces = &amp;#123;MediaType.ALL_VALUE&amp;#125;)public Map&amp;lt;String, String&amp;gt;">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-05-06T14:30:00.000Z">
+<meta property="og:updated_time" content="2019-06-07T10:51:02.981Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HttpMediaTypeNotSupportedException: Content type ‘text&#x2F;xml;charset=UTF-8′ not supported">
 <meta name="twitter:description" content="遇到的问题在使用Spring REST时，有一个需要返回xml格式数据的方法： 123@PostMapping(value = &quot;/payment&quot;, consumes = &amp;#123;MediaType.TEXT_XML_VALUE&amp;#125;, produces = &amp;#123;MediaType.ALL_VALUE&amp;#125;)public Map&amp;lt;String, String&amp;gt;">
@@ -117,7 +117,7 @@
 
 
 
-  <link rel="canonical" href="http://gexiangdong.github.io/2018/05/06/httpmediatypenotsupportedexception-content-type-text-xml-charset-utf-8-not-supported/">
+  <link rel="canonical" href="https://devmgr.cn/2018/05/06/httpmediatypenotsupportedexception-content-type-text-xml-charset-utf-8-not-supported/">
 
 
 
@@ -192,7 +192,7 @@
     </div>
     
       
-        <p class="site-subtitle">精通Java、SQL、Spring的拼写，擅长Linux、Windows的开关机</p>
+        <h1 class="site-subtitle" itemprop="description">精通Java、SQL、Spring的拼写，擅长Linux、Windows的开关机</h1>
       
     
     
@@ -312,7 +312,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://gexiangdong.github.io/2018/05/06/httpmediatypenotsupportedexception-content-type-text-xml-charset-utf-8-not-supported/">
+    <link itemprop="mainEntityOfPage" href="https://devmgr.cn/2018/05/06/httpmediatypenotsupportedexception-content-type-text-xml-charset-utf-8-not-supported/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="GeXiangDong">
@@ -329,11 +329,11 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">HttpMediaTypeNotSupportedException: Content type ‘text/xml;charset=UTF-8′ not supported
+          <h2 class="post-title" itemprop="name headline">HttpMediaTypeNotSupportedException: Content type ‘text/xml;charset=UTF-8′ not supported
 
               
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
@@ -416,6 +416,7 @@ org.springframework.web.HttpMediaTypeNotSupportedException: Content type &apos;t
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebAppConfigurer</span> <span class="keyword">extends</span> <span class="title">WebMvcConfigurationSupport</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configureContentNegotiation</span><span class="params">(ContentNegotiationConfigurer configurer)</span> </span>&#123;</span><br><span class="line">        configurer.defaultContentType(MediaType.APPLICATION_JSON);</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>来修改默认的produces。</p>
+<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2018/05/06/httpmediatypenotsupportedexception-content-type-text-xml-charset-utf-8-not-supported/">https://devmgr.cn/2018/05/06/httpmediatypenotsupportedexception-content-type-text-xml-charset-utf-8-not-supported/</a> <br><strong>版权声明</strong>：本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议。转载需注明出处。</p>
 
       
     </div>
@@ -439,9 +440,9 @@ org.springframework.web.HttpMediaTypeNotSupportedException: Content type &apos;t
       
         <div class="post-tags">
           
-            <a href="/tags/java/" rel="tag"># java</a>
-          
             <a href="/tags/后端/" rel="tag"># 后端</a>
+          
+            <a href="/tags/java/" rel="tag"># java</a>
           
             <a href="/tags/spring/" rel="tag"># spring</a>
           
@@ -468,8 +469,8 @@ org.springframework.web.HttpMediaTypeNotSupportedException: Content type &apos;t
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/08/28/制作单个文件并可执行的jar/" rel="prev" title="制作单个文件并可执行的jar">
-                制作单个文件并可执行的jar <i class="fa fa-chevron-right"></i>
+              <a href="/2018/05/31/在spring-boot项目和nginx结合时获取真实ip/" rel="prev" title="在spring boot项目和nginx结合时获取真实IP">
+                在spring boot项目和nginx结合时获取真实IP <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -542,7 +543,7 @@ org.springframework.web.HttpMediaTypeNotSupportedException: Content type &apos;t
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">39</span>
+                    <span class="site-state-item-count">60</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -661,7 +662,55 @@ org.springframework.web.HttpMediaTypeNotSupportedException: Content type &apos;t
                     
                       
                     
-                    <span class="site-state-item-count">52</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">75</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -715,7 +764,7 @@ org.springframework.web.HttpMediaTypeNotSupportedException: Content type &apos;t
                   </li>
                 
                   <li class="links-of-blogroll-item">
-                    <a href="https://devmgr.cn/front-end-vue/" title="https://devmgr.cn/front-end-vue/" rel="noopener" target="_blank">前端工程化入门：VUE的实践</a>
+                    <a href="https://devmgr.cn/front-end-vue/" title="https://devmgr.cn/front-end-vue/">前端工程化入门：VUE的实践</a>
                   </li>
                 
               </ul>
