@@ -1761,7 +1761,7 @@ The temporary upload location [C:\Users\Administrator\AppData\Local\Temp\tomcat.
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://devmgr.cn/2019/05/18/spring-return-403-when-post/">
+    <link itemprop="mainEntityOfPage" href="https://devmgr.cn/2019/05/22/泛型：warning-class-t-type-safety-unchecked-cast-from-chatserverendpoint-to-t-警告的解决方法/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="GeXiangDong">
@@ -1781,7 +1781,7 @@ The temporary upload location [C:\Users\Administrator\AppData\Local\Temp\tomcat.
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/05/18/spring-return-403-when-post/" class="post-title-link" itemprop="url">SpringMVC POST 时返回403禁止访问</a>
+                <a href="/2019/05/22/泛型：warning-class-t-type-safety-unchecked-cast-from-chatserverendpoint-to-t-警告的解决方法/" class="post-title-link" itemprop="url">泛型：WARNING: Class<t>  Type safety: Unchecked cast from  ChatServerEndPoint to T 警告的解决方法</t></a>
               
             
           </h2>
@@ -1806,7 +1806,7 @@ The temporary upload location [C:\Users\Administrator\AppData\Local\Temp\tomcat.
                 
               
 
-              <time title="创建时间：2019-05-18 14:55:04" itemprop="dateCreated datePublished" datetime="2019-05-18T14:55:04+08:00">2019-05-18</time>
+              <time title="创建时间：2019-05-22 13:59:58" itemprop="dateCreated datePublished" datetime="2019-05-22T13:59:58+08:00">2019-05-22</time>
             
 
             
@@ -1842,16 +1842,14 @@ The temporary upload location [C:\Users\Administrator\AppData\Local\Temp\tomcat.
       
         
           
-            <h1 id="出现的问题及原因"><a href="#出现的问题及原因" class="headerlink" title="出现的问题及原因"></a>出现的问题及原因</h1><p>Spring boot 在 SpringMVC / REST 和Spring Security一起使用时，编写的RestController 或 Controller 中的方法，GET不出错， POST 403，这可能是CSRF保护导致的。</p>
-<h1 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h1><p>可以通过 <code>httpSecurity.csrf().disable()</code> 关闭csrf防护。</p>
-<p>但这不是推荐的做法。官方推荐的做法是增加csrf token</p>
-<p><a href="https://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#csrf-include-csrf-token" target="_blank" rel="noopener">https://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#csrf-include-csrf-token</a></p>
-<p>SpringMVC中可以在form中增加：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">”hidden”</span> <span class="attr">th:name</span>=<span class="string">”$&#123;_csrf.parameterName&#125;”</span> <span class="attr">th:value</span>=<span class="string">”$&#123;_csrf.token&#125;”/</span>&gt;</span></span><br></pre></td></tr></table></figure>
+            <p>如下代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.test.websocket;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.websocket.server.ServerEndpointConfig.Configurator;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ChatServerEndPointConfigurator</span> <span class="keyword">extends</span> <span class="title">Configurator</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> ChatServerEndPoint chatServer = <span class="keyword">new</span> ChatServerEndPoint();</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> &lt;T&gt; <span class="function">T <span class="title">getEndpointInstance</span><span class="params">(Class&lt;T&gt; endpointClass)</span></span></span><br><span class="line"><span class="function">                 <span class="keyword">throws</span> InstantiationException </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (T) chatServer;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>RESTful API需要把这2个值作为http header传递给后端。</p>
-<h1 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h1><p>CSRF是网络攻击的一种，<a href="https://study.163.com/course/courseLearn.htm?courseId=1006121037&share=2&shareId=400000000447005#/learn/video?lessonId=1053739036&courseId=1006121037" target="_blank" rel="noopener">此处有详细说明</a>。</p>
-<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2019/05/18/spring-return-403-when-post/">https://devmgr.cn/2019/05/18/spring-return-403-when-post/</a> <br><strong>版权声明</strong>：本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议。转载需注明出处。</p>
+<p>第12行会有警告  Class<t>  Type safety: Unchecked cast from  ChatServerEndPoint to T<br>修改为：</t></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(endpointClass.isAssignableFrom(chatServer.getClass()))&#123;</span><br><span class="line">    <span class="keyword">return</span> endpointClass.cast(chatServer);</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    AssertionError ae = <span class="keyword">new</span> AssertionError(<span class="string">"Cannot cast to "</span> + endpointClass.getName() + </span><br><span class="line">            <span class="string">" from "</span> + chatServer.getClass().getName());</span><br><span class="line">    log.error(<span class="string">"类型不匹配"</span>, ae);</span><br><span class="line">    <span class="keyword">throw</span> ae;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可消除警告。</p>
+<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2019/05/22/泛型：warning-class-t-type-safety-unchecked-cast-from-chatserverendpoint-to-t-警告的解决方法/">https://devmgr.cn/2019/05/22/泛型：warning-class-t-type-safety-unchecked-cast-from-chatserverendpoint-to-t-警告的解决方法/</a> <br><strong>版权声明</strong>：本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议。转载需注明出处。</p>
 
           
         
@@ -1897,7 +1895,7 @@ The temporary upload location [C:\Users\Administrator\AppData\Local\Temp\tomcat.
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1942,7 +1940,7 @@ The temporary upload location [C:\Users\Administrator\AppData\Local\Temp\tomcat.
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">60</span>
+                    <span class="site-state-item-count">62</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2107,7 +2105,11 @@ The temporary upload location [C:\Users\Administrator\AppData\Local\Temp\tomcat.
                     
                       
                     
-                    <span class="site-state-item-count">75</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">77</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

@@ -308,6 +308,302 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://devmgr.cn/2018/01/06/java8中实现类似javascript-promise的功能/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/01/06/java8中实现类似javascript-promise的功能/" class="post-title-link" itemprop="url">java8中实现类似javascript Promise的功能</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-01-06 10:40:45" itemprop="dateCreated datePublished" datetime="2018-01-06T10:40:45+08:00">2018-01-06</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>java8中提供了类似javascript Promise方式的写法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.*;</span><br><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="keyword">import</span> java.util.stream.*;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestPromise</span></span>&#123;</span><br><span class="line">     </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] argvs)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        <span class="comment">// 简单的lambda表达式的例子</span></span><br><span class="line">        List&lt;Integer&gt; list = Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>);</span><br><span class="line">        list.forEach(n -&gt; System.out.println(n));</span><br><span class="line">        System.out.println(<span class="string">"-------"</span>);</span><br><span class="line">        list.forEach(System.out::println);</span><br><span class="line">        System.out.println(<span class="string">"-------"</span>);</span><br><span class="line">  </span><br><span class="line">        <span class="comment">//下面是2个异步执行，执行完毕后使用结果的例子</span></span><br><span class="line">        String s = CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">"enter s1"</span>);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(<span class="string">"s1"</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"hello"</span>;</span><br><span class="line">        &#125;).thenCombine(CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">"enter s2"</span>);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">100</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(<span class="string">"s2"</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"world"</span>;</span><br><span class="line">        &#125;), (s1, s2) -&gt; &#123;<span class="keyword">return</span> s1 + <span class="string">" "</span> + s2;&#125; ).join();</span><br><span class="line">        System.out.println(s);</span><br><span class="line">        System.out.println(<span class="string">"-------"</span>);</span><br><span class="line"> </span><br><span class="line">        <span class="comment">// 多个方法异步执行，结果通过操纵一个共有的Map来保存，待全部执行完毕后显示结果</span></span><br><span class="line">        Map&lt;String, String&gt;  result = <span class="keyword">new</span> HashMap&lt;String, String&gt;();</span><br><span class="line">        CompletableFuture.allOf(</span><br><span class="line">            CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">                System.out.println(<span class="string">"enter s1"</span>);</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">                System.out.println(<span class="string">"s1"</span>);</span><br><span class="line">                result.put(<span class="string">"k1"</span>, <span class="string">"11111"</span>);</span><br><span class="line">                <span class="keyword">return</span> <span class="string">"11"</span>;</span><br><span class="line">            &#125;),</span><br><span class="line">            CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">                System.out.println(<span class="string">"enter s2"</span>);</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">                System.out.println(<span class="string">"s2"</span>);</span><br><span class="line">                result.put(<span class="string">"k2"</span>, <span class="string">"22222"</span>);</span><br><span class="line">                <span class="keyword">return</span> <span class="string">"22"</span>;</span><br><span class="line">            &#125;),</span><br><span class="line">            CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">                System.out.println(<span class="string">"enter s3"</span>);</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">10</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">                System.out.println(<span class="string">"s3"</span>);</span><br><span class="line">                result.put(<span class="string">"k3"</span>, <span class="string">"33333"</span>);</span><br><span class="line">                <span class="keyword">return</span> <span class="string">"33"</span>;</span><br><span class="line">            &#125;)</span><br><span class="line">        ).get();</span><br><span class="line">        <span class="comment">//.get()方法会等待allOf中所有参数方法执行完毕</span></span><br><span class="line">        System.out.println(result.get(<span class="string">"k1"</span>) + <span class="string">" "</span> + result.get(<span class="string">"k2"</span>) + <span class="string">" "</span> + result.get(<span class="string">"k3"</span>));</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">        System.out.println(<span class="string">"\r\n-------------------\r\n"</span>);</span><br><span class="line">        <span class="comment">// 改进一下第一个方法，使其更易读；</span></span><br><span class="line">        CompletableFuture&lt;Map&lt;String, Object&gt;&gt; cf1 = CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">"enter s1"</span>);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(<span class="string">"s1"</span>);</span><br><span class="line">            Map&lt;String, Object&gt; map = <span class="keyword">new</span> HashMap&lt;String, Object&gt;();</span><br><span class="line">            map.put(<span class="string">"s1"</span>, <span class="string">"11111"</span>);</span><br><span class="line">            <span class="keyword">return</span> map;</span><br><span class="line">        &#125;);</span><br><span class="line">        CompletableFuture&lt;Map&lt;String, Object&gt;&gt; cf2 = CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">"enter s2"</span>);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(<span class="string">"s2"</span>);</span><br><span class="line">            Map&lt;String, Object&gt; map = <span class="keyword">new</span> HashMap&lt;String, Object&gt;();</span><br><span class="line">            map.put(<span class="string">"s2"</span>, <span class="string">"22222"</span>);</span><br><span class="line">            <span class="keyword">return</span> map;</span><br><span class="line">        &#125;);</span><br><span class="line">        CompletableFuture&lt;Map&lt;String, Object&gt;&gt; cf3 = CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">"enter s3"</span>);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">10</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            Map&lt;String, Object&gt; map = <span class="keyword">new</span> HashMap&lt;String, Object&gt;();</span><br><span class="line">            map.put(<span class="string">"s3"</span>, <span class="string">"33333"</span>);</span><br><span class="line">            <span class="keyword">return</span> map;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="comment">// 注释掉的这2行和上一个例子相同，不处理cf1,cf2,cf3的返回值</span></span><br><span class="line">        <span class="comment">// CompletableFuture&lt;Void&gt; cf = CompletableFuture.allOf(cf1, cf2, cf3);</span></span><br><span class="line">        <span class="comment">// cf.get();</span></span><br><span class="line">        <span class="comment">// 把各个CompletableFuture的执行结果放到一起</span></span><br><span class="line"> </span><br><span class="line">        <span class="comment">// 把结果合并成一个List</span></span><br><span class="line">        <span class="comment">//List&lt;Map&lt;String, Object&gt;&gt; resultList = Stream.of(cf1, cf2, cf3).map(CompletableFuture::join).collect(Collectors.toList());</span></span><br><span class="line">        <span class="comment">//resultList.forEach(n -&gt; System.out.println("\t---" + n));</span></span><br><span class="line"> </span><br><span class="line">        <span class="comment">// 把结果合并到一个map里</span></span><br><span class="line">        Map&lt;String, Object&gt; resultMap = <span class="keyword">new</span> HashMap&lt;String, Object&gt;();</span><br><span class="line">        Stream.of(cf1, cf2, cf3).map(CompletableFuture::join).forEach(v -&gt; resultMap.putAll(v));</span><br><span class="line">        System.out.println(resultMap);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><p>CompletableFurure 可参考javadoc <a href="https://docs.oracle.com/javase/8/docs/api/index.html?java/util/concurrent/CompletableFuture.html" target="_blank" rel="noopener">https://docs.oracle.com/javase/8/docs/api/index.html?java/util/concurrent/CompletableFuture.html</a></p>
+<p>java的Lambda表达式介绍 <a href="http://blog.oneapm.com/apm-tech/226.html" target="_blank" rel="noopener">http://blog.oneapm.com/apm-tech/226.html</a></p>
+<p><a href="http://www.baeldung.com/java-completablefuture" target="_blank" rel="noopener">http://www.baeldung.com/java-completablefuture</a></p>
+<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2018/01/06/java8中实现类似javascript-promise的功能/">https://devmgr.cn/2018/01/06/java8中实现类似javascript-promise的功能/</a> <br><strong>版权声明</strong>：本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议。转载需注明出处。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://devmgr.cn/2017/12/24/两个https证书相关问题/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2017/12/24/两个https证书相关问题/" class="post-title-link" itemprop="url">两个https证书相关问题</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-12-24 10:35:03" itemprop="dateCreated datePublished" datetime="2017-12-24T10:35:03+08:00">2017-12-24</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="javax-net-ssl-SSLHandshakeException"><a href="#javax-net-ssl-SSLHandshakeException" class="headerlink" title="javax.net.ssl.SSLHandshakeException"></a>javax.net.ssl.SSLHandshakeException</h1><p>自制ssl证书，报错：javax.net.ssl.SSLHandshakeException: sun.security.validator.ValidatorException: Certificate signature algorithm disabled</p>
+<p>原因是jre里信任的CA不包含自制CA，可以用keytools加入自制ca:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -import -noprompt -trustcacerts -alias YOURALIS -file 自制CA的PEM文件 -keystore %JAVA_HOME%/jre/lib/security/cacerts -storepass changeit</span><br></pre></td></tr></table></figure>
+
+<p>changeit 是默认密码</p>
+<p>查看所有信任的CA可以用命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -list  -keystore %JAVA_HOME%/jre/lib/security/cacerts</span><br></pre></td></tr></table></figure>
+
+<h1 id="java-security-cert-CertPathValidatorException"><a href="#java-security-cert-CertPathValidatorException" class="headerlink" title="java.security.cert.CertPathValidatorException"></a>java.security.cert.CertPathValidatorException</h1><p>在高版本jdk，访问某些老网站时，可能出错：java.security.cert.CertPathValidatorException: Usage constraint TLSServer check failed: SHA1 used with certificate: CN=GeoTrust Global CA, O=GeoTrust Inc., C=US.  Usage was tls server</p>
+<p>这是由于网站使用了SHA1的签名证书，而此版本JDK已经把SHA1证书列为禁止导致，如果要打开支持，可以编辑 %JAVA_HOME%/jre/lib/security/java.security文件，找到jdk.certpath.disabledAlgorithms=这行（后面值内容可能不同）：</p>
+<pre><code>jdk.certpath.disabledAlgorithms=MD2, MD5, SHA1 jdkCA &amp;amp; usage TLSServer, \
+RSA keySize &amp;lt; 1024, DSA keySize &amp;lt; 1024, EC keySize &amp;lt; 224</code></pre><p>把里面SHA1部分删除掉改成</p>
+<pre><code>jdk.certpath.disabledAlgorithms=MD2, MD5, RSA keySize &amp;lt; 1024, \
+DSA keySize &amp;lt; 1024, EC keySize &amp;lt; 224</code></pre><p>另外jdk.tls.disabledAlgorithms 也是类似禁止某些tls算法的。</p>
+<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2017/12/24/两个https证书相关问题/">https://devmgr.cn/2017/12/24/两个https证书相关问题/</a> <br><strong>版权声明</strong>：本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议。转载需注明出处。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://devmgr.cn/2017/09/28/查询postgresql的慢sql/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1481,298 +1777,11 @@ Choose 1-4 [2]:</code></pre><p>这里没有vi，如果要使用vi，可以修改
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://devmgr.cn/2016/09/30/javascript-控制浏览器的前进后退操作/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2016/09/30/javascript-控制浏览器的前进后退操作/" class="post-title-link" itemprop="url">javascript 控制浏览器的前进后退操作</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2016-09-30 15:11:18" itemprop="dateCreated datePublished" datetime="2016-09-30T15:11:18+08:00">2016-09-30</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>在单页面应用中，为了利用浏览器的后退/前进按钮，可以通过改变地址栏为#foo 和 onhashchange 事件一起来控制。但这有个缺点：在一个树形网站结构中点来点去时，浏览器并不会按照我们需要的返回上一级，而只是返回前一个看的页面，特别是在提交表单后，点返回又到了表单页。</p>
-<p>HTML5提供了一种解决办法，可以通过window.history.pushState等方法来实现。</p>
-<p>下面是例子：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Content-Type"</span> <span class="attr">content</span>=<span class="string">"text/html; charset=utf-8"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span>  <span class="attr">content</span>=<span class="string">"width=device-width"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">    #content div&#123;text-align:center; padding-top:20px;&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">    var visitHistory = [];</span></span><br><span class="line"><span class="undefined">    var currentPage = null;</span></span><br><span class="line"><span class="undefined"> </span></span><br><span class="line"><span class="undefined">    window.onload = function() &#123;</span></span><br><span class="line"><span class="undefined">        var homePage = &#123;"id":"index", params:&#123;&#125;&#125;; //id是主要部分，不同类型页面不重复；params用于记录页面需要的参数，方面返回时重新描画页面用</span></span><br><span class="line"><span class="undefined">        window.history.pushState(visitHistory, homePage, "#");</span></span><br><span class="line"><span class="undefined">        gotoPage(homePage);</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"> </span></span><br><span class="line"><span class="undefined">    function gotoPage(page)&#123;</span></span><br><span class="line"><span class="undefined">        for(var i = 0; i &lt; visitHistory.length; i++)&#123;</span></span><br><span class="line"><span class="undefined">            if(visitHistory[i].id == page.id)&#123;</span></span><br><span class="line"><span class="undefined">                //exists, delete items after this</span></span><br><span class="line"><span class="undefined">                while(visitHistory.length &gt; i)&#123;</span></span><br><span class="line"><span class="undefined">                    visitHistory.pop();</span></span><br><span class="line"><span class="undefined">                &#125;</span></span><br><span class="line"><span class="undefined">                currentPage = null; //如果进入已存路径上页面，则当前页面不用保存了</span></span><br><span class="line"><span class="undefined">                break;</span></span><br><span class="line"><span class="undefined">            &#125;</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined"> </span></span><br><span class="line"><span class="undefined">        if(currentPage != null)&#123;</span></span><br><span class="line"><span class="undefined">            visitHistory.push(currentPage);</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">        currentPage = page;</span></span><br><span class="line"><span class="undefined"> </span></span><br><span class="line"><span class="undefined">        window.history.replaceState(visitHistory, page.id, "#");</span></span><br><span class="line"><span class="undefined">        showPage(page);</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"> </span></span><br><span class="line"><span class="undefined">    window.onpopstate = function() &#123;</span></span><br><span class="line"><span class="undefined">        if (visitHistory.length &gt; 0) &#123;</span></span><br><span class="line"><span class="undefined">            currentPage = visitHistory.pop();</span></span><br><span class="line"><span class="undefined">            window.history.pushState(visitHistory, currentPage.id, "#"); // + pg);</span></span><br><span class="line"><span class="undefined">            showPage(currentPage);</span></span><br><span class="line"><span class="undefined">        &#125; else &#123;</span></span><br><span class="line"><span class="undefined">            //No "history" - let them exit or keep them in the app.</span></span><br><span class="line"><span class="undefined">            showMessage("no history, exit or leave with no action.");</span></span><br><span class="line"><span class="undefined"> </span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"> </span></span><br><span class="line"><span class="undefined">    /**</span></span><br><span class="line"><span class="undefined">     * 这个是具体的描画页面的函数，根据需要改写</span></span><br><span class="line"><span class="undefined">     * page参数类型时JSON，例如：&#123;"id":"index", params:&#123;&#125;&#125;</span></span><br><span class="line"><span class="undefined">     */</span></span><br><span class="line"><span class="undefined">    function showPage(page)&#123;</span></span><br><span class="line"><span class="undefined">        var id = page.id;</span></span><br><span class="line"><span class="undefined">        document.getElementById("title").innerHTML = id;</span></span><br><span class="line"><span class="xml">        var pathHTML = '<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"javascript:gotoPageId(\'index\')"</span>&gt;</span>Home<span class="tag">&lt;/<span class="name">a</span>&gt;</span> &amp;gt; ';</span></span><br><span class="line"><span class="xml">        var contentHTML = '<span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"border:1px solid #999;background-color:#DDD;width:200px;height:50px;border-radius:5px;"</span> <span class="attr">onclick</span>=<span class="string">"gotoPageId(\'1\');"</span>&gt;</span>goto 1<span class="tag">&lt;/<span class="name">div</span>&gt;</span>';</span></span><br><span class="line"><span class="undefined"> </span></span><br><span class="line"><span class="undefined">        if(id == "1")&#123;</span></span><br><span class="line"><span class="xml">            pathHTML += '<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"javascript:gotoPageId(\'1\')"</span>&gt;</span>1<span class="tag">&lt;/<span class="name">a</span>&gt;</span>  ';</span></span><br><span class="line"><span class="xml">            contentHTML = '<span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"border:1px solid #999;background-color:#DDD;width:200px;height:50px;border-radius:5px;"</span> <span class="attr">onclick</span>=<span class="string">"gotoPageId(\'1.1\');"</span>&gt;</span>goto 1.1<span class="tag">&lt;/<span class="name">div</span>&gt;</span>';</span></span><br><span class="line"><span class="undefined">        &#125;else if(id == '1.1')&#123;</span></span><br><span class="line"><span class="xml">            pathHTML += '<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"javascript:gotoPageId(\'1\')"</span>&gt;</span>1<span class="tag">&lt;/<span class="name">a</span>&gt;</span> &amp;gt; ';</span></span><br><span class="line"><span class="xml">            pathHTML += '<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"javascript:gotoPageId(\'1.1\')"</span>&gt;</span>1.1<span class="tag">&lt;/<span class="name">a</span>&gt;</span>  ';</span></span><br><span class="line"><span class="xml">            contentHTML = '<span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"border:1px solid #999;background-color:#DDD;width:200px;height:50px;border-radius:5px;"</span> <span class="attr">onclick</span>=<span class="string">"gotoPageId(\'1.1.1\');"</span>&gt;</span>goto 1.1.1<span class="tag">&lt;/<span class="name">div</span>&gt;</span>';</span></span><br><span class="line"><span class="undefined">        &#125;else if(id == '1.1.1')&#123;</span></span><br><span class="line"><span class="xml">            pathHTML += '<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"javascript:gotoPageId(\'1\')"</span>&gt;</span>1<span class="tag">&lt;/<span class="name">a</span>&gt;</span> &amp;gt; ';</span></span><br><span class="line"><span class="xml">            pathHTML += '<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"javascript:gotoPageId(\'1.1\')"</span>&gt;</span>1.1<span class="tag">&lt;/<span class="name">a</span>&gt;</span> &amp;gt; ';</span></span><br><span class="line"><span class="xml">            pathHTML += '<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"javascript:gotoPageId(\'1.1.1\')"</span>&gt;</span>1.1.1<span class="tag">&lt;/<span class="name">a</span>&gt;</span>  ';</span></span><br><span class="line"><span class="undefined">            contentHTML = 'no child page.';</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined"> </span></span><br><span class="line"><span class="undefined">        document.getElementById("path").innerHTML = pathHTML;</span></span><br><span class="line"><span class="undefined">        document.getElementById("content").innerHTML = contentHTML;</span></span><br><span class="line"><span class="undefined"> </span></span><br><span class="line"><span class="undefined">        showMessage("showPage---" + id);</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"> </span></span><br><span class="line"><span class="undefined">    /**</span></span><br><span class="line"><span class="undefined">     * 这个函数是供showPage函数例子中链接用的，实际根据需要写或不写</span></span><br><span class="line"><span class="undefined">     */</span></span><br><span class="line"><span class="undefined">    function gotoPageId(id)&#123;</span></span><br><span class="line"><span class="undefined">        gotoPage(&#123;"id":id, "params":&#123;&#125;&#125;);</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">    /**</span></span><br><span class="line"><span class="undefined">     * window.history.pushState 不会触发onHashChange事件了，下面这个函数/事件无意义</span></span><br><span class="line"><span class="undefined">     */</span></span><br><span class="line"><span class="undefined">    window.onhashchange = function()&#123;</span></span><br><span class="line"><span class="undefined">        document.getElementById("addressbar").innerHTML = "hashchange:" + window.location.href;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">    /**</span></span><br><span class="line"><span class="undefined">     * 供测试用的函数</span></span><br><span class="line"><span class="undefined">     */</span></span><br><span class="line"><span class="undefined">    function showMessage(msg)&#123;</span></span><br><span class="line"><span class="xml">        document.getElementById("msg").innerHTML += "<span class="tag">&lt;<span class="name">br</span>&gt;</span>" + msg;</span></span><br><span class="line"><span class="undefined">    &#125;  </span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span> <span class="attr">id</span>=<span class="string">"title"</span> <span class="attr">style</span>=<span class="string">"text-align:center;"</span>&gt;</span>none<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"path"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"> </span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"content"</span> <span class="attr">style</span>=<span class="string">"padding:20px;"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"> </span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"msg"</span> <span class="attr">style</span>=<span class="string">"border:1px solid #333;margin:10px; min-height:300px"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"addressbar"</span> <span class="attr">style</span>=<span class="string">"border:1px solid #666"</span>&gt;</span>none<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>IOS 9以上开始支持（IOS8不支持）</p>
-<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2016/09/30/javascript-控制浏览器的前进后退操作/">https://devmgr.cn/2016/09/30/javascript-控制浏览器的前进后退操作/</a> <br><strong>版权声明</strong>：本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议。转载需注明出处。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://devmgr.cn/2016/08/19/java-util-timer无故被cancel掉的可能原因/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2016/08/19/java-util-timer无故被cancel掉的可能原因/" class="post-title-link" itemprop="url">java.util.Timer无故被cancel掉的可能原因</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2016-08-19 15:09:40" itemprop="dateCreated datePublished" datetime="2016-08-19T15:09:40+08:00">2016-08-19</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>遇到一个Timer某些情况下会自动被cancel掉，再次schedule TimerTask时会抛出java.lang.IllegalStateException: Timer already cancelled. 程序中并无timer.cancel()的调用。最后发现是TimerTask执行时发生未被捕获的异常导致，例如下段代码肯定会出问题。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestTimer</span></span>&#123;</span><br><span class="line">     </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] argvs)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        Timer timer = <span class="keyword">new</span> Timer(<span class="keyword">true</span>);</span><br><span class="line">        timer.schedule(<span class="keyword">new</span> MyTimerTask(), <span class="number">1</span>); <span class="comment">//1毫秒后执行 MyTimerTask</span></span><br><span class="line"> </span><br><span class="line">        Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">        timer.schedule(<span class="keyword">new</span> MyTimerTask(), <span class="number">1</span>); <span class="comment">//这里会抛出 java.lang.IllegalStateException: Timer already cancelled.；因为执行上一个TimerTask时异常导致Timer结束了</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyTimerTask</span> <span class="keyword">extends</span> <span class="title">TimerTask</span> </span>&#123;</span><br><span class="line">     </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">//下面这句会导致运行此TimerTask的Timer被cancel掉</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2016/08/19/java-util-timer无故被cancel掉的可能原因/">https://devmgr.cn/2016/08/19/java-util-timer无故被cancel掉的可能原因/</a> <br><strong>版权声明</strong>：本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议。转载需注明出处。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1817,7 +1826,7 @@ Choose 1-4 [2]:</code></pre><p>这里没有vi，如果要使用vi，可以修改
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">60</span>
+                    <span class="site-state-item-count">62</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1982,7 +1991,11 @@ Choose 1-4 [2]:</code></pre><p>这里没有vi，如果要使用vi，可以修改
                     
                       
                     
-                    <span class="site-state-item-count">75</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">77</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
