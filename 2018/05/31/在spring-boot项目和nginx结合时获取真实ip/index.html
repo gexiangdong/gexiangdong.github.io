@@ -395,7 +395,7 @@
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line"><span class="attr">  use-forward-headers:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  tomcat:</span></span><br><span class="line"><span class="attr">    remote-ip-header:</span> <span class="string">X-Real-IP</span></span><br><span class="line"><span class="attr">    protocol-header:</span> <span class="string">X-Forwarded-Proto</span></span><br></pre></td></tr></table></figure>
 
 <p>之后在程序中获取的IP (<code>request.getRemoteAddr()</code>) 就是真实的IP地址了。</p>
-<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2018/05/31/在spring-boot项目和nginx结合时获取真实ip/">https://devmgr.cn/2018/05/31/在spring-boot项目和nginx结合时获取真实ip/</a> <br><strong>版权声明</strong>：本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议。转载需注明出处。</p>
+<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2018/05/31/在spring-boot项目和nginx结合时获取真实ip/">https://devmgr.cn/2018/05/31/在spring-boot项目和nginx结合时获取真实ip/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
       
     </div>

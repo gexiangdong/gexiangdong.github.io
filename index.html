@@ -396,7 +396,7 @@
 <p>例如上面的配置myapp.simple下的属性都可以用@value获取到，甚至myapp.simple.countries也可以被设置到String[]类型的属性上，但是下面的myapp.complex.list设置的配置，@Value就无法把它转成一个List&lt;Map&lt;String, Object&gt;&gt;类型的属性了，而@ConfigurationProperties可以。甚至myapp.complex.nested还可以被@ConfigurationProperties付值到带有两个属性(province, city)的子类中（参照下面的@ NestedConfigurationProperty注解）</p>
 <h1 id="Value"><a href="#Value" class="headerlink" title="@Value"></a>@Value</h1><h2 id="可处理的类型"><a href="#可处理的类型" class="headerlink" title="可处理的类型"></a>可处理的类型</h2><p>只可处理String、数值等简单类型，和简单的数组类型，不能处理map、List等复杂类型</p>
 <h2 id="位置"><a href="#位置" class="headerlink" title="位置"></a>位置</h2><p>直接写在需要从配置文件读取值的成员变量上即可。<br>例如：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">XxxxService</span></span>&#123;</span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"xxx.yyy"</span>)</span><br><span class="line">    <span class="keyword">private</span> String xxxYyy;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">XxxxService</span></span>&#123;</span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;xxx.yyy&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String xxxYyy;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h2><p>只有一个字符型参数value，用于标记配置文件中的key</p>
 <table>
@@ -465,7 +465,7 @@
 
 
 
-<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2019/06/08/value-vs-configurationproperties/">https://devmgr.cn/2019/06/08/value-vs-configurationproperties/</a> <br><strong>版权声明</strong>：本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议。转载需注明出处。</p>
+<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2019/06/08/value-vs-configurationproperties/">https://devmgr.cn/2019/06/08/value-vs-configurationproperties/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
           
         
@@ -625,7 +625,7 @@
 
 
 
-<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2019/06/08/传输压缩的json/">https://devmgr.cn/2019/06/08/传输压缩的json/</a> <br><strong>版权声明</strong>：本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议。转载需注明出处。</p>
+<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2019/06/08/传输压缩的json/">https://devmgr.cn/2019/06/08/传输压缩的json/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
           
         
@@ -792,7 +792,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service tutorial start</span><br></pre></td></tr></table></figure>
 
 <p>以上内容中tutorial应该替换成自己的项目名</p>
-<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2019/06/08/把spring-boot编译的jar作为service运行/">https://devmgr.cn/2019/06/08/把spring-boot编译的jar作为service运行/</a> <br><strong>版权声明</strong>：本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议。转载需注明出处。</p>
+<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2019/06/08/把spring-boot编译的jar作为service运行/">https://devmgr.cn/2019/06/08/把spring-boot编译的jar作为service运行/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
           
         
@@ -942,7 +942,7 @@
 
 
 
-<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2019/06/06/java打印的三种方法/">https://devmgr.cn/2019/06/06/java打印的三种方法/</a> <br><strong>版权声明</strong>：本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议。转载需注明出处。</p>
+<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2019/06/06/java打印的三种方法/">https://devmgr.cn/2019/06/06/java打印的三种方法/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
           
         
@@ -1104,7 +1104,7 @@
 
 
 
-<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2019/06/06/requestmapping的produces参数/">https://devmgr.cn/2019/06/06/requestmapping的produces参数/</a> <br><strong>版权声明</strong>：本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议。转载需注明出处。</p>
+<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2019/06/06/requestmapping的produces参数/">https://devmgr.cn/2019/06/06/requestmapping的produces参数/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
           
         
@@ -1255,7 +1255,7 @@ The temporary upload location [C:\Users\Administrator\AppData\Local\Temp\tomcat.
 
 
 
-<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2019/06/06/spring-boot项目启动长时间后无法上传文件/">https://devmgr.cn/2019/06/06/spring-boot项目启动长时间后无法上传文件/</a> <br><strong>版权声明</strong>：本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议。转载需注明出处。</p>
+<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2019/06/06/spring-boot项目启动长时间后无法上传文件/">https://devmgr.cn/2019/06/06/spring-boot项目启动长时间后无法上传文件/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
           
         
@@ -1398,7 +1398,7 @@ The temporary upload location [C:\Users\Administrator\AppData\Local\Temp\tomcat.
 
 
 
-<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2019/06/05/java动态编译并通过反射执行/">https://devmgr.cn/2019/06/05/java动态编译并通过反射执行/</a> <br><strong>版权声明</strong>：本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议。转载需注明出处。</p>
+<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2019/06/05/java动态编译并通过反射执行/">https://devmgr.cn/2019/06/05/java动态编译并通过反射执行/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
           
         
@@ -1544,7 +1544,7 @@ The temporary upload location [C:\Users\Administrator\AppData\Local\Temp\tomcat.
 <h1 id="解析token"><a href="#解析token" class="headerlink" title="解析token"></a>解析token</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** 解析JWT **/</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> User <span class="title">parseJwt</span><span class="params">(String token)</span></span>&#123;</span><br><span class="line">    User = <span class="keyword">new</span> User();</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        Algorithm algorithm = Algorithm.HMAC256(<span class="string">"xxxxx"</span>); <span class="comment">// 另外一端解析时也需要这个密码</span></span><br><span class="line">        JWTVerifier verifier = JWT.require(algorithm).acceptExpiresAt(<span class="number">5</span>).build(); <span class="comment">// Reusable verifier instance</span></span><br><span class="line">        DecodedJWT jwt = verifier.verify(token);</span><br><span class="line">        String userId = jwt.getClaim(<span class="string">"user_id"</span>).asString();</span><br><span class="line">        String name = jwt.getClaim(<span class="string">"name"</span>).asString();</span><br><span class="line">        String email = jwt.getClaim(<span class="string">"email"</span>).asString();</span><br><span class="line">        user.setId(userId);</span><br><span class="line">        user.setName(name);</span><br><span class="line">        user.setEmail(email);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (JWTVerificationException | IllegalArgumentException | UnsupportedEncodingException e) &#123;</span><br><span class="line">        log.error(<span class="string">"无效的token"</span> + token, e);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">        log.error(<span class="string">"验证token异常："</span> + token, e);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> user;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>上面是用了相同的密码做的签名，也可以用RSA的公钥私钥。</p>
-<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2019/06/05/jwt-token的生成和解析/">https://devmgr.cn/2019/06/05/jwt-token的生成和解析/</a> <br><strong>版权声明</strong>：本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议。转载需注明出处。</p>
+<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2019/06/05/jwt-token的生成和解析/">https://devmgr.cn/2019/06/05/jwt-token的生成和解析/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
           
         
@@ -1704,7 +1704,7 @@ The temporary upload location [C:\Users\Administrator\AppData\Local\Temp\tomcat.
 
 
 
-<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2019/06/05/css中用svg图片做背景图/">https://devmgr.cn/2019/06/05/css中用svg图片做背景图/</a> <br><strong>版权声明</strong>：本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议。转载需注明出处。</p>
+<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2019/06/05/css中用svg图片做背景图/">https://devmgr.cn/2019/06/05/css中用svg图片做背景图/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
           
         
@@ -1851,7 +1851,7 @@ The temporary upload location [C:\Users\Administrator\AppData\Local\Temp\tomcat.
 
 <p>RESTful API需要把这2个值作为http header传递给后端。</p>
 <h1 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h1><p>CSRF是网络攻击的一种，<a href="https://study.163.com/course/courseLearn.htm?courseId=1006121037&share=2&shareId=400000000447005#/learn/video?lessonId=1053739036&courseId=1006121037" target="_blank" rel="noopener">此处有详细说明</a>。</p>
-<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2019/05/18/spring-return-403-when-post/">https://devmgr.cn/2019/05/18/spring-return-403-when-post/</a> <br><strong>版权声明</strong>：本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议。转载需注明出处。</p>
+<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2019/05/18/spring-return-403-when-post/">https://devmgr.cn/2019/05/18/spring-return-403-when-post/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
           
         

@@ -393,7 +393,7 @@
 <p>打开浏览器的网页检查器，会在主控台发现错误信息：</p>
 <pre><code>Refused to display ‘http://x.x.x.x/xx/’ in a frame because it set ‘X-Frame-Options’ to ‘DENY’.</code></pre><p>查看 Response Header 会发现 spring security 加了一个header</p>
 <pre><code>X-Frame-Options: Deny</code></pre><h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>通过在 Spring Security 中设置<br><code>httpSecurity.headers().frameOptions().disable()</code><br>禁止调这个头信息即可。</p>
-<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2018/12/27/springmvc-x-frame-options-deny/">https://devmgr.cn/2018/12/27/springmvc-x-frame-options-deny/</a> <br><strong>版权声明</strong>：本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议。转载需注明出处。</p>
+<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2018/12/27/springmvc-x-frame-options-deny/">https://devmgr.cn/2018/12/27/springmvc-x-frame-options-deny/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
       
     </div>
