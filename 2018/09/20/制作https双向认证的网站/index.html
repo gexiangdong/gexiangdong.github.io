@@ -103,7 +103,7 @@
 <meta name="keywords" content="https,ssl,client auth,nginx">
 <meta property="og:type" content="article">
 <meta property="og:title" content="制作HTTPS双向认证的网站">
-<meta property="og:url" content="https://devmgr.cn/2018/09/20/制作https双向认证的网站/index.html">
+<meta property="og:url" content="https://blog.devmgr.cn/2018/09/20/制作https双向认证的网站/index.html">
 <meta property="og:site_name" content="GeXiangDong">
 <meta property="og:description" content="使用NGINX做双向认证的网站，访问时需要客户端安装有证书才可继续访问。可用于仅限特定用户群的网站，例如企业内部的业务管理系统，可提高系统安全性，阻止未授权用户访问。 在下述方法中，客户端证书采用自制（可节约成本），服务器端证书可自制也可购买，两者不必同一个CA，建议购买（有免费的域名证书）因为自制的浏览器会出现不信任标志。 自制证书使用openssl工具，使用前需要先安装. 制作证书CA证书12">
 <meta property="og:locale" content="zh-CN">
@@ -117,7 +117,7 @@
 
 
 
-  <link rel="canonical" href="https://devmgr.cn/2018/09/20/制作https双向认证的网站/">
+  <link rel="canonical" href="https://blog.devmgr.cn/2018/09/20/制作https双向认证的网站/">
 
 
 
@@ -312,7 +312,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://devmgr.cn/2018/09/20/制作https双向认证的网站/">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/09/20/制作https双向认证的网站/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="GeXiangDong">
@@ -416,7 +416,7 @@ An optional company name []:</code></pre><h1 id="更改nginx配置"><a href="#�
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">location /webapp &#123;</span><br><span class="line">   proxy_pass http://127.0.0.1:8080;</span><br><span class="line">   proxy_set_header Host $host;</span><br><span class="line">   proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">   proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">   # 把客户端证书的主题信息作为request header (Client-Cert)传递给应用</span><br><span class="line">   proxy_set_header Client-Cert $ssl_client_s_dn;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>除了 $ssl_client_s_dn 外，NGINX还提供很多内置变量对应证书的其他部分内容，想起请参考 nginx的ngx_http_ssl_module 模块文档。使用时需要注意nginx版本是否支持对应的变量。</p>
-<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2018/09/20/制作https双向认证的网站/">https://devmgr.cn/2018/09/20/制作https双向认证的网站/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2018/09/20/制作https双向认证的网站/">https://blog.devmgr.cn/2018/09/20/制作https双向认证的网站/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
       
     </div>
@@ -772,7 +772,7 @@ An optional company name []:</code></pre><h1 id="更改nginx配置"><a href="#�
                   </li>
                 
                   <li class="links-of-blogroll-item">
-                    <a href="https://devmgr.cn/front-end-vue/" title="https://devmgr.cn/front-end-vue/">前端工程化入门：VUE的实践</a>
+                    <a href="https://devmgr.cn/front-end-vue/" title="https://devmgr.cn/front-end-vue/" rel="noopener" target="_blank">前端工程化入门：VUE的实践</a>
                   </li>
                 
               </ul>

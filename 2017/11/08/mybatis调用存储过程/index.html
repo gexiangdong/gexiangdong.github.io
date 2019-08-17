@@ -103,7 +103,7 @@
 <meta name="keywords" content="mybatis,存储过程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mybatis调用存储过程">
-<meta property="og:url" content="https://devmgr.cn/2017/11/08/mybatis调用存储过程/index.html">
+<meta property="og:url" content="https://blog.devmgr.cn/2017/11/08/mybatis调用存储过程/index.html">
 <meta property="og:site_name" content="GeXiangDong">
 <meta property="og:description" content="mybatis调用存储过程和调用普通的sql略有区别:  首先xml文件中要增加参数 `statementType=”CALLABLE” 调用存储过程的语句用大括号包含起来，并写上call关键字  例如： 123&amp;lt;select id=&quot;loginByWxOpenId&quot; resultType=&quot;cn.devmgr.exam.domain.Token&quot; statementType=&quot;CALLAB">
 <meta property="og:locale" content="zh-CN">
@@ -117,7 +117,7 @@
 
 
 
-  <link rel="canonical" href="https://devmgr.cn/2017/11/08/mybatis调用存储过程/">
+  <link rel="canonical" href="https://blog.devmgr.cn/2017/11/08/mybatis调用存储过程/">
 
 
 
@@ -312,7 +312,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://devmgr.cn/2017/11/08/mybatis调用存储过程/">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2017/11/08/mybatis调用存储过程/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="GeXiangDong">
@@ -398,7 +398,7 @@
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"loginByWxOpenId"</span> <span class="attr">resultType</span>=<span class="string">"cn.devmgr.exam.domain.Token"</span> <span class="attr">statementType</span>=<span class="string">"CALLABLE"</span>&gt;</span></span><br><span class="line">   &#123; call wxLogin(#&#123;wxOpenId&#125;, #&#123;ipAddr&#125;) &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>传递的参数还是和普通sql一样，可以直接 <code>#{}</code> 来引用参数。</p>
-<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2017/11/08/mybatis调用存储过程/">https://devmgr.cn/2017/11/08/mybatis调用存储过程/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2017/11/08/mybatis调用存储过程/">https://blog.devmgr.cn/2017/11/08/mybatis调用存储过程/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
       
     </div>
@@ -741,7 +741,7 @@
                   </li>
                 
                   <li class="links-of-blogroll-item">
-                    <a href="https://devmgr.cn/front-end-vue/" title="https://devmgr.cn/front-end-vue/">前端工程化入门：VUE的实践</a>
+                    <a href="https://devmgr.cn/front-end-vue/" title="https://devmgr.cn/front-end-vue/" rel="noopener" target="_blank">前端工程化入门：VUE的实践</a>
                   </li>
                 
               </ul>

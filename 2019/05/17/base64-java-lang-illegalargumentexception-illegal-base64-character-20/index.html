@@ -100,10 +100,10 @@
 
 
   <meta name="description" content="出现的问题JDK8 调用 java.util.Base64解码时出现异常：java.lang.IllegalArgumentException: Illegal base64 character 20 原因character 20 是空格，如果待解码的字符串没错，可能是遇到了编码标准的问题。 Base64有几个规范：  RFC4648 / RFC2045 这两个规范规定encode后的字符包括：0">
-<meta name="keywords" content="java,base64,后端">
+<meta name="keywords" content="后端,java,base64">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Base64 java.lang.IllegalArgumentException: Illegal base64 character 20">
-<meta property="og:url" content="https://devmgr.cn/2019/05/17/base64-java-lang-illegalargumentexception-illegal-base64-character-20/index.html">
+<meta property="og:url" content="https://blog.devmgr.cn/2019/05/17/base64-java-lang-illegalargumentexception-illegal-base64-character-20/index.html">
 <meta property="og:site_name" content="GeXiangDong">
 <meta property="og:description" content="出现的问题JDK8 调用 java.util.Base64解码时出现异常：java.lang.IllegalArgumentException: Illegal base64 character 20 原因character 20 是空格，如果待解码的字符串没错，可能是遇到了编码标准的问题。 Base64有几个规范：  RFC4648 / RFC2045 这两个规范规定encode后的字符包括：0">
 <meta property="og:locale" content="zh-CN">
@@ -117,7 +117,7 @@
 
 
 
-  <link rel="canonical" href="https://devmgr.cn/2019/05/17/base64-java-lang-illegalargumentexception-illegal-base64-character-20/">
+  <link rel="canonical" href="https://blog.devmgr.cn/2019/05/17/base64-java-lang-illegalargumentexception-illegal-base64-character-20/">
 
 
 
@@ -312,7 +312,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://devmgr.cn/2019/05/17/base64-java-lang-illegalargumentexception-illegal-base64-character-20/">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/05/17/base64-java-lang-illegalargumentexception-illegal-base64-character-20/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="GeXiangDong">
@@ -397,7 +397,7 @@
 </ul>
 <p>JDK8的Base64遵守的是第一个无空格符和换行符的规范，所以遇到空格或换行会抛异常。</p>
 <h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>知道了原因，解决起来就很简单了，换支持RFC1521标准的decoder解码就可以了，例如apache commons-codec。</p>
-<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2019/05/17/base64-java-lang-illegalargumentexception-illegal-base64-character-20/">https://devmgr.cn/2019/05/17/base64-java-lang-illegalargumentexception-illegal-base64-character-20/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/05/17/base64-java-lang-illegalargumentexception-illegal-base64-character-20/">https://blog.devmgr.cn/2019/05/17/base64-java-lang-illegalargumentexception-illegal-base64-character-20/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
       
     </div>
@@ -421,11 +421,11 @@
       
         <div class="post-tags">
           
+            <a href="/tags/后端/" rel="tag"># 后端</a>
+          
             <a href="/tags/java/" rel="tag"># java</a>
           
             <a href="/tags/base64/" rel="tag"># base64</a>
-          
-            <a href="/tags/后端/" rel="tag"># 后端</a>
           
         </div>
       
@@ -751,7 +751,7 @@
                   </li>
                 
                   <li class="links-of-blogroll-item">
-                    <a href="https://devmgr.cn/front-end-vue/" title="https://devmgr.cn/front-end-vue/">前端工程化入门：VUE的实践</a>
+                    <a href="https://devmgr.cn/front-end-vue/" title="https://devmgr.cn/front-end-vue/" rel="noopener" target="_blank">前端工程化入门：VUE的实践</a>
                   </li>
                 
               </ul>

@@ -103,7 +103,7 @@
 <meta name="keywords" content="java,小程序">
 <meta property="og:type" content="article">
 <meta property="og:title" content="小程序传给后端的iv只有15个byte的问题">
-<meta property="og:url" content="https://devmgr.cn/2019/03/31/小程序传给后端的iv只有15个byte的问题/index.html">
+<meta property="og:url" content="https://blog.devmgr.cn/2019/03/31/小程序传给后端的iv只有15个byte的问题/index.html">
 <meta property="og:site_name" content="GeXiangDong">
 <meta property="og:description" content="微信小程序获得iv, sessionkey 后传递给后端API，然后解密用户信息等敏感信息，有时解密时报错，说iv只有15个byte的问题(应该是16个）。 这是由于小程序段获得的iv是base64 encode之后的，其中可能含有“+”，+通过url参数直接传递，到服务端后，会被当作空格，空格base64.decode后会少一位，变成了15位。 要得到正确的iv，需要小程序传递前先转义，再传递才">
 <meta property="og:locale" content="zh-CN">
@@ -117,7 +117,7 @@
 
 
 
-  <link rel="canonical" href="https://devmgr.cn/2019/03/31/小程序传给后端的iv只有15个byte的问题/">
+  <link rel="canonical" href="https://blog.devmgr.cn/2019/03/31/小程序传给后端的iv只有15个byte的问题/">
 
 
 
@@ -312,7 +312,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://devmgr.cn/2019/03/31/小程序传给后端的iv只有15个byte的问题/">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/03/31/小程序传给后端的iv只有15个byte的问题/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="GeXiangDong">
@@ -396,7 +396,7 @@
 
 <p>encryptedData也需要类似的处理。</p>
 <p>这样才不会被认作空格，认作空格后，base64.decode会少一位。</p>
-<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2019/03/31/小程序传给后端的iv只有15个byte的问题/">https://devmgr.cn/2019/03/31/小程序传给后端的iv只有15个byte的问题/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/03/31/小程序传给后端的iv只有15个byte的问题/">https://blog.devmgr.cn/2019/03/31/小程序传给后端的iv只有15个byte的问题/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
       
     </div>
@@ -739,7 +739,7 @@
                   </li>
                 
                   <li class="links-of-blogroll-item">
-                    <a href="https://devmgr.cn/front-end-vue/" title="https://devmgr.cn/front-end-vue/">前端工程化入门：VUE的实践</a>
+                    <a href="https://devmgr.cn/front-end-vue/" title="https://devmgr.cn/front-end-vue/" rel="noopener" target="_blank">前端工程化入门：VUE的实践</a>
                   </li>
                 
               </ul>

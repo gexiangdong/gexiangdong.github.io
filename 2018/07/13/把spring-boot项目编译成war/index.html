@@ -100,10 +100,10 @@
 
 
   <meta name="description" content="修改启动类改成继承org.springframework.boot.web.servlet.support.SpringBootServletInitializer, 例如： 12345678910111213package cn.devmgr.tutorial;import org.springframework.boot.SpringApplication;import org.springf">
-<meta name="keywords" content="java,后端,spring boot">
+<meta name="keywords" content="后端,spring boot,java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="把spring boot项目编译成war">
-<meta property="og:url" content="https://devmgr.cn/2018/07/13/把spring-boot项目编译成war/index.html">
+<meta property="og:url" content="https://blog.devmgr.cn/2018/07/13/把spring-boot项目编译成war/index.html">
 <meta property="og:site_name" content="GeXiangDong">
 <meta property="og:description" content="修改启动类改成继承org.springframework.boot.web.servlet.support.SpringBootServletInitializer, 例如： 12345678910111213package cn.devmgr.tutorial;import org.springframework.boot.SpringApplication;import org.springf">
 <meta property="og:locale" content="zh-CN">
@@ -117,7 +117,7 @@
 
 
 
-  <link rel="canonical" href="https://devmgr.cn/2018/07/13/把spring-boot项目编译成war/">
+  <link rel="canonical" href="https://blog.devmgr.cn/2018/07/13/把spring-boot项目编译成war/">
 
 
 
@@ -312,7 +312,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://devmgr.cn/2018/07/13/把spring-boot项目编译成war/">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/07/13/把spring-boot项目编译成war/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="GeXiangDong">
@@ -397,7 +397,7 @@
 <h3 id="改依赖"><a href="#改依赖" class="headerlink" title="改依赖"></a>改依赖</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-rest<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">           <span class="comment">&lt;!-- 排除掉内嵌的tomcat，为了减少war体积，也为了避免和tomcat服务器冲突 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-tomcat<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 去掉了内嵌的tomcat后，需要增加servlet-api，否则编译会出错了 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.servlet<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>javax.servlet-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>provided<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><p>spring boot 2.0项目需要在<strong>tomcat 8.5</strong>以上版本环境下运行</p>
-<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2018/07/13/把spring-boot项目编译成war/">https://devmgr.cn/2018/07/13/把spring-boot项目编译成war/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2018/07/13/把spring-boot项目编译成war/">https://blog.devmgr.cn/2018/07/13/把spring-boot项目编译成war/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
       
     </div>
@@ -421,11 +421,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/java/" rel="tag"># java</a>
-          
             <a href="/tags/后端/" rel="tag"># 后端</a>
           
             <a href="/tags/spring-boot/" rel="tag"># spring boot</a>
+          
+            <a href="/tags/java/" rel="tag"># java</a>
           
         </div>
       
@@ -751,7 +751,7 @@
                   </li>
                 
                   <li class="links-of-blogroll-item">
-                    <a href="https://devmgr.cn/front-end-vue/" title="https://devmgr.cn/front-end-vue/">前端工程化入门：VUE的实践</a>
+                    <a href="https://devmgr.cn/front-end-vue/" title="https://devmgr.cn/front-end-vue/" rel="noopener" target="_blank">前端工程化入门：VUE的实践</a>
                   </li>
                 
               </ul>
