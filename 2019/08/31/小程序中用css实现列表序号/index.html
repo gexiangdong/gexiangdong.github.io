@@ -107,7 +107,7 @@
 <meta property="og:site_name" content="GeXiangDong">
 <meta property="og:description" content="小程序的 WXML 语言中无 LI OL UL 等标签，只有 VIEW TEXT 等，要实现HTML中的 LI 功能，可以通过CSS来实现， 这个办法在 HTML 中也可行。 代码如下： 1234567&amp;lt;view class=&quot;rulelist&quot;&amp;gt;  &amp;lt;view class=&quot;ruleitem&quot;&amp;gt;对战需要2个人参与&amp;lt;/view&amp;gt;  &amp;lt;view class=">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-31T02:25:01.018Z">
+<meta property="og:updated_time" content="2019-09-03T06:54:32.843Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="小程序中用CSS实现列表序号">
 <meta name="twitter:description" content="小程序的 WXML 语言中无 LI OL UL 等标签，只有 VIEW TEXT 等，要实现HTML中的 LI 功能，可以通过CSS来实现， 这个办法在 HTML 中也可行。 代码如下： 1234567&amp;lt;view class=&quot;rulelist&quot;&amp;gt;  &amp;lt;view class=&quot;ruleitem&quot;&amp;gt;对战需要2个人参与&amp;lt;/view&amp;gt;  &amp;lt;view class=">
@@ -395,7 +395,7 @@
 
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.rulelist</span>&#123;<span class="attribute">counter-reset</span>: ord; <span class="attribute">padding-left</span>:<span class="number">20px</span>; &#125;</span><br><span class="line"><span class="selector-class">.ruleitem</span>&#123;<span class="attribute">padding</span>:<span class="number">2px</span> <span class="number">0</span>; <span class="attribute">font-size</span>:<span class="number">14px</span>; <span class="attribute">line-height</span>: <span class="number">18px</span>;&#125;</span><br><span class="line"><span class="selector-class">.ruleitem</span><span class="selector-pseudo">:before</span>&#123;<span class="attribute">content</span>: <span class="built_in">counter</span>(ord) <span class="string">"."</span>; <span class="attribute">counter-increment</span>: ord; <span class="attribute">margin-left</span>: -<span class="number">20px</span>; <span class="attribute">display</span>:inline-block; <span class="attribute">width</span>:<span class="number">20px</span>;&#125;</span><br></pre></td></tr></table></figure>
 
-<p>counter-rest 这个属性还可修改序号的起始值、增长布长等。</p>
+<p>counter-rest 这个属性还可修改序号的起始值、增长步长等。</p>
 <p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/08/31/小程序中用css实现列表序号/">https://blog.devmgr.cn/2019/08/31/小程序中用css实现列表序号/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
       
