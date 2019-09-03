@@ -107,7 +107,7 @@
 <meta property="og:site_name" content="GeXiangDong">
 <meta property="og:description" content="今天用小程序连接 spring websocket服务器，小程序端一直报403错误。 VM1513 asdebug.js:1 WebSocket connection to &amp;apos;ws://localhost:8080/socket/&amp;apos; failed: Error during WebSocket handshake: Unexpected response code: 403检查">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-29T08:49:46.361Z">
+<meta property="og:updated_time" content="2019-08-29T09:52:49.719Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="客户端连接spring websocket 返回403错误">
 <meta name="twitter:description" content="今天用小程序连接 spring websocket服务器，小程序端一直报403错误。 VM1513 asdebug.js:1 WebSocket connection to &amp;apos;ws://localhost:8080/socket/&amp;apos; failed: Error during WebSocket handshake: Unexpected response code: 403检查">
@@ -392,7 +392,7 @@
         <p>今天用小程序连接 spring websocket服务器，小程序端一直报403错误。</p>
 <pre><code>VM1513 asdebug.js:1 WebSocket connection to &apos;ws://localhost:8080/socket/&apos; failed: Error during WebSocket handshake: Unexpected response code: 403</code></pre><p>检查后端spring websecurity授权，没有问题，后来发现是被websocket默认给禁止了非同源访问。</p>
 <p>修改 websocket 的配置类，增加了 <code>.setAllowedOrigins(&quot;*&quot;)</code>，修改后如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebsocketConfig</span> <span class="keyword">implements</span> <span class="title">WebSocketMessageBrokerConfigurer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//其他部分略去</span></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerStompEndpoints</span><span class="params">(StompEndpointRegistry registry)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//客户端调用的URL；</span></span><br><span class="line">        registry.addEndpoint(<span class="string">"/socket"</span>).setAllowedOrigins(<span class="string">"*"</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebsocketConfig</span> <span class="keyword">implements</span> <span class="title">WebSocketMessageBrokerConfigurer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//其他部分略去</span></span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerStompEndpoints</span><span class="params">(StompEndpointRegistry registry)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//客户端调用的URL；</span></span><br><span class="line">        registry.addEndpoint(<span class="string">"/socket"</span>).setAllowedOrigins(<span class="string">"*"</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
 <p>改完后重启，小程序websocket就可以连接了。</p>
 <p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/08/29/客户端连接spring-websocket-返回403错误/">https://blog.devmgr.cn/2019/08/29/客户端连接spring-websocket-返回403错误/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
@@ -443,6 +443,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/31/小程序中用css实现列表序号/" rel="prev" title="小程序中用CSS实现列表序号">
+                小程序中用CSS实现列表序号 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -505,7 +509,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">66</span>
+                    <span class="site-state-item-count">68</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -682,7 +686,15 @@
                     
                       
                     
-                    <span class="site-state-item-count">81</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

@@ -308,6 +308,301 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/09/03/小程序中使用stomp-over-websocket/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/09/03/小程序中使用stomp-over-websocket/" class="post-title-link" itemprop="url">小程序中使用STOMP over Websocket</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-09-03 13:27:57" itemprop="dateCreated datePublished" datetime="2019-09-03T13:27:57+08:00">2019-09-03</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>小程序提供了 websocket 功能，STOMP 是在websocket之上的一个通讯协议， 使用起来比较简单容易。特别是后段的 spring boot 等支持STOMP over Websocket很简单。</p>
+<p>可以通过在小程序段按照以下步骤加入 STOMP， </p>
+<h2 id="下载stomp-js-并加入到小程序中"><a href="#下载stomp-js-并加入到小程序中" class="headerlink" title="下载stomp.js 并加入到小程序中"></a>下载stomp.js 并加入到小程序中</h2><p>可以从<a href="https://stomp-js.github.io/stomp-websocket/codo/extra/docs-src/Usage.md.html#" target="_blank" rel="noopener">https://stomp-js.github.io/stomp-websocket/codo/extra/docs-src/Usage.md.html#</a>地址下载最新的stomp.js， 这是官方地址，也有stomp.js的文档可供参考。</p>
+<p>下载到stomp.js后，放入小程序的 /utils/ 目录下（也可以是其他目录）。</p>
+<h2 id="修改app-js，并包装websocket-stomp"><a href="#修改app-js，并包装websocket-stomp" class="headerlink" title="修改app.js，并包装websocket/stomp"></a>修改app.js，并包装websocket/stomp</h2><p>javascript大部分方法都是异步，每个方法调用后，都需要在成功的回调函数里进行下一个，例如连接成功的回调函数里，才能发送/订阅stomp消息，否则就出错了，每个页面都这样写就比较麻烦了，因此我推荐在 app.js 里写两个公共函数，分别做发送和订阅功能，函数内处理连接的问题。代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> BASEURL = <span class="string">'http://localhost:8070/'</span></span><br><span class="line"><span class="keyword">const</span> SOCKETURL = <span class="string">'ws://localhost:8070/socket'</span></span><br><span class="line"></span><br><span class="line">App(&#123;</span><br><span class="line">  _websocket:&#123;</span><br><span class="line">    client: <span class="literal">null</span>,</span><br><span class="line">    messagesQueue:[],</span><br><span class="line">    subscriptionQueue:[]</span><br><span class="line">  &#125;,</span><br><span class="line">  </span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 发送STOMP消息的函数，供外部使用, 调用方式</span></span><br><span class="line"><span class="comment">   *  getApp().sendStomp('/app/something', message, header)</span></span><br><span class="line"><span class="comment">   *  message 是Object格式，此方法会转成JSON string</span></span><br><span class="line"><span class="comment">   *  header 可选，通常不需要</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  sendStomp: <span class="function"><span class="keyword">function</span>(<span class="params">dest, msg, header</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>._websocket.client)&#123;</span><br><span class="line">      <span class="comment">// 连接已经建立起来了，直接发送</span></span><br><span class="line">      <span class="keyword">this</span>._websocket.client.send(dest, header, <span class="built_in">JSON</span>.stringify(msg))</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">      <span class="comment">// 连接尚未建立，加入到消息队列，待连接成功建立后，自动发送</span></span><br><span class="line">      <span class="keyword">this</span>._websocket.messagesQueue.push(&#123;</span><br><span class="line">        destination: dest,</span><br><span class="line">        header: header,</span><br><span class="line">        body: <span class="built_in">JSON</span>.stringify(msg)</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  </span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 订阅STOMP消息，供外部使用, 调用方式：</span></span><br><span class="line"><span class="comment">   *  getApp().subscribeStomp('/topic/news', function()&#123;....收到消息后的回调函数...&#125;)</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  subscribeStomp: <span class="function"><span class="keyword">function</span> (<span class="params">dest, callback</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>._websocket.client) &#123;</span><br><span class="line">      <span class="comment">// 连接已经建立，直接订阅</span></span><br><span class="line">      <span class="keyword">this</span>._websocket.client.subscribe(dest, callback)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// 连接尚未建立，加入到订阅队列，待连接成功建立后，一起订阅</span></span><br><span class="line">      <span class="keyword">this</span>._websocket.subscriptionQueue.push(&#123;</span><br><span class="line">        destination: dest,</span><br><span class="line">        callback: callback</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  </span><br><span class="line">  _sendSocketMessage: <span class="function"><span class="keyword">function</span>(<span class="params">msg</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'send msg:'</span>, msg);</span><br><span class="line">    wx.sendSocketMessage(&#123;</span><br><span class="line">      data: msg</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 连接weboscket，在onLunch里会调用，如果不是整个小程序都需要连接，也可在某个页面内调用</span></span><br><span class="line"><span class="comment">   * 此方法会首先判断当前是否已经获取到了token，如果没token，会先获取token后连接</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  connectWebsocket: <span class="function"><span class="keyword">function</span>(<span class="params">param</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.globalData.token) &#123;</span><br><span class="line">      <span class="keyword">this</span>.connectWebsocketWithToken(param)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">//login</span></span><br><span class="line">      <span class="keyword">let</span> that = <span class="keyword">this</span></span><br><span class="line">      <span class="keyword">this</span>._login(&#123; <span class="attr">tokenGot</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; that.connectWebsocketWithToken(param) &#125; &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// 获取token后，连接websocket</span></span><br><span class="line">  connectWebsocketWithToken: <span class="function"><span class="keyword">function</span>(<span class="params">param</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> that = <span class="keyword">this</span></span><br><span class="line">    <span class="keyword">var</span> ws = &#123;</span><br><span class="line">      send: <span class="keyword">this</span>._sendSocketMessage,</span><br><span class="line">      onopen: <span class="literal">null</span>,</span><br><span class="line">      onmessage: <span class="literal">null</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    wx.connectSocket(&#123;</span><br><span class="line">      url: SOCKETURL,</span><br><span class="line">      header:&#123;</span><br><span class="line">        <span class="string">"Authorization"</span>: <span class="string">"Bearer "</span> + that.globalData.token</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    wx.onSocketOpen(<span class="function"><span class="keyword">function</span> (<span class="params">res</span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'websocket连接成功'</span>)</span><br><span class="line">      ws.onopen &amp;&amp; ws.onopen()</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    wx.onSocketMessage(<span class="function"><span class="keyword">function</span> (<span class="params">res</span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'onSocketMessage事件:'</span>, res)</span><br><span class="line">      ws.onmessage &amp;&amp; ws.onmessage(res)</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 这里用到了stomp.js的路径</span></span><br><span class="line">    <span class="keyword">var</span> Stomp = <span class="built_in">require</span>(<span class="string">'./utils/stomp.js'</span>).Stomp;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> client = Stomp.over(ws);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> headers = &#123;&#125;</span><br><span class="line">    <span class="keyword">var</span> connectCallback = <span class="function"><span class="keyword">function</span> (<span class="params">frame</span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'STOMP client connect successed'</span>, frame)</span><br><span class="line"></span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; that._websocket.subscriptionQueue.length; i++) &#123;</span><br><span class="line">        <span class="keyword">var</span> subs = that._websocket.subscriptionQueue[i]</span><br><span class="line">        client.subscribe(subs.destination, subs.callback)</span><br><span class="line">      &#125;</span><br><span class="line">      that._websocket.subscriptionQueue = []</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; that._websocket.messagesQueue.length; i++) &#123;</span><br><span class="line">        <span class="keyword">var</span> msg = that._websocket.messagesQueue[i]</span><br><span class="line">        client.send(msg.destination, msg.header, msg.body)</span><br><span class="line">      &#125;</span><br><span class="line">      that._websocket.messagesQueue = []</span><br><span class="line">      that._websocket.client = client</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (param &amp;&amp; param.success)&#123;</span><br><span class="line">        <span class="comment">//调用 回调函数</span></span><br><span class="line">        param.success()</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> errorCallback = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'STOMP connect error callback '</span>, e)</span><br><span class="line">    &#125;</span><br><span class="line">    client.heartbeat.outgoing = <span class="number">20000</span>; <span class="comment">// client will send heartbeats every 20000ms</span></span><br><span class="line">    client.heartbeat.incoming = <span class="number">20000</span>; <span class="comment">// 0 meant disable</span></span><br><span class="line">    client.reconnect_delay = <span class="number">5000</span></span><br><span class="line">    client.connect(headers, connectCallback, errorCallback)</span><br><span class="line">    </span><br><span class="line">  &#125;,</span><br><span class="line">  </span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * onLaunch 方法会在小程序启动时调用</span></span><br><span class="line"><span class="comment">   **/</span></span><br><span class="line">  onLaunch: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">//连接webosocket</span></span><br><span class="line">    <span class="keyword">this</span>.connectWebsocket()</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  _login: <span class="function"><span class="keyword">function</span> (<span class="params">param</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> that = <span class="keyword">this</span></span><br><span class="line">    wx.login(&#123;</span><br><span class="line">      success(res) &#123;</span><br><span class="line">        <span class="keyword">if</span> (res.code) &#123;</span><br><span class="line">          <span class="comment">//发起网络请求  </span></span><br><span class="line">          wx.request(&#123;</span><br><span class="line">            url: BASEURL + <span class="string">'/auth/login'</span>,</span><br><span class="line">            method: <span class="string">'POST'</span>,</span><br><span class="line">            data: &#123;</span><br><span class="line">              code: res.code</span><br><span class="line">            &#125;,</span><br><span class="line">            success: <span class="function"><span class="keyword">function</span> (<span class="params">res</span>) </span>&#123;</span><br><span class="line">              <span class="built_in">console</span>.log(<span class="string">"after post login data to server"</span>, res.data);</span><br><span class="line">              that.globalData.token = res.data.token;</span><br><span class="line">              <span class="keyword">if</span> (param &amp;&amp; param.tokenGot) &#123;</span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">"after set token"</span>)</span><br><span class="line">                param.tokenGot(res.data.token)</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="built_in">console</span>.log(<span class="string">'登录失败！'</span> + res.errMsg)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line">  globalData: &#123;</span><br><span class="line">    token: <span class="literal">null</span>  </span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>网络上有些文章会在调用stomp时，设置两个方法，代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Stomp.setInterval = function () &#123; ... &#125;</span><br><span class="line">Stomp.clearInterval = function () &#123; ... &#125;</span><br></pre></td></tr></table></figure>
+
+<p>这是因为他们使用的是旧版本的Stomp.js， 从官方网站下载的 stomp.js 不再需要这些代码。</p>
+<h2 id="后端"><a href="#后端" class="headerlink" title="后端"></a>后端</h2><p>如果用spring boot的websocket，需要注意默认spring 禁止了非同源的访问，需要禁止掉，否则小程序端会抱403错误，无法连接。</p>
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/09/03/小程序中使用stomp-over-websocket/">https://blog.devmgr.cn/2019/09/03/小程序中使用stomp-over-websocket/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/08/31/小程序中用css实现列表序号/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/08/31/小程序中用css实现列表序号/" class="post-title-link" itemprop="url">小程序中用CSS实现列表序号</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-31 09:38:56" itemprop="dateCreated datePublished" datetime="2019-08-31T09:38:56+08:00">2019-08-31</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>小程序的 WXML 语言中无 LI OL UL 等标签，只有 VIEW TEXT 等，要实现HTML中的 LI 功能，可以通过CSS来实现， 这个办法在 HTML 中也可行。</p>
+<p>代码如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"rulelist"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"ruleitem"</span>&gt;</span>对战需要2个人参与<span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"ruleitem"</span>&gt;</span>同一题目两人抢答，先提交正确答案者得分<span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"ruleitem"</span>&gt;</span>正确答案得3分，错误答案一次扣1分<span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"ruleitem"</span>&gt;</span>20秒内两个选手均未提供正确答案，自动下一题<span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"ruleitem"</span>&gt;</span>得分先超过30分者获胜<span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.rulelist</span>&#123;<span class="attribute">counter-reset</span>: ord; <span class="attribute">padding-left</span>:<span class="number">20px</span>; &#125;</span><br><span class="line"><span class="selector-class">.ruleitem</span>&#123;<span class="attribute">padding</span>:<span class="number">2px</span> <span class="number">0</span>; <span class="attribute">font-size</span>:<span class="number">14px</span>; <span class="attribute">line-height</span>: <span class="number">18px</span>;&#125;</span><br><span class="line"><span class="selector-class">.ruleitem</span><span class="selector-pseudo">:before</span>&#123;<span class="attribute">content</span>: <span class="built_in">counter</span>(ord) <span class="string">"."</span>; <span class="attribute">counter-increment</span>: ord; <span class="attribute">margin-left</span>: -<span class="number">20px</span>; <span class="attribute">display</span>:inline-block; <span class="attribute">width</span>:<span class="number">20px</span>;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>counter-rest 这个属性还可修改序号的起始值、增长布长等。</p>
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/08/31/小程序中用css实现列表序号/">https://blog.devmgr.cn/2019/08/31/小程序中用css实现列表序号/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/08/29/客户端连接spring-websocket-返回403错误/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -392,7 +687,7 @@
             <p>今天用小程序连接 spring websocket服务器，小程序端一直报403错误。</p>
 <pre><code>VM1513 asdebug.js:1 WebSocket connection to &apos;ws://localhost:8080/socket/&apos; failed: Error during WebSocket handshake: Unexpected response code: 403</code></pre><p>检查后端spring websecurity授权，没有问题，后来发现是被websocket默认给禁止了非同源访问。</p>
 <p>修改 websocket 的配置类，增加了 <code>.setAllowedOrigins(&quot;*&quot;)</code>，修改后如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebsocketConfig</span> <span class="keyword">implements</span> <span class="title">WebSocketMessageBrokerConfigurer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//其他部分略去</span></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerStompEndpoints</span><span class="params">(StompEndpointRegistry registry)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//客户端调用的URL；</span></span><br><span class="line">        registry.addEndpoint(<span class="string">"/socket"</span>).setAllowedOrigins(<span class="string">"*"</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebsocketConfig</span> <span class="keyword">implements</span> <span class="title">WebSocketMessageBrokerConfigurer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//其他部分略去</span></span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerStompEndpoints</span><span class="params">(StompEndpointRegistry registry)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//客户端调用的URL；</span></span><br><span class="line">        registry.addEndpoint(<span class="string">"/socket"</span>).setAllowedOrigins(<span class="string">"*"</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
 <p>改完后重启，小程序websocket就可以连接了。</p>
 <p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/08/29/客户端连接spring-websocket-返回403错误/">https://blog.devmgr.cn/2019/08/29/客户端连接spring-websocket-返回403错误/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
@@ -1668,295 +1963,6 @@ The temporary upload location [C:\Users\Administrator\AppData\Local\Temp\tomcat.
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/06/05/java动态编译并通过反射执行/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/06/05/java动态编译并通过反射执行/" class="post-title-link" itemprop="url">Java动态编译并通过反射执行</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-06-05 20:53:23" itemprop="dateCreated datePublished" datetime="2019-06-05T20:53:23+08:00">2019-06-05</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Java 动态编译源码，并通过反射执行编译后的代码的例子。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">import</span> java.net.URI;</span><br><span class="line"><span class="keyword">import</span> java.net.URL;</span><br><span class="line"><span class="keyword">import</span> java.net.URLClassLoader;</span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.tools.JavaCompiler;</span><br><span class="line"><span class="keyword">import</span> javax.tools.JavaFileObject;</span><br><span class="line"><span class="keyword">import</span> javax.tools.SimpleJavaFileObject;</span><br><span class="line"><span class="keyword">import</span> javax.tools.ToolProvider;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DynamicCompiler</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 动态编译传入的类源码并返回编译好的类</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Class <span class="title">compile</span><span class="params">(String sourceCode)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        File distDir = <span class="keyword">new</span> File(<span class="string">"target"</span>);</span><br><span class="line">        <span class="keyword">if</span> (!distDir.exists()) &#123;</span><br><span class="line">            distDir.mkdirs();</span><br><span class="line">        &#125;</span><br><span class="line">        JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();</span><br><span class="line">        String className = getFullClassNameFromCode(sourceCode);</span><br><span class="line">        JavaFileObject javaFileObject = <span class="keyword">new</span> CodeJavaFileObject(className, sourceCode);</span><br><span class="line">        JavaCompiler.CompilationTask task = compiler.getTask(<span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>,</span><br><span class="line">                Arrays.asList(<span class="string">"-d"</span>, distDir.getAbsolutePath()), <span class="keyword">null</span>,</span><br><span class="line">                Arrays.asList(javaFileObject));</span><br><span class="line">        <span class="keyword">boolean</span> compileSuccess = task.call();</span><br><span class="line">        <span class="keyword">if</span> (!compileSuccess) &#123;</span><br><span class="line">            System.out.println(<span class="string">"compile failed"</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">//动态执行 (反射执行)</span></span><br><span class="line">            System.out.println(<span class="string">"compile successed "</span> + distDir.getAbsolutePath());</span><br><span class="line">            <span class="comment">//URL 需要以 file:// 开始； 如果是目录需要以 / 结束；也可以是jar</span></span><br><span class="line">            URL[] urls = <span class="keyword">new</span> URL[] &#123;<span class="keyword">new</span> URL(<span class="string">"file://"</span> + distDir.getAbsolutePath() + <span class="string">"/"</span>)&#125;;</span><br><span class="line">            URLClassLoader classLoader = <span class="keyword">new</span> URLClassLoader(urls);</span><br><span class="line">            Class dynamicClass = classLoader.loadClass(className);</span><br><span class="line">            <span class="keyword">return</span> dynamicClass;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">CodeJavaFileObject</span> <span class="keyword">extends</span> <span class="title">SimpleJavaFileObject</span></span>&#123;</span><br><span class="line">        <span class="keyword">private</span> String code;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">CodeJavaFileObject</span><span class="params">(String className, String code)</span></span>&#123;</span><br><span class="line">            <span class="keyword">super</span>(URI.create(className.replaceAll(<span class="string">"\\."</span>, <span class="string">"/"</span>) + Kind.SOURCE.extension), Kind.SOURCE);</span><br><span class="line">            <span class="keyword">this</span>.code = code;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> CharSequence <span class="title">getCharContent</span><span class="params">(<span class="keyword">boolean</span> ignoreEncodingErrors)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> code;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> String <span class="title">getFullClassNameFromCode</span><span class="params">(String code)</span></span>&#123;</span><br><span class="line">        String t = code.substring(<span class="number">0</span>, code.indexOf(<span class="string">'&#123;'</span>));</span><br><span class="line">        String s = t.replaceAll(<span class="string">"[\r\n\t]"</span>, <span class="string">" "</span>).trim();</span><br><span class="line">        String[] ary = s.split(<span class="string">"[;]"</span>);</span><br><span class="line">        String packageName = <span class="keyword">null</span>;</span><br><span class="line">        String className = getLastPart((ary[ary.length - <span class="number">1</span>]));</span><br><span class="line">        <span class="keyword">if</span>(ary[<span class="number">0</span>].startsWith(<span class="string">"package "</span>))&#123;</span><br><span class="line">            packageName = getLastPart(ary[<span class="number">0</span>]);</span><br><span class="line">            <span class="keyword">return</span> packageName + <span class="string">"."</span> + className;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> className;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> String <span class="title">getLastPart</span><span class="params">(String s)</span></span>&#123;</span><br><span class="line">        String[] ary = s.trim().split(<span class="string">" "</span>);</span><br><span class="line">        <span class="keyword">return</span> ary[ary.length - <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] argvs)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        StringBuffer buf = <span class="keyword">new</span> StringBuffer();</span><br><span class="line">        buf.append(<span class="string">"package a.b.c;\r\npublic class ANumber&#123;"</span>)</span><br><span class="line">                .append(<span class="string">"public int getNumber() &#123;"</span>)</span><br><span class="line">                .append(<span class="string">"System.out.println(\"Hello World in getNumber()!\"); return 999;"</span>)</span><br><span class="line">                .append(<span class="string">"&#125;"</span>)</span><br><span class="line">                .append(<span class="string">"&#125;"</span>);</span><br><span class="line"></span><br><span class="line">        DynamicCompiler dc = <span class="keyword">new</span> DynamicCompiler();</span><br><span class="line">        Class cls = dc.compile(buf.toString());</span><br><span class="line">        System.out.println(cls.getName());</span><br><span class="line">        Object obj = cls.getDeclaredConstructor().newInstance();</span><br><span class="line">        Method method = cls.getDeclaredMethod(<span class="string">"getNumber"</span>);</span><br><span class="line">        Object r = method.invoke(obj);</span><br><span class="line">        System.out.println(<span class="string">"result is "</span> + r);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/06/05/java动态编译并通过反射执行/">https://blog.devmgr.cn/2019/06/05/java动态编译并通过反射执行/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/06/05/jwt-token的生成和解析/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/06/05/jwt-token的生成和解析/" class="post-title-link" itemprop="url">JWT token的生成和解析</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-06-05 19:46:51" itemprop="dateCreated datePublished" datetime="2019-06-05T19:46:51+08:00">2019-06-05</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="使用java-jwt"><a href="#使用java-jwt" class="headerlink" title="使用java-jwt"></a>使用java-jwt</h1><p>创建和解析JWT，可以使用如下依赖：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.auth0<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>java-jwt<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.3.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="创建token"><a href="#创建token" class="headerlink" title="创建token"></a>创建token</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** 生成JWT **/</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">createToken</span><span class="params">(String name, String userId, String email)</span> <span class="keyword">throws</span> IllegalArgumentException, UnsupportedEncodingException</span>&#123;</span><br><span class="line">    JWTCreator.Builder builder = JWT.create();</span><br><span class="line">    Algorithm algorithm = Algorithm.HMAC256(<span class="string">"xxxxx"</span>); <span class="comment">//另外一端解析时也需要这个密码</span></span><br><span class="line">    String token = builder.withClaim(<span class="string">"name"</span>, name.withClaim(<span class="string">"user_id"</span>, userId).withClaim(<span class="string">"email"</span>, email)</span><br><span class="line">                    .withExpiresAt(<span class="keyword">new</span> Date(<span class="keyword">new</span> Date().getTime() + <span class="number">24</span>*<span class="number">3600</span>*<span class="number">1000</span>)).sign(algorithm);</span><br><span class="line">    <span class="keyword">return</span> token;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="解析token"><a href="#解析token" class="headerlink" title="解析token"></a>解析token</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** 解析JWT **/</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> User <span class="title">parseJwt</span><span class="params">(String token)</span></span>&#123;</span><br><span class="line">    User = <span class="keyword">new</span> User();</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        Algorithm algorithm = Algorithm.HMAC256(<span class="string">"xxxxx"</span>); <span class="comment">// 另外一端解析时也需要这个密码</span></span><br><span class="line">        JWTVerifier verifier = JWT.require(algorithm).acceptExpiresAt(<span class="number">5</span>).build(); <span class="comment">// Reusable verifier instance</span></span><br><span class="line">        DecodedJWT jwt = verifier.verify(token);</span><br><span class="line">        String userId = jwt.getClaim(<span class="string">"user_id"</span>).asString();</span><br><span class="line">        String name = jwt.getClaim(<span class="string">"name"</span>).asString();</span><br><span class="line">        String email = jwt.getClaim(<span class="string">"email"</span>).asString();</span><br><span class="line">        user.setId(userId);</span><br><span class="line">        user.setName(name);</span><br><span class="line">        user.setEmail(email);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (JWTVerificationException | IllegalArgumentException | UnsupportedEncodingException e) &#123;</span><br><span class="line">        log.error(<span class="string">"无效的token"</span> + token, e);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">        log.error(<span class="string">"验证token异常："</span> + token, e);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> user;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>上面是用了相同的密码做的签名，也可以用RSA的公钥私钥。</p>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/06/05/jwt-token的生成和解析/">https://blog.devmgr.cn/2019/06/05/jwt-token的生成和解析/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2006,7 +2012,7 @@ The temporary upload location [C:\Users\Administrator\AppData\Local\Temp\tomcat.
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">66</span>
+                    <span class="site-state-item-count">68</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2183,7 +2189,15 @@ The temporary upload location [C:\Users\Administrator\AppData\Local\Temp\tomcat.
                     
                       
                     
-                    <span class="site-state-item-count">81</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
