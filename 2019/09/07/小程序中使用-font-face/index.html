@@ -99,25 +99,25 @@
 
 
 
-  <meta name="description" content="如下代码： 1234567891011121314package com.test.websocket;import javax.websocket.server.ServerEndpointConfig.Configurator;public class ChatServerEndPointConfigurator extends Configurator &amp;#123;    private C">
-<meta name="keywords" content="java,泛型">
+  <meta name="description" content="在小程序中的 wxss 中使用 @font-face 例如 @font-face {font-family: myfont; src: url(&amp;#39;https://myhost.com/fonts/myfont.ttf&amp;#39;);} 会在模拟器中报错： VM2696:1 Failed to load font https://myhost.com/fonts/myfont.ttf net:">
+<meta name="keywords" content="小程序,CSS,font-face">
 <meta property="og:type" content="article">
-<meta property="og:title" content="泛型：WARNING: Class&lt;T&gt;  Type safety: Unchecked cast from  ChatServerEndPoint to T 警告的解决方法">
-<meta property="og:url" content="https://devmgr.cn/2019/05/22/泛型：warning-class-t-type-safety-unchecked-cast-from-chatserverendpoint-to-t-警告的解决方法/index.html">
+<meta property="og:title" content="小程序中使用@font-face">
+<meta property="og:url" content="https://blog.devmgr.cn/2019/09/07/小程序中使用-font-face/index.html">
 <meta property="og:site_name" content="GeXiangDong">
-<meta property="og:description" content="如下代码： 1234567891011121314package com.test.websocket;import javax.websocket.server.ServerEndpointConfig.Configurator;public class ChatServerEndPointConfigurator extends Configurator &amp;#123;    private C">
+<meta property="og:description" content="在小程序中的 wxss 中使用 @font-face 例如 @font-face {font-family: myfont; src: url(&amp;#39;https://myhost.com/fonts/myfont.ttf&amp;#39;);} 会在模拟器中报错： VM2696:1 Failed to load font https://myhost.com/fonts/myfont.ttf net:">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-06-09T06:08:58.554Z">
+<meta property="og:updated_time" content="2019-09-08T01:05:49.687Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="泛型：WARNING: Class&lt;T&gt;  Type safety: Unchecked cast from  ChatServerEndPoint to T 警告的解决方法">
-<meta name="twitter:description" content="如下代码： 1234567891011121314package com.test.websocket;import javax.websocket.server.ServerEndpointConfig.Configurator;public class ChatServerEndPointConfigurator extends Configurator &amp;#123;    private C">
+<meta name="twitter:title" content="小程序中使用@font-face">
+<meta name="twitter:description" content="在小程序中的 wxss 中使用 @font-face 例如 @font-face {font-family: myfont; src: url(&amp;#39;https://myhost.com/fonts/myfont.ttf&amp;#39;);} 会在模拟器中报错： VM2696:1 Failed to load font https://myhost.com/fonts/myfont.ttf net:">
 
 
 
 
 
 
-  <link rel="canonical" href="https://devmgr.cn/2019/05/22/泛型：warning-class-t-type-safety-unchecked-cast-from-chatserverendpoint-to-t-警告的解决方法/">
+  <link rel="canonical" href="https://blog.devmgr.cn/2019/09/07/小程序中使用-font-face/">
 
 
 
@@ -127,7 +127,7 @@
   };
 </script>
 
-  <title>泛型：WARNING: Class<t>  Type safety: Unchecked cast from  ChatServerEndPoint to T 警告的解决方法 | GeXiangDong</t></title>
+  <title>小程序中使用@font-face | GeXiangDong</title>
   
 
 
@@ -312,7 +312,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://devmgr.cn/2019/05/22/泛型：warning-class-t-type-safety-unchecked-cast-from-chatserverendpoint-to-t-警告的解决方法/">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/09/07/小程序中使用-font-face/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="GeXiangDong">
@@ -329,11 +329,11 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">泛型：WARNING: Class<t>  Type safety: Unchecked cast from  ChatServerEndPoint to T 警告的解决方法
+          <h2 class="post-title" itemprop="name headline">小程序中使用@font-face
 
               
             
-          </t></h2>
+          </h2>
         
 
         <div class="post-meta">
@@ -355,7 +355,7 @@
                 
               
 
-              <time title="创建时间：2019-05-22 13:59:58" itemprop="dateCreated datePublished" datetime="2019-05-22T13:59:58+08:00">2019-05-22</time>
+              <time title="创建时间：2019-09-07 17:28:38" itemprop="dateCreated datePublished" datetime="2019-09-07T17:28:38+08:00">2019-09-07</time>
             
 
             
@@ -389,14 +389,23 @@
       
 
       
-        <p>如下代码：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.test.websocket;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.websocket.server.ServerEndpointConfig.Configurator;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ChatServerEndPointConfigurator</span> <span class="keyword">extends</span> <span class="title">Configurator</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> ChatServerEndPoint chatServer = <span class="keyword">new</span> ChatServerEndPoint();</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> &lt;T&gt; <span class="function">T <span class="title">getEndpointInstance</span><span class="params">(Class&lt;T&gt; endpointClass)</span></span></span><br><span class="line"><span class="function">                 <span class="keyword">throws</span> InstantiationException </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (T) chatServer;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p>在小程序中的 wxss 中使用 @font-face 例如 <code>@font-face {font-family: myfont; src: url(&#39;https://myhost.com/fonts/myfont.ttf&#39;);}</code> 会在模拟器中报错：</p>
+<pre><code>VM2696:1 Failed to load font https://myhost.com/fonts/myfont.ttf
+net::ERR_CACHE_MISS </code></pre><p>虽然在模拟器中能正常显示字体，但在真机中是不行的。</p>
+<p>解决办法有2个：</p>
+<h2 id="小程序提供的API"><a href="#小程序提供的API" class="headerlink" title="小程序提供的API"></a>小程序提供的API</h2><p>使用小程序提供的 wx.loadFontFace， 先在js文件里加载字体，</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wx.loadFontFace(&#123;</span><br><span class="line">  family: <span class="string">'myfont'</span>,</span><br><span class="line">  source: <span class="string">'url("https://myhost.com/fonts/myfont.ttf")'</span>,</span><br><span class="line">  success: <span class="built_in">console</span>.log</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
-<p>第12行会有警告  Class<t>  Type safety: Unchecked cast from  ChatServerEndPoint to T<br>修改为：</t></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(endpointClass.isAssignableFrom(chatServer.getClass()))&#123;</span><br><span class="line">    <span class="keyword">return</span> endpointClass.cast(chatServer);</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    AssertionError ae = <span class="keyword">new</span> AssertionError(<span class="string">"Cannot cast to "</span> + endpointClass.getName() + </span><br><span class="line">            <span class="string">" from "</span> + chatServer.getClass().getName());</span><br><span class="line">    log.error(<span class="string">"类型不匹配"</span>, ae);</span><br><span class="line">    <span class="keyword">throw</span> ae;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>wxss 文件里不用写@font-face，直接用 <code>font-family: myfont</code> 即可</p>
+<p>文档在 <a href="https://developers.weixin.qq.com/miniprogram/dev/api/ui/font/wx.loadFontFace.html" target="_blank" rel="noopener">https://developers.weixin.qq.com/miniprogram/dev/api/ui/font/wx.loadFontFace.html</a></p>
+<h2 id="使用base64字体-（CSS的标准方式）"><a href="#使用base64字体-（CSS的标准方式）" class="headerlink" title="使用base64字体 （CSS的标准方式）"></a>使用base64字体 （CSS的标准方式）</h2><p>也可把字体转成 WOFF/WOFF2/SVG 等格式， 并对二进制 base64 编码，嵌入到 css/wxss 文件中，不需要从网络上访问字体文件。</p>
+<p>转化字体可以用 <a href="https://transfonter.org/" target="_blank" rel="noopener">https://transfonter.org/</a> 这个网站提供的转化工具还可以只转换自己需要的几个文字，这样减少字体文件大小。</p>
+<p>CSS文件会类似下面这个样子</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">font-face</span> &#123;</span><br><span class="line">    <span class="attribute">font-family</span>: <span class="string">'myfont'</span>;</span><br><span class="line">    <span class="attribute">src</span>: <span class="built_in">url</span>(data:application/font-woff;charset=utf-8;base64,d09GRgABAAAAA ... 这里会很长 ... EADQABAAA=) <span class="built_in">format</span>(<span class="string">'woff'</span>);</span><br><span class="line">    <span class="attribute">font-weight</span>: bold;</span><br><span class="line">    <span class="attribute">font-style</span>: normal;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>可消除警告。</p>
-<p><strong>本文地址</strong>： <a href="https://devmgr.cn/2019/05/22/泛型：warning-class-t-type-safety-unchecked-cast-from-chatserverendpoint-to-t-警告的解决方法/">https://devmgr.cn/2019/05/22/泛型：warning-class-t-type-safety-unchecked-cast-from-chatserverendpoint-to-t-警告的解决方法/</a> <br><strong>版权声明</strong>：本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议。转载需注明出处。</p>
+
+
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/09/07/小程序中使用-font-face/">https://blog.devmgr.cn/2019/09/07/小程序中使用-font-face/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
       
     </div>
@@ -420,9 +429,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/java/" rel="tag"># java</a>
+            <a href="/tags/小程序/" rel="tag"># 小程序</a>
           
-            <a href="/tags/泛型/" rel="tag"># 泛型</a>
+            <a href="/tags/css/" rel="tag"># CSS</a>
+          
+            <a href="/tags/font-face/" rel="tag"># font-face</a>
           
         </div>
       
@@ -435,8 +446,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/05/18/spring-return-403-when-post/" rel="next" title="SpringMVC POST 时返回403禁止访问">
-                <i class="fa fa-chevron-left"></i> SpringMVC POST 时返回403禁止访问
+              <a href="/2019/09/03/小程序中使用stomp-over-websocket/" rel="next" title="小程序中使用STOMP over Websocket">
+                <i class="fa fa-chevron-left"></i> 小程序中使用STOMP over Websocket
               </a>
             
           </div>
@@ -445,8 +456,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/06/05/css中用svg图片做背景图/" rel="prev" title="CSS中用SVG图片做背景图">
-                CSS中用SVG图片做背景图 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/09/09/spring-boot-websocket/" rel="prev" title="Spring Boot Websocket">
+                Spring Boot Websocket <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -492,8 +503,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -510,7 +530,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">62</span>
+                    <span class="site-state-item-count">70</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -679,7 +699,27 @@
                     
                       
                     
-                    <span class="site-state-item-count">77</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">87</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -733,7 +773,7 @@
                   </li>
                 
                   <li class="links-of-blogroll-item">
-                    <a href="https://devmgr.cn/front-end-vue/" title="https://devmgr.cn/front-end-vue/">前端工程化入门：VUE的实践</a>
+                    <a href="https://blog.devmgr.cn/front-end-vue/" title="https://blog.devmgr.cn/front-end-vue/">前端工程化入门：VUE的实践</a>
                   </li>
                 
               </ul>
@@ -747,6 +787,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#小程序提供的API"><span class="nav-number">1.</span> <span class="nav-text">小程序提供的API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用base64字体-（CSS的标准方式）"><span class="nav-number">2.</span> <span class="nav-text">使用base64字体 （CSS的标准方式）</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       

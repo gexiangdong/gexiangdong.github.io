@@ -308,6 +308,299 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/03/27/mybatis通用的insert-update/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/03/27/mybatis通用的insert-update/" class="post-title-link" itemprop="url">Mybatis通用的Insert/Update</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-03-27 10:45:39" itemprop="dateCreated datePublished" datetime="2018-03-27T10:45:39+08:00">2018-03-27</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Mybatis写mapper时，每个表都需要INSERT UPDATE写很长的语句比较麻烦，80%的表和java bean是简单的一一对应关系，因此考虑使用mybatis的SQLProvider注解减少这部分重复劳动。<br>SELECT和DELETE语句由于涉及字段较少，写起来还在可接收范围内，所以没做通用的。</p>
+<p>也可以把javabean增加写注解，类似JPA那样指定表名、字段名、主键等，但做得太多就失去了mybatis依赖SQL的灵活性了</p>
+<h2 id="InsertUpdateSqlProvider-java"><a href="#InsertUpdateSqlProvider-java" class="headerlink" title="InsertUpdateSqlProvider.java"></a>InsertUpdateSqlProvider.java</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.lang.reflect.Field;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.jdbc.SQL;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 使用此类有几个默认规则： 表名和类名相对应，属性名和字段名对应</span></span><br><span class="line"><span class="comment"> * java类内用驼峰命名法；数据库表和字段都用下划线</span></span><br><span class="line"><span class="comment"> * 类的属性定义的变量名和get/set方法名，以及set的参数类型一致，才会映射到数据库字段</span></span><br><span class="line"><span class="comment"> * 例如： private String name; 而且有 public void setName(String name) 和 public String getName()方法</span></span><br><span class="line"><span class="comment"> * 如果不是严格按照此规则定义的属性，不会被影射到数据库字段上</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InsertUpdateSqlProvider</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * id如果传入了值，会被insert使用；如果id为null，不会被insert的columns列出</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">insert</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        Map&lt;String, String&gt; map;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            map = getFieldsMap(obj, <span class="keyword">true</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IllegalArgumentException | IllegalAccessException e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(e);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> SQL() &#123;</span><br><span class="line">            &#123;</span><br><span class="line">                INSERT_INTO(getTableName(obj));</span><br><span class="line">                <span class="keyword">for</span> (String col : map.keySet()) &#123;</span><br><span class="line">                    VALUES(col, map.get(col));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;.toString();</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> String <span class="title">updateById</span><span class="params">(Object obj, <span class="keyword">boolean</span> includeNullValueField)</span> </span>&#123;</span><br><span class="line">        Map&lt;String, String&gt; map;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            map = getFieldsMap(obj, includeNullValueField);</span><br><span class="line">            map.remove(<span class="string">"id"</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IllegalArgumentException | IllegalAccessException e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(e);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> SQL() &#123;</span><br><span class="line">            &#123;</span><br><span class="line">                UPDATE(getTableName(obj));</span><br><span class="line">                <span class="keyword">for</span> (String col : map.keySet()) &#123;</span><br><span class="line">                    SET(col + <span class="string">"="</span> + map.get(col));</span><br><span class="line">                &#125;</span><br><span class="line">                WHERE(<span class="string">"id = #&#123;id&#125;"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;.toString();</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">updateById</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> updateById(obj, <span class="keyword">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">updateNonNullById</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> updateById(obj, <span class="keyword">false</span>);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Map&lt;String, String&gt; <span class="title">getFieldsMap</span><span class="params">(Object obj, <span class="keyword">boolean</span> includeNullValue)</span></span></span><br><span class="line"><span class="function">            <span class="keyword">throws</span> IllegalArgumentException, IllegalAccessException </span>&#123;</span><br><span class="line">        HashMap&lt;String, String&gt; result = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        Class&lt;?&gt; cls = obj.getClass();</span><br><span class="line">        Field[] fields = cls.getDeclaredFields(); <span class="comment">// getDeclaredFields</span></span><br><span class="line">        <span class="keyword">for</span> (Field f : fields) &#123;</span><br><span class="line">            String col = f.getName();</span><br><span class="line">            String colName = col.substring(<span class="number">0</span>, <span class="number">1</span>).toUpperCase() + col.substring(<span class="number">1</span>);</span><br><span class="line">            f.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                cls.getMethod(<span class="string">"get"</span> + colName);</span><br><span class="line">                cls.getMethod(<span class="string">"set"</span> + colName, f.getType());</span><br><span class="line">            &#125; <span class="keyword">catch</span> (NoSuchMethodException | SecurityException e) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> ((!<span class="string">"id"</span>.equals(col) &amp;&amp; includeNullValue) || f.get(obj) != <span class="keyword">null</span>) &#123;</span><br><span class="line">                result.put(camelCase2Underscore(col), <span class="string">"#&#123;"</span> + col + <span class="string">"&#125;"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getTableName</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> camelCase2Underscore(obj.getClass().getSimpleName());</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">camelCase2Underscore</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        StringBuffer buf = <span class="keyword">new</span> StringBuffer();</span><br><span class="line">        <span class="keyword">for</span> (String w : s.split(<span class="string">"(?&lt;!(^|[A-Z]))(?=[A-Z])|(?&lt;!^)(?=[A-Z][a-z])"</span>)) &#123;</span><br><span class="line">            buf.append(<span class="string">"_"</span>).append(w.toLowerCase());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> buf.substring(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用通用provider的Mapper类"><a href="#使用通用provider的Mapper类" class="headerlink" title="使用通用provider的Mapper类"></a>使用通用provider的Mapper类</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.ibatis.annotations.InsertProvider;</span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.annotations.Options;</span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.annotations.UpdateProvider;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Repository;</span><br><span class="line"> </span><br><span class="line"><span class="meta">@Repository</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">GenericDao</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="meta">@UpdateProvider</span>(type=InsertUpdateSqlProvider.class, method=<span class="string">"updateById"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">updateById</span><span class="params">(Object bean)</span></span>;</span><br><span class="line">     </span><br><span class="line">    <span class="meta">@UpdateProvider</span>(type=InsertUpdateSqlProvider.class, method=<span class="string">"updateNonNullById"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">updateNonNullById</span><span class="params">(Object bean)</span></span>;</span><br><span class="line">     </span><br><span class="line">    <span class="meta">@Options</span>(useGeneratedKeys=<span class="keyword">true</span>, keyProperty=<span class="string">"id"</span>, keyColumn=<span class="string">"id"</span>)</span><br><span class="line">    <span class="meta">@InsertProvider</span>(type=InsertUpdateSqlProvider.class, method=<span class="string">"insert"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">insert</span><span class="params">(Object bean)</span></span>;</span><br><span class="line">     </span><br><span class="line">    <span class="meta">@InsertProvider</span>(type=InsertUpdateSqlProvider.class, method=<span class="string">"insert"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">insertWithoutGeneratedKey</span><span class="params">(Object bean)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2018/03/27/mybatis通用的insert-update/">https://blog.devmgr.cn/2018/03/27/mybatis通用的insert-update/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/03/26/spring项目开发过程的hot-swapping/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/03/26/spring项目开发过程的hot-swapping/" class="post-title-link" itemprop="url">Spring项目开发过程的Hot Swapping</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-03-26 18:27:39" itemprop="dateCreated datePublished" datetime="2018-03-26T18:27:39+08:00">2018-03-26</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>POM文件中加入spring-boot-devtoools的依赖，可以在修改后自动重启，方便开发过程中测试。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-devtools<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>需要IDE工具打开自动编译，因为devtools是监视class文件的修改后自动重启，不是监视src目录下的java文件。</p>
+<p>IntelliJ IDEA可以通过Build菜单下的Build Project来编译项目。</p>
+<p>如果需要配置devtools，可以通过在application.yml里加入</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">  devtools:</span></span><br><span class="line"><span class="attr">    restart:</span></span><br><span class="line"><span class="attr">      enabled:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    livereload:</span></span><br><span class="line"><span class="attr">      port:</span> <span class="number">35727</span> <span class="comment"># 默认是35729，如果开发环境中运行多个项目都用devtools，这个端口会冲突，需要改成不同的</span></span><br><span class="line">      <span class="comment"># 还有其他一些属性可配置，请参考文档</span></span><br></pre></td></tr></table></figure>
+
+<p>如果使用了maven的多模块功能，devtools的依赖需要加到子模块中，<strong>加入到父模块不起作用</strong>，因为optional=true，是可选依赖，子模块不会继承它。</p>
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2018/03/26/spring项目开发过程的hot-swapping/">https://blog.devmgr.cn/2018/03/26/spring项目开发过程的hot-swapping/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/03/19/curl-常见用法汇总/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1491,312 +1784,6 @@ DSA keySize &amp;lt; 1024, EC keySize &amp;lt; 224</code></pre><p>另外jdk.tls.
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2017/09/18/java-不带堆栈信息的异常/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2017/09/18/java-不带堆栈信息的异常/" class="post-title-link" itemprop="url">java 不带堆栈信息的异常</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2017-09-18 15:34:33" itemprop="dateCreated datePublished" datetime="2017-09-18T15:34:33+08:00">2017-09-18</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Java的异常默认都有堆栈信息，详细显示出来调用层次，这对查找错误原因很有帮助。今日遇到一个无堆栈信息的java.lang.NullPointerException<br>经查询原来是HotSpot VM提供的一种叫fast throw的优化导致的。</p>
-<h1 id="Fast-Throw"><a href="#Fast-Throw" class="headerlink" title="Fast Throw"></a>Fast Throw</h1><p>有些特定的隐式异常类型（NullPointerException、ArithmeticException（ / 0）之类）如果在代码里某个特定位置被抛出过多次的话，HotSpot Server Compiler（C2）会透明的决定用fast throw来优化这个抛出异常的地方——直接抛出一个事先分配好的、类型匹配的异常对象。这个对象的message和stack trace都被清空。抛出这个异常的速度是非常快，不但不用额外分配内存，而且也不用爬栈；但反面就是可能正好是需要知道哪里出问题的时候看不到stack trace了。从Sun JDK5开始要避免C2做这个优化还得额外传个VM参数：<code>-XX:-OmitStackTraceInFastThrow</code>。</p>
-<p>既然这种异常速度比较快，那么我们自定义的一些业务异常，有些是不会使用堆栈信息的，是不是也可这样做呢？是的。可以通过继承Throwable，使用构造函数Throwable(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace)来实现。</p>
-<p>如果不是继承的Throwable，其它异常也有类似的protected方法，例如RuntimeException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace)</p>
-<h2 id="禁用-Fast-Throw"><a href="#禁用-Fast-Throw" class="headerlink" title="禁用 Fast Throw"></a>禁用 Fast Throw</h2><p>ubuntu 16.x 可以修改/etc/systemd/system/tomcat 配置文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Environment=’CATALINA_OPTS=-Xms512M -Xmx2048M -server -XX:+UseParallelGC -XX:-OmitStackTraceInFastThrow‘</span><br></pre></td></tr></table></figure>
-
-<h1 id="重现-Fast-Throw"><a href="#重现-Fast-Throw" class="headerlink" title="重现 Fast Throw"></a>重现 Fast Throw</h1><p>可以用下面的这段代码重现没有堆栈的异常：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NpeThief</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">callManyNPEInLoop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> preLen = -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10000000</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                ((Object)<span class="keyword">null</span>).getClass();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                <span class="keyword">if</span>(e.getStackTrace().length != preLen)&#123;</span><br><span class="line">                    System.out.println(<span class="string">"#"</span> + i + <span class="string">"   "</span> + e.getStackTrace().length);</span><br><span class="line">                    preLen = e.getStackTrace().length;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        NpeThief thief = <span class="keyword">new</span> NpeThief();</span><br><span class="line">        thief.callManyNPEInLoop();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>用java NpeThief运行，会输出2、0两行<br>用java -XX:-OmitStackTraceInFastThrow NpeTHief运行，则只会有2一行,也能直接感觉到Fast Throw优化带来的运行速度的提升。</p>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2017/09/18/java-不带堆栈信息的异常/">https://blog.devmgr.cn/2017/09/18/java-不带堆栈信息的异常/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2017/08/24/使用vi作为系统默认编辑器/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2017/08/24/使用vi作为系统默认编辑器/" class="post-title-link" itemprop="url">使用vi作为系统默认编辑器</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2017-08-24 15:29:25" itemprop="dateCreated datePublished" datetime="2017-08-24T15:29:25+08:00">2017-08-24</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>使用命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">crontab -e</span><br><span class="line">virsh edit ubuntu</span><br></pre></td></tr></table></figure>
-
-<p>等时，会出现选择编辑器</p>
-<pre><code>no crontab for developer - using an empty one
-
-Select an editor. To change later, run &apos;select-editor&apos;.
-1. /bin/ed
-2. /bin/nano &lt;---- easiest
-3. /usr/bin/vim.basic
-4. /usr/bin/vim.tiny
-
-Choose 1-4 [2]:</code></pre><p>这里没有vi，如果要使用vi，可以修改/etc/enviroment文件，增加一行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EDITOR=vi</span><br></pre></td></tr></table></figure>
-
-<p>也可以修改 /etc/profile增加一行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export EDITOR=vi</span><br></pre></td></tr></table></figure>
-
-<p>这样下次使用crontab -e就自动使用vi了</p>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2017/08/24/使用vi作为系统默认编辑器/">https://blog.devmgr.cn/2017/08/24/使用vi作为系统默认编辑器/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1846,7 +1833,7 @@ Choose 1-4 [2]:</code></pre><p>这里没有vi，如果要使用vi，可以修改
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">68</span>
+                    <span class="site-state-item-count">70</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2031,7 +2018,11 @@ Choose 1-4 [2]:</code></pre><p>这里没有vi，如果要使用vi，可以修改
                     
                       
                     
-                    <span class="site-state-item-count">85</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">87</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
