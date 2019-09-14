@@ -308,6 +308,149 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2016/08/19/java-util-timer无故被cancel掉的可能原因/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2016/08/19/java-util-timer无故被cancel掉的可能原因/" class="post-title-link" itemprop="url">java.util.Timer无故被cancel掉的可能原因</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2016-08-19 15:09:40" itemprop="dateCreated datePublished" datetime="2016-08-19T15:09:40+08:00">2016-08-19</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>遇到一个Timer某些情况下会自动被cancel掉，再次schedule TimerTask时会抛出java.lang.IllegalStateException: Timer already cancelled. 程序中并无timer.cancel()的调用。最后发现是TimerTask执行时发生未被捕获的异常导致，例如下段代码肯定会出问题。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestTimer</span></span>&#123;</span><br><span class="line">     </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] argvs)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        Timer timer = <span class="keyword">new</span> Timer(<span class="keyword">true</span>);</span><br><span class="line">        timer.schedule(<span class="keyword">new</span> MyTimerTask(), <span class="number">1</span>); <span class="comment">//1毫秒后执行 MyTimerTask</span></span><br><span class="line"> </span><br><span class="line">        Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">        timer.schedule(<span class="keyword">new</span> MyTimerTask(), <span class="number">1</span>); <span class="comment">//这里会抛出 java.lang.IllegalStateException: Timer already cancelled.；因为执行上一个TimerTask时异常导致Timer结束了</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyTimerTask</span> <span class="keyword">extends</span> <span class="title">TimerTask</span> </span>&#123;</span><br><span class="line">     </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">//下面这句会导致运行此TimerTask的Timer被cancel掉</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2016/08/19/java-util-timer无故被cancel掉的可能原因/">https://blog.devmgr.cn/2016/08/19/java-util-timer无故被cancel掉的可能原因/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2016/06/04/在ubuntu-16-x-x-安装多个tomcat/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1771,161 +1914,11 @@ Application root
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2013/08/07/ios-safari保存到桌面功能/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2013/08/07/ios-safari保存到桌面功能/" class="post-title-link" itemprop="url">IOS Safari保存到桌面功能</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2013-08-07 13:24:59" itemprop="dateCreated datePublished" datetime="2013-08-07T13:24:59+08:00">2013-08-07</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>页面上HTML的头部一些信息会影响此功能的使用。</p>
-<h2 id="是否全屏模式webapp"><a href="#是否全屏模式webapp" class="headerlink" title="是否全屏模式webapp"></a>是否全屏模式webapp</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"apple-mobile-web-app-capable"</span> <span class="attr">content</span>=<span class="string">"no"</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>如果<code>content=”yes”</code>，则在一个无地址栏、无菜单的浏览器中打开，如果是纯JS的应用，用这种模式比较好。默认值为no。 如果为no，或不写，则会在safari中打开。</p>
-<p>全屏模式下：<code>&lt;a href=”xxx.html”&gt;click me&lt;/a&gt;</code> 之类的链接会导致打开新的Safari窗口，如果不想打开新窗口，用Javascript代替。<br>Javascript的 <code>Window.open</code> 不会打开新窗口，只会替换当前窗口的URL。</p>
-<p>每次重新点击图标，会启动不同的session和服务器连接。</p>
-<h2 id="图标"><a href="#图标" class="headerlink" title="图标"></a>图标</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"apple-touch-icon"</span> <span class="attr">href</span>=<span class="string">"/webapplogo.png"</span> /&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"apple-touch-icon-precomposed"</span> <span class="attr">href</span>=<span class="string">"/webapplogo.png"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>有precomposed，不加反光效果，无的会自动增加。 另外还可以设置<code>sizes=”57×57″</code>、<code>sizes=”114×114″</code>、<code>sizes=”72×72″</code>、<code>sizes=”144×144″</code> 来对应iphone、ipad、视网膜屏幕、非视网膜屏等不同设备。 也可只设置一个让IOS自动缩放。</p>
-<h2 id="启动等待图片"><a href="#启动等待图片" class="headerlink" title="启动等待图片"></a>启动等待图片</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"apple-touch-startup-image"</span> <span class="attr">href</span>=<span class="string">"/startup.png"</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>详细信息可参考： <a href="https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html" target="_blank" rel="noopener">IOS 手册</a></p>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2013/08/07/ios-safari保存到桌面功能/">https://blog.devmgr.cn/2013/08/07/ios-safari保存到桌面功能/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span>
+    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1970,7 +1963,7 @@ Application root
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">70</span>
+                    <span class="site-state-item-count">71</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2157,7 +2150,7 @@ Application root
                     
                       
                     
-                    <span class="site-state-item-count">85</span>
+                    <span class="site-state-item-count">86</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
