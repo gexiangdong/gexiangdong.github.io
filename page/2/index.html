@@ -308,6 +308,173 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/06/08/把spring-boot编译的jar作为service运行/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/06/08/把spring-boot编译的jar作为service运行/" class="post-title-link" itemprop="url">把spring boot编译的jar作为service运行</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-06-08 14:53:01" itemprop="dateCreated datePublished" datetime="2019-06-08T14:53:01+08:00">2019-06-08</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="windows"><a href="#windows" class="headerlink" title="windows"></a>windows</h1><p>可以使用Windows service wrapper来把任何命令行执行的程序做成windows service.</p>
+<p>Windows Service Wrapper简称WinSW，可以在<a href="https://github.com/kohsuke/winsw/releases" target="_blank" rel="noopener">https://github.com/kohsuke/winsw/releases</a> 下载到</p>
+<h2 id="编写一个配置文件"><a href="#编写一个配置文件" class="headerlink" title="编写一个配置文件"></a>编写一个配置文件</h2><p>编写一个xml文件，可参照下例：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">id</span>&gt;</span>tutorial-service<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">name</span>&gt;</span>Tutorial Service<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">description</span>&gt;</span><span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">executable</span>&gt;</span>java<span class="tag">&lt;/<span class="name">executable</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">arguments</span>&gt;</span>-jar c:\tutorial\tutorial-section-01-1.0-SNAPSHOT.jar<span class="tag">&lt;/<span class="name">arguments</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">logmode</span>&gt;</span>rotate<span class="tag">&lt;/<span class="name">logmode</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>文件保存为 tutorial-service.xml，然后把winsw.exe拷贝到相同目录下，并改成和xml一样的名字（扩展名仍旧是exe不变）tutorial-service.exe</p>
+<h2 id="安装service和卸载service"><a href="#安装service和卸载service" class="headerlink" title="安装service和卸载service"></a>安装service和卸载service</h2><p>在命令行下执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tutorial-service.exe install</span><br></pre></td></tr></table></figure>
+
+<p>可把前面设置的xml中命令安装为windows service（执行上述命名需要具有windows管理员权限。</p>
+<p>如果需要卸载可用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tutorial-service.exe uninstall</span><br></pre></td></tr></table></figure>
+
+<h1 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h1><p>ubuntu/debian下可以用sytemd。</p>
+<h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><p>创建配置文件，内容如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[Unit]  </span><br><span class="line">Description=tutorial</span><br><span class="line">After=syslog.target  </span><br><span class="line">  </span><br><span class="line">[Service]  </span><br><span class="line">ExecStart=/usr/lib/jvm/java-8-oracle/bin/java -jar -Xms256m -Xmx1G -Dserver.port=8087 -Dautostart=true -Dlog.level.console=WARN /web/webapps/tutorial-1.0.0.jar --spring.profiles.active=development </span><br><span class="line">SuccessExitStatus=143  </span><br><span class="line"></span><br><span class="line">User=www-data</span><br><span class="line">Group=www-data</span><br><span class="line">UMask=0007</span><br><span class="line">RestartSec=10</span><br><span class="line">Restart=always</span><br><span class="line"></span><br><span class="line">[Install]  </span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+
+<p>配置文件放入/lib/systemd/system/tutorial.service</p>
+<h2 id="安装后台服务"><a href="#安装后台服务" class="headerlink" title="安装后台服务"></a>安装后台服务</h2><p>然后执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> tutorial.service</span><br><span class="line">systemctl daemon-reload</span><br></pre></td></tr></table></figure>
+
+<h2 id="管理后台服务"><a href="#管理后台服务" class="headerlink" title="管理后台服务"></a>管理后台服务</h2><p>安装好之后可以使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">systemctl start tutorial</span><br><span class="line">systemctl stop tutorial</span><br><span class="line">systemctl restart tutorial</span><br><span class="line">systemctl status tutorial</span><br></pre></td></tr></table></figure>
+
+<p>等命令来管理服务</p>
+<p>如果你更习惯老版本linux下的service命令，也可以</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service tutorial start</span><br></pre></td></tr></table></figure>
+
+<p>以上内容中tutorial应该替换成自己的项目名</p>
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/06/08/把spring-boot编译的jar作为service运行/">https://blog.devmgr.cn/2019/06/08/把spring-boot编译的jar作为service运行/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/06/06/java打印的三种方法/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1647,153 +1814,6 @@ The temporary upload location [C:\Users\Administrator\AppData\Local\Temp\tomcat.
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/05/05/动态的创建接口的实例/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/05/05/动态的创建接口的实例/" class="post-title-link" itemprop="url">动态的创建接口的实例</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-05-05 14:19:54" itemprop="dateCreated datePublished" datetime="2019-05-05T14:19:54+08:00">2019-05-05</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>通过Proxy类动态实现一个接口 (只能是接口，可多个接口，如果需要动态创建抽象类的子类，可参照<a href="https://gist.github.com/gexiangdong/599b58566e349be40d99ee02877eb985" target="_blank" rel="noopener">https://gist.github.com/gexiangdong/599b58566e349be40d99ee02877eb985</a> ）<br>Raw</p>
-<p>实现代码如下：</p>
-<h1 id="接口-MyInterface-java"><a href="#接口-MyInterface-java" class="headerlink" title="接口 MyInterface.java"></a>接口 MyInterface.java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 一个自定义接口，供下面的程序调用；</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">MyInterface</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="通过Proxy动态创建-MyInvocationHandler-java"><a href="#通过Proxy动态创建-MyInvocationHandler-java" class="headerlink" title="通过Proxy动态创建 MyInvocationHandler.java"></a>通过Proxy动态创建 MyInvocationHandler.java</h1><p>也可以一次实现多个接口</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationHandler;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Proxy;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 实现InvocationHandler的类，对创建出来的类的调用都会转给此类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyInvocationHandler</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span>  </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"invoke("</span> + proxy.getClass().getName() + <span class="string">", method:"</span> + method.getName() + <span class="string">", "</span> + (args == <span class="keyword">null</span> ? <span class="string">"NULL"</span> : args) + <span class="string">")"</span>);</span><br><span class="line">        <span class="keyword">if</span>(method.getName().equals(<span class="string">"getName"</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"waytt"</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(method.getName().equals(<span class="string">"setName"</span>)) &#123;</span><br><span class="line">            System.out.println(<span class="string">"args "</span> + (args != <span class="keyword">null</span> &amp;&amp; args.length &gt; <span class="number">0</span> ? args[<span class="number">0</span>] : <span class="string">"NULL"</span>));</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] argvs)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        <span class="comment">// 动态创建接口的程序在此</span></span><br><span class="line">        InvocationHandler handler = <span class="keyword">new</span> MyInvocationHandler();</span><br><span class="line">        <span class="comment">// 第二个参数是需要实现的接口，可以多个，一个类实现多个接口</span></span><br><span class="line">        MyInterface e = (MyInterface) Proxy.newProxyInstance(MyInterface.class.getClassLoader(),</span><br><span class="line">                <span class="keyword">new</span> Class[] &#123; MyInterface.class &#125;, handler);</span><br><span class="line">        e.setName(<span class="string">"abc"</span>);</span><br><span class="line">        System.out.println(<span class="string">"getName() return "</span> + e.getName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/05/05/动态的创建接口的实例/">https://blog.devmgr.cn/2019/05/05/动态的创建接口的实例/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1843,7 +1863,7 @@ The temporary upload location [C:\Users\Administrator\AppData\Local\Temp\tomcat.
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">71</span>
+                    <span class="site-state-item-count">72</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2030,7 +2050,15 @@ The temporary upload location [C:\Users\Administrator\AppData\Local\Temp\tomcat.
                     
                       
                     
-                    <span class="site-state-item-count">86</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">90</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

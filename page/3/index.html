@@ -308,6 +308,153 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/05/05/动态的创建接口的实例/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/05/05/动态的创建接口的实例/" class="post-title-link" itemprop="url">动态的创建接口的实例</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-05 14:19:54" itemprop="dateCreated datePublished" datetime="2019-05-05T14:19:54+08:00">2019-05-05</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>通过Proxy类动态实现一个接口 (只能是接口，可多个接口，如果需要动态创建抽象类的子类，可参照<a href="https://gist.github.com/gexiangdong/599b58566e349be40d99ee02877eb985" target="_blank" rel="noopener">https://gist.github.com/gexiangdong/599b58566e349be40d99ee02877eb985</a> ）<br>Raw</p>
+<p>实现代码如下：</p>
+<h1 id="接口-MyInterface-java"><a href="#接口-MyInterface-java" class="headerlink" title="接口 MyInterface.java"></a>接口 MyInterface.java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 一个自定义接口，供下面的程序调用；</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">MyInterface</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="通过Proxy动态创建-MyInvocationHandler-java"><a href="#通过Proxy动态创建-MyInvocationHandler-java" class="headerlink" title="通过Proxy动态创建 MyInvocationHandler.java"></a>通过Proxy动态创建 MyInvocationHandler.java</h1><p>也可以一次实现多个接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationHandler;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Proxy;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 实现InvocationHandler的类，对创建出来的类的调用都会转给此类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyInvocationHandler</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span>  </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"invoke("</span> + proxy.getClass().getName() + <span class="string">", method:"</span> + method.getName() + <span class="string">", "</span> + (args == <span class="keyword">null</span> ? <span class="string">"NULL"</span> : args) + <span class="string">")"</span>);</span><br><span class="line">        <span class="keyword">if</span>(method.getName().equals(<span class="string">"getName"</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"waytt"</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(method.getName().equals(<span class="string">"setName"</span>)) &#123;</span><br><span class="line">            System.out.println(<span class="string">"args "</span> + (args != <span class="keyword">null</span> &amp;&amp; args.length &gt; <span class="number">0</span> ? args[<span class="number">0</span>] : <span class="string">"NULL"</span>));</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] argvs)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        <span class="comment">// 动态创建接口的程序在此</span></span><br><span class="line">        InvocationHandler handler = <span class="keyword">new</span> MyInvocationHandler();</span><br><span class="line">        <span class="comment">// 第二个参数是需要实现的接口，可以多个，一个类实现多个接口</span></span><br><span class="line">        MyInterface e = (MyInterface) Proxy.newProxyInstance(MyInterface.class.getClassLoader(),</span><br><span class="line">                <span class="keyword">new</span> Class[] &#123; MyInterface.class &#125;, handler);</span><br><span class="line">        e.setName(<span class="string">"abc"</span>);</span><br><span class="line">        System.out.println(<span class="string">"getName() return "</span> + e.getName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/05/05/动态的创建接口的实例/">https://blog.devmgr.cn/2019/05/05/动态的创建接口的实例/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/04/14/mac-commands/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1663,150 +1810,6 @@ Date: Tue, 04 Sep 2018 05:46:48 GMT</code></pre><p>之后websocket连接就建�
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/08/28/制作单个文件并可执行的jar/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/08/28/制作单个文件并可执行的jar/" class="post-title-link" itemprop="url">制作单个文件并可执行的jar</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-08-28 10:55:51" itemprop="dateCreated datePublished" datetime="2018-08-28T10:55:51+08:00">2018-08-28</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>通过maven可以把依赖的各种jar和自己的程序都打包成一个jar，这样在部署的时候就非常方便了，这点在做可执行的jar包时就更方便了。<br>这依赖一个maven的插件：shade</p>
-<p>在pom里配置shade插件即可：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-shade-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.1.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">transformers</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">transformer</span> <span class="attr">implementation</span>=<span class="string">"org.apache.maven.plugins.shade.resource.ManifestResourceTransformer"</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 下面这个改成运行jar包时需要执行的java类 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">mainClass</span>&gt;</span>cn.devmgr.spider.Application<span class="tag">&lt;/<span class="name">mainClass</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">transformer</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">transformers</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">phase</span>&gt;</span>package<span class="tag">&lt;/<span class="name">phase</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">goal</span>&gt;</span>shade<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>使用 <code>mvn package</code> 打包时，就可以把所有依赖的jar都打包到一个jar里了。要运行只需要 <code>java -jar xxx.jar</code> 不用在classpath参数里写一大堆jar了，是不是很方便？</p>
-<p>shade插件还可以配置排除/包含某些jar包。</p>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2018/08/28/制作单个文件并可执行的jar/">https://blog.devmgr.cn/2018/08/28/制作单个文件并可执行的jar/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1856,7 +1859,7 @@ Date: Tue, 04 Sep 2018 05:46:48 GMT</code></pre><p>之后websocket连接就建�
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">71</span>
+                    <span class="site-state-item-count">72</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2043,7 +2046,15 @@ Date: Tue, 04 Sep 2018 05:46:48 GMT</code></pre><p>之后websocket连接就建�
                     
                       
                     
-                    <span class="site-state-item-count">86</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">90</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
