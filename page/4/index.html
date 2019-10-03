@@ -308,6 +308,159 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/09/04/websocket协议的连接过程/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/09/04/websocket协议的连接过程/" class="post-title-link" itemprop="url">websocket协议的连接过程</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-09-04 10:57:36" itemprop="dateCreated datePublished" datetime="2018-09-04T10:57:36+08:00">2018-09-04</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>websocket协议的握手过程。<br>首先客户端和服务器端建立的是http 1.1的连接，客户端发送请求，请求的资源地址是websocket的地址，但在连接中增加几个请求头：</p>
+<pre><code>Connection: upgrade
+Upgrade: Websocket
+Sec-WebSocket-Key: base64格式的随机数
+Sec-Websocket-Version: 13 （13是版本号）</code></pre><p>服务器收到这种连接后，如果支持升级到websocket，会发出类似如下的回应：</p>
+<pre><code>HTTP/1.1 101 Switching Protocols
+Server: Apache-Coyote/1.1
+Upgrade: websocket
+Connection: upgrade
+Sec-WebSocket-Accept: OfS0wDaT5NoxF2gqm7Zj2YtetzM=
+Date: Tue, 04 Sep 2018 05:46:48 GMT</code></pre><p>之后websocket连接就建好了，双方可以通讯了，下面有段建立连接的代码，可以参考。解析websocket帧部分没有写，只是当成字符串打印出来了，因为帧中包含一些二进制的控制信息，所以打印内容会有乱码（即使消息是纯文本也有乱码，因为有部分帧的头部信息也被当成字符串打印了）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.net.*;</span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebsocketClient</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"> </span><br><span class="line">        String hostname = <span class="string">"localhost"</span>;</span><br><span class="line">        <span class="keyword">int</span> port = <span class="number">8080</span>;</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">try</span> (Socket socket = <span class="keyword">new</span> Socket(hostname, port)) &#123;</span><br><span class="line"> </span><br><span class="line">            OutputStream output = socket.getOutputStream();</span><br><span class="line">            PrintWriter writer = <span class="keyword">new</span> PrintWriter(output, <span class="keyword">true</span>);</span><br><span class="line"> </span><br><span class="line">            writer.println(<span class="string">"GET /chat HTTP/1.1"</span>);</span><br><span class="line">            writer.println(<span class="string">"Host: "</span> + hostname + <span class="string">":"</span> + port);</span><br><span class="line">            <span class="comment">// 下面两行是告诉服务器端，此次连接的使用的http协议期望升级到websocket协议，如果服务端同意升级会返回</span></span><br><span class="line">            <span class="comment">// Connection: upgrade  upgrade: websocket表示已经升级了，而且状态吗是101 switching protocols</span></span><br><span class="line">            writer.println(<span class="string">"Connection: upgrade"</span>);</span><br><span class="line">            writer.println(<span class="string">"Upgrade: WebSocket"</span>);</span><br><span class="line">            <span class="comment">// 下面这2行是必须的，sec-websocket-key是base64格式的一个随机数，由客户端生成</span></span><br><span class="line">            <span class="comment">// sec-websocket-version是指明客户端的websocket版本</span></span><br><span class="line">            writer.println(<span class="string">"Sec-WebSocket-Key:  "</span>AQIDBAUGBwgJCgsMDQ4PEC=<span class="string">" ="</span>);</span><br><span class="line">            writer.println(<span class="string">"Sec-WebSocket-Version: 13"</span>);</span><br><span class="line">            writer.println(<span class="string">"User-Agent: MSIE"</span>);</span><br><span class="line">            writer.println(<span class="string">"Origin: http://localhost:8080/"</span>);</span><br><span class="line">            writer.println();</span><br><span class="line"> </span><br><span class="line">            InputStream input = socket.getInputStream();</span><br><span class="line"> </span><br><span class="line">            BufferedReader reader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(input));</span><br><span class="line"> </span><br><span class="line">            System.out.println(<span class="string">"request sent..."</span>);</span><br><span class="line">            <span class="keyword">int</span> i=<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">while</span> (i &lt; <span class="number">10</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (reader.ready())&#123;</span><br><span class="line">                    <span class="comment">// 在读websocket发送过来的消息时，这里没有解码消息帧，都当字符串了，消息的数据报文格式前面有些事数据包控制的bit，所以打印时有乱码</span></span><br><span class="line">                    <span class="keyword">char</span>[] bin = <span class="keyword">new</span> <span class="keyword">char</span>[<span class="number">2048</span>];</span><br><span class="line">                    <span class="keyword">int</span> len = reader.read(bin, <span class="number">0</span>, bin.length);</span><br><span class="line">                    <span class="keyword">char</span>[] buf = <span class="keyword">new</span> <span class="keyword">char</span>[len];</span><br><span class="line">                    System.arraycopy(bin, <span class="number">0</span>, buf, <span class="number">0</span>, len);</span><br><span class="line">                    System.out.println(<span class="keyword">new</span> String(buf));</span><br><span class="line">                    i++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 连接好了后可以发送数据，发送的数据报格式是 Base Framing Protocol， ABNF RFC5234</span></span><br><span class="line">            writer.close();</span><br><span class="line">            output.close();</span><br><span class="line">            socket.close();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (UnknownHostException ex) &#123;</span><br><span class="line">            System.out.println(<span class="string">"Server not found: "</span> + ex.getMessage());</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException ex) &#123;</span><br><span class="line">            System.out.println(<span class="string">"I/O error: "</span> + ex.getMessage());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2018/09/04/websocket协议的连接过程/">https://blog.devmgr.cn/2018/09/04/websocket协议的连接过程/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/08/28/制作单个文件并可执行的jar/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1650,165 +1803,6 @@ org.springframework.web.HttpMediaTypeNotSupportedException: Content type &apos;t
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/04/13/could-not-generate-dh-keypair/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/04/13/could-not-generate-dh-keypair/" class="post-title-link" itemprop="url">异常：Could not generate DH keypair</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-04-13 22:21:16" itemprop="dateCreated datePublished" datetime="2018-04-13T22:21:16+08:00">2018-04-13</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h1><p>在调用https的外部接口时，遇到一个异常：</p>
-<pre><code>Caused by: java.lang.RuntimeException: Could not generate DH keypair
-    at sun.security.ssl.ECDHCrypt.&lt;init&gt;(ECDHCrypt.java:82)
-    at sun.security.ssl.ClientHandshaker.serverKeyExchange(ClientHandshaker.java:724)
-    at sun.security.ssl.ClientHandshaker.processMessage(ClientHandshaker.java:281)
-    at sun.security.ssl.Handshaker.processLoop(Handshaker.java:1026)
-    at sun.security.ssl.Handshaker.process_record(Handshaker.java:961)
-    at sun.security.ssl.SSLSocketImpl.readRecord(SSLSocketImpl.java:1072)
-    at sun.security.ssl.SSLSocketImpl.performInitialHandshake(SSLSocketImpl.java:1385)
-    at sun.security.ssl.SSLSocketImpl.startHandshake(SSLSocketImpl.java:1413)
-    ... 103 common frames omitted
-Caused by: java.security.InvalidAlgorithmParameterException: parameter object not a ECParameterSpec
-    at org.bouncycastle.jce.provider.JDKKeyPairGenerator$EC.initialize(Unknown Source)
-    at sun.security.ssl.ECDHCrypt.&lt;init&gt;(ECDHCrypt.java:77)
-    ... 110 common frames omitted</code></pre><h1 id="出现的原因和解决办法"><a href="#出现的原因和解决办法" class="headerlink" title="出现的原因和解决办法"></a>出现的原因和解决办法</h1><p>发现maven打包依赖时加入org.bouncycastle:bcprov-jdk14导致，老版本的bcp只支持1024位加密，遇到2048位加密就出这个异常了。</p>
-<p>有两个办法解决，推荐第一个，彻底解决：</p>
-<pre><code>* 找到依赖org.bouncycastle:bcprov-jdk14的配置，用exclusion排除它，并加入最新的bcprov。
-* 在java命令行加参数: -Dcom.sun.net.ssl.enableECC=false</code></pre><p>我的项目出错是由于itextpdf-5.0依赖了bcprov-jdk14，升级到itextpdf-5.5.13并增加了对bcprov-jdk15的依赖。 由于itextpdf-5.5.13中对bcprov-jdk15的依赖是optional，需要另外增加bcprov-jdk15</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.bouncycastle<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>bcprov-jdk15on<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.59<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://stackoverflow.com/questions/42238313/java-security-invalidalgorithmparameterexception-parameter-object-not-a-ecparam" target="_blank" rel="noopener">https://stackoverflow.com/questions/42238313/java-security-invalidalgorithmparameterexception-parameter-object-not-a-ecparam</a></p>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2018/04/13/could-not-generate-dh-keypair/">https://blog.devmgr.cn/2018/04/13/could-not-generate-dh-keypair/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1858,7 +1852,7 @@ Caused by: java.security.InvalidAlgorithmParameterException: parameter object no
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">72</span>
+                    <span class="site-state-item-count">73</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2053,7 +2047,11 @@ Caused by: java.security.InvalidAlgorithmParameterException: parameter object no
                     
                       
                     
-                    <span class="site-state-item-count">90</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">92</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
