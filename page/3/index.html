@@ -308,6 +308,299 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/05/18/spring-return-403-when-post/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/05/18/spring-return-403-when-post/" class="post-title-link" itemprop="url">SpringMVC POST 时返回403禁止访问</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-18 14:55:04" itemprop="dateCreated datePublished" datetime="2019-05-18T14:55:04+08:00">2019-05-18</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="出现的问题及原因"><a href="#出现的问题及原因" class="headerlink" title="出现的问题及原因"></a>出现的问题及原因</h1><p>Spring boot 在 SpringMVC / REST 和Spring Security一起使用时，编写的RestController 或 Controller 中的方法，GET不出错， POST 403，这可能是CSRF保护导致的。</p>
+<h1 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h1><p>可以通过 <code>httpSecurity.csrf().disable()</code> 关闭csrf防护。</p>
+<p>但这不是推荐的做法。官方推荐的做法是增加csrf token</p>
+<p><a href="https://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#csrf-include-csrf-token" target="_blank" rel="noopener">https://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#csrf-include-csrf-token</a></p>
+<p>SpringMVC中可以在form中增加：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">”hidden”</span> <span class="attr">th:name</span>=<span class="string">”$&#123;_csrf.parameterName&#125;”</span> <span class="attr">th:value</span>=<span class="string">”$&#123;_csrf.token&#125;”/</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>RESTful API需要把这2个值作为http header传递给后端。</p>
+<h1 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h1><p>CSRF是网络攻击的一种，<a href="https://study.163.com/course/courseLearn.htm?courseId=1006121037&share=2&shareId=400000000447005#/learn/video?lessonId=1053739036&courseId=1006121037" target="_blank" rel="noopener">此处有详细说明</a>。</p>
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/05/18/spring-return-403-when-post/">https://blog.devmgr.cn/2019/05/18/spring-return-403-when-post/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/05/17/base64-java-lang-illegalargumentexception-illegal-base64-character-20/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/05/17/base64-java-lang-illegalargumentexception-illegal-base64-character-20/" class="post-title-link" itemprop="url">Base64 java.lang.IllegalArgumentException: Illegal base64 character 20</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-17 08:53:57" itemprop="dateCreated datePublished" datetime="2019-05-17T08:53:57+08:00">2019-05-17</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="出现的问题"><a href="#出现的问题" class="headerlink" title="出现的问题"></a>出现的问题</h2><p>JDK8 调用 java.util.Base64解码时出现异常：java.lang.IllegalArgumentException: Illegal base64 character 20</p>
+<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>character 20 是空格，如果待解码的字符串没错，可能是遇到了编码标准的问题。 Base64有几个规范：</p>
+<ul>
+<li>RFC4648 / RFC2045 这两个规范规定encode后的字符包括：0-9,a-z,A-Z,+/</li>
+<li>RFC1521 这个规范除上述的0-9,a-z,A-Z,+/外，还包含空格符和换行符</li>
+</ul>
+<p>JDK8的Base64遵守的是第一个无空格符和换行符的规范，所以遇到空格或换行会抛异常。</p>
+<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>知道了原因，解决起来就很简单了，换支持RFC1521标准的decoder解码就可以了，例如apache commons-codec。</p>
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/05/17/base64-java-lang-illegalargumentexception-illegal-base64-character-20/">https://blog.devmgr.cn/2019/05/17/base64-java-lang-illegalargumentexception-illegal-base64-character-20/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/05/05/动态的创建抽象类的实例/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1493,319 +1786,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/11/25/java正则表达式从字符串提取信息/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/11/25/java正则表达式从字符串提取信息/" class="post-title-link" itemprop="url">java正则表达式从字符串提取信息</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-25 10:58:50" itemprop="dateCreated datePublished" datetime="2018-11-25T10:58:50+08:00">2018-11-25</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>使用正则表达式，从markdown文件中提取链接显示的字符和链接到的地址。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">String content = <span class="string">"这是段.md文件的内容。其中[这是一个链接](./html/README.md)，还有其他内容，这里又有一个[another link](another.md)，这次链接到了another.md。"</span>;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//括号用于分组；需要匹配括号则用\c</span></span><br><span class="line"><span class="comment">//[^\]] 表示任意不是']'的字符，后面的*表示任意多个</span></span><br><span class="line">Pattern p = Pattern.compile(<span class="string">"\\[([^\\]]*)\\]\\(([^\\)]*)\\)"</span>, Pattern.CASE_INSENSITIVE);</span><br><span class="line"> </span><br><span class="line">Matcher matcher = p.matcher(content);</span><br><span class="line"><span class="keyword">while</span>(matcher != <span class="keyword">null</span> &amp;&amp; matcher.find()) &#123;</span><br><span class="line">    String link = matcher.group();</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;= matcher.groupCount(); i++)&#123;</span><br><span class="line">        <span class="comment">//得到的分组，第0个是整个字串，例如第一次发现时打印：[这是一个链接](./html/README.md)</span></span><br><span class="line">        <span class="comment">//第一个是正则表达式中第一个括号匹配到的内容，例如第一次发现时打印：这是一个链接</span></span><br><span class="line">        System.out.println(matcher.group(i));</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>运行结果:</p>
-<pre><code>[这是一个链接](https://blog.devmgr.cn)
-这是一个链接
-./html/README.md
-
-[another link](https://www.google.com)
-another link
-another.md</code></pre><p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2018/11/25/java正则表达式从字符串提取信息/">https://blog.devmgr.cn/2018/11/25/java正则表达式从字符串提取信息/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/09/20/制作https双向认证的网站/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/09/20/制作https双向认证的网站/" class="post-title-link" itemprop="url">制作HTTPS双向认证的网站</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-09-20 16:50:19" itemprop="dateCreated datePublished" datetime="2018-09-20T16:50:19+08:00">2018-09-20</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>使用NGINX做双向认证的网站，访问时需要客户端安装有证书才可继续访问。可用于仅限特定用户群的网站，例如企业内部的业务管理系统，可提高系统安全性，阻止未授权用户访问。</p>
-<p>在下述方法中，客户端证书采用自制（可节约成本），服务器端证书可自制也可购买，两者不必同一个CA，建议购买（有免费的域名证书）因为自制的浏览器会出现不信任标志。</p>
-<p>自制证书使用openssl工具，使用前需要先安装.</p>
-<h1 id="制作证书"><a href="#制作证书" class="headerlink" title="制作证书"></a>制作证书</h1><h2 id="CA证书"><a href="#CA证书" class="headerlink" title="CA证书"></a>CA证书</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#制作CA私钥</span></span><br><span class="line">openssl genrsa -out ca.key 2048</span><br><span class="line"> </span><br><span class="line"><span class="comment">#制作CA根证书（包含公钥），会要求填写信息</span></span><br><span class="line">openssl req -new -x509 -days 3650 -key ca.key -out ca.crt</span><br></pre></td></tr></table></figure>
-
-<h2 id="服务器证书"><a href="#服务器证书" class="headerlink" title="服务器证书"></a>服务器证书</h2><p>如果使用购买的服务器证书，可忽略此部分</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#制作服务器端私钥：</span></span><br><span class="line">openssl genrsa -out server.key 2048</span><br><span class="line"><span class="comment">#服务器端公钥</span></span><br><span class="line">openssl rsa -<span class="keyword">in</span> server.key -out server.public.key</span><br><span class="line"> </span><br><span class="line"><span class="comment">#生成CSR（证书签发请求）</span></span><br><span class="line">openssl req -new -key server.public.key -out server.csr</span><br><span class="line"> </span><br><span class="line"><span class="comment">#用CA私钥签发证书</span></span><br><span class="line">openssl x509 -req -sha256 -<span class="keyword">in</span> server.csr -CA ca.crt -CAkey ca.key -CAcreateserial -days 3650 -out server.crt</span><br></pre></td></tr></table></figure>
-
-<h2 id="客户端浏览器证书"><a href="#客户端浏览器证书" class="headerlink" title="客户端浏览器证书"></a>客户端浏览器证书</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#制作客户端私钥</span></span><br><span class="line">openssl genrsa -out client.key 2048</span><br><span class="line"><span class="comment">#客户端公钥</span></span><br><span class="line">openssl rsa -<span class="keyword">in</span> client.key -out client.public.key</span><br><span class="line"> </span><br><span class="line"><span class="comment">#生成CSR（签发请求）</span></span><br><span class="line">openssl req -new -key client.public.key -out client.csr</span><br><span class="line"> </span><br><span class="line"><span class="comment">#用CA私钥签发证书</span></span><br><span class="line">openssl x509 -req -sha256 -<span class="keyword">in</span> client.csr -CA ca.crt -CAkey ca.key -CAcreateserial -days 365 -out client.crt</span><br><span class="line"> </span><br><span class="line"><span class="comment">#转成pfx格式</span></span><br><span class="line">openssl pkcs12 -<span class="built_in">export</span> -clcerts -<span class="keyword">in</span> client.crt -inkey client.key -out client.pfx</span><br></pre></td></tr></table></figure>
-
-<p>生成CSR环节会要求输入一些信息，如下：</p>
-<pre><code>Country Name (2 letter code) [AU]:CN
-State or Province Name (full name) [Some-State]:SH
-Locality Name (eg, city) []:SH
-Organization Name (eg, company) [Internet Widgits Pty Ltd]:公司名（英文字母）
-Organizational Unit Name (eg, section) []:
-Common Name (e.g. server FQDN or YOUR name) []:这里要输入你的主机名域名
-Email Address []:someone@yourcompany.com</code></pre><p>下面这段需要输入的两项保留为空（直接按回车）即可。</p>
-<pre><code>Please enter the following &apos;extra&apos; attributes
-to be sent with your certificate request
-A challenge password []:
-An optional company name []:</code></pre><h1 id="更改nginx配置"><a href="#更改nginx配置" class="headerlink" title="更改nginx配置"></a>更改nginx配置</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 443;</span><br><span class="line">    server_name admin.devmgr.cn;</span><br><span class="line">    ssl on;</span><br><span class="line">    # 服务器端证书配置，具体参数请根据证书发行方提供的帮助配置</span><br><span class="line">    ssl_certificate /etc/nginx/certs/1_admin.devmgr.cn_bundle.crt;</span><br><span class="line">    ssl_certificate_key /etc/nginx/certs/2_admin.devmgr.cn.key;</span><br><span class="line">    ssl_session_timeout 5m;</span><br><span class="line">    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;</span><br><span class="line">    ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;</span><br><span class="line">    ssl_prefer_server_ciphers on;</span><br><span class="line"> </span><br><span class="line">    # 下面是配置客户端认证，需要配置使用的CA证书</span><br><span class="line">    ssl_client_certificate /etc/nginx/certs/ca.crt;</span><br><span class="line">    ssl_verify_client on;</span><br><span class="line"> </span><br><span class="line">    root /var/www/admin;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="在后端程序内获取客户端证书信息"><a href="#在后端程序内获取客户端证书信息" class="headerlink" title="在后端程序内获取客户端证书信息"></a>在后端程序内获取客户端证书信息</h1><p>NGINX会把客户端证书做成内置变量，可通过proxy_set_header传递给应用，在应用内获取request header即可得到证书对应的信息。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">location /webapp &#123;</span><br><span class="line">   proxy_pass http://127.0.0.1:8080;</span><br><span class="line">   proxy_set_header Host $host;</span><br><span class="line">   proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">   proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">   # 把客户端证书的主题信息作为request header (Client-Cert)传递给应用</span><br><span class="line">   proxy_set_header Client-Cert $ssl_client_s_dn;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>除了 $ssl_client_s_dn 外，NGINX还提供很多内置变量对应证书的其他部分内容，想起请参考 nginx的ngx_http_ssl_module 模块文档。使用时需要注意nginx版本是否支持对应的变量。</p>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2018/09/20/制作https双向认证的网站/">https://blog.devmgr.cn/2018/09/20/制作https双向认证的网站/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1855,7 +1835,7 @@ An optional company name []:</code></pre><h1 id="更改nginx配置"><a href="#�
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">73</span>
+                    <span class="site-state-item-count">75</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2054,7 +2034,17 @@ An optional company name []:</code></pre><h1 id="更改nginx配置"><a href="#�
                     
                       
                     
-                    <span class="site-state-item-count">92</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">97</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

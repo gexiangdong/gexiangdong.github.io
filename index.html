@@ -308,6 +308,502 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/10/19/spring-boot-error-circular-view-path-would-dispatch-back-to-the-current-handler-url-again-check-your-viewresolver-setup/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/10/19/spring-boot-error-circular-view-path-would-dispatch-back-to-the-current-handler-url-again-check-your-viewresolver-setup/" class="post-title-link" itemprop="url">spring boot error: Circular view path []: would dispatch back to the current handler URL [/] again. Check your ViewResolver setup</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-10-19 09:48:27" itemprop="dateCreated datePublished" datetime="2019-10-19T09:48:27+08:00">2019-10-19</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>spring boot 项目访问某个controller时出错，错误信息如下：</p>
+<pre><code>2019-10-19 09:46:01.451 ERROR 1040 --- [nio-4675-exec-1] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Circular view path []: would dispatch back to the current handler URL [/] again. Check your ViewResolver setup! (Hint: This may be the result of an unspecified view, due to default view name generation.)] with root cause
+
+javax.servlet.ServletException: Circular view path []: would dispatch back to the current handler URL [/] again. Check your ViewResolver setup! (Hint: This may be the result of an unspecified view, due to default view name generation.)
+    at org.springframework.web.servlet.view.InternalResourceView.prepareForRendering(InternalResourceView.java:209) ~[spring-webmvc-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+    at org.springframework.web.servlet.view.InternalResourceView.renderMergedOutputModel(InternalResourceView.java:147) ~[spring-webmvc-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+    at org.springframework.web.servlet.view.AbstractView.render(AbstractView.java:316) ~[spring-webmvc-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+    at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1370) ~[spring-webmvc-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+    at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1116) ~[spring-webmvc-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+    at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1055) ~[spring-webmvc-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+    at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942) ~[spring-webmvc-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+    at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1005) ~[spring-webmvc-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+    at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:908) ~[spring-webmvc-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+    at javax.servlet.http.HttpServlet.service(HttpServlet.java:660) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:882) ~[spring-webmvc-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+    at javax.servlet.http.HttpServlet.service(HttpServlet.java:741) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-embed-websocket-9.0.14.jar:9.0.14]
+    at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:320) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+    at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:127) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+    at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:91) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+    at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+    at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:119) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+    at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+    at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:137) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+    at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+    at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:111) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+    at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+    at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:170) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+    at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+    at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+    at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+    at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:116) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+    at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+    at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:74) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+    at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+    at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+    at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:105) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+    at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+    at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:56) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+    at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+    at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+    at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:215) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+    at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+    at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:357) ~[spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+    at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:270) ~[spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+    at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99) ~[spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+    at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+    at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:92) ~[spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+    at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+    at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:93) ~[spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+    at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+    at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200) ~[spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+    at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+    at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:199) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96) [tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:490) [tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139) [tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) [tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) [tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343) [tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408) [tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66) [tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:834) [tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1417) [tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) [tomcat-embed-core-9.0.14.jar:9.0.14]
+    at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [na:1.8.0_131]
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [na:1.8.0_131]
+    at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-embed-core-9.0.14.jar:9.0.14]
+    at java.lang.Thread.run(Thread.java:748) [na:1.8.0_131]</code></pre><p>这个错误是由于访问的是 Controller， 而该 Controller对方的方法没有对应的视图造成的。 我这里出现这个错误，是因为我本来就不需要视图，我是想返回 JSON，但把 RestController 误写成了 Controller。</p>
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/10/19/spring-boot-error-circular-view-path-would-dispatch-back-to-the-current-handler-url-again-check-your-viewresolver-setup/">https://blog.devmgr.cn/2019/10/19/spring-boot-error-circular-view-path-would-dispatch-back-to-the-current-handler-url-again-check-your-viewresolver-setup/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/10/14/字体的单位/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/10/14/字体的单位/" class="post-title-link" itemprop="url">字体的单位</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-10-14 11:46:04" itemprop="dateCreated datePublished" datetime="2019-10-14T11:46:04+08:00">2019-10-14</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>字体的大小，在网页中常见单位是px，印刷和word中，常用五号、四号等形式。</p>
+<h1 id="印刷常用字号和毫米对应关系"><a href="#印刷常用字号和毫米对应关系" class="headerlink" title="印刷常用字号和毫米对应关系"></a>印刷常用字号和毫米对应关系</h1><p>1英寸=72磅=2.54厘米；显示器的 </p>
+<p>px和pt（磅）之间的换算和DPI有关，DPI有些地方也称作PPI</p>
+<p>1pt = DPI / 72 px</p>
+<ul>
+<li>Windows 的默认DPI是 96 （用户可以修改）；</li>
+<li>Mac 的DPI是72</li>
+</ul>
+<p>DPI=72时 1英寸显示72px， 1pt = 1px<br>DPI=96时 1英寸显示96个px, 1pt = 96 / 72 = 1.333px (9pt = 12px) </p>
+<p>根据字号对应的磅值，可以得到下表的换算后数值</p>
+<table>
+<thead>
+<tr>
+<th align="center">字号</th>
+<th align="center">磅 (pt)</th>
+<th align="center">毫米 (mm)</th>
+<th align="center">像素 (px) DPI=72</th>
+<th align="center">像素 (px) DPI=96</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">八号</td>
+<td align="center">4.5</td>
+<td align="center">1.581</td>
+<td align="center">5</td>
+<td align="center">6</td>
+</tr>
+<tr>
+<td align="center">七号</td>
+<td align="center">5.25</td>
+<td align="center">1.845</td>
+<td align="center">5</td>
+<td align="center">7</td>
+</tr>
+<tr>
+<td align="center">小六</td>
+<td align="center">6.875</td>
+<td align="center">2.416</td>
+<td align="center">7</td>
+<td align="center">9</td>
+</tr>
+<tr>
+<td align="center">六号</td>
+<td align="center">8</td>
+<td align="center">2.812</td>
+<td align="center">8</td>
+<td align="center">11</td>
+</tr>
+<tr>
+<td align="center">小五</td>
+<td align="center">9</td>
+<td align="center">3.163</td>
+<td align="center">9</td>
+<td align="center">12</td>
+</tr>
+<tr>
+<td align="center">五号</td>
+<td align="center">10.5</td>
+<td align="center">3.690</td>
+<td align="center">11</td>
+<td align="center">14</td>
+</tr>
+<tr>
+<td align="center">小四</td>
+<td align="center">12</td>
+<td align="center">4.218</td>
+<td align="center">12</td>
+<td align="center">16</td>
+</tr>
+<tr>
+<td align="center">四号</td>
+<td align="center">14</td>
+<td align="center">4.920</td>
+<td align="center">14</td>
+<td align="center">19</td>
+</tr>
+<tr>
+<td align="center">三号</td>
+<td align="center">16</td>
+<td align="center">5.623</td>
+<td align="center">16</td>
+<td align="center">21</td>
+</tr>
+<tr>
+<td align="center">小二</td>
+<td align="center">18</td>
+<td align="center">6.326</td>
+<td align="center">17</td>
+<td align="center">24</td>
+</tr>
+<tr>
+<td align="center">二号</td>
+<td align="center">21</td>
+<td align="center">7.381</td>
+<td align="center">21</td>
+<td align="center">28</td>
+</tr>
+<tr>
+<td align="center">一号</td>
+<td align="center">28</td>
+<td align="center">9.841</td>
+<td align="center">28</td>
+<td align="center">37</td>
+</tr>
+<tr>
+<td align="center">小初</td>
+<td align="center">36</td>
+<td align="center">12.653</td>
+<td align="center">36</td>
+<td align="center">48</td>
+</tr>
+<tr>
+<td align="center">初号</td>
+<td align="center">42</td>
+<td align="center">14.761</td>
+<td align="center">42</td>
+<td align="center">56</td>
+</tr>
+</tbody></table>
+<h1 id="网页中常用的单位"><a href="#网页中常用的单位" class="headerlink" title="网页中常用的单位"></a>网页中常用的单位</h1><p>网页中除了px外，还会用到pt、rem, em, </p>
+<ul>
+<li>em 是指一个字母的宽度（最初指定的是字母M），因为网页默认字体是16px，所以 1em=16px；后来就固定下来了。这个单位会随着浏览器/操作系统放大字号而放大。（px指定的字体在早期IE下不会随着缩放字体而缩放），现在浏览器的缩放功能，都是对整个网页的放大缩小，已经不存在这个问题了。</li>
+<li>% 字体也可以用百分比指定大小，100% = 16px</li>
+<li>pt （win 1pt ≈ 1.333px; max 1pt = 1px)</li>
+<li>cm / mm / in in是inch英寸的缩写， cm是厘米mm是毫米和生活中用到厘米毫米没区别，1in = 2.54cm，这三个单位到px又和DPI相关了。 1in = DPI * 1px；</li>
+<li>ex 和em类似，用的是字母X的高度，很少有人用</li>
+</ul>
+<p>CSS3中新增了几个长度单位</p>
+<ul>
+<li>ch字符0的宽度</li>
+<li>rem HTML标签元素的em数</li>
+<li>vm (viewpoint width), 1vm = viewpointwidth * 1%</li>
+<li>vh (viewpoint height), 1vh = viewpointheight * 1%</li>
+<li>vmin = min(viewpoint width, viewpoint height)</li>
+<li>calc(100% - 5px) 表达式，可以做点简单运算 </li>
+</ul>
+<p>viewpoint在做手机端网页时会用到</p>
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/10/14/字体的单位/">https://blog.devmgr.cn/2019/10/14/字体的单位/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/09/28/微信开发者工具使用中遇到的两个怪异问题/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1578,447 +2074,6 @@ net::ERR_CACHE_MISS </code></pre><p>虽然在模拟器中能正常显示字体�
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/06/16/java-lang-reflect-invocationtargetexception/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/06/16/java-lang-reflect-invocationtargetexception/" class="post-title-link" itemprop="url">org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-06-16 14:28:42" itemprop="dateCreated datePublished" datetime="2019-06-16T14:28:42+08:00">2019-06-16</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h1><p>java9 启动 spring 项目时报错：</p>
-<pre><code>org.springframework.context.ApplicationContextException: Unable to start web server; nested exception is org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
-    at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:157) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
-    at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:543) ~[spring-context-5.1.7.RELEASE.jar:5.1.7.RELEASE]
-    at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:142) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
-    at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:775) [spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
-    at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397) [spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
-    at org.springframework.boot.SpringApplication.run(SpringApplication.java:316) [spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
-    at org.springframework.boot.SpringApplication.run(SpringApplication.java:1260) [spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
-    at org.springframework.boot.SpringApplication.run(SpringApplication.java:1248) [spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
-    at cn.devmgr.springcloud.register.eureka.Application.main(Application.java:14) [classes/:na]
-    at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
-    at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
-    at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
-    at java.base/java.lang.reflect.Method.invoke(Method.java:564) ~[na:na]
-    at org.springframework.boot.maven.AbstractRunMojo$LaunchRunner.run(AbstractRunMojo.java:558) [spring-boot-maven-plugin-2.1.5.RELEASE.jar:2.1.5.RELEASE]
-    at java.base/java.lang.Thread.run(Thread.java:844) [na:na]
-Caused by: org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
-    at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:125) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
-    at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.&lt;init&gt;(TomcatWebServer.java:86) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
-    at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getTomcatWebServer(TomcatServletWebServerFactory.java:427) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
-    at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getWebServer(TomcatServletWebServerFactory.java:180) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
-    at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.createWebServer(ServletWebServerApplicationContext.java:181) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
-    at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:154) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
-    ... 14 common frames omitted
-Caused by: java.lang.IllegalStateException: StandardEngine[Tomcat].StandardHost[localhost].TomcatEmbeddedContext[] failed to start
-    at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.rethrowDeferredStartupExceptions(TomcatWebServer.java:171) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
-    at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:109) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
-    ... 19 common frames omitted
-
-[WARNING] 
-java.lang.reflect.InvocationTargetException
-    at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-    at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-    at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-    at java.base/java.lang.reflect.Method.invoke(Method.java:564)
-    at org.springframework.boot.maven.AbstractRunMojo$LaunchRunner.run(AbstractRunMojo.java:558)
-    at java.base/java.lang.Thread.run(Thread.java:844)
-Caused by: org.springframework.context.ApplicationContextException: Unable to start web server; nested exception is org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
-    at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:157)
-    at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:543)
-    at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:142)
-    at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:775)
-    at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397)
-    at org.springframework.boot.SpringApplication.run(SpringApplication.java:316)
-    at org.springframework.boot.SpringApplication.run(SpringApplication.java:1260)
-    at org.springframework.boot.SpringApplication.run(SpringApplication.java:1248)
-    at cn.devmgr.springcloud.register.eureka.Application.main(Application.java:14)
-    ... 6 more
-Caused by: org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
-    at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:125)
-    at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.&lt;init&gt;(TomcatWebServer.java:86)
-    at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getTomcatWebServer(TomcatServletWebServerFactory.java:427)
-    at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getWebServer(TomcatServletWebServerFactory.java:180)
-    at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.createWebServer(ServletWebServerApplicationContext.java:181)
-    at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:154)
-    ... 14 more
-Caused by: java.lang.IllegalStateException: StandardEngine[Tomcat].StandardHost[localhost].TomcatEmbeddedContext[] failed to start
-    at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.rethrowDeferredStartupExceptions(TomcatWebServer.java:171)
-    at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:109)
-    ... 19 more</code></pre><h2 id="原因和解决办法"><a href="#原因和解决办法" class="headerlink" title="原因和解决办法"></a>原因和解决办法</h2><p>这是java9 默认没有加载 JAXB-API 造成的，java9开始分模块，默认加载的模块不包含 jaxb-api。 有几个办法可以解决：</p>
-<ul>
-<li><p>命令后增加参数 <code>--add-modules java.xml.bind</code> 引入此模块</p>
-</li>
-<li><p>换java8</p>
-</li>
-<li><p>手工增加 jaxb的依赖</p>
-<pre><code class="xml"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span>
-     <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.xml.bind<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>
-     <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jaxb-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>
-     <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.3.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span>
- <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span>
- <span class="tag">&lt;<span class="name">dependency</span>&gt;</span>
-     <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.sun.xml.bind<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>
-     <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jaxb-impl<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>
-     <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.3.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span>
- <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span>
- <span class="tag">&lt;<span class="name">dependency</span>&gt;</span>
-     <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.glassfish.jaxb<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>
-     <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jaxb-runtime<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>
-     <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.3.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span>
- <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span>
- <span class="tag">&lt;<span class="name">dependency</span>&gt;</span>
-     <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.activation<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>
-     <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>activation<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>
-     <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.1.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span>
- <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></code></pre>
-</li>
-</ul>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/06/16/java-lang-reflect-invocationtargetexception/">https://blog.devmgr.cn/2019/06/16/java-lang-reflect-invocationtargetexception/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/06/08/value-vs-configurationproperties/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/06/08/value-vs-configurationproperties/" class="post-title-link" itemprop="url">@Value vs. @ConfigurationProperties</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-06-08 16:09:11" itemprop="dateCreated datePublished" datetime="2019-06-08T16:09:11+08:00">2019-06-08</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>@Value和@ConfigurationProperties两个注解都可以从配置文件获取值并设置到属性中，用法上有区别。</p>
-<p>@Value适用一些比较简单的情形，用得比较普遍；而@ConfigurationProperties则可适用一些@Value无法处理更复杂的情形。</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">myapp:</span></span><br><span class="line"><span class="attr">  simple:</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">ABC</span></span><br><span class="line"><span class="attr">    count:</span> <span class="number">15</span></span><br><span class="line"><span class="attr">    countries:</span> <span class="string">CN,US,UK</span></span><br><span class="line"><span class="attr">  complex:</span></span><br><span class="line"><span class="attr">    list:</span></span><br><span class="line"><span class="attr">      - id:</span> <span class="string">k1</span></span><br><span class="line"><span class="attr">        value:</span> <span class="string">hello</span></span><br><span class="line"><span class="attr">      - id:</span> <span class="string">k2</span></span><br><span class="line"><span class="attr">        value:</span> <span class="string">nihao</span></span><br><span class="line"><span class="attr">      - id:</span> <span class="string">k3</span></span><br><span class="line"><span class="attr">        value:</span> <span class="string">konichiha</span></span><br><span class="line"><span class="attr">    nested:</span></span><br><span class="line"><span class="attr">      name:</span> <span class="string">John</span></span><br><span class="line"><span class="attr">      address:</span></span><br><span class="line"><span class="attr">        province:</span> <span class="string">jiangsu</span></span><br><span class="line"><span class="attr">        city:</span> <span class="string">nanjing</span></span><br></pre></td></tr></table></figure>
-
-<p>例如上面的配置myapp.simple下的属性都可以用@value获取到，甚至myapp.simple.countries也可以被设置到String[]类型的属性上，但是下面的myapp.complex.list设置的配置，@Value就无法把它转成一个List&lt;Map&lt;String, Object&gt;&gt;类型的属性了，而@ConfigurationProperties可以。甚至myapp.complex.nested还可以被@ConfigurationProperties付值到带有两个属性(province, city)的子类中（参照下面的@ NestedConfigurationProperty注解）</p>
-<h1 id="Value"><a href="#Value" class="headerlink" title="@Value"></a>@Value</h1><h2 id="可处理的类型"><a href="#可处理的类型" class="headerlink" title="可处理的类型"></a>可处理的类型</h2><p>只可处理String、数值等简单类型，和简单的数组类型，不能处理map、List等复杂类型</p>
-<h2 id="位置"><a href="#位置" class="headerlink" title="位置"></a>位置</h2><p>直接写在需要从配置文件读取值的成员变量上即可。<br>例如：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">XxxxService</span></span>&#123;</span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;xxx.yyy&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String xxxYyy;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h2><p>只有一个字符型参数value，用于标记配置文件中的key</p>
-<table>
-<thead>
-<tr>
-<th align="left">参数名称</th>
-<th align="center">类型</th>
-<th align="center">默认值</th>
-<th align="left">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">value</td>
-<td align="center">String</td>
-<td align="center"></td>
-<td align="left">从配置文件中哪一项读取值，支持Spring EL</td>
-</tr>
-</tbody></table>
-<h1 id="ConfigurationProperties"><a href="#ConfigurationProperties" class="headerlink" title="@ConfigurationProperties"></a>@ConfigurationProperties</h1><h2 id="可处理的类型-1"><a href="#可处理的类型-1" class="headerlink" title="可处理的类型"></a>可处理的类型</h2><h2 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h2><p>@ConfigurationProperties注解需要写到类上，为该类所有有setter方法的属性从配置文件中读取并付值。<br>如果类里面的某个属性是</p>
-<p>例如：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ConfigurationProperties</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">xxxYyy</span></span>&#123;</span><br><span class="line">   <span class="keyword">private</span> String name;</span><br><span class="line">   <span class="meta">@NestedConfigurationProperty</span> Address address;</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span></span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.name = name;</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAddress</span><span class="params">(Address address)</span></span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.address = address;</span><br><span class="line">   &#125; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Address</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String province;</span><br><span class="line">    <span class="keyword">private</span> String city;</span><br><span class="line">   </span><br><span class="line">    <span class="comment">//---略过setter方法</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="参数-1"><a href="#参数-1" class="headerlink" title="参数"></a>参数</h2><table>
-<thead>
-<tr>
-<th align="left">参数名称</th>
-<th align="center">类型</th>
-<th align="center">默认值</th>
-<th align="left">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">ignoreInvalidFields</td>
-<td align="center">boolean</td>
-<td align="center">false</td>
-<td align="left">java中被绑定的属性类型与配置文件中设置的值类型不同时是否忽略</td>
-</tr>
-<tr>
-<td align="left">ignoreUnknownFields</td>
-<td align="center">boolean</td>
-<td align="center">true</td>
-<td align="left">Flag to indicate that when binding to this object invalid fields should be ignored</td>
-</tr>
-<tr>
-<td align="left">prefix</td>
-<td align="center">String</td>
-<td align="center"></td>
-<td align="left">The name prefix of the properties that are valid to bind to this object.</td>
-</tr>
-<tr>
-<td align="left">value</td>
-<td align="center">String</td>
-<td align="center"></td>
-<td align="left">同prefix，简写，支持Spring EL</td>
-</tr>
-</tbody></table>
-<h2 id="前置条件"><a href="#前置条件" class="headerlink" title="前置条件"></a>前置条件</h2><p>1、需要增加依赖</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-configuration-processor<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>2、需要先开始使用配置属性的功能（不开启不出错，但不会读取配置并设置到类上）</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@EnableConfigurationProperties</span></span><br></pre></td></tr></table></figure>
-
-<p>@EnableConfigurationProperties需要写在Spring Boot的启动类或配置类上。</p>
-<h1 id="从其他配置文件中读取"><a href="#从其他配置文件中读取" class="headerlink" title="从其他配置文件中读取"></a>从其他配置文件中读取</h1><p>如果信息配置在了自定义的配置文件中（不是applicaiton.yml)，则可以使用@PropertySource注解来告诉spring从哪个文件读取配置信息，例如：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PropertySource</span>(<span class="string">"classpath:configprops.properties"</span>)</span><br></pre></td></tr></table></figure>
-
-
-
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/06/08/value-vs-configurationproperties/">https://blog.devmgr.cn/2019/06/08/value-vs-configurationproperties/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2068,7 +2123,7 @@ Caused by: java.lang.IllegalStateException: StandardEngine[Tomcat].StandardHost[
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">73</span>
+                    <span class="site-state-item-count">75</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2267,7 +2322,17 @@ Caused by: java.lang.IllegalStateException: StandardEngine[Tomcat].StandardHost[
                     
                       
                     
-                    <span class="site-state-item-count">92</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">97</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
