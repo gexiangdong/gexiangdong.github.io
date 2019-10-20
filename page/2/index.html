@@ -308,6 +308,150 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/08/29/客户端连接spring-websocket-返回403错误/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/08/29/客户端连接spring-websocket-返回403错误/" class="post-title-link" itemprop="url">客户端连接spring websocket 返回403错误</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-29 16:44:33" itemprop="dateCreated datePublished" datetime="2019-08-29T16:44:33+08:00">2019-08-29</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>今天用小程序连接 spring websocket服务器，小程序端一直报403错误。</p>
+<pre><code>VM1513 asdebug.js:1 WebSocket connection to &apos;ws://localhost:8080/socket/&apos; failed: Error during WebSocket handshake: Unexpected response code: 403</code></pre><p>检查后端spring websecurity授权，没有问题，后来发现是被websocket默认给禁止了非同源访问。</p>
+<p>修改 websocket 的配置类，增加了 <code>.setAllowedOrigins(&quot;*&quot;)</code>，修改后如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebsocketConfig</span> <span class="keyword">implements</span> <span class="title">WebSocketMessageBrokerConfigurer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//其他部分略去</span></span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerStompEndpoints</span><span class="params">(StompEndpointRegistry registry)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//客户端调用的URL；</span></span><br><span class="line">        registry.addEndpoint(<span class="string">"/socket"</span>).setAllowedOrigins(<span class="string">"*"</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>改完后重启，小程序websocket就可以连接了。</p>
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/08/29/客户端连接spring-websocket-返回403错误/">https://blog.devmgr.cn/2019/08/29/客户端连接spring-websocket-返回403错误/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/06/16/java-lang-reflect-invocationtargetexception/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1813,166 +1957,6 @@ The temporary upload location [C:\Users\Administrator\AppData\Local\Temp\tomcat.
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/06/05/css中用svg图片做背景图/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/06/05/css中用svg图片做背景图/" class="post-title-link" itemprop="url">CSS中用SVG图片做背景图</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-06-05 11:34:34" itemprop="dateCreated datePublished" datetime="2019-06-05T11:34:34+08:00">2019-06-05</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>用CSS把SVG图片显示为背景图，可分为2种写法：</p>
-<ol>
-<li>单独的.svg文件，css里用 <code>background-image: url(&#39;xx.svg&#39;);</code> 去调用图片</li>
-<li>使用url的data属性，把svg文件合并到css中</li>
-</ol>
-<p>第2种写法直接把svg的xml内容拷贝到css中，有些浏览器会识别不出来，这是由于写法不规范造成的。</p>
-<p>规范的写法把svg内容放到css内时需要encode，有两种encode方式： base64 和 URLEncode</p>
-<h3 id="base64"><a href="#base64" class="headerlink" title="base64"></a>base64</h3><p>做base64的编码后，需要 <code>background-image: url(&#39;data:image/svg+xml;base64,这里放base64后的svg&#39;)</code> </p>
-<h3 id="urlencode"><a href="#urlencode" class="headerlink" title="urlencode"></a>urlencode</h3><p>urlencode可以直接放 <code>background-image: url(&#39;data:image/svg+xml;charset=utf-8,这里放urlencode后的svg)</code></p>
-<p>但需要注意URLEncode有两种可能：</p>
-<ul>
-<li>空格变加号，这是在 content type 是 ‘application/x-www-form-urlencoded’时，也就是提交表单时，POST DATA的URLEncoding方式。</li>
-<li>空格变%20，这是标准的URL的encode， 在css中使用svg需要用这种encode方法。</li>
-</ul>
-<p>如果你找到的工具编码出来空格是加号，可以把+都替换成%20即可。</p>
-<h1 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h1><p>下面2个文件是个例子：</p>
-<h2 id="bg-svg"><a href="#bg-svg" class="headerlink" title="bg.svg"></a>bg.svg</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">svg</span> <span class="attr">version</span>=<span class="string">"1.1"</span> <span class="attr">xmlns</span>=<span class="string">"http://www.w3.org/2000/svg"</span> <span class="attr">xmlns:xlink</span>=<span class="string">"http://www.w3.org/1999/xlink"</span> <span class="attr">x</span>=<span class="string">"0"</span> <span class="attr">y</span>=<span class="string">"0"</span> <span class="attr">width</span>=<span class="string">"100"</span> <span class="attr">height</span>=<span class="string">"100"</span> <span class="attr">viewBox</span>=<span class="string">"0, 0, 100, 100"</span>&gt;</span><span class="tag">&lt;<span class="name">circle</span> <span class="attr">cx</span>=<span class="string">"50"</span> <span class="attr">cy</span>=<span class="string">"50"</span> <span class="attr">r</span>=<span class="string">"50"</span>/&gt;</span><span class="tag">&lt;/<span class="name">svg</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="test-html"><a href="#test-html" class="headerlink" title="test.html"></a>test.html</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>svg background<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">        div &#123;margin: 50px; border: 1px solid #CDCDCD; padding:5px; height:150px; width:300px; background-repeat: no-repeat; background-position: center center; float:left;&#125;</span></span><br><span class="line"><span class="undefined">        .bg1&#123;background-image: url('bg.svg');&#125;</span></span><br><span class="line"><span class="undefined">        .bg2&#123;background-image: url('data:image/svg+xml;charset=utf-8,%3Csvg%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220%22%20y%3D%220%22%20width%3D%22100%22%20height%3D%22100%22%20viewBox%3D%220%2C%200%2C%20100%2C%20100%22%20fill%3D%22%23ECECEC%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2250%22%2F%3E%3C%2Fsvg%3E');&#125;</span></span><br><span class="line"><span class="undefined">        .bg3&#123;background-image: url('data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwLCAwLCAxMDAsIDEwMCIgZmlsbD0iI0VDRUNFQyI+PGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iNTAiLz48L3N2Zz4=');&#125;</span></span><br><span class="line"><span class="xml">        .bg4&#123;background-image: url('data:image/svg+xml;charset=utf-8,<span class="tag">&lt;<span class="name">svg</span> <span class="attr">version</span>=<span class="string">"1.1"</span> <span class="attr">xmlns</span>=<span class="string">"http://www.w3.org/2000/svg"</span> <span class="attr">xmlns:xlink</span>=<span class="string">"http://www.w3.org/1999/xlink"</span> <span class="attr">x</span>=<span class="string">"0"</span> <span class="attr">y</span>=<span class="string">"0"</span> <span class="attr">width</span>=<span class="string">"100"</span> <span class="attr">height</span>=<span class="string">"100"</span> <span class="attr">viewBox</span>=<span class="string">"0, 0, 100, 100"</span> <span class="attr">fill</span>=<span class="string">"#ECECEC"</span>&gt;</span><span class="tag">&lt;<span class="name">circle</span> <span class="attr">cx</span>=<span class="string">"50"</span> <span class="attr">cy</span>=<span class="string">"50"</span> <span class="attr">r</span>=<span class="string">"50"</span>/&gt;</span><span class="tag">&lt;/<span class="name">svg</span>&gt;</span>');&#125;</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"bg1"</span>&gt;</span>使用独立的svg文件<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"bg2"</span>&gt;</span>urlencode, urlencode编码，注意空格需要编码成%20，空格转义成加号的方式无效<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"bg3"</span>&gt;</span>base64，用base64编码后的<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"bg4"</span>&gt;</span>直接写，这是不规范的写法，可能有部分浏览器会生效，能看到背景图<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="小工具"><a href="#小工具" class="headerlink" title="小工具"></a>小工具</h3><p>每次从网上下载的SVG的图片中，都带有一些注释、过多的无实际意义的 g 标签，id 属性等，这些也占用CSS空间，我这个有强迫症患者，每次都得手工清理，然后再找个工具base64编码，才能写到 CSS 内，今天我做了个小工具来把这些都自动化了，地址在： <a href="http://www.devmgr.cn/encodesvgtocssbackground.html" target="_blank" rel="noopener">http://www.devmgr.cn/encodesvgtocssbackground.html</a></p>
-<p>可以自动清理 SVG 中无实际意义的节点并 base64 encode，还把常用的css 属性也写到了一起。</p>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/06/05/css中用svg图片做背景图/">https://blog.devmgr.cn/2019/06/05/css中用svg图片做背景图/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2022,7 +2006,7 @@ The temporary upload location [C:\Users\Administrator\AppData\Local\Temp\tomcat.
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">75</span>
+                    <span class="site-state-item-count">76</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2231,7 +2215,9 @@ The temporary upload location [C:\Users\Administrator\AppData\Local\Temp\tomcat.
                     
                       
                     
-                    <span class="site-state-item-count">97</span>
+                      
+                    
+                    <span class="site-state-item-count">98</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

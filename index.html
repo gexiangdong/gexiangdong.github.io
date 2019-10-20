@@ -308,6 +308,152 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/10/19/graphics2d-drawstring-方法的x-y参数/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/10/19/graphics2d-drawstring-方法的x-y参数/" class="post-title-link" itemprop="url">Graphics2D.drawString 方法的x,y参数</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-10-19 20:36:07" itemprop="dateCreated datePublished" datetime="2019-10-19T20:36:07+08:00">2019-10-19</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>JDK中Graphics2D类 <code>drawString(String str, float x, float y)</code> 方法的后两个参数是用来控制字符串的位置。</p>
+<p>这2个参数即不是字符串左上角距画布原点的坐标，也不是左下角距原点的坐标，而是baseline起点距原点的坐标。说到baseline，请参照下图</p>
+<p><img src="/images/drawstring.png" alt="字体"></p>
+<p>如上图，红色线是字体描画时的baseline（基线），小写英文字母是可能有些部分在baseline以下的，比如 gjpqy 等，中文每个字都有可能有部分在baseline以下。baseline和字的最上方之间的距离称作 ascent，baseline和最下方之间的距离叫 descent. 这两段距离可以通过 FontMetrics 类获取。</p>
+<p>如果要想被画的文字左上角在x,y 位置，可以通过如下代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">drawString</span><span class="params">(Graphics2D g, String s, <span class="keyword">float</span> x, <span class="keyword">float</span> y)</span></span>&#123;</span><br><span class="line">  FontMetrics metrics = g.getFontMetrics(g.getFont());</span><br><span class="line">  g.drawString(s, x, y - metrics.getAscent());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过FontMetrics类，我们还可以获取一段文字的实际占用宽度等，可以实现右对齐和居中对齐</p>
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/10/19/graphics2d-drawstring-方法的x-y参数/">https://blog.devmgr.cn/2019/10/19/graphics2d-drawstring-方法的x-y参数/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/10/19/spring-boot-error-circular-view-path-would-dispatch-back-to-the-current-handler-url-again-check-your-viewresolver-setup/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1930,150 +2076,6 @@ net::ERR_CACHE_MISS </code></pre><p>虽然在模拟器中能正常显示字体�
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/08/29/客户端连接spring-websocket-返回403错误/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/08/29/客户端连接spring-websocket-返回403错误/" class="post-title-link" itemprop="url">客户端连接spring websocket 返回403错误</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-08-29 16:44:33" itemprop="dateCreated datePublished" datetime="2019-08-29T16:44:33+08:00">2019-08-29</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>今天用小程序连接 spring websocket服务器，小程序端一直报403错误。</p>
-<pre><code>VM1513 asdebug.js:1 WebSocket connection to &apos;ws://localhost:8080/socket/&apos; failed: Error during WebSocket handshake: Unexpected response code: 403</code></pre><p>检查后端spring websecurity授权，没有问题，后来发现是被websocket默认给禁止了非同源访问。</p>
-<p>修改 websocket 的配置类，增加了 <code>.setAllowedOrigins(&quot;*&quot;)</code>，修改后如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebsocketConfig</span> <span class="keyword">implements</span> <span class="title">WebSocketMessageBrokerConfigurer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//其他部分略去</span></span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerStompEndpoints</span><span class="params">(StompEndpointRegistry registry)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//客户端调用的URL；</span></span><br><span class="line">        registry.addEndpoint(<span class="string">"/socket"</span>).setAllowedOrigins(<span class="string">"*"</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<p>改完后重启，小程序websocket就可以连接了。</p>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/08/29/客户端连接spring-websocket-返回403错误/">https://blog.devmgr.cn/2019/08/29/客户端连接spring-websocket-返回403错误/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2123,7 +2125,7 @@ net::ERR_CACHE_MISS </code></pre><p>虽然在模拟器中能正常显示字体�
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">75</span>
+                    <span class="site-state-item-count">76</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2332,7 +2334,9 @@ net::ERR_CACHE_MISS </code></pre><p>虽然在模拟器中能正常显示字体�
                     
                       
                     
-                    <span class="site-state-item-count">97</span>
+                      
+                    
+                    <span class="site-state-item-count">98</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

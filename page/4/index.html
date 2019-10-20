@@ -308,6 +308,148 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/12/27/springmvc-x-frame-options-deny/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/12/27/springmvc-x-frame-options-deny/" class="post-title-link" itemprop="url">SpringMVC X-Frame-Options:Deny</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-12-27 08:29:57" itemprop="dateCreated datePublished" datetime="2018-12-27T08:29:57+08:00">2018-12-27</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><p>使用 SpringMVC + Spring Security 做的网页，前端嵌套在 iframe/frame 中内容不显示，一片空白。</p>
+<p>打开浏览器的网页检查器，会在主控台发现错误信息：</p>
+<pre><code>Refused to display ‘http://x.x.x.x/xx/’ in a frame because it set ‘X-Frame-Options’ to ‘DENY’.</code></pre><p>查看 Response Header 会发现 spring security 加了一个header</p>
+<pre><code>X-Frame-Options: Deny</code></pre><h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>通过在 Spring Security 中设置<br><code>httpSecurity.headers().frameOptions().disable()</code><br>禁止调这个头信息即可。</p>
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2018/12/27/springmvc-x-frame-options-deny/">https://blog.devmgr.cn/2018/12/27/springmvc-x-frame-options-deny/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/11/25/java正则表达式从字符串提取信息/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1660,150 +1802,6 @@ Date: Tue, 04 Sep 2018 05:46:48 GMT</code></pre><p>之后websocket连接就建�
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/05/31/在spring-boot项目和nginx结合时获取真实ip/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/05/31/在spring-boot项目和nginx结合时获取真实ip/" class="post-title-link" itemprop="url">在spring boot项目和nginx结合时获取真实IP</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-05-31 14:45:29" itemprop="dateCreated datePublished" datetime="2018-05-31T14:45:29+08:00">2018-05-31</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="设置NGINX，把真实IP转发过来"><a href="#设置NGINX，把真实IP转发过来" class="headerlink" title="设置NGINX，把真实IP转发过来"></a>设置NGINX，把真实IP转发过来</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">    proxy_pass http://127.0.0.1:8008/;</span><br><span class="line">    proxy_set_header Host                          $host;</span><br><span class="line">    proxy_set_header X-Real-IP                  $remote_addr;</span><br><span class="line">    proxy_set_header X-Forwarded-For      $proxy_add_x_forwarded_for;</span><br><span class="line">    proxy_set_header X-Forwarded-Proto   $scheme;</span><br><span class="line">    proxy_redirect                                         off;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="配置spring-boot中内嵌的tomcat，使用header中的IP"><a href="#配置spring-boot中内嵌的tomcat，使用header中的IP" class="headerlink" title="配置spring boot中内嵌的tomcat，使用header中的IP"></a>配置spring boot中内嵌的tomcat，使用header中的IP</h1><p>修改application.yml</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line"><span class="attr">  use-forward-headers:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  tomcat:</span></span><br><span class="line"><span class="attr">    remote-ip-header:</span> <span class="string">X-Real-IP</span></span><br><span class="line"><span class="attr">    protocol-header:</span> <span class="string">X-Forwarded-Proto</span></span><br></pre></td></tr></table></figure>
-
-<p>之后在程序中获取的IP (<code>request.getRemoteAddr()</code>) 就是真实的IP地址了。</p>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2018/05/31/在spring-boot项目和nginx结合时获取真实ip/">https://blog.devmgr.cn/2018/05/31/在spring-boot项目和nginx结合时获取真实ip/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1853,7 +1851,7 @@ Date: Tue, 04 Sep 2018 05:46:48 GMT</code></pre><p>之后websocket连接就建�
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">75</span>
+                    <span class="site-state-item-count">76</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2062,7 +2060,9 @@ Date: Tue, 04 Sep 2018 05:46:48 GMT</code></pre><p>之后websocket连接就建�
                     
                       
                     
-                    <span class="site-state-item-count">97</span>
+                      
+                    
+                    <span class="site-state-item-count">98</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
