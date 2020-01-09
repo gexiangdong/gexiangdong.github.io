@@ -308,6 +308,155 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/12/29/在图片上描画文字时的抗锯齿功能/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/12/29/在图片上描画文字时的抗锯齿功能/" class="post-title-link" itemprop="url">在图片上描画文字时的抗锯齿功能</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-12-29 16:11:10" itemprop="dateCreated datePublished" datetime="2019-12-29T16:11:10+08:00">2019-12-29</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>用java的 Graphics 的 drawString 往图片上描画文字的时候，文字边缘可能会出现粗糙的锯齿（如下图，上部的”文“字的放大效果），可以通过Graphics2D设置抗锯齿效果。</p>
+<p>代码和两种的比较效果如下(只有第18行是设置抗锯齿效果的代码)：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">BufferedImage img = <span class="keyword">new</span> BufferedImage(<span class="number">800</span>, <span class="number">300</span>, BufferedImage.TYPE_INT_ARGB);</span><br><span class="line">Graphics g = img.getGraphics();</span><br><span class="line"></span><br><span class="line">InputStream fi = Thread.currentThread().getContextClassLoader().getResourceAsStream(<span class="string">"fonts/msyh.ttf"</span>);</span><br><span class="line">BufferedInputStream bisYh = <span class="keyword">new</span> BufferedInputStream(fi);</span><br><span class="line">Font yahei = Font.createFont(Font.TRUETYPE_FONT, bisYh);</span><br><span class="line"></span><br><span class="line">g.setColor(Color.WHITE);</span><br><span class="line">g.fillRect(<span class="number">0</span>, <span class="number">0</span>, <span class="number">800</span>, <span class="number">300</span>);</span><br><span class="line"></span><br><span class="line">Font font = yahei.deriveFont(Font.BOLD, <span class="number">48</span>);</span><br><span class="line">g.setColor(Color.BLACK);</span><br><span class="line"></span><br><span class="line">g.setFont(font);</span><br><span class="line">g.drawString(<span class="string">"中文字体，无抗锯齿效果"</span>, <span class="number">10</span>, <span class="number">50</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 下面这行是设置文字抗锯齿效果的</span></span><br><span class="line">((Graphics2D) g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);</span><br><span class="line">g.drawString(<span class="string">"中文字体，有抗锯齿效果"</span>, <span class="number">10</span>, <span class="number">150</span>);</span><br><span class="line"></span><br><span class="line">FileOutputStream fos = <span class="keyword">new</span> FileOutputStream(<span class="string">"target/font.png"</span> );</span><br><span class="line">ImageIO.write(img, <span class="string">"png"</span>, fos);</span><br><span class="line"></span><br><span class="line">fos.flush();</span><br><span class="line">fos.close();</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/font.jpg" alt="字体"></p>
+<p>通过上图可以看出，设置抗锯齿效果后，会在文字边缘有些过度颜色的点。如果是要在单色打印机上打印（例如android下连接小票打印机），就不需要这种抗锯齿效果了，有它反而会增加麻烦，我就是在调试android下单色打印机时发现的这个效果。</p>
+<p>描画图片时也可以设置抗锯齿效果</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/12/29/在图片上描画文字时的抗锯齿功能/">https://blog.devmgr.cn/2019/12/29/在图片上描画文字时的抗锯齿功能/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/10/19/graphics2d-drawstring-方法的x-y参数/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1931,151 +2080,6 @@ net::ERR_CACHE_MISS </code></pre><p>虽然在模拟器中能正常显示字体�
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/08/31/小程序中用css实现列表序号/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/08/31/小程序中用css实现列表序号/" class="post-title-link" itemprop="url">小程序中用CSS实现列表序号</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-08-31 09:38:56" itemprop="dateCreated datePublished" datetime="2019-08-31T09:38:56+08:00">2019-08-31</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>小程序的 WXML 语言中无 LI OL UL 等标签，只有 VIEW TEXT 等，要实现HTML中的 LI 功能，可以通过CSS来实现， 这个办法在 HTML 中也可行。</p>
-<p>代码如下：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"rulelist"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"ruleitem"</span>&gt;</span>对战需要2个人参与<span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"ruleitem"</span>&gt;</span>同一题目两人抢答，先提交正确答案者得分<span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"ruleitem"</span>&gt;</span>正确答案得3分，错误答案一次扣1分<span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"ruleitem"</span>&gt;</span>20秒内两个选手均未提供正确答案，自动下一题<span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">"ruleitem"</span>&gt;</span>得分先超过30分者获胜<span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.rulelist</span>&#123;<span class="attribute">counter-reset</span>: ord; <span class="attribute">padding-left</span>:<span class="number">20px</span>; &#125;</span><br><span class="line"><span class="selector-class">.ruleitem</span>&#123;<span class="attribute">padding</span>:<span class="number">2px</span> <span class="number">0</span>; <span class="attribute">font-size</span>:<span class="number">14px</span>; <span class="attribute">line-height</span>: <span class="number">18px</span>;&#125;</span><br><span class="line"><span class="selector-class">.ruleitem</span><span class="selector-pseudo">:before</span>&#123;<span class="attribute">content</span>: <span class="built_in">counter</span>(ord) <span class="string">"."</span>; <span class="attribute">counter-increment</span>: ord; <span class="attribute">margin-left</span>: -<span class="number">20px</span>; <span class="attribute">display</span>:inline-block; <span class="attribute">width</span>:<span class="number">20px</span>;&#125;</span><br></pre></td></tr></table></figure>
-
-<p>counter-rest 这个属性还可修改序号的起始值、增长步长等。</p>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/08/31/小程序中用css实现列表序号/">https://blog.devmgr.cn/2019/08/31/小程序中用css实现列表序号/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2125,7 +2129,7 @@ net::ERR_CACHE_MISS </code></pre><p>虽然在模拟器中能正常显示字体�
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">76</span>
+                    <span class="site-state-item-count">77</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2336,7 +2340,11 @@ net::ERR_CACHE_MISS </code></pre><p>虽然在模拟器中能正常显示字体�
                     
                       
                     
-                    <span class="site-state-item-count">98</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">100</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -2418,7 +2426,7 @@ net::ERR_CACHE_MISS </code></pre><p>虽然在模拟器中能正常显示字体�
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
