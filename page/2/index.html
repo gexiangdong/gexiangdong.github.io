@@ -895,7 +895,7 @@ Caused by: org.springframework.boot.web.server.WebServerException: Unable to sta
 Caused by: java.lang.IllegalStateException: StandardEngine[Tomcat].StandardHost[localhost].TomcatEmbeddedContext[] failed to start
     at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.rethrowDeferredStartupExceptions(TomcatWebServer.java:171)
     at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:109)
-    ... 19 more</code></pre><h2 id="原因和解决办法"><a href="#原因和解决办法" class="headerlink" title="原因和解决办法"></a>原因和解决办法</h2><p>这是java9 默认没有加载 JAXB-API 造成的，java9开始分模块，默认加载的模块不包含 jaxb-api。 有几个办法可以解决：</p>
+    ... 19 more</code></pre><h1 id="原因和解决办法"><a href="#原因和解决办法" class="headerlink" title="原因和解决办法"></a>原因和解决办法</h1><p>这是java9 默认没有加载 JAXB-API 造成的，java9开始分模块，默认加载的模块不包含 jaxb-api。 有几个办法可以解决：</p>
 <ul>
 <li><p>命令后增加参数 <code>--add-modules java.xml.bind</code> 引入此模块</p>
 </li>
