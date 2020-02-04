@@ -308,6 +308,309 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2020/02/03/vue-js项目发布时自动剔除console-log/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/02/03/vue-js项目发布时自动剔除console-log/" class="post-title-link" itemprop="url">VUE.JS项目发布时自动剔除console.log</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-02-03 19:27:17" itemprop="dateCreated datePublished" datetime="2020-02-03T19:27:17+08:00">2020-02-03</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>安装 babel-plugin-transform-remove-consol</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install babel-plugin-transform-remove-console --save-dev</span><br></pre></td></tr></table></figure>
+
+<p>修改 babel.config.js 文件，加入 plugin  transform-remove-console</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  plugins: [<span class="string">"transform-remove-console"</span>] </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>这是再运行项目就不会有console输出了，但是我们期望的是 development 环境有，production 环境没有，可以这样设置：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> babelconfig = &#123;</span><br><span class="line">  presets: [<span class="string">"@vue/cli-plugin-babel/preset"</span>], <span class="comment">//其它原有设置</span></span><br><span class="line">  plugins: []</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">if</span> (process.env.NODE_ENV === <span class="string">"production"</span>) &#123;</span><br><span class="line">  <span class="comment">// production 环境则增加此插件</span></span><br><span class="line">  babelconfig.plugins.push(<span class="string">"transform-remove-console"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = babelconfig;</span><br></pre></td></tr></table></figure>
+
+<p>这样就可以了。</p>
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2020/02/03/vue-js项目发布时自动剔除console-log/">https://blog.devmgr.cn/2020/02/03/vue-js项目发布时自动剔除console-log/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2020/02/02/eureka-server启动时报错com-netflix-discovery-shared-transport-transportexception-cannot-execute-request-on-any-known-server/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/02/02/eureka-server启动时报错com-netflix-discovery-shared-transport-transportexception-cannot-execute-request-on-any-known-server/" class="post-title-link" itemprop="url">EUREKA Server启动时报错com.netflix.discovery.shared.transport.TransportException: Cannot execute request on any known server</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-02-02 09:22:07" itemprop="dateCreated datePublished" datetime="2020-02-02T09:22:07+08:00">2020-02-02</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="异常-I"><a href="#异常-I" class="headerlink" title="异常 I"></a>异常 I</h1><p>spring cloud 的  eureka server 启动时出现如下错误</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">09:17:44.673 [SpringContextShutdownHook] WARN  c.n.d.s.t.d.RetryableEurekaHttpClient - Request execution failed with message: java.net.ConnectException: Connection refused (Connection refused)</span><br><span class="line">09:17:44.674 [SpringContextShutdownHook] ERROR c.netflix.discovery.DiscoveryClient - DiscoveryClient_REGISTER-SERVER/192.168.123.121:register-server:8012 - de-registration failedCannot execute request on any known server</span><br><span class="line">com.netflix.discovery.shared.transport.TransportException: Cannot execute request on any known server</span><br><span class="line">	at com.netflix.discovery.shared.transport.decorator.RetryableEurekaHttpClient.execute(RetryableEurekaHttpClient.java:112)</span><br><span class="line">	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.cancel(EurekaHttpClientDecorator.java:71)</span><br><span class="line">	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$2.execute(EurekaHttpClientDecorator.java:74)</span><br><span class="line">	at com.netflix.discovery.shared.transport.decorator.SessionedEurekaHttpClient.execute(SessionedEurekaHttpClient.java:77)</span><br><span class="line">	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.cancel(EurekaHttpClientDecorator.java:71)</span><br><span class="line">	at com.netflix.discovery.DiscoveryClient.unregister(DiscoveryClient.java:941)</span><br><span class="line">	at com.netflix.discovery.DiscoveryClient.shutdown(DiscoveryClient.java:919)</span><br><span class="line">	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)</span><br><span class="line">	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)</span><br><span class="line">	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)</span><br><span class="line">	at java.base/java.lang.reflect.Method.invoke(Method.java:566)</span><br><span class="line">	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor$LifecycleElement.invoke(InitDestroyAnnotationBeanPostProcessor.java:389)</span><br><span class="line">	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor$LifecycleMetadata.invokeDestroyMethods(InitDestroyAnnotationBeanPostProcessor.java:347)</span><br><span class="line">	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor.postProcessBeforeDestruction(InitDestroyAnnotationBeanPostProcessor.java:177)</span><br><span class="line">	at org.springframework.beans.factory.support.DisposableBeanAdapter.destroy(DisposableBeanAdapter.java:242)</span><br><span class="line">	at org.springframework.beans.factory.support.DisposableBeanAdapter.run(DisposableBeanAdapter.java:235)</span><br><span class="line">	at org.springframework.cloud.context.scope.GenericScope$BeanLifecycleWrapper.destroy(GenericScope.java:403)</span><br><span class="line">	at org.springframework.cloud.context.scope.GenericScope.destroy(GenericScope.java:142)</span><br><span class="line">	at org.springframework.beans.factory.support.DisposableBeanAdapter.destroy(DisposableBeanAdapter.java:258)</span><br><span class="line">	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroyBean(DefaultSingletonBeanRegistry.java:571)</span><br><span class="line">	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroySingleton(DefaultSingletonBeanRegistry.java:543)</span><br><span class="line">	at org.springframework.beans.factory.support.DefaultListableBeanFactory.destroySingleton(DefaultListableBeanFactory.java:1072)</span><br><span class="line">	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroySingletons(DefaultSingletonBeanRegistry.java:504)</span><br><span class="line">	at org.springframework.beans.factory.support.DefaultListableBeanFactory.destroySingletons(DefaultListableBeanFactory.java:1065)</span><br><span class="line">	at org.springframework.context.support.AbstractApplicationContext.destroyBeans(AbstractApplicationContext.java:1060)</span><br><span class="line">	at org.springframework.context.support.AbstractApplicationContext.doClose(AbstractApplicationContext.java:1029)</span><br><span class="line">	at org.springframework.context.support.AbstractApplicationContext$1.run(AbstractApplicationContext.java:948)</span><br></pre></td></tr></table></figure>
+
+<p>这个错误是由于 Eureka 启动时默认会把自己注册到注册中心（默认注册中心是localhost，虽然没配置，但是有这么个默认值），而此时没有注册中心（自己是注册中心，尚未启动），所以出错了。</p>
+<p>解决方案很简单，禁止注册就好了</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">eureka:</span></span><br><span class="line"><span class="attr">  instance:</span></span><br><span class="line"><span class="attr">    preferIpAddress:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  client:</span></span><br><span class="line"><span class="attr">    register-with-eureka:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">    fetch-registry:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<p>如果网络上已经有注册中心，也可以提供注册中心的URL，让 eureka server 能购找到注册中心也可</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">eureka:</span></span><br><span class="line"><span class="attr">  client:</span></span><br><span class="line"><span class="attr">    register-with-eureka:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    fetch-registry:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">    service-url:</span></span><br><span class="line"><span class="attr">      defaultZone:</span> <span class="attr">http://192.168.1.1/eureka/</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="异常-II"><a href="#异常-II" class="headerlink" title="异常 II"></a>异常 II</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">09:42:18.813 [TaskBatchingWorker-target_localhost-9] ERROR c.n.e.c.ReplicationTaskProcessor - Network level connection to peer localhost; retrying after delay</span><br><span class="line">com.sun.jersey.api.client.ClientHandlerException: java.net.ConnectException: Connection refused (Connection refused)</span><br><span class="line">	at com.sun.jersey.client.apache4.ApacheHttpClient4Handler.handle(ApacheHttpClient4Handler.java:187)</span><br><span class="line">	at com.netflix.eureka.cluster.DynamicGZIPContentEncodingFilter.handle(DynamicGZIPContentEncodingFilter.java:48)</span><br><span class="line">	at com.netflix.discovery.EurekaIdentityHeaderFilter.handle(EurekaIdentityHeaderFilter.java:27)</span><br><span class="line">	at com.sun.jersey.api.client.Client.handle(Client.java:652)</span><br><span class="line">	at com.sun.jersey.api.client.WebResource.handle(WebResource.java:682)</span><br><span class="line">	at com.sun.jersey.api.client.WebResource.access$200(WebResource.java:74)</span><br><span class="line">	at com.sun.jersey.api.client.WebResource$Builder.post(WebResource.java:570)</span><br><span class="line">	at com.netflix.eureka.transport.JerseyReplicationClient.submitBatchUpdates(JerseyReplicationClient.java:117)</span><br><span class="line">	at com.netflix.eureka.cluster.ReplicationTaskProcessor.process(ReplicationTaskProcessor.java:80)</span><br><span class="line">	at com.netflix.eureka.util.batcher.TaskExecutors$BatchWorkerRunnable.run(TaskExecutors.java:193)</span><br><span class="line">	at java.base/java.lang.Thread.run(Thread.java:834)</span><br><span class="line">Caused by: java.net.ConnectException: Connection refused (Connection refused)</span><br><span class="line">	at java.base/java.net.PlainSocketImpl.socketConnect(Native Method)</span><br><span class="line">	at java.base/java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:399)</span><br><span class="line">	at java.base/java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:242)</span><br><span class="line">	at java.base/java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:224)</span><br><span class="line">	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:403)</span><br><span class="line">	at java.base/java.net.Socket.connect(Socket.java:591)</span><br><span class="line">	at org.apache.http.conn.scheme.PlainSocketFactory.connectSocket(PlainSocketFactory.java:121)</span><br><span class="line">	at org.apache.http.impl.conn.DefaultClientConnectionOperator.openConnection(DefaultClientConnectionOperator.java:180)</span><br><span class="line">	at org.apache.http.impl.conn.AbstractPoolEntry.open(AbstractPoolEntry.java:144)</span><br><span class="line">	at org.apache.http.impl.conn.AbstractPooledConnAdapter.open(AbstractPooledConnAdapter.java:134)</span><br><span class="line">	at org.apache.http.impl.client.DefaultRequestDirector.tryConnect(DefaultRequestDirector.java:605)</span><br><span class="line">	at org.apache.http.impl.client.DefaultRequestDirector.execute(DefaultRequestDirector.java:440)</span><br><span class="line">	at org.apache.http.impl.client.AbstractHttpClient.doExecute(AbstractHttpClient.java:835)</span><br><span class="line">	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:118)</span><br><span class="line">	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:56)</span><br><span class="line">	at com.sun.jersey.client.apache4.ApacheHttpClient4Handler.handle(ApacheHttpClient4Handler.java:173)</span><br><span class="line">	... 10 common frames omitted</span><br></pre></td></tr></table></figure>
+
+<p>erureka server 使用中出现上面的错误，这也是2个注册中心连接复制信息造成的。如果只有一个注册中心，可以用这个禁止：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">eureka:</span></span><br><span class="line"><span class="attr">  server:</span></span><br><span class="line"><span class="attr">    maxThreadsForPeerReplication:</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h1><p>在微服务体系中，注册中心是十分重要的一环，注册中心如果死掉，那么所有微服务之间的通讯就没法进行了，整个系统陷入瘫痪。所以eureka才默认就开启了双机模式，这也是开发环境中出现上述2个异常的原因，没有使用双注册中心的备份机制。</p>
+<p>生产环境应该使用双注册中心（或更多），不要开启上述几个设置仅仅屏蔽异常。</p>
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2020/02/02/eureka-server启动时报错com-netflix-discovery-shared-transport-transportexception-cannot-execute-request-on-any-known-server/">https://blog.devmgr.cn/2020/02/02/eureka-server启动时报错com-netflix-discovery-shared-transport-transportexception-cannot-execute-request-on-any-known-server/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2020/01/28/spring-security-5-x-的默认密码保存方式/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1668,320 +1971,11 @@ javax.servlet.ServletException: Circular view path []: would dispatch back to th
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/09/14/mysql-升级到8后-php-无法连接的解决/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/09/14/mysql-升级到8后-php-无法连接的解决/" class="post-title-link" itemprop="url">mysql 升级到8后 php 无法连接的解决</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-09-14 21:07:27" itemprop="dateCreated datePublished" datetime="2019-09-14T21:07:27+08:00">2019-09-14</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>今天用 <code>brew upgrade</code> 把所有brew 按照的都升级了，mysql被升级到了 8，之后mac 自带的 apache + php 7 就无法连接mysql了。（mysql命令行客户端没有问题）</p>
-<p>php 提示错误：</p>
-<p>PDOException::(“PDO::__construct(): The server requested authentication method unknown to the client [caching_sha2_password]”)</p>
-<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>mysql 改变了默认的密码插件，改成了 caching_sha2_password 模式，而 php 不支持造成的。</p>
-<p>phpinfo() 中可以查看到 loaded plugins 没有 caching_sha2_password</p>
-<p>有两个解决方案：</p>
-<ul>
-<li>给PHP增加 caching_sha2_password 模块</li>
-<li>更改mysql 8，改回 mysql_native_password 模式</li>
-</ul>
-<p>两个方法任选一个即可。</p>
-<h2 id="更改-mysql8-的授权方法"><a href="#更改-mysql8-的授权方法" class="headerlink" title="更改 mysql8 的授权方法"></a>更改 mysql8 的授权方法</h2><p>注意以下步骤要按顺序：</p>
-<ol>
-<li><p>使用mysql命令行登录，更改 root 用户的授权方式（也可再创建一个超级用户）; SQL语句在文末</p>
-</li>
-<li><p>修改 my.cnf (mac brew 安装的在 /usr/local/etc/my.cnf），增加一行 <code>default_authentication_plugin=mysql_native_password</code></p>
-</li>
-<li><p>重启 mysql (brew services restart mysql)</p>
-<p>如果在重启之前没有修改用户的密码插件，会提示密码错误，无法连接。</p>
-</li>
-</ol>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** 创建用户 admin **/</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="string">'admin'</span>@<span class="string">'localhost'</span> <span class="keyword">identified</span> <span class="keyword">with</span> mysql_native_password <span class="keyword">by</span> <span class="string">'12345'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">GRANT</span> ALL <span class="keyword">PRIVILEGES</span> <span class="keyword">ON</span> *.* <span class="keyword">TO</span> <span class="string">'admin'</span>@<span class="string">'localhost'</span>  <span class="keyword">WITH</span> <span class="keyword">GRANT</span> <span class="keyword">OPTION</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/** 更改 root 用户, 12345是新密码 **/</span></span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">user</span> <span class="string">'root'</span>@<span class="string">'localhost'</span> <span class="keyword">identified</span> <span class="keyword">with</span> mysql_native_password <span class="keyword">by</span> <span class="string">'12345'</span>;</span><br></pre></td></tr></table></figure>
-
-<h2 id="让-PHP-支持-caching-sha2-password"><a href="#让-PHP-支持-caching-sha2-password" class="headerlink" title="让 PHP 支持 caching_sha2_password"></a>让 PHP 支持 caching_sha2_password</h2><p>使用 PHP 7.1.16 之前的版本或者 PHP 7.2（PHP 7.2.4 之前的版本) 不支持 caching_sha2_password。 </p>
-<p>升级PHP到最新版就好了。</p>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/09/14/mysql-升级到8后-php-无法连接的解决/">https://blog.devmgr.cn/2019/09/14/mysql-升级到8后-php-无法连接的解决/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/09/14/brew-upgrade-postgresql-后无法启动/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/09/14/brew-upgrade-postgresql-后无法启动/" class="post-title-link" itemprop="url">brew upgrade postgresql 后无法启动</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-09-14 09:46:33" itemprop="dateCreated datePublished" datetime="2019-09-14T09:46:33+08:00">2019-09-14</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>使用 <code>brew upgrade postgresql</code> 把 mac 上的 postgresql server 从10升级成11后，发现无法正常启动了</p>
-<p>查看 postgresql 的日志文件 /usr/local/var/log/postgres.log，发现如下两行说明了启动失败的原因</p>
-<pre><code>2019-09-14 09:39:57.355 CST [1586] FATAL:  database files are incompatible with server
-2019-09-14 09:39:57.355 CST [1586] DETAIL:  The data directory was initialized by PostgreSQL version 10, which is not compatible with this version 11.5.</code></pre><p>用如下命令可以迁移老的数据文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew postgresql-upgrade-database</span><br></pre></td></tr></table></figure>
-
-
-
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/09/14/brew-upgrade-postgresql-后无法启动/">https://blog.devmgr.cn/2019/09/14/brew-upgrade-postgresql-后无法启动/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -2026,7 +2020,7 @@ javax.servlet.ServletException: Circular view path []: would dispatch back to th
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">80</span>
+                    <span class="site-state-item-count">82</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2253,7 +2247,19 @@ javax.servlet.ServletException: Circular view path []: would dispatch back to th
                     
                       
                     
-                    <span class="site-state-item-count">106</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">112</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

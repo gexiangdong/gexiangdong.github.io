@@ -308,6 +308,318 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/04/06/autowired注解加载构件的顺序/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/04/06/autowired注解加载构件的顺序/" class="post-title-link" itemprop="url">Autowired注解加载构件的顺序</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-04-06 18:24:30" itemprop="dateCreated datePublished" datetime="2018-04-06T18:24:30+08:00">2018-04-06</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="仅仅Autowired注解"><a href="#仅仅Autowired注解" class="headerlink" title="仅仅Autowired注解"></a>仅仅Autowired注解</h1><p>@Autowired在查找构件时，会从构件库中查找所有构件，查找所有是被注解变量的类型或该类型的子类。</p>
+<ol>
+<li>如果找到了且只找到了一个，那么就给被注解变量设置成此构件。</li>
+<li>如果一个也没找到，看Autowired注解的required参数的值，如果是true（默认值）则失败，终止spring环境的启动；如果是false则给被注解变量赋值为null。</li>
+<li>如果找到了多个：<ol>
+<li>如有在找到的多个中有且仅有一个构件被标注了@Primary，则使用这个。</li>
+<li>如果@Primary有多个或者一个也没有，终止spring环境的启动，抛出异常。</li>
+</ol>
+</li>
+</ol>
+<h1 id="Autowired注解和Qualifier注解一起使用"><a href="#Autowired注解和Qualifier注解一起使用" class="headerlink" title="Autowired注解和Qualifier注解一起使用"></a>Autowired注解和Qualifier注解一起使用</h1><p>在使用@Autowired注解装载构件时，可以增加一个@Qualifier指定一个待装载构件的名字</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span> <span class="meta">@Qualifier</span>(<span class="string">"thisone"</span>) MyObject myObject;</span><br></pre></td></tr></table></figure>
+
+<p>上面这种写法可以解决多个MyObject的子类被设置成component的状况<br>相应的，在构件上有两种写法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span>(<span class="string">"thisone"</span>)</span><br><span class="line"><span class="keyword">public</span> MyObject&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>也可以</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Qualifier</span>(<span class="string">"thisone"</span>)</span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> MyObject&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意给构件起名不要重复，重名会抛异常的。</p>
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2018/04/06/autowired注解加载构件的顺序/">https://blog.devmgr.cn/2018/04/06/autowired注解加载构件的顺序/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/04/06/设置json中的日期时间格式/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/04/06/设置json中的日期时间格式/" class="post-title-link" itemprop="url">设置JSON中的日期时间格式</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-04-06 14:37:04" itemprop="dateCreated datePublished" datetime="2018-04-06T14:37:04+08:00">2018-04-06</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>定制RestController中Date类型转换为JSON时的格式有两种方法：</p>
+<ul>
+<li>通过application.yml配置修改全局设置，对所有Date型都生效</li>
+<li>给需要指定的属性增加注解，仅对被注解的属性生效</li>
+</ul>
+<p>两个方法都有，注解优先级高。</p>
+<h3 id="application-yml中可这样设置"><a href="#application-yml中可这样设置" class="headerlink" title="application.yml中可这样设置"></a>application.yml中可这样设置</h3><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">  jackson:</span></span><br><span class="line"><span class="attr">    date-format:</span> <span class="string">yyyy-MM-dd</span>              <span class="comment">#用字符串表示日期时间时的字符串格式</span></span><br><span class="line"><span class="attr">    time-zone:</span> <span class="string">GMT+8</span>                     <span class="comment">#设置时区，不设置用格林威治时间</span></span><br><span class="line"><span class="attr">    serialization:</span></span><br><span class="line"><span class="attr">      write-dates-as-timestamps:</span> <span class="literal">false</span>   <span class="comment">#值为true表示用long型时间戳</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="用注解设置可以使用下面2个注解"><a href="#用注解设置可以使用下面2个注解" class="headerlink" title="用注解设置可以使用下面2个注解"></a>用注解设置可以使用下面2个注解</h3><p>long型的timestamp表示日期： </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@JsonFormat</span>(shape = JsonFormat.Shape.NUMBER)</span><br></pre></td></tr></table></figure>
+
+<p>字符串表示日期：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@JsonFormat</span>(timezone=<span class="string">"GMT+8"</span>, pattern=<span class="string">"yyyy-MM-dd"</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2018/04/06/设置json中的日期时间格式/">https://blog.devmgr.cn/2018/04/06/设置json中的日期时间格式/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/03/27/mybatis通用的insert-update/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1484,311 +1796,11 @@ DSA keySize &amp;lt; 1024, EC keySize &amp;lt; 224</code></pre><p>另外jdk.tls.
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2017/11/08/mybatis调用存储过程/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2017/11/08/mybatis调用存储过程/" class="post-title-link" itemprop="url">mybatis调用存储过程</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2017-11-08 11:31:38" itemprop="dateCreated datePublished" datetime="2017-11-08T11:31:38+08:00">2017-11-08</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>mybatis调用存储过程和调用普通的sql略有区别:</p>
-<ul>
-<li>首先xml文件中要增加参数 `statementType=”CALLABLE”</li>
-<li>调用存储过程的语句用大括号包含起来，并写上call关键字</li>
-</ul>
-<p>例如：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"loginByWxOpenId"</span> <span class="attr">resultType</span>=<span class="string">"cn.devmgr.exam.domain.Token"</span> <span class="attr">statementType</span>=<span class="string">"CALLABLE"</span>&gt;</span></span><br><span class="line">   &#123; call wxLogin(#&#123;wxOpenId&#125;, #&#123;ipAddr&#125;) &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>传递的参数还是和普通sql一样，可以直接 <code>#{}</code> 来引用参数。</p>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2017/11/08/mybatis调用存储过程/">https://blog.devmgr.cn/2017/11/08/mybatis调用存储过程/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2017/09/28/查询postgresql的慢sql/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2017/09/28/查询postgresql的慢sql/" class="post-title-link" itemprop="url">查询postgresql的慢sql</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2017-09-28 15:31:10" itemprop="dateCreated datePublished" datetime="2017-09-28T15:31:10+08:00">2017-09-28</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>postgresql server提供了查询慢sql的方法，不过默认没有启动。</p>
-<h1 id="安装插件-pg-stat-statements"><a href="#安装插件-pg-stat-statements" class="headerlink" title="安装插件 pg_stat_statements"></a>安装插件 pg_stat_statements</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> extension pg_stat_statements;</span><br></pre></td></tr></table></figure>
-
-<p>安装插件就这一句sql，但pg_stat_statements还需要修改postgresql.conf，加入这句</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shared_preload_libraries = &apos;pg_stat_statements&apos;</span><br></pre></td></tr></table></figure>
-
-<p>默认的是有注释的shared_preload_libraries</p>
-<p>更改完配置文件需要重启postgresql server</p>
-<h1 id="重置计数器"><a href="#重置计数器" class="headerlink" title="重置计数器"></a>重置计数器</h1><p>可以使用如下sql重置计数器</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> pg_stat_reset();</span><br><span class="line"><span class="keyword">select</span> pg_stat_statements_reset();</span><br></pre></td></tr></table></figure>
-
-<h1 id="查询慢sql"><a href="#查询慢sql" class="headerlink" title="查询慢sql"></a>查询慢sql</h1><p>可以使用下面的sql查出来哪些sql执行的比较慢：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from pg_stat_statements order by total_time desc limit 5;</span><br></pre></td></tr></table></figure>
-
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://help.aliyun.com/knowledge_detail/43562.html" target="_blank" rel="noopener">https://help.aliyun.com/knowledge_detail/43562.html</a></p>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2017/09/28/查询postgresql的慢sql/">https://blog.devmgr.cn/2017/09/28/查询postgresql的慢sql/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1833,7 +1845,7 @@ DSA keySize &amp;lt; 1024, EC keySize &amp;lt; 224</code></pre><p>另外jdk.tls.
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">80</span>
+                    <span class="site-state-item-count">82</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2060,7 +2072,19 @@ DSA keySize &amp;lt; 1024, EC keySize &amp;lt; 224</code></pre><p>另外jdk.tls.
                     
                       
                     
-                    <span class="site-state-item-count">106</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">112</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
