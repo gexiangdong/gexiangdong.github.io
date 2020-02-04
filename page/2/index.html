@@ -308,6 +308,147 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/09/28/微信开发者工具使用中遇到的两个怪异问题/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/09/28/微信开发者工具使用中遇到的两个怪异问题/" class="post-title-link" itemprop="url">微信开发者工具使用中遇到的两个怪异问题</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-09-28 09:40:07" itemprop="dateCreated datePublished" datetime="2019-09-28T09:40:07+08:00">2019-09-28</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>在使用微信开发者工具开发小程序时遇到两个怪异问题，记录于此。</p>
+<h2 id="websocket-不往服务器端发送-header-信息"><a href="#websocket-不往服务器端发送-header-信息" class="headerlink" title="websocket 不往服务器端发送 header 信息"></a>websocket 不往服务器端发送 header 信息</h2><p>某天，突然开始看到报错，小程序的websocket连接不上了，服务端的验证一直通过不，想着没改小程序端，于是一直各种跟踪调试服务端的websocket配置，发现没有收到用于传递身份信息的头导致的。思前想后百思不解，为啥这个头消失了。后来想到电脑有几天没重启过了，之间也没退出过微信开发者工具，尝试退出微信开发者工具，重新进入，问题得以解决。</p>
+<h2 id="模拟器中小程序保存图片到相册后自动返回首页"><a href="#模拟器中小程序保存图片到相册后自动返回首页" class="headerlink" title="模拟器中小程序保存图片到相册后自动返回首页"></a>模拟器中小程序保存图片到相册后自动返回首页</h2><p>在模拟器中有一个保存图片的功能（把canvas上的图存入相册），保存后，模拟器会弹出一个对话框，选择文件的存储位置，然后保存。有几次没注意文件的位置就存了，存了后，发现小程序自动跳转到了首页，而且console的日志也消失了，好像重启了小程序。原因是弹出的对话框默认是小程序的路径，文件存在了小程序项目目录下，开发者工具检测到了文件变化会重启模拟器内小程序已变反应变化。 换个路径保存就好了。这也不能算开发者工具的bug，只是没注意到这点时，会很麻烦。</p>
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/09/28/微信开发者工具使用中遇到的两个怪异问题/">https://blog.devmgr.cn/2019/09/28/微信开发者工具使用中遇到的两个怪异问题/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/09/14/mysql-升级到8后-php-无法连接的解决/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1878,166 +2019,6 @@ Caused by: java.lang.IllegalStateException: StandardEngine[Tomcat].StandardHost[
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/06/08/传输压缩的json/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/06/08/传输压缩的json/" class="post-title-link" itemprop="url">传输压缩的JSON</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-06-08 15:00:52" itemprop="dateCreated datePublished" datetime="2019-06-08T15:00:52+08:00">2019-06-08</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>有时客户端给服务器传输的JSON比较大，几兆甚至几十兆，网络传输占用时间较多，而json都是文本格式，压缩率较高。因此考虑传输压缩后的格式。</p>
-<p>HTTP协议在相应部分支持Content-Encoding:gzip，压缩response body，而没有压缩request body的设计，这也很合理，因为在客户端发起请求时并不知道服务器是否支持压缩。因此没法通过http自身解决，只能增加些程序。</p>
-<p><strong>压缩和解压都消耗CPU时间</strong>，需要根据实际情况决定是否使用压缩方案，一般内网（微服务）调用启用压缩后有可能得不偿失。在网速较慢的情况下才会有意义。</p>
-<h1 id="方案"><a href="#方案" class="headerlink" title="方案"></a>方案</h1><p>考虑到通用性，仿效response的header Content-Encoding:gzip方式。 </p>
-<p>客户端把压缩过的json作为post-body传输，然后增加一个request header: Content-Encoding: gzip来告诉服务器端是压缩的格式。</p>
-<p>服务端增加一个Filter，对request头进行检查，如果有Content-Encoding则解压缩后继续。这样不影响现有程序。</p>
-<blockquote>
-<p>服务端还有另外一个解决方案，在NGINX反向代理处增加一个插件（需要去找实现这种功能的插件，官方未提供）把解压缩后的request body传给应用服务器(tomcat)。</p>
-<p>参照 <a href="http://www.pataliebre.net/howto-make-nginx-decompress-a-gzipped-request.html#.XBToGi276i5" target="_blank" rel="noopener">http://www.pataliebre.net/howto-make-nginx-decompress-a-gzipped-request.html#.XBToGi276i5</a></p>
-</blockquote>
-<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="服务器端-Spring"><a href="#服务器端-Spring" class="headerlink" title="服务器端(Spring)"></a>服务器端(Spring)</h2><p>增加2个类:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.devmgr.springcloud;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.slf4j.Logger;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.LoggerFactory;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Service;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.filter.OncePerRequestFilter;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.FilterChain;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletException;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ContentEncodingFilter</span> <span class="keyword">extends</span> <span class="title">OncePerRequestFilter</span> </span>&#123;</span><br><span class="line">    Logger logger = LoggerFactory.getLogger(ContentEncodingFilter.class);</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doFilterInternal</span><span class="params">(HttpServletRequest request, HttpServletResponse response,</span></span></span><br><span class="line"><span class="function"><span class="params">                                    FilterChain chain)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line"></span><br><span class="line">        String conentEncoding = request.getHeader(<span class="string">"Content-Encoding"</span>);</span><br><span class="line">        <span class="keyword">if</span>(conentEncoding != <span class="keyword">null</span> &amp;&amp; (<span class="string">"gzip"</span>.equalsIgnoreCase(conentEncoding) || <span class="string">"deflate"</span>.equalsIgnoreCase(conentEncoding)))&#123;</span><br><span class="line">            logger.trace(<span class="string">"Content-Encoding: &#123;&#125;"</span>, conentEncoding);</span><br><span class="line">            chain.doFilter(<span class="keyword">new</span> GZIPRequestWrapper(request), response);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        chain.doFilter(request, response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.devmgr.springcloud;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.slf4j.Logger;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.LoggerFactory;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.ReadListener;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletInputStream;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequestWrapper;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.UnsupportedEncodingException;</span><br><span class="line"><span class="keyword">import</span> java.util.zip.DeflaterInputStream;</span><br><span class="line"><span class="keyword">import</span> java.util.zip.GZIPInputStream;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GZIPRequestWrapper</span> <span class="keyword">extends</span> <span class="title">HttpServletRequestWrapper</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> Logger logger = LoggerFactory.getLogger(GZIPRequestWrapper.class);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> HttpServletRequest request;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">GZIPRequestWrapper</span><span class="params">(HttpServletRequest request)</span></span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(request);</span><br><span class="line">        <span class="keyword">this</span>.request = request;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ServletInputStream <span class="title">getInputStream</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        ServletInputStream sis = request.getInputStream();</span><br><span class="line">        InputStream is = <span class="keyword">null</span>;</span><br><span class="line">        String conentEncoding = request.getHeader(<span class="string">"Content-Encoding"</span>);</span><br><span class="line">        <span class="keyword">if</span>(<span class="string">"gzip"</span>.equalsIgnoreCase(conentEncoding))&#123;</span><br><span class="line">            is = <span class="keyword">new</span> GZIPInputStream(sis);</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="string">"deflate"</span>.equalsIgnoreCase(conentEncoding))&#123;</span><br><span class="line">            is = <span class="keyword">new</span> DeflaterInputStream(sis);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> UnsupportedEncodingException(conentEncoding + <span class="string">" is not supported."</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">final</span> InputStream compressInputStream = is;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ServletInputStream()&#123;</span><br><span class="line">            ReadListener readListener;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">read</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">                <span class="keyword">int</span> b = compressInputStream.read();</span><br><span class="line">                <span class="keyword">if</span>(b == -<span class="number">1</span> &amp;&amp; readListener != <span class="keyword">null</span>) &#123;</span><br><span class="line">                    readListener.onAllDataRead();</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> b;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isFinished</span><span class="params">()</span></span>&#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    <span class="keyword">return</span> compressInputStream.available() == <span class="number">0</span>;</span><br><span class="line">                &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                    logger.error(<span class="string">"error"</span>, e);</span><br><span class="line">                    <span class="keyword">if</span>(readListener != <span class="keyword">null</span>) &#123;</span><br><span class="line">                        readListener.onError(e);</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isReady</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    <span class="keyword">return</span> compressInputStream.available() &gt; <span class="number">0</span>;</span><br><span class="line">                &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                    logger.error(<span class="string">"error"</span>, e);</span><br><span class="line">                    <span class="keyword">if</span>(readListener != <span class="keyword">null</span>) &#123;</span><br><span class="line">                        readListener.onError(e);</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setReadListener</span><span class="params">(<span class="keyword">final</span> ReadListener readListener)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">this</span>.readListener = readListener;</span><br><span class="line">                sis.setReadListener(<span class="keyword">new</span> ReadListener() &#123;</span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDataAvailable</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">                        logger.trace(<span class="string">"onDataAvailable"</span>);</span><br><span class="line">                        <span class="keyword">if</span>(readListener != <span class="keyword">null</span>)&#123;</span><br><span class="line">                            readListener.onDataAvailable();</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAllDataRead</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">                        logger.trace(<span class="string">"onAllDataRead"</span>);</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable throwable)</span> </span>&#123;</span><br><span class="line">                        logger.error(<span class="string">"onError"</span>, throwable);</span><br><span class="line">                        <span class="keyword">if</span>(readListener != <span class="keyword">null</span>)&#123;</span><br><span class="line">                            readListener.onError(throwable);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h2><h2 id="CURL的测试命令"><a href="#CURL的测试命令" class="headerlink" title="CURL的测试命令"></a>CURL的测试命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">'&#123;"type": "json", "length": 2222&#125;'</span> | gzip &gt; body.gz</span><br><span class="line">curl -v -i http://127.0.0.1:8080/ss -H <span class="string">'Content-Encoding: gzip'</span> -H <span class="string">'Content-Type:application/json'</span> --data-binary @body.gz</span><br></pre></td></tr></table></figure>
-
-<h2 id="RestTemplate"><a href="#RestTemplate" class="headerlink" title="RestTemplate"></a>RestTemplate</h2><p>使用RestTemplate可以通过配置interceptor来统一增加压缩。实现代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.devmgr.springcloud;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.slf4j.Logger;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.LoggerFactory;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.http.HttpRequest;</span><br><span class="line"><span class="keyword">import</span> org.springframework.http.client.ClientHttpRequestExecution;</span><br><span class="line"><span class="keyword">import</span> org.springframework.http.client.ClientHttpRequestInterceptor;</span><br><span class="line"><span class="keyword">import</span> org.springframework.http.client.ClientHttpResponse;</span><br><span class="line"><span class="keyword">import</span> org.springframework.util.CollectionUtils;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.client.RestTemplate;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.ByteArrayOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.zip.GZIPOutputStream;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RestClientConfig</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> Logger logger = LoggerFactory.getLogger(RestClientConfig.class);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * request body超过1M时，自动开启压缩模式；（需要服务端支持）</span></span><br><span class="line"><span class="comment">     * 压缩和解压会增加程序处理时间，一般内网调用不压缩速度会更快；压缩只是在网络环境较差的情况下有使用意义。</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> RestTemplate <span class="title">restTemplate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        RestTemplate restTemplate = <span class="keyword">new</span> RestTemplate();</span><br><span class="line"></span><br><span class="line">        List&lt;ClientHttpRequestInterceptor&gt; interceptors = restTemplate.getInterceptors();</span><br><span class="line">        <span class="keyword">if</span> (CollectionUtils.isEmpty(interceptors)) &#123;</span><br><span class="line">            interceptors = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        &#125;</span><br><span class="line">        interceptors.add(<span class="keyword">new</span> RestTemplateCompressInterceptor());</span><br><span class="line"></span><br><span class="line">        restTemplate.setInterceptors(interceptors);</span><br><span class="line">        <span class="keyword">return</span> restTemplate;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">RestTemplateCompressInterceptor</span> <span class="keyword">implements</span> <span class="title">ClientHttpRequestInterceptor</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> ClientHttpResponse <span class="title">intercept</span><span class="params">(HttpRequest request, <span class="keyword">byte</span>[] body,</span></span></span><br><span class="line"><span class="function"><span class="params">                                            ClientHttpRequestExecution execution)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">            logger.trace(<span class="string">"RestTemplateCompressInterceptor:intercept() body-length: &#123;&#125;"</span>, body == <span class="keyword">null</span> ? <span class="number">0</span> : body.length);</span><br><span class="line">            <span class="keyword">byte</span>[] newBody = <span class="keyword">null</span>;</span><br><span class="line">            <span class="keyword">if</span>(body == <span class="keyword">null</span> || body.length &lt; <span class="number">1024</span> * <span class="number">1024</span>)&#123;</span><br><span class="line">                <span class="comment">// 小于1M不开启压缩模式</span></span><br><span class="line">                logger.trace(<span class="string">"&#123;&#125;不需要压缩"</span>, body == <span class="keyword">null</span> ? <span class="number">0</span> : body.length);</span><br><span class="line">                newBody = body;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                logger.trace(<span class="string">"&#123;&#125;开启压缩模式"</span>, body.length);</span><br><span class="line">                request.getHeaders().add(<span class="string">"Content-Encoding"</span>, <span class="string">"gzip"</span>);</span><br><span class="line">                ByteArrayOutputStream baos = <span class="keyword">new</span> ByteArrayOutputStream();</span><br><span class="line">                GZIPOutputStream gzip;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    gzip = <span class="keyword">new</span> GZIPOutputStream(baos);</span><br><span class="line">                    gzip.write(body);</span><br><span class="line">                    gzip.close();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                    logger.error(<span class="string">"压缩request body出错."</span>, e);</span><br><span class="line">                    <span class="keyword">throw</span>(e);</span><br><span class="line">                &#125;</span><br><span class="line">                newBody = baos.toByteArray();</span><br><span class="line">                logger.trace(<span class="string">"压缩后大小 &#123;&#125;"</span>, newBody.length);</span><br><span class="line">            &#125;</span><br><span class="line">            ClientHttpResponse response = execution.execute(request, newBody);</span><br><span class="line">            <span class="keyword">return</span> response;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/06/08/传输压缩的json/">https://blog.devmgr.cn/2019/06/08/传输压缩的json/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2087,7 +2068,7 @@ Caused by: java.lang.IllegalStateException: StandardEngine[Tomcat].StandardHost[
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">82</span>
+                    <span class="site-state-item-count">83</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2326,7 +2307,9 @@ Caused by: java.lang.IllegalStateException: StandardEngine[Tomcat].StandardHost[
                     
                       
                     
-                    <span class="site-state-item-count">112</span>
+                      
+                    
+                    <span class="site-state-item-count">113</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
