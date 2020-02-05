@@ -389,17 +389,17 @@
       
         
           
-            <p>git用起来很方便，小型团队，不需要权限区分时，仅仅使用git就够了。</p>
+            <p>git用起来很方便，小型团队不需要权限区分时，仅仅使用git就够了。</p>
 <p>需要权限区分时，可以使用gitolite来做权限控制。</p>
 <h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>首先安装好 git openssh 等，这里不再累述。</p>
 <p>ssh到安装好git的服务器上，</p>
-<p>切换到git用户 <code>sudo su - git</code> ，之后确认下 .ssh 目录下没有 authorization_keys 文件或改文件为空。</p>
+<p>切换到git用户 <code>sudo su - git</code> ，之后确认下 .ssh 目录下没有 authorization_keys 文件或改文件为空。（以下这些命令都在git用户下执行）</p>
 <p>运行下面的命令</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/sitaramc/gitolite</span><br><span class="line">mkdir -p <span class="variable">$HOME</span>/bin</span><br><span class="line">gitolite/install -to <span class="variable">$HOME</span>/bin</span><br></pre></td></tr></table></figure>
 
 <p>这三个命令的作用是，从github.com克隆gitolite的安装仓库，在当前用户(git)的用户目录下创建一个bin目录，并且把gitolite安装到这个目录。</p>
 <p>安装到这个目录后，由于path里没有这个目录，调用此目录下新安装的命令时，需要写全路径，不过这影响不大，因为这几个命令不会经常用。</p>
-<p><em>下面这个很关键，不要错</em>，把自己用的客户机上的公钥id_rsa.pub文件拷贝到服务器上git用户目录下，并且命名为admin,pub，之后运行下面的命令</p>
+<p><strong>下面这个很关键，不要错</strong>，把自己用的客户机上的公钥（.ssh目录下的id_rsa.pub）文件拷贝到服务器上git用户目录下，并且命名为admin.pub，之后再运行下面的命令</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/home/git/bin/gitolite setup -pk admin.pub</span><br></pre></td></tr></table></figure>
 
 <p>此命令运行成功后，会出现如下内容：</p>
@@ -417,6 +417,11 @@
 <li>keydir 是保存的用户的公钥，按照上述安装步骤进行的，应该已经有一个 admin.pub 文件了</li>
 </ul>
 <h2 id="创建仓库"><a href="#创建仓库" class="headerlink" title="创建仓库"></a>创建仓库</h2><p>不需要手工创建仓库，在 conf/gitolite.conf 文件中配置的仓库名，在commit并push后，会自动被创建。</p>
+<h2 id="仓库的URL"><a href="#仓库的URL" class="headerlink" title="仓库的URL"></a>仓库的URL</h2><p>仓库的URL是</p>
+<p>   ssh://git@host/repo-name</p>
+<p>例如：</p>
+<p>  ssh://git@192.168.1.2/testing</p>
+<p>仓库名后面有或没有.git都可以。</p>
 <h2 id="gitolite-命令"><a href="#gitolite-命令" class="headerlink" title="gitolite 命令"></a>gitolite 命令</h2><p>除了安装时使用gitolite命令的setup参数初始化了 gitolite-admin 和 testing 两个仓库外，这个命令还可以接收以下这些参数</p>
 <pre><code>list-groups                 list all group names in conf
 list-users                  list all users/user groups in conf
