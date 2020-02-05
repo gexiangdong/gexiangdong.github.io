@@ -107,7 +107,7 @@
 <meta property="og:site_name" content="GeXiangDong">
 <meta property="og:description" content="git用起来很方便，小型团队不需要权限区分时，仅仅使用git就够了。 需要权限区分时，可以使用gitolite来做权限控制。 安装首先安装好 git openssh 等，这里不再累述。 ssh到安装好git的服务器上， 切换到git用户 sudo su - git ，之后确认下 .ssh 目录下没有 authorization_keys 文件或改文件为空。（以下这些命令都在git用户下执行） 运行">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-02-05T11:32:54.208Z">
+<meta property="og:updated_time" content="2020-02-05T11:39:35.767Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="gitolite的安装和使用">
 <meta name="twitter:description" content="git用起来很方便，小型团队不需要权限区分时，仅仅使用git就够了。 需要权限区分时，可以使用gitolite来做权限控制。 安装首先安装好 git openssh 等，这里不再累述。 ssh到安装好git的服务器上， 切换到git用户 sudo su - git ，之后确认下 .ssh 目录下没有 authorization_keys 文件或改文件为空。（以下这些命令都在git用户下执行） 运行">
@@ -408,7 +408,7 @@
 <p>而且会在git用户目录下创建 repository目录和projects.list文件。<br>如果用的公钥不正确，可以删除这2个目录/文件，然后重新来过。</p>
 <p>此时gitolite已经安装好了，要设置仓库、用户和权限，都需要在客户端（就是前面生成admin.pub的机器）上进行了</p>
 <h1 id="日常管理"><a href="#日常管理" class="headerlink" title="日常管理"></a>日常管理</h1><p>首先把gitolite-admin这个仓库克隆到本地，所有管理工作都由这个仓库进行。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git@host:gitolite-admin</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> ssh://git@host/gitolite-admin</span><br></pre></td></tr></table></figure>
 
 <p>如果出错，请首先检查客户端电脑的用户公钥是否就是安装过程中使用的admin.pub。</p>
 <p>克隆下 gitolite-admin 这个仓库后，会发现有2个目录 conf 和 keydir，</p>

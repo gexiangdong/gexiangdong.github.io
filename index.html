@@ -408,7 +408,7 @@
 <p>而且会在git用户目录下创建 repository目录和projects.list文件。<br>如果用的公钥不正确，可以删除这2个目录/文件，然后重新来过。</p>
 <p>此时gitolite已经安装好了，要设置仓库、用户和权限，都需要在客户端（就是前面生成admin.pub的机器）上进行了</p>
 <h1 id="日常管理"><a href="#日常管理" class="headerlink" title="日常管理"></a>日常管理</h1><p>首先把gitolite-admin这个仓库克隆到本地，所有管理工作都由这个仓库进行。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git@host:gitolite-admin</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> ssh://git@host/gitolite-admin</span><br></pre></td></tr></table></figure>
 
 <p>如果出错，请首先检查客户端电脑的用户公钥是否就是安装过程中使用的admin.pub。</p>
 <p>克隆下 gitolite-admin 这个仓库后，会发现有2个目录 conf 和 keydir，</p>
