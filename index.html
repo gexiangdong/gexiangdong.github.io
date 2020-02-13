@@ -308,6 +308,382 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2020/02/13/vue-js在一个页面上使用同一个自定义组件多次时遇到的怪问题/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/02/13/vue-js在一个页面上使用同一个自定义组件多次时遇到的怪问题/" class="post-title-link" itemprop="url">VUE.js在一个页面上使用同一个自定义组件多次时遇到的怪问题</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-02-13 20:43:39" itemprop="dateCreated datePublished" datetime="2020-02-13T20:43:39+08:00">2020-02-13</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>在一个页面上对同一个自定义组件调用了2次，代码如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">MyComponent</span></span></span><br><span class="line"><span class="tag">  <span class="attr">v-if</span>=<span class="string">"type1 == 2"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">v-model</span>=<span class="string">"data1"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">name</span>=<span class="string">"标题A"</span>  /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">MyComponent</span></span></span><br><span class="line"><span class="tag">  <span class="attr">v-if</span>=<span class="string">"banner.type == 3"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">v-model</span>=<span class="string">"data2"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">name</span>=<span class="string">"标题B"</span>  /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在页面上还有一组单选按钮，用来选择 <code>type</code>，当 type==2 时，显示上面的 name 是“标题A”的自定义组件，当 type==3 时，则显示下面的 name 是“标题B”的组件。 乍看之下，运行良好，当组件扩充里面有data部分时，问题出现了，对上面的组件实例进行操作导致 data 的值变化后，下面的组件实例的data部分也会跟着变，加入日志显示，两个实例似乎共享了data部分，props部分还保持自己的，没有被更改。</p>
+<p>这不科学，不符合 VUE.js 手册上对用户自定义组件的描述，而且组件的data部分是函数，也是按照 VUE.js 手册的标准写法写的。</p>
+<h1 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h1><p>后来发现是两次调用都有 v-if 一次只能出现一个导致 vue 在使用时混乱了导致，给每个对组件的引用都增加了key属性，并使用了不同的key值，问题得以解决。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">MyComponent</span></span></span><br><span class="line"><span class="tag">  <span class="attr">v-if</span>=<span class="string">"type1 == 2"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">key</span>=<span class="string">"componentA"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">v-model</span>=<span class="string">"data1"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">name</span>=<span class="string">"标题A"</span>  /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">MyComponent</span></span></span><br><span class="line"><span class="tag">  <span class="attr">v-if</span>=<span class="string">"banner.type == 3"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">key</span>=<span class="string">"componentB"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">v-model</span>=<span class="string">"data2"</span></span></span><br><span class="line"><span class="tag">  <span class="attr">name</span>=<span class="string">"标题B"</span>  /&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2020/02/13/vue-js在一个页面上使用同一个自定义组件多次时遇到的怪问题/">https://blog.devmgr.cn/2020/02/13/vue-js在一个页面上使用同一个自定义组件多次时遇到的怪问题/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2020/02/08/小程序和vue-js语法差异/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/02/08/小程序和vue-js语法差异/" class="post-title-link" itemprop="url">小程序和VUE.js语法差异</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-02-08 08:31:35" itemprop="dateCreated datePublished" datetime="2020-02-08T08:31:35+08:00">2020-02-08</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>本文不是为了比较双方优劣，是因为我经常在两类项目中切换，有时搞混，列出来方便自己记忆和速查。</p>
+<table>
+<thead>
+<tr>
+<th align="center">对比项目</th>
+<th align="center">微信小程序</th>
+<th align="center">VUE.js</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">模版内显示变量</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">模版中元素属性使用变量</td>
+<td align="center">view class=”“</td>
+<td align="center">div :class=”var”</td>
+</tr>
+<tr>
+<td align="center">元素事件捕获</td>
+<td align="center">bindtap=”userClicked”</td>
+<td align="center">@click=”userClicked”</td>
+</tr>
+<tr>
+<td align="center">给事件处理函数传递变量</td>
+<td align="center">在元素上写 data-varname=”“, js中用 event.target.dataset.varname获取</td>
+<td align="center">@click=”userClicked(var1, var2)”，直接写在方法名后，和调用相同</td>
+</tr>
+<tr>
+<td align="center">事件处理函数中获取event</td>
+<td align="center">方法可接收的唯一参数就是event</td>
+<td align="center">@click=”userClicked($event)” 在模版中写上特殊变量 $event</td>
+</tr>
+<tr>
+<td align="center">阻止事件向父级元素传递</td>
+<td align="center">bindXxx改为catchXXX，例如：catchtap=”userclicked”</td>
+<td align="center">用.stop 例如： @click.stop=”userClicked” 或者@clicked.stop表明不处理直接阻止</td>
+</tr>
+<tr>
+<td align="center">模版内调用JS方法</td>
+<td align="center">只能调用wxs内声明的方法</td>
+<td align="center">可以直接调用vue内method段声明的方法</td>
+</tr>
+<tr>
+<td align="center">页面生命周期事件</td>
+<td align="center">onLoad</td>
+<td align="center">created</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">onShow</td>
+<td align="center">mounted</td>
+</tr>
+<tr>
+<td align="center">script部分方法</td>
+<td align="center">直接写在Page内和onload同级</td>
+<td align="center">写在methods部分下，methods和created同级</td>
+</tr>
+<tr>
+<td align="center">script部分对data的访问</td>
+<td align="center">this.data.xxx</td>
+<td align="center">this.xxx</td>
+</tr>
+<tr>
+<td align="center">component中对props内属性访问</td>
+<td align="center">this.properties.xxx</td>
+<td align="center">this.xxx</td>
+</tr>
+<tr>
+<td align="center">data 部分</td>
+<td align="center">可在程序中随时增加</td>
+<td align="center">先在data中声明，不声明的，动态增加 模版部分也不能使用</td>
+</tr>
+<tr>
+<td align="center">模版引用data遇到null</td>
+<td align="center">无显示或显示NULL</td>
+<td align="center">异常出错</td>
+</tr>
+<tr>
+<td align="center">模版内循环</td>
+<td align="center">wx:for=”array” wx:key=”index” wx:item=”item”</td>
+<td align="center">v-for=”(item, index) in array” :key=”index”</td>
+</tr>
+<tr>
+<td align="center">模版内虚拟元素</td>
+<td align="center">block</td>
+<td align="center">template  在v-for上应用时，需要把:key 应用与所有一级子元素并保持key唯一</td>
+</tr>
+</tbody></table>
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2020/02/08/小程序和vue-js语法差异/">https://blog.devmgr.cn/2020/02/08/小程序和vue-js语法差异/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2020/02/04/gitolite的安装和使用/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1513,502 +1889,6 @@ list-members                list all members of a group</code></pre><p>这可以
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/10/19/spring-boot-error-circular-view-path-would-dispatch-back-to-the-current-handler-url-again-check-your-viewresolver-setup/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/10/19/spring-boot-error-circular-view-path-would-dispatch-back-to-the-current-handler-url-again-check-your-viewresolver-setup/" class="post-title-link" itemprop="url">spring boot error: Circular view path []: would dispatch back to the current handler URL [/] again. Check your ViewResolver setup</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-10-19 09:48:27" itemprop="dateCreated datePublished" datetime="2019-10-19T09:48:27+08:00">2019-10-19</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>spring boot 项目访问某个controller时出错，错误信息如下：</p>
-<pre><code>2019-10-19 09:46:01.451 ERROR 1040 --- [nio-4675-exec-1] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Circular view path []: would dispatch back to the current handler URL [/] again. Check your ViewResolver setup! (Hint: This may be the result of an unspecified view, due to default view name generation.)] with root cause
-
-javax.servlet.ServletException: Circular view path []: would dispatch back to the current handler URL [/] again. Check your ViewResolver setup! (Hint: This may be the result of an unspecified view, due to default view name generation.)
-    at org.springframework.web.servlet.view.InternalResourceView.prepareForRendering(InternalResourceView.java:209) ~[spring-webmvc-5.1.4.RELEASE.jar:5.1.4.RELEASE]
-    at org.springframework.web.servlet.view.InternalResourceView.renderMergedOutputModel(InternalResourceView.java:147) ~[spring-webmvc-5.1.4.RELEASE.jar:5.1.4.RELEASE]
-    at org.springframework.web.servlet.view.AbstractView.render(AbstractView.java:316) ~[spring-webmvc-5.1.4.RELEASE.jar:5.1.4.RELEASE]
-    at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1370) ~[spring-webmvc-5.1.4.RELEASE.jar:5.1.4.RELEASE]
-    at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1116) ~[spring-webmvc-5.1.4.RELEASE.jar:5.1.4.RELEASE]
-    at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1055) ~[spring-webmvc-5.1.4.RELEASE.jar:5.1.4.RELEASE]
-    at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942) ~[spring-webmvc-5.1.4.RELEASE.jar:5.1.4.RELEASE]
-    at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1005) ~[spring-webmvc-5.1.4.RELEASE.jar:5.1.4.RELEASE]
-    at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:908) ~[spring-webmvc-5.1.4.RELEASE.jar:5.1.4.RELEASE]
-    at javax.servlet.http.HttpServlet.service(HttpServlet.java:660) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:882) ~[spring-webmvc-5.1.4.RELEASE.jar:5.1.4.RELEASE]
-    at javax.servlet.http.HttpServlet.service(HttpServlet.java:741) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-embed-websocket-9.0.14.jar:9.0.14]
-    at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:320) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-    at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:127) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-    at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:91) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-    at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-    at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:119) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-    at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-    at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:137) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-    at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-    at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:111) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-    at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-    at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:170) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-    at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-    at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-    at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-    at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:116) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-    at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-    at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:74) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-    at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
-    at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-    at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:105) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-    at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-    at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:56) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-    at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
-    at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-    at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:215) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-    at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-    at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:357) ~[spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
-    at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:270) ~[spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
-    at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99) ~[spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
-    at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
-    at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:92) ~[spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
-    at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
-    at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:93) ~[spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
-    at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
-    at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200) ~[spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
-    at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
-    at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:199) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96) [tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:490) [tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139) [tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) [tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) [tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343) [tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408) [tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66) [tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:834) [tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1417) [tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) [tomcat-embed-core-9.0.14.jar:9.0.14]
-    at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [na:1.8.0_131]
-    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [na:1.8.0_131]
-    at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-embed-core-9.0.14.jar:9.0.14]
-    at java.lang.Thread.run(Thread.java:748) [na:1.8.0_131]</code></pre><p>这个错误是由于访问的是 Controller， 而该 Controller对方的方法没有对应的视图造成的。 我这里出现这个错误，是因为我本来就不需要视图，我是想返回 JSON，但把 RestController 误写成了 Controller。</p>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/10/19/spring-boot-error-circular-view-path-would-dispatch-back-to-the-current-handler-url-again-check-your-viewresolver-setup/">https://blog.devmgr.cn/2019/10/19/spring-boot-error-circular-view-path-would-dispatch-back-to-the-current-handler-url-again-check-your-viewresolver-setup/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/10/14/字体的单位/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/10/14/字体的单位/" class="post-title-link" itemprop="url">字体的单位</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-10-14 11:46:04" itemprop="dateCreated datePublished" datetime="2019-10-14T11:46:04+08:00">2019-10-14</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>字体的大小，在网页中常见单位是px，印刷和word中，常用五号、四号等形式。</p>
-<h1 id="印刷常用字号和毫米对应关系"><a href="#印刷常用字号和毫米对应关系" class="headerlink" title="印刷常用字号和毫米对应关系"></a>印刷常用字号和毫米对应关系</h1><p>1英寸=72磅=2.54厘米；显示器的 </p>
-<p>px和pt（磅）之间的换算和DPI有关，DPI有些地方也称作PPI</p>
-<p>1pt = DPI / 72 px</p>
-<ul>
-<li>Windows 的默认DPI是 96 （用户可以修改）；</li>
-<li>Mac 的DPI是72</li>
-</ul>
-<p>DPI=72时 1英寸显示72px， 1pt = 1px<br>DPI=96时 1英寸显示96个px, 1pt = 96 / 72 = 1.333px (9pt = 12px) </p>
-<p>根据字号对应的磅值，可以得到下表的换算后数值</p>
-<table>
-<thead>
-<tr>
-<th align="center">字号</th>
-<th align="center">磅 (pt)</th>
-<th align="center">毫米 (mm)</th>
-<th align="center">像素 (px) DPI=72</th>
-<th align="center">像素 (px) DPI=96</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">八号</td>
-<td align="center">4.5</td>
-<td align="center">1.581</td>
-<td align="center">5</td>
-<td align="center">6</td>
-</tr>
-<tr>
-<td align="center">七号</td>
-<td align="center">5.25</td>
-<td align="center">1.845</td>
-<td align="center">5</td>
-<td align="center">7</td>
-</tr>
-<tr>
-<td align="center">小六</td>
-<td align="center">6.875</td>
-<td align="center">2.416</td>
-<td align="center">7</td>
-<td align="center">9</td>
-</tr>
-<tr>
-<td align="center">六号</td>
-<td align="center">8</td>
-<td align="center">2.812</td>
-<td align="center">8</td>
-<td align="center">11</td>
-</tr>
-<tr>
-<td align="center">小五</td>
-<td align="center">9</td>
-<td align="center">3.163</td>
-<td align="center">9</td>
-<td align="center">12</td>
-</tr>
-<tr>
-<td align="center">五号</td>
-<td align="center">10.5</td>
-<td align="center">3.690</td>
-<td align="center">11</td>
-<td align="center">14</td>
-</tr>
-<tr>
-<td align="center">小四</td>
-<td align="center">12</td>
-<td align="center">4.218</td>
-<td align="center">12</td>
-<td align="center">16</td>
-</tr>
-<tr>
-<td align="center">四号</td>
-<td align="center">14</td>
-<td align="center">4.920</td>
-<td align="center">14</td>
-<td align="center">19</td>
-</tr>
-<tr>
-<td align="center">三号</td>
-<td align="center">16</td>
-<td align="center">5.623</td>
-<td align="center">16</td>
-<td align="center">21</td>
-</tr>
-<tr>
-<td align="center">小二</td>
-<td align="center">18</td>
-<td align="center">6.326</td>
-<td align="center">17</td>
-<td align="center">24</td>
-</tr>
-<tr>
-<td align="center">二号</td>
-<td align="center">21</td>
-<td align="center">7.381</td>
-<td align="center">21</td>
-<td align="center">28</td>
-</tr>
-<tr>
-<td align="center">一号</td>
-<td align="center">28</td>
-<td align="center">9.841</td>
-<td align="center">28</td>
-<td align="center">37</td>
-</tr>
-<tr>
-<td align="center">小初</td>
-<td align="center">36</td>
-<td align="center">12.653</td>
-<td align="center">36</td>
-<td align="center">48</td>
-</tr>
-<tr>
-<td align="center">初号</td>
-<td align="center">42</td>
-<td align="center">14.761</td>
-<td align="center">42</td>
-<td align="center">56</td>
-</tr>
-</tbody></table>
-<h1 id="网页中常用的单位"><a href="#网页中常用的单位" class="headerlink" title="网页中常用的单位"></a>网页中常用的单位</h1><p>网页中除了px外，还会用到pt、rem, em, </p>
-<ul>
-<li>em 是指一个字母的宽度（最初指定的是字母M），因为网页默认字体是16px，所以 1em=16px；后来就固定下来了。这个单位会随着浏览器/操作系统放大字号而放大。（px指定的字体在早期IE下不会随着缩放字体而缩放），现在浏览器的缩放功能，都是对整个网页的放大缩小，已经不存在这个问题了。</li>
-<li>% 字体也可以用百分比指定大小，100% = 16px</li>
-<li>pt （win 1pt ≈ 1.333px; max 1pt = 1px)</li>
-<li>cm / mm / in in是inch英寸的缩写， cm是厘米mm是毫米和生活中用到厘米毫米没区别，1in = 2.54cm，这三个单位到px又和DPI相关了。 1in = DPI * 1px；</li>
-<li>ex 和em类似，用的是字母X的高度，很少有人用</li>
-</ul>
-<p>CSS3中新增了几个长度单位</p>
-<ul>
-<li>ch字符0的宽度</li>
-<li>rem HTML标签元素的em数</li>
-<li>vm (viewpoint width), 1vm = viewpointwidth * 1%</li>
-<li>vh (viewpoint height), 1vh = viewpointheight * 1%</li>
-<li>vmin = min(viewpoint width, viewpoint height)</li>
-<li>calc(100% - 5px) 表达式，可以做点简单运算 </li>
-</ul>
-<p>viewpoint在做手机端网页时会用到</p>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/10/14/字体的单位/">https://blog.devmgr.cn/2019/10/14/字体的单位/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2058,7 +1938,7 @@ javax.servlet.ServletException: Circular view path []: would dispatch back to th
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">83</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2299,7 +2179,13 @@ javax.servlet.ServletException: Circular view path []: would dispatch back to th
                     
                       
                     
-                    <span class="site-state-item-count">113</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">116</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

@@ -308,6 +308,318 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/05/06/httpmediatypenotsupportedexception-content-type-text-xml-charset-utf-8-not-supported/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/05/06/httpmediatypenotsupportedexception-content-type-text-xml-charset-utf-8-not-supported/" class="post-title-link" itemprop="url">HttpMediaTypeNotSupportedException: Content type ‘text/xml;charset=UTF-8′ not supported</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-05-06 22:30:05" itemprop="dateCreated datePublished" datetime="2018-05-06T22:30:05+08:00">2018-05-06</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h1><p>在使用Spring REST时，有一个需要返回xml格式数据的方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostMapping</span>(value = <span class="string">"/payment"</span>, consumes = &#123;MediaType.TEXT_XML_VALUE&#125;, produces = &#123;MediaType.ALL_VALUE&#125;)</span><br><span class="line"><span class="function"><span class="keyword">public</span> Map&lt;String, String&gt; <span class="title">wxPayCallback</span><span class="params">(@RequestBody Map&lt;String, String&gt; paraMap)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>被调用时”org.springframework.web.HttpMediaTypeNotSupportedException: Content type ‘text/xml;charset=UTF-8′ not supported”异常。</p>
+<pre><code>[http-nio-8085-exec-7] ERROR c.s.m.r.e.ControllerExceptionHandler - 异常：415
+org.springframework.web.HttpMediaTypeNotSupportedException: Content type &apos;text/xml;charset=UTF-8&apos; not supported
+    at org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodArgumentResolver.readWithMessageConverters(AbstractMessageConverterMethodArgumentResolver.java:226)
+    at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.readWithMessageConverters(RequestResponseBodyMethodProcessor.java:157)
+    at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.resolveArgument(RequestResponseBodyMethodProcessor.java:130)
+    at org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:124)
+    at org.springframework.web.method.support.InvocableHandlerMethod.getMethodArgumentValues(InvocableHandlerMethod.java:161)
+    at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:131)
+    at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:102)
+    at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:870)
+    at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:776)
+    at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+    at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:991)
+    at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:925)
+    at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:978)
+    at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:881)
+    at javax.servlet.http.HttpServlet.service(HttpServlet.java:661)</code></pre><h1 id="原因和解决办法"><a href="#原因和解决办法" class="headerlink" title="原因和解决办法"></a>原因和解决办法</h1><p>乍一看似乎是consumes指定的content-type不对导致，实际上是缺少依赖导致，spring rest默认只包含json格式的转换，不包含xml格式的转换，因此pom内增加依赖来解决。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.fasterxml.jackson.dataformat<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jackson-dataformat-xml<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>增加上述依赖后，上面的方法会正常访问，但如果RestController上没有指明produces，增加上述依赖后，会默认输出xml，而不再是json。<br>可以通过</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebAppConfigurer</span> <span class="keyword">extends</span> <span class="title">WebMvcConfigurationSupport</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configureContentNegotiation</span><span class="params">(ContentNegotiationConfigurer configurer)</span> </span>&#123;</span><br><span class="line">        configurer.defaultContentType(MediaType.APPLICATION_JSON);</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>来修改默认的produces。</p>
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2018/05/06/httpmediatypenotsupportedexception-content-type-text-xml-charset-utf-8-not-supported/">https://blog.devmgr.cn/2018/05/06/httpmediatypenotsupportedexception-content-type-text-xml-charset-utf-8-not-supported/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/04/18/mybatis通用json-type-handler/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/04/18/mybatis通用json-type-handler/" class="post-title-link" itemprop="url">Mybatis通用JSON Type Handler</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-04-18 10:51:44" itemprop="dateCreated datePublished" datetime="2018-04-18T10:51:44+08:00">2018-04-18</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>使用jackson来实现json和object之间转换。<br>使用的时候在resultMap中，对应的列配置，例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;result column=&quot;specs&quot; property=&quot;specs&quot; </span><br><span class="line">        typeHandler=&quot;cn.devmgr.tutorial.typehandler.JsonTypeHandler&quot; /&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">update table_xxx </span><br><span class="line">      set colA=#&#123;beanA.xxx, typeHandler=cn.devmgr.tutorial.typehandler.JsonTypeHandler&#125;</span><br><span class="line">      where id=xx</span><br></pre></td></tr></table></figure>
+
+<h2 id="JsonTypeHandler-java"><a href="#JsonTypeHandler-java" class="headerlink" title="JsonTypeHandler.java"></a>JsonTypeHandler.java</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.devmgr.tutorial.typehandler;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.sql.CallableStatement;</span><br><span class="line"><span class="keyword">import</span> java.sql.PreparedStatement;</span><br><span class="line"><span class="keyword">import</span> java.sql.ResultSet;</span><br><span class="line"><span class="keyword">import</span> java.sql.SQLException;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> org.apache.commons.logging.Log;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.logging.LogFactory;</span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.type.BaseTypeHandler;</span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.type.JdbcType;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> com.fasterxml.jackson.core.JsonProcessingException;</span><br><span class="line"><span class="keyword">import</span> com.fasterxml.jackson.databind.ObjectMapper;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JsonTypeHandler</span>&lt;<span class="title">T</span>&gt; <span class="keyword">extends</span> <span class="title">BaseTypeHandler</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> Log log = LogFactory.getLog(JsonTypeHandler.class);</span><br><span class="line">     </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> ObjectMapper objectMapper;</span><br><span class="line">    <span class="keyword">private</span> Class&lt;T&gt; type;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        objectMapper = <span class="keyword">new</span> ObjectMapper();</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">JsonTypeHandler</span><span class="params">(Class&lt;T&gt; type)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(log.isTraceEnabled()) &#123;</span><br><span class="line">            log.trace(<span class="string">"JsonTypeHandler("</span> + type + <span class="string">")"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (type == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Type argument cannot be null"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">this</span>.type = type;</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    <span class="function"><span class="keyword">private</span>  T <span class="title">parse</span><span class="params">(String json)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">if</span>(json == <span class="keyword">null</span> || json.length() == <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> objectMapper.readValue(json, type);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    <span class="function"><span class="keyword">private</span> String <span class="title">toJsonString</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> objectMapper.writeValueAsString(obj);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (JsonProcessingException e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">getNullableResult</span><span class="params">(ResultSet rs, String columnName)</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (T) parse(rs.getString(columnName));</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">getNullableResult</span><span class="params">(ResultSet rs, <span class="keyword">int</span> columnIndex)</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (T) parse(rs.getString(columnIndex));</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">getNullableResult</span><span class="params">(CallableStatement cs, <span class="keyword">int</span> columnIndex)</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (T) parse(cs.getString(columnIndex));</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setNonNullParameter</span><span class="params">(PreparedStatement ps, <span class="keyword">int</span> columnIndex, T parameter, JdbcType jdbcType)</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">        ps.setString(columnIndex, toJsonString(parameter));</span><br><span class="line">         </span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2018/04/18/mybatis通用json-type-handler/">https://blog.devmgr.cn/2018/04/18/mybatis通用json-type-handler/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/04/13/could-not-generate-dh-keypair/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1516,293 +1828,6 @@ The -F option can be used when the target process is not responding</code></pre>
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/01/06/restcontroller中设置返回的responsecode/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/01/06/restcontroller中设置返回的responsecode/" class="post-title-link" itemprop="url">RestController中设置返回的ResponseCode</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-01-06 18:18:48" itemprop="dateCreated datePublished" datetime="2018-01-06T18:18:48+08:00">2018-01-06</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>可以把方法设置成返回 <code>ResponseEntity&lt;T&gt;</code> 类型，其中的泛型T取代以前想返回的类型，然后通过 <code>ResponseEntity.status(HttpStatus.OK).body(result)</code> 方法创建返回结果，其中第一个status就是设置返回的ResponseCode</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostMapping</span></span><br><span class="line"><span class="keyword">public</span> ResponseEntity&lt;Map&lt;String, Object&gt;&gt; login()&#123;</span><br><span class="line">    HashMap&lt;String, Object&gt; result = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    <span class="keyword">boolean</span> isOk = <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">if</span>( !isOk ) &#123;</span><br><span class="line">        result.put(<span class="string">"message"</span>, <span class="string">"invalid username or password"</span>);</span><br><span class="line">        <span class="comment">// status(HttpStatus.BAD_REQUEST) 是设置返回的状态码</span></span><br><span class="line">        <span class="keyword">return</span> ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> ResponseEntity.status(HttpStatus.OK).body(result);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2018/01/06/restcontroller中设置返回的responsecode/">https://blog.devmgr.cn/2018/01/06/restcontroller中设置返回的responsecode/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/01/06/java8中实现类似javascript-promise的功能/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/01/06/java8中实现类似javascript-promise的功能/" class="post-title-link" itemprop="url">java8中实现类似javascript Promise的功能</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-01-06 10:40:45" itemprop="dateCreated datePublished" datetime="2018-01-06T10:40:45+08:00">2018-01-06</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>java8中提供了类似javascript Promise方式的写法：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.*;</span><br><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="keyword">import</span> java.util.stream.*;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestPromise</span></span>&#123;</span><br><span class="line">     </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] argvs)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        <span class="comment">// 简单的lambda表达式的例子</span></span><br><span class="line">        List&lt;Integer&gt; list = Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>);</span><br><span class="line">        list.forEach(n -&gt; System.out.println(n));</span><br><span class="line">        System.out.println(<span class="string">"-------"</span>);</span><br><span class="line">        list.forEach(System.out::println);</span><br><span class="line">        System.out.println(<span class="string">"-------"</span>);</span><br><span class="line">  </span><br><span class="line">        <span class="comment">//下面是2个异步执行，执行完毕后使用结果的例子</span></span><br><span class="line">        String s = CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">"enter s1"</span>);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(<span class="string">"s1"</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"hello"</span>;</span><br><span class="line">        &#125;).thenCombine(CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">"enter s2"</span>);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">100</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(<span class="string">"s2"</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"world"</span>;</span><br><span class="line">        &#125;), (s1, s2) -&gt; &#123;<span class="keyword">return</span> s1 + <span class="string">" "</span> + s2;&#125; ).join();</span><br><span class="line">        System.out.println(s);</span><br><span class="line">        System.out.println(<span class="string">"-------"</span>);</span><br><span class="line"> </span><br><span class="line">        <span class="comment">// 多个方法异步执行，结果通过操纵一个共有的Map来保存，待全部执行完毕后显示结果</span></span><br><span class="line">        Map&lt;String, String&gt;  result = <span class="keyword">new</span> HashMap&lt;String, String&gt;();</span><br><span class="line">        CompletableFuture.allOf(</span><br><span class="line">            CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">                System.out.println(<span class="string">"enter s1"</span>);</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">                System.out.println(<span class="string">"s1"</span>);</span><br><span class="line">                result.put(<span class="string">"k1"</span>, <span class="string">"11111"</span>);</span><br><span class="line">                <span class="keyword">return</span> <span class="string">"11"</span>;</span><br><span class="line">            &#125;),</span><br><span class="line">            CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">                System.out.println(<span class="string">"enter s2"</span>);</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">                System.out.println(<span class="string">"s2"</span>);</span><br><span class="line">                result.put(<span class="string">"k2"</span>, <span class="string">"22222"</span>);</span><br><span class="line">                <span class="keyword">return</span> <span class="string">"22"</span>;</span><br><span class="line">            &#125;),</span><br><span class="line">            CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">                System.out.println(<span class="string">"enter s3"</span>);</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">10</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">                System.out.println(<span class="string">"s3"</span>);</span><br><span class="line">                result.put(<span class="string">"k3"</span>, <span class="string">"33333"</span>);</span><br><span class="line">                <span class="keyword">return</span> <span class="string">"33"</span>;</span><br><span class="line">            &#125;)</span><br><span class="line">        ).get();</span><br><span class="line">        <span class="comment">//.get()方法会等待allOf中所有参数方法执行完毕</span></span><br><span class="line">        System.out.println(result.get(<span class="string">"k1"</span>) + <span class="string">" "</span> + result.get(<span class="string">"k2"</span>) + <span class="string">" "</span> + result.get(<span class="string">"k3"</span>));</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">        System.out.println(<span class="string">"\r\n-------------------\r\n"</span>);</span><br><span class="line">        <span class="comment">// 改进一下第一个方法，使其更易读；</span></span><br><span class="line">        CompletableFuture&lt;Map&lt;String, Object&gt;&gt; cf1 = CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">"enter s1"</span>);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(<span class="string">"s1"</span>);</span><br><span class="line">            Map&lt;String, Object&gt; map = <span class="keyword">new</span> HashMap&lt;String, Object&gt;();</span><br><span class="line">            map.put(<span class="string">"s1"</span>, <span class="string">"11111"</span>);</span><br><span class="line">            <span class="keyword">return</span> map;</span><br><span class="line">        &#125;);</span><br><span class="line">        CompletableFuture&lt;Map&lt;String, Object&gt;&gt; cf2 = CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">"enter s2"</span>);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(<span class="string">"s2"</span>);</span><br><span class="line">            Map&lt;String, Object&gt; map = <span class="keyword">new</span> HashMap&lt;String, Object&gt;();</span><br><span class="line">            map.put(<span class="string">"s2"</span>, <span class="string">"22222"</span>);</span><br><span class="line">            <span class="keyword">return</span> map;</span><br><span class="line">        &#125;);</span><br><span class="line">        CompletableFuture&lt;Map&lt;String, Object&gt;&gt; cf3 = CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">"enter s3"</span>);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">10</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            Map&lt;String, Object&gt; map = <span class="keyword">new</span> HashMap&lt;String, Object&gt;();</span><br><span class="line">            map.put(<span class="string">"s3"</span>, <span class="string">"33333"</span>);</span><br><span class="line">            <span class="keyword">return</span> map;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="comment">// 注释掉的这2行和上一个例子相同，不处理cf1,cf2,cf3的返回值</span></span><br><span class="line">        <span class="comment">// CompletableFuture&lt;Void&gt; cf = CompletableFuture.allOf(cf1, cf2, cf3);</span></span><br><span class="line">        <span class="comment">// cf.get();</span></span><br><span class="line">        <span class="comment">// 把各个CompletableFuture的执行结果放到一起</span></span><br><span class="line"> </span><br><span class="line">        <span class="comment">// 把结果合并成一个List</span></span><br><span class="line">        <span class="comment">//List&lt;Map&lt;String, Object&gt;&gt; resultList = Stream.of(cf1, cf2, cf3).map(CompletableFuture::join).collect(Collectors.toList());</span></span><br><span class="line">        <span class="comment">//resultList.forEach(n -&gt; System.out.println("\t---" + n));</span></span><br><span class="line"> </span><br><span class="line">        <span class="comment">// 把结果合并到一个map里</span></span><br><span class="line">        Map&lt;String, Object&gt; resultMap = <span class="keyword">new</span> HashMap&lt;String, Object&gt;();</span><br><span class="line">        Stream.of(cf1, cf2, cf3).map(CompletableFuture::join).forEach(v -&gt; resultMap.putAll(v));</span><br><span class="line">        System.out.println(resultMap);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><p>CompletableFurure 可参考javadoc <a href="https://docs.oracle.com/javase/8/docs/api/index.html?java/util/concurrent/CompletableFuture.html" target="_blank" rel="noopener">https://docs.oracle.com/javase/8/docs/api/index.html?java/util/concurrent/CompletableFuture.html</a></p>
-<p>java的Lambda表达式介绍 <a href="http://blog.oneapm.com/apm-tech/226.html" target="_blank" rel="noopener">http://blog.oneapm.com/apm-tech/226.html</a></p>
-<p><a href="http://www.baeldung.com/java-completablefuture" target="_blank" rel="noopener">http://www.baeldung.com/java-completablefuture</a></p>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2018/01/06/java8中实现类似javascript-promise的功能/">https://blog.devmgr.cn/2018/01/06/java8中实现类似javascript-promise的功能/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1852,7 +1877,7 @@ The -F option can be used when the target process is not responding</code></pre>
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">83</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2093,7 +2118,13 @@ The -F option can be used when the target process is not responding</code></pre>
                     
                       
                     
-                    <span class="site-state-item-count">113</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">116</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
