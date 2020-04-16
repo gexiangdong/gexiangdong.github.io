@@ -308,6 +308,160 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/09/07/小程序中使用-font-face/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/09/07/小程序中使用-font-face/" class="post-title-link" itemprop="url">小程序中使用@font-face</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-09-07 17:28:38" itemprop="dateCreated datePublished" datetime="2019-09-07T17:28:38+08:00">2019-09-07</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>在小程序中的 wxss 中使用 @font-face 例如 <code>@font-face {font-family: myfont; src: url(&#39;https://myhost.com/fonts/myfont.ttf&#39;);}</code> 会在模拟器中报错：</p>
+<pre><code>VM2696:1 Failed to load font https://myhost.com/fonts/myfont.ttf
+net::ERR_CACHE_MISS </code></pre><p>虽然在模拟器中能正常显示字体，但在真机中是不行的。</p>
+<p>解决办法有2个：</p>
+<h2 id="小程序提供的API"><a href="#小程序提供的API" class="headerlink" title="小程序提供的API"></a>小程序提供的API</h2><p>使用小程序提供的 wx.loadFontFace， 先在js文件里加载字体，</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wx.loadFontFace(&#123;</span><br><span class="line">  family: <span class="string">'myfont'</span>,</span><br><span class="line">  source: <span class="string">'url("https://myhost.com/fonts/myfont.ttf")'</span>,</span><br><span class="line">  success: <span class="built_in">console</span>.log</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>wxss 文件里不用写@font-face，直接用 <code>font-family: myfont</code> 即可</p>
+<p>文档在 <a href="https://developers.weixin.qq.com/miniprogram/dev/api/ui/font/wx.loadFontFace.html" target="_blank" rel="noopener">https://developers.weixin.qq.com/miniprogram/dev/api/ui/font/wx.loadFontFace.html</a></p>
+<h2 id="使用base64字体-（CSS的标准方式）"><a href="#使用base64字体-（CSS的标准方式）" class="headerlink" title="使用base64字体 （CSS的标准方式）"></a>使用base64字体 （CSS的标准方式）</h2><p>也可把字体转成 WOFF/WOFF2/SVG 等格式， 并对二进制 base64 编码，嵌入到 css/wxss 文件中，不需要从网络上访问字体文件。</p>
+<p>转化字体可以用 <a href="https://transfonter.org/" target="_blank" rel="noopener">https://transfonter.org/</a> 这个网站提供的转化工具还可以只转换自己需要的几个文字，这样减少字体文件大小。</p>
+<p>CSS文件会类似下面这个样子</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">font-face</span> &#123;</span><br><span class="line">    <span class="attribute">font-family</span>: <span class="string">'myfont'</span>;</span><br><span class="line">    <span class="attribute">src</span>: <span class="built_in">url</span>(data:application/font-woff;charset=utf-8;base64,d09GRgABAAAAA ... 这里会很长 ... EADQABAAA=) <span class="built_in">format</span>(<span class="string">'woff'</span>);</span><br><span class="line">    <span class="attribute">font-weight</span>: bold;</span><br><span class="line">    <span class="attribute">font-style</span>: normal;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/09/07/小程序中使用-font-face/">https://blog.devmgr.cn/2019/09/07/小程序中使用-font-face/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/09/03/小程序中使用stomp-over-websocket/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1819,157 +1973,6 @@ Caused by: java.lang.IllegalStateException: StandardEngine[Tomcat].StandardHost[
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/06/06/spring-boot项目启动长时间后无法上传文件/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/06/06/spring-boot项目启动长时间后无法上传文件/" class="post-title-link" itemprop="url">Spring Boot项目启动长时间后无法上传文件</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-06-06 14:30:20" itemprop="dateCreated datePublished" datetime="2019-06-06T14:30:20+08:00">2019-06-06</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h1><p>Spring boot项目启动过一段较长时间后，在使用上传文件相关功能时，会出现错误。错误信息和下面的类似，临时目录不存在了</p>
-<pre><code>Could not parse multipart servlet request; 
-nested exception is java.io.IOException: 
-The temporary upload location [/tmp/tomcat.7313397276953595407.8090/work/Tomcat/localhost/ROOT] is not valid。
-
-Could not parse multipart servlet request; 
-nested exception is java.io.IOException: 
-The temporary upload location [C:\Users\Administrator\AppData\Local\Temp\tomcat.7174298170552445669.8002\work\Tomcat\localhost\server] is not valid</code></pre><h1 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h1><p>这是由于tomcat默认使用的临时目录是在系统临时目录下创建的，而系统临时目录被系统清理了，删除了tomcat的临时目录。</p>
-<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><p>知道原因后解决办法也就有了：把tomcat的临时目录设置到一个固定的不会被清理的目录下。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MultipartConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function">MultipartConfigElement <span class="title">multipartConfigElement</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        MultipartConfigFactory factory = <span class="keyword">new</span> MultipartConfigFactory();</span><br><span class="line">        String tempLocation = <span class="string">"c:\\temp"</span>;</span><br><span class="line">        File tmpFile = <span class="keyword">new</span> File(tempLocation);</span><br><span class="line">        <span class="keyword">if</span> (!tmpFile.exists()) &#123;</span><br><span class="line">            tmpFile.mkdirs();</span><br><span class="line">        &#125;</span><br><span class="line">        factory.setLocation(tempLocation);</span><br><span class="line">        <span class="keyword">return</span> factory.createMultipartConfig();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/06/06/spring-boot项目启动长时间后无法上传文件/">https://blog.devmgr.cn/2019/06/06/spring-boot项目启动长时间后无法上传文件/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2019,7 +2022,7 @@ The temporary upload location [C:\Users\Administrator\AppData\Local\Temp\tomcat.
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">88</span>
+                    <span class="site-state-item-count">89</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2272,7 +2275,11 @@ The temporary upload location [C:\Users\Administrator\AppData\Local\Temp\tomcat.
                     
                       
                     
-                    <span class="site-state-item-count">119</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">121</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

@@ -308,6 +308,160 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2020/04/16/org-springframework-web-httpmediatypenotsupportedexception-content-type-application-json/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/04/16/org-springframework-web-httpmediatypenotsupportedexception-content-type-application-json/" class="post-title-link" itemprop="url">org.springframework.web.HttpMediaTypeNotSupportedException: Content type application/json</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-04-16 09:44:33" itemprop="dateCreated datePublished" datetime="2020-04-16T09:44:33+08:00">2020-04-16</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>在使用Springboot 时遇到错误，服务端日志如下： </p>
+<p>WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.HttpMediaTypeNotSupportedException: Content type ‘application/json;charset=UTF-8’ not supported]</p>
+<p>RestController里</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(</span><br><span class="line">    value = <span class="string">"/xxxxxs"</span>,</span><br><span class="line">    consumes = MediaType.APPLICATION_JSON_VALUE,</span><br><span class="line">    produces = MediaType.APPLICATION_JSON_VALUE)</span><br></pre></td></tr></table></figure>
+
+<p>看上去这个错误原因很简单，客户端传递的 Content-Type 没有在服务器端支持。</p>
+<p>检查发现，客户端和服务器端都是正确，而且同一个controller里有的POST是好的，不出问题，有的出问题。</p>
+<p>网上搜到的办法也都试过，pom中依赖也改过….</p>
+<p>后来把日志级别 org.springframeword 改为 TRACE，然后发现日志中有这么一段（有堆栈，很容发现）</p>
+<p>  12:49:56.112 [http-nio-8050-exec-3] DEBUG o.s.h.c.j.MappingJackson2HttpMessageConverter - Failed to evaluate Jackson deserialization for type [[simple type, class cn.devmgr.mall.product.pojo.Category]]<br>  com.fasterxml.jackson.databind.exc.InvalidDefinitionException: Cannot find a (Map) Key deserializer for type [simple type, class cn.devmgr.mall.product.pojo.ProductPriceKey]<br>      at com.fasterxml.jackson.databind.exc.InvalidDefinitionException.from(InvalidDefinitionException.java:67)<br>      at com.fasterxml.jackson.databind.DeserializationContext.reportBadDefinition(DeserializationContext.java:1589)<br>      at com.fasterxml.jackson.databind.deser.DeserializerCache._handleUnknownKeyDeserializer(DeserializerCache.java:599)<br>      at com.fasterxml.jackson.databind.deser.DeserializerCache.findKeyDeserializer(DeserializerCache.java:168)<br>      at com.fasterxml.jackson.databind.DeserializationContext.findKeyDeserializer(DeserializationContext.java:499)<br>      at com.fasterxml.jackson.databind.deser.std.MapDeserializer.createContextual(MapDeserializer.java:248)<br>      at com.fasterxml.jackson.databind.DeserializationContext.handlePrimaryContextualization(DeserializationContext.java:650)<br>      at com.fasterxml.jackson.databind.deser.BeanDeserializerBase.resolve(BeanDeserializerBase.java:484)<br>      at com.fasterxml.jackson.databind.deser.DeserializerCache._createAndCache2(DeserializerCache.java:293)<br>      at com.fasterxml.jackson.databind.deser.DeserializerCache._createAndCacheValueDeserializer(DeserializerCache.java:244)<br>      at com.fasterxml.jackson.databind.deser.DeserializerCache.findValueDeserializer(DeserializerCache.java:142)<br>      at com.fasterxml.jackson.databind.DeserializationContext.findContextualValueDeserializer(DeserializationContext.java:443)<br>      at com.fasterxml.jackson.databind.deser.std.CollectionDeserializer.createContextual(CollectionDeserializer.java:183)<br>      at com.fasterxml.jackson.databind.deser.std.CollectionDeserializer.createContextual(CollectionDeserializer.java:27)<br>      at com.fasterxml.jackson.databind.DeserializationContext.handlePrimaryContextualization(DeserializationContext.java:650)<br>      at com.fasterxml.jackson.databind.deser.BeanDeserializerBase.resolve(BeanDeserializerBase.java:484)<br>      at com.fasterxml.jackson.databind.deser.DeserializerCache._createAndCache2(DeserializerCache.java:293)<br>      at com.fasterxml.jackson.databind.deser.DeserializerCache._createAndCacheValueDeserializer(DeserializerCache.java:244)<br>      at com.fasterxml.jackson.databind.deser.DeserializerCache.hasValueDeserializerFor(DeserializerCache.java:191)<br>      at com.fasterxml.jackson.databind.DeserializationContext.hasValueDeserializerFor(DeserializationContext.java:421)</p>
+<p>现在原因就很明显了，ProductPriceKey作为map的key导致的。这个属性我本不需要客户端传递，于是在属性增加了只读。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@JsonProperty</span>(access = JsonProperty.Access.READ_ONLY)</span><br><span class="line"><span class="keyword">private</span> Map&lt;ProductPriceKey, ProductPrice&gt; salePrices;</span><br></pre></td></tr></table></figure>
+
+<p>Java类和JSON字符串互转，map需要key是string，这个很容易理解，不是string的没法转。(java-&gt;json部分在这个类内之前有处理；反过来没处理）</p>
+<p>这样就解决了。 </p>
+<p>这个问题本应该更容易发现，只是spring/fasterxml内把这个错误的日志级别用了DEBUG，不太容易被发现。</p>
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2020/04/16/org-springframework-web-httpmediatypenotsupportedexception-content-type-application-json/">https://blog.devmgr.cn/2020/04/16/org-springframework-web-httpmediatypenotsupportedexception-content-type-application-json/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2020/03/16/spring-rest-docs-java-lang-illegalargumentexception-urltemplate-not-found-if-you-are-using-mockmvc-did-you-use-restdocumentationrequestbuilders-to-build-the-request/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1833,146 +1987,6 @@ list-members                list all members of a group</code></pre><p>这可以
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2020/01/22/java-lang-runtimeexception-com-fasterxml-jackson-databind-exc-mismatchedinputexception-out-of-start-array-token/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2020/01/22/java-lang-runtimeexception-com-fasterxml-jackson-databind-exc-mismatchedinputexception-out-of-start-array-token/" class="post-title-link" itemprop="url">java.lang.RuntimeException: com.fasterxml.jackson.databind.exc.MismatchedInputException out of START_ARRAY token</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2020-01-22 18:27:09" itemprop="dateCreated datePublished" datetime="2020-01-22T18:27:09+08:00">2020-01-22</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>在使用jason做json和类的转换时，遇到错误 </p>
-<pre><code>Cause: java.lang.RuntimeException: com.fasterxml.jackson.databind.exc.MismatchedInputException: Cannot deserialize instance of `java.util.LinkedHashMap&lt;java.lang.Object,java.lang.Object&gt;` out of START_ARRAY token</code></pre><p>是因为json是数组格式，而提供的待转化成的类是 Map 格式，导致转化失败。</p>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2020/01/22/java-lang-runtimeexception-com-fasterxml-jackson-databind-exc-mismatchedinputexception-out-of-start-array-token/">https://blog.devmgr.cn/2020/01/22/java-lang-runtimeexception-com-fasterxml-jackson-databind-exc-mismatchedinputexception-out-of-start-array-token/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2022,7 +2036,7 @@ list-members                list all members of a group</code></pre><p>这可以
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">88</span>
+                    <span class="site-state-item-count">89</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2275,7 +2289,11 @@ list-members                list all members of a group</code></pre><p>这可以
                     
                       
                     
-                    <span class="site-state-item-count">119</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">121</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
