@@ -258,36 +258,36 @@ Caused by: org.springframework.boot.web.server.WebServerException: Unable to sta
 Caused by: java.lang.IllegalStateException: StandardEngine[Tomcat].StandardHost[localhost].TomcatEmbeddedContext[] failed to start
     at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.rethrowDeferredStartupExceptions(TomcatWebServer.java:171)
     at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:109)
-    ... 19 more</code></pre><h1 id="原因和解决办法"><a href="#原因和解决办法" class="headerlink" title="原因和解决办法"></a>原因和解决办法</h1><p>这是java9 默认没有加载 JAXB-API 造成的，java9开始分模块，默认加载的模块不包含 jaxb-api。 有几个办法可以解决：</p>
+    ... 19 more</code></pre>
+<h1 id="原因和解决办法"><a href="#原因和解决办法" class="headerlink" title="原因和解决办法"></a>原因和解决办法</h1><p>这是java9 默认没有加载 JAXB-API 造成的，java9开始分模块，默认加载的模块不包含 jaxb-api。 有几个办法可以解决：</p>
 <ul>
 <li><p>命令后增加参数 <code>--add-modules java.xml.bind</code> 引入此模块</p>
 </li>
 <li><p>换java8</p>
 </li>
 <li><p>手工增加 jaxb的依赖</p>
-<pre><code class="xml"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span>
-     <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.xml.bind<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>
-     <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jaxb-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>
-     <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.3.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span>
- <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span>
- <span class="tag">&lt;<span class="name">dependency</span>&gt;</span>
-     <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.sun.xml.bind<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>
-     <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jaxb-impl<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>
-     <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.3.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span>
- <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span>
- <span class="tag">&lt;<span class="name">dependency</span>&gt;</span>
-     <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.glassfish.jaxb<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>
-     <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jaxb-runtime<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>
-     <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.3.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span>
- <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span>
- <span class="tag">&lt;<span class="name">dependency</span>&gt;</span>
-     <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.activation<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>
-     <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>activation<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>
-     <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.1.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span>
- <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></code></pre>
+<pre><code class="xml">&lt;dependency&gt;
+     &lt;groupId&gt;javax.xml.bind&lt;/groupId&gt;
+     &lt;artifactId&gt;jaxb-api&lt;/artifactId&gt;
+     &lt;version&gt;2.3.1&lt;/version&gt;
+ &lt;/dependency&gt;
+ &lt;dependency&gt;
+     &lt;groupId&gt;com.sun.xml.bind&lt;/groupId&gt;
+     &lt;artifactId&gt;jaxb-impl&lt;/artifactId&gt;
+     &lt;version&gt;2.3.1&lt;/version&gt;
+ &lt;/dependency&gt;
+ &lt;dependency&gt;
+     &lt;groupId&gt;org.glassfish.jaxb&lt;/groupId&gt;
+     &lt;artifactId&gt;jaxb-runtime&lt;/artifactId&gt;
+     &lt;version&gt;2.3.1&lt;/version&gt;
+ &lt;/dependency&gt;
+ &lt;dependency&gt;
+     &lt;groupId&gt;javax.activation&lt;/groupId&gt;
+     &lt;artifactId&gt;activation&lt;/artifactId&gt;
+     &lt;version&gt;1.1.1&lt;/version&gt;
+ &lt;/dependency&gt;</code></pre>
 </li>
 </ul>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/06/16/java-lang-reflect-invocationtargetexception/">https://blog.devmgr.cn/2019/06/16/java-lang-reflect-invocationtargetexception/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
     </div>
 

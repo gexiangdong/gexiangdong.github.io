@@ -220,9 +220,6 @@
 <h1 id="设置默认的格式"><a href="#设置默认的格式" class="headerlink" title="设置默认的格式"></a>设置默认的格式</h1><p>可以通过配置，修改默认的格式</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebAppConfigurer</span> <span class="keyword">extends</span> <span class="title">WebMvcConfigurationSupport</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configureContentNegotiation</span><span class="params">(ContentNegotiationConfigurer configurer)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 这里设置默认的返回格式</span></span><br><span class="line">        configurer.defaultContentType(MediaType.APPLICATION_JSON);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/06/06/requestmapping的produces参数/">https://blog.devmgr.cn/2019/06/06/requestmapping的produces参数/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
-
     </div>
 
     

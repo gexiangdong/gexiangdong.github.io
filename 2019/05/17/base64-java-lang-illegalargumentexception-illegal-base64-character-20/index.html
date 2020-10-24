@@ -206,7 +206,6 @@
 </ul>
 <p>JDK8的Base64遵守的是第一个无空格符和换行符的规范，所以遇到空格或换行会抛异常。</p>
 <h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>知道了原因，解决起来就很简单了，换支持RFC1521标准的decoder解码就可以了，例如apache commons-codec。</p>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/05/17/base64-java-lang-illegalargumentexception-illegal-base64-character-20/">https://blog.devmgr.cn/2019/05/17/base64-java-lang-illegalargumentexception-illegal-base64-character-20/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
     </div>
 

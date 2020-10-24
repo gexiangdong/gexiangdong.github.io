@@ -285,11 +285,11 @@ Caused by: java.security.InvalidKeyException: cannot identify XDH private key
     at org.bouncycastle.jcajce.provider.asymmetric.edec.KeyAgreementSpi.engineDoPhase(Unknown Source)
     at java.base/javax.crypto.KeyAgreement.doPhase(KeyAgreement.java:579)
     at java.base/sun.security.ssl.KAKeyDerivation.t12DeriveKey(KAKeyDerivation.java:75)
-    ... 83 more</code></pre><h1 id="排查"><a href="#排查" class="headerlink" title="排查"></a>排查</h1><p>单独用 HttpUrlConnection 来写main方法访问url，脱离项目环境，单独运行Java main方法，发现是好的。<br>因此可以排除是本地java环境和服务器证书问题，断定是堆栈中对应的org.bouncycastle导致的。</p>
+    ... 83 more</code></pre>
+<h1 id="排查"><a href="#排查" class="headerlink" title="排查"></a>排查</h1><p>单独用 HttpUrlConnection 来写main方法访问url，脱离项目环境，单独运行Java main方法，发现是好的。<br>因此可以排除是本地java环境和服务器证书问题，断定是堆栈中对应的org.bouncycastle导致的。</p>
 <p>通过 <code>mvn -X test</code> 运行项目，找到org.boundcycastle，找到使用它的上级jar，在pom里 exclusion 掉，再次运行，解决。</p>
 <h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><p>maven pom 中排除掉 org.bouncycastle:bcprov-jdk15on:jar:1.65</p>
 <p>如果你的项目需要这个包，升级到最新版。</p>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2020/09/23/访问https服务出错javax-net-ssl-sslhandshakeexception-could-not-generate-secret/">https://blog.devmgr.cn/2020/09/23/访问https服务出错javax-net-ssl-sslhandshakeexception-could-not-generate-secret/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
       
     </div>
@@ -373,9 +373,6 @@ Caused by: java.security.InvalidKeyException: cannot identify XDH private key
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">String t2 =</span><br><span class="line">    Jwts.builder()</span><br><span class="line">        .setClaims(buyerMap)</span><br><span class="line">        .setExpiration(<span class="keyword">new</span> Date(t))</span><br><span class="line">        .signWith(SignatureAlgorithm.HS512, Base64.encode(<span class="string">&quot;helloworld&quot;</span>.getBytes())) </span><br><span class="line">        .compact();</span><br></pre></td></tr></table></figure>
 
 
-
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2020/07/05/jjwt-与-java-jwt-生成的jwt格式token互相解析/">https://blog.devmgr.cn/2020/07/05/jjwt-与-java-jwt-生成的jwt格式token互相解析/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
-
       
     </div>
 
@@ -449,7 +446,6 @@ Caused by: java.security.InvalidKeyException: cannot identify XDH private key
 <p>Java类和JSON字符串互转，map需要key是string，这个很容易理解，不是string的没法转。(java-&gt;json部分在这个类内之前有处理；反过来没处理）</p>
 <p>这样就解决了。 </p>
 <p>这个问题本应该更容易发现，只是spring/fasterxml内把这个错误的日志级别用了DEBUG，不太容易被发现。</p>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2020/04/16/org-springframework-web-httpmediatypenotsupportedexception-content-type-application-json/">https://blog.devmgr.cn/2020/04/16/org-springframework-web-httpmediatypenotsupportedexception-content-type-application-json/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
       
     </div>
@@ -522,7 +518,6 @@ Caused by: java.security.InvalidKeyException: cannot identify XDH private key
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;</span><br></pre></td></tr></table></figure>
 
 <p>替换掉import，倒入正确的get方法即可正常运行。</p>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2020/03/16/spring-rest-docs-java-lang-illegalargumentexception-urltemplate-not-found-if-you-are-using-mockmvc-did-you-use-restdocumentationrequestbuilders-to-build-the-request/">https://blog.devmgr.cn/2020/03/16/spring-rest-docs-java-lang-illegalargumentexception-urltemplate-not-found-if-you-are-using-mockmvc-did-you-use-restdocumentationrequestbuilders-to-build-the-request/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
       
     </div>
@@ -608,7 +603,6 @@ Caused by: java.security.InvalidKeyException: cannot identify XDH private key
 <li><a target="_blank" rel="noopener" href="https://www.postgresql.org/docs/current/datatype-json.html">https://www.postgresql.org/docs/current/datatype-json.html</a></li>
 </ul>
 <p>PostgreSQL还有些其它很有意思的字段，例如：区间类型（日期区间、数值区间等）、复合类型、枚举类型、甚至点线多边形等几何图形等字段类型，而且对于这些类型都有相应的一些辅助运算函数的支持。<a target="_blank" rel="noopener" href="https://www.postgresql.org/docs/current/datatype.html">数据类型</a></p>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2020/02/23/postgresql的数组和json字段/">https://blog.devmgr.cn/2020/02/23/postgresql的数组和json字段/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
       
     </div>
@@ -683,7 +677,8 @@ Caused by: org.springframework.context.ApplicationContextException: Unable to st
     at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.getWebServerFactory(ServletWebServerApplicationContext.java:203)
     at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.createWebServer(ServletWebServerApplicationContext.java:179)
     at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:153)
-    ... 8 common frames omitted</code></pre><h1 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h1><p>出现这种状况，是由于项目中混入了 spring-webmvc 的包导致的，spring gateway  使用 webflux， 而webflux和webmvc不兼容，就会出现上面的错误。</p>
+    ... 8 common frames omitted</code></pre>
+<h1 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h1><p>出现这种状况，是由于项目中混入了 spring-webmvc 的包导致的，spring gateway  使用 webflux， 而webflux和webmvc不兼容，就会出现上面的错误。</p>
 <h1 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h1><p>一般不是直接包含了 spring-webmvc，是引入的某个包需要依赖webmvc，找到并排除就好了，但找起来，需要点方法。</p>
 <p>用命令 <code>mvn -X  package</code>增加一个 -X 参数去打包，会把详细的依赖路径全部都显示出来。例如：</p>
 <pre><code>[INFO] &lt;&lt;&lt; spring-boot-maven-plugin:2.2.1.RELEASE:run (default-cli) &lt; test-compile @ gateway-mp-server &lt;&lt;&lt;
@@ -728,11 +723,9 @@ Caused by: org.springframework.context.ApplicationContextException: Unable to st
 [DEBUG]          com.sun.jersey:jersey-core:jar:1.19.1:runtime
 [DEBUG]          com.sun.jersey:jersey-client:jar:1.19.1:runtime
 [DEBUG]          com.sun.jersey.contribs:jersey-apache-client4:jar:1.19.1:runtime
-[DEBUG]          org.apache.httpcomponents:httpclient:jar:4.5.10:compile (version managed from 4.5.3 by org.springframework.boot:spring-boot-dependencies:2.2.1.RELEASE)</code></pre><p>在输入里面搜索 webmvc ，找到最上级后，在pom里排除掉即可，例如：</p>
+[DEBUG]          org.apache.httpcomponents:httpclient:jar:4.5.10:compile (version managed from 4.5.3 by org.springframework.boot:spring-boot-dependencies:2.2.1.RELEASE)</code></pre>
+<p>在输入里面搜索 webmvc ，找到最上级后，在pom里排除掉即可，例如：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>cn.devmgr<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>common-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span><span class="comment">&lt;!-- 这里是排除掉webmvc --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-webmvc<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2020/02/16/spring-gateway-遇到异常unable-to-start-servletwebserverapplicationcontext-due-to-missing-servletwebserverfactory-bean-无法启动/">https://blog.devmgr.cn/2020/02/16/spring-gateway-遇到异常unable-to-start-servletwebserverapplicationcontext-due-to-missing-servletwebserverfactory-bean-无法启动/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
       
     </div>
@@ -798,9 +791,6 @@ Caused by: org.springframework.context.ApplicationContextException: Unable to st
 <p>这不科学，不符合 VUE.js 手册上对用户自定义组件的描述，而且组件的data部分是函数，也是按照 VUE.js 手册的标准写法写的。</p>
 <h1 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h1><p>后来发现是两次调用都有 v-if 一次只能出现一个导致 vue 在使用时混乱了导致，给每个对组件的引用都增加了key属性，并使用了不同的key值，问题得以解决。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">MyComponent</span></span></span><br><span class="line"><span class="tag">  <span class="attr">v-if</span>=<span class="string">&quot;type1 == 2&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">key</span>=<span class="string">&quot;componentA&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">v-model</span>=<span class="string">&quot;data1&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">name</span>=<span class="string">&quot;标题A&quot;</span>  /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">MyComponent</span></span></span><br><span class="line"><span class="tag">  <span class="attr">v-if</span>=<span class="string">&quot;banner.type == 3&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">key</span>=<span class="string">&quot;componentB&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">v-model</span>=<span class="string">&quot;data2&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">name</span>=<span class="string">&quot;标题B&quot;</span>  /&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2020/02/13/vue-js在一个页面上使用同一个自定义组件多次时遇到的怪问题/">https://blog.devmgr.cn/2020/02/13/vue-js在一个页面上使用同一个自定义组件多次时遇到的怪问题/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
       
     </div>
@@ -960,7 +950,6 @@ Caused by: org.springframework.context.ApplicationContextException: Unable to st
 <td align="center">created 方法可以使用this ，能改变data内数据</td>
 </tr>
 </tbody></table>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2020/02/08/小程序和vue-js语法差异/">https://blog.devmgr.cn/2020/02/08/小程序和vue-js语法差异/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
       
     </div>
@@ -1060,9 +1049,9 @@ list-users                  list all users/user groups in conf
 list-repos                  list all repos/repo groups in conf
 list-phy-repos              list all repos actually on disk
 list-memberships            list all groups a name is a member of
-list-members                list all members of a group</code></pre><p>这可以帮助我们确认服务器上到底有哪些仓库/用户等。   </p>
+list-members                list all members of a group</code></pre>
+<p>这可以帮助我们确认服务器上到底有哪些仓库/用户等。   </p>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://github.com/sitaramc/gitolite">gitolite github网址：https://github.com/sitaramc/gitolite</a></p>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2020/02/04/gitolite的安装和使用/">https://blog.devmgr.cn/2020/02/04/gitolite的安装和使用/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
       
     </div>
@@ -1130,7 +1119,6 @@ list-members                list all members of a group</code></pre><p>这可以
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> babelconfig = &#123;</span><br><span class="line">  presets: [<span class="string">&quot;@vue/cli-plugin-babel/preset&quot;</span>], <span class="comment">//其它原有设置</span></span><br><span class="line">  plugins: []</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">if</span> (process.env.NODE_ENV === <span class="string">&quot;production&quot;</span>) &#123;</span><br><span class="line">  <span class="comment">// production 环境则增加此插件</span></span><br><span class="line">  babelconfig.plugins.push(<span class="string">&quot;transform-remove-console&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = babelconfig;</span><br></pre></td></tr></table></figure>
 
 <p>这样就可以了。</p>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2020/02/03/vue-js项目发布时自动剔除console-log/">https://blog.devmgr.cn/2020/02/03/vue-js项目发布时自动剔除console-log/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
       
     </div>

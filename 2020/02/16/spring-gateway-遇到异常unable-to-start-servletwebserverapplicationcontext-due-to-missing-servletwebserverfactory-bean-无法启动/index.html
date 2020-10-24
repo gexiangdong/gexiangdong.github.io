@@ -206,7 +206,8 @@ Caused by: org.springframework.context.ApplicationContextException: Unable to st
     at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.getWebServerFactory(ServletWebServerApplicationContext.java:203)
     at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.createWebServer(ServletWebServerApplicationContext.java:179)
     at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:153)
-    ... 8 common frames omitted</code></pre><h1 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h1><p>出现这种状况，是由于项目中混入了 spring-webmvc 的包导致的，spring gateway  使用 webflux， 而webflux和webmvc不兼容，就会出现上面的错误。</p>
+    ... 8 common frames omitted</code></pre>
+<h1 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h1><p>出现这种状况，是由于项目中混入了 spring-webmvc 的包导致的，spring gateway  使用 webflux， 而webflux和webmvc不兼容，就会出现上面的错误。</p>
 <h1 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h1><p>一般不是直接包含了 spring-webmvc，是引入的某个包需要依赖webmvc，找到并排除就好了，但找起来，需要点方法。</p>
 <p>用命令 <code>mvn -X  package</code>增加一个 -X 参数去打包，会把详细的依赖路径全部都显示出来。例如：</p>
 <pre><code>[INFO] &lt;&lt;&lt; spring-boot-maven-plugin:2.2.1.RELEASE:run (default-cli) &lt; test-compile @ gateway-mp-server &lt;&lt;&lt;
@@ -251,11 +252,9 @@ Caused by: org.springframework.context.ApplicationContextException: Unable to st
 [DEBUG]          com.sun.jersey:jersey-core:jar:1.19.1:runtime
 [DEBUG]          com.sun.jersey:jersey-client:jar:1.19.1:runtime
 [DEBUG]          com.sun.jersey.contribs:jersey-apache-client4:jar:1.19.1:runtime
-[DEBUG]          org.apache.httpcomponents:httpclient:jar:4.5.10:compile (version managed from 4.5.3 by org.springframework.boot:spring-boot-dependencies:2.2.1.RELEASE)</code></pre><p>在输入里面搜索 webmvc ，找到最上级后，在pom里排除掉即可，例如：</p>
+[DEBUG]          org.apache.httpcomponents:httpclient:jar:4.5.10:compile (version managed from 4.5.3 by org.springframework.boot:spring-boot-dependencies:2.2.1.RELEASE)</code></pre>
+<p>在输入里面搜索 webmvc ，找到最上级后，在pom里排除掉即可，例如：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>cn.devmgr<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>common-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span><span class="comment">&lt;!-- 这里是排除掉webmvc --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-webmvc<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2020/02/16/spring-gateway-遇到异常unable-to-start-servletwebserverapplicationcontext-due-to-missing-servletwebserverfactory-bean-无法启动/">https://blog.devmgr.cn/2020/02/16/spring-gateway-遇到异常unable-to-start-servletwebserverapplicationcontext-due-to-missing-servletwebserverfactory-bean-无法启动/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
     </div>
 

@@ -273,8 +273,8 @@ javax.servlet.ServletException: Circular view path []: would dispatch back to th
     at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [na:1.8.0_131]
     at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [na:1.8.0_131]
     at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-embed-core-9.0.14.jar:9.0.14]
-    at java.lang.Thread.run(Thread.java:748) [na:1.8.0_131]</code></pre><p>这个错误是由于访问的是 Controller， 而该 Controller对方的方法没有对应的视图造成的。 我这里出现这个错误，是因为我本来就不需要视图，我是想返回 JSON，但把 RestController 误写成了 Controller。</p>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/10/19/spring-boot-error-circular-view-path-would-dispatch-back-to-the-current-handler-url-again-check-your-viewresolver-setup/">https://blog.devmgr.cn/2019/10/19/spring-boot-error-circular-view-path-would-dispatch-back-to-the-current-handler-url-again-check-your-viewresolver-setup/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
+    at java.lang.Thread.run(Thread.java:748) [na:1.8.0_131]</code></pre>
+<p>这个错误是由于访问的是 Controller， 而该 Controller对方的方法没有对应的视图造成的。 我这里出现这个错误，是因为我本来就不需要视图，我是想返回 JSON，但把 RestController 误写成了 Controller。</p>
 
     </div>
 

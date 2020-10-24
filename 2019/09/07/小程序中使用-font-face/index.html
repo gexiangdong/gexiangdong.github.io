@@ -20,12 +20,12 @@
     var CONFIG = {"hostname":"blog.devmgr.cn","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="在小程序中的 wxss 中使用 @font-face 例如 @font-face &amp;#123;font-family: myfont; src: url(&#39;https:&#x2F;&#x2F;myhost.com&#x2F;fonts&#x2F;myfont.ttf&#39;);&amp;#125; 会在模拟器中报错： VM2696:1 Failed to load font https:&#x2F;&#x2F;myhost.com&#x2F;fonts&#x2F;myfon">
+  <meta name="description" content="在小程序中的 wxss 中使用 @font-face 例如 @font-face &amp;#123;font-family: myfont; src: url(&#39;https:&#x2F;&#x2F;myhost.com&#x2F;fonts&#x2F;myfont.ttf&#39;);&amp;#125;  会在模拟器中报错： VM2696:1 Failed to load font https:&#x2F;&#x2F;myhost.com&#x2F;fonts&#x2F;myfo">
 <meta property="og:type" content="article">
 <meta property="og:title" content="小程序中使用@font-face">
 <meta property="og:url" content="https://blog.devmgr.cn/2019/09/07/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B8%AD%E4%BD%BF%E7%94%A8-font-face/index.html">
 <meta property="og:site_name" content="GeXiangDong">
-<meta property="og:description" content="在小程序中的 wxss 中使用 @font-face 例如 @font-face &amp;#123;font-family: myfont; src: url(&#39;https:&#x2F;&#x2F;myhost.com&#x2F;fonts&#x2F;myfont.ttf&#39;);&amp;#125; 会在模拟器中报错： VM2696:1 Failed to load font https:&#x2F;&#x2F;myhost.com&#x2F;fonts&#x2F;myfon">
+<meta property="og:description" content="在小程序中的 wxss 中使用 @font-face 例如 @font-face &amp;#123;font-family: myfont; src: url(&#39;https:&#x2F;&#x2F;myhost.com&#x2F;fonts&#x2F;myfont.ttf&#39;);&amp;#125;  会在模拟器中报错： VM2696:1 Failed to load font https:&#x2F;&#x2F;myhost.com&#x2F;fonts&#x2F;myfo">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-09-07T09:28:38.000Z">
 <meta property="article:modified_time" content="2019-09-08T01:05:49.000Z">
@@ -198,22 +198,20 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>在小程序中的 wxss 中使用 @font-face 例如 <code>@font-face &#123;font-family: myfont; src: url(&#39;https://myhost.com/fonts/myfont.ttf&#39;);&#125;</code> 会在模拟器中报错：</p>
+        <p>在小程序中的 wxss 中使用 @font-face 例如 <code>@font-face &#123;font-family: myfont; src: url(&#39;https://myhost.com/fonts/myfont.ttf&#39;);&#125; </code> 会在模拟器中报错：</p>
 <pre><code>VM2696:1 Failed to load font https://myhost.com/fonts/myfont.ttf
-net::ERR_CACHE_MISS </code></pre><p>虽然在模拟器中能正常显示字体，但在真机中是不行的。</p>
+net::ERR_CACHE_MISS </code></pre>
+<p>虽然在模拟器中能正常显示字体，但在真机中是不行的。</p>
 <p>解决办法有2个：</p>
 <h2 id="小程序提供的API"><a href="#小程序提供的API" class="headerlink" title="小程序提供的API"></a>小程序提供的API</h2><p>使用小程序提供的 wx.loadFontFace， 先在js文件里加载字体，</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wx.loadFontFace(&#123;</span><br><span class="line">  family: <span class="string">&#x27;myfont&#x27;</span>,</span><br><span class="line">  source: <span class="string">&#x27;url(&quot;https://myhost.com/fonts/myfont.ttf&quot;)&#x27;</span>,</span><br><span class="line">  success: <span class="built_in">console</span>.log</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
-<p>wxss 文件里不用写@font-face，直接用 <code>font-family: myfont</code> 即可</p>
+<p>wxss 文件里不用写@font-face，直接用 <code>font-family: myfont </code> 即可</p>
 <p>文档在 <a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/miniprogram/dev/api/ui/font/wx.loadFontFace.html">https://developers.weixin.qq.com/miniprogram/dev/api/ui/font/wx.loadFontFace.html</a></p>
 <h2 id="使用base64字体-（CSS的标准方式）"><a href="#使用base64字体-（CSS的标准方式）" class="headerlink" title="使用base64字体 （CSS的标准方式）"></a>使用base64字体 （CSS的标准方式）</h2><p>也可把字体转成 WOFF/WOFF2/SVG 等格式， 并对二进制 base64 编码，嵌入到 css/wxss 文件中，不需要从网络上访问字体文件。</p>
 <p>转化字体可以用 <a target="_blank" rel="noopener" href="https://transfonter.org/">https://transfonter.org/</a> 这个网站提供的转化工具还可以只转换自己需要的几个文字，这样减少字体文件大小。</p>
 <p>CSS文件会类似下面这个样子</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@font-face</span> &#123;</span><br><span class="line">    <span class="attribute">font-family</span>: <span class="string">&#x27;myfont&#x27;</span>;</span><br><span class="line">    <span class="attribute">src</span>: <span class="built_in">url</span>(data:application/font-woff;charset=utf-<span class="number">8</span>;base64,d09GRgABAAAAA ... 这里会很长 ... EADQABAAA=) <span class="built_in">format</span>(<span class="string">&#x27;woff&#x27;</span>);</span><br><span class="line">    <span class="attribute">font-weight</span>: bold;</span><br><span class="line">    <span class="attribute">font-style</span>: normal;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/09/07/小程序中使用-font-face/">https://blog.devmgr.cn/2019/09/07/小程序中使用-font-face/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
     </div>
 

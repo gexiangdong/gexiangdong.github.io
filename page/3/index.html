@@ -188,12 +188,10 @@
           <p>使用 <code>brew upgrade postgresql</code> 把 mac 上的 postgresql server 从10升级成11后，发现无法正常启动了</p>
 <p>查看 postgresql 的日志文件 /usr/local/var/log/postgres.log，发现如下两行说明了启动失败的原因</p>
 <pre><code>2019-09-14 09:39:57.355 CST [1586] FATAL:  database files are incompatible with server
-2019-09-14 09:39:57.355 CST [1586] DETAIL:  The data directory was initialized by PostgreSQL version 10, which is not compatible with this version 11.5.</code></pre><p>用如下命令可以迁移老的数据文件</p>
+2019-09-14 09:39:57.355 CST [1586] DETAIL:  The data directory was initialized by PostgreSQL version 10, which is not compatible with this version 11.5.</code></pre>
+<p>用如下命令可以迁移老的数据文件</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew postgresql-upgrade-database</span><br></pre></td></tr></table></figure>
 
-
-
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/09/14/brew-upgrade-postgresql-后无法启动/">https://blog.devmgr.cn/2019/09/14/brew-upgrade-postgresql-后无法启动/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
       
     </div>
@@ -353,7 +351,6 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerStompEndpoints</span><span class="params">(StompEndpointRegistry registry)</span> </span>&#123;</span><br><span class="line">    registry.addEndpoint(<span class="string">&quot;/socket/challenge&quot;</span>).setHandshakeHandler(<span class="keyword">new</span> MyHandshakeHandler()).setAllowedOrigins(<span class="string">&quot;*&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>如果被同源禁止掉，会返回给客户端403</p>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/09/09/spring-boot-websocket/">https://blog.devmgr.cn/2019/09/09/spring-boot-websocket/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
       
     </div>
@@ -418,22 +415,20 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>在小程序中的 wxss 中使用 @font-face 例如 <code>@font-face &#123;font-family: myfont; src: url(&#39;https://myhost.com/fonts/myfont.ttf&#39;);&#125;</code> 会在模拟器中报错：</p>
+          <p>在小程序中的 wxss 中使用 @font-face 例如 <code>@font-face &#123;font-family: myfont; src: url(&#39;https://myhost.com/fonts/myfont.ttf&#39;);&#125; </code> 会在模拟器中报错：</p>
 <pre><code>VM2696:1 Failed to load font https://myhost.com/fonts/myfont.ttf
-net::ERR_CACHE_MISS </code></pre><p>虽然在模拟器中能正常显示字体，但在真机中是不行的。</p>
+net::ERR_CACHE_MISS </code></pre>
+<p>虽然在模拟器中能正常显示字体，但在真机中是不行的。</p>
 <p>解决办法有2个：</p>
 <h2 id="小程序提供的API"><a href="#小程序提供的API" class="headerlink" title="小程序提供的API"></a>小程序提供的API</h2><p>使用小程序提供的 wx.loadFontFace， 先在js文件里加载字体，</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wx.loadFontFace(&#123;</span><br><span class="line">  family: <span class="string">&#x27;myfont&#x27;</span>,</span><br><span class="line">  source: <span class="string">&#x27;url(&quot;https://myhost.com/fonts/myfont.ttf&quot;)&#x27;</span>,</span><br><span class="line">  success: <span class="built_in">console</span>.log</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
-<p>wxss 文件里不用写@font-face，直接用 <code>font-family: myfont</code> 即可</p>
+<p>wxss 文件里不用写@font-face，直接用 <code>font-family: myfont </code> 即可</p>
 <p>文档在 <a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/miniprogram/dev/api/ui/font/wx.loadFontFace.html">https://developers.weixin.qq.com/miniprogram/dev/api/ui/font/wx.loadFontFace.html</a></p>
 <h2 id="使用base64字体-（CSS的标准方式）"><a href="#使用base64字体-（CSS的标准方式）" class="headerlink" title="使用base64字体 （CSS的标准方式）"></a>使用base64字体 （CSS的标准方式）</h2><p>也可把字体转成 WOFF/WOFF2/SVG 等格式， 并对二进制 base64 编码，嵌入到 css/wxss 文件中，不需要从网络上访问字体文件。</p>
 <p>转化字体可以用 <a target="_blank" rel="noopener" href="https://transfonter.org/">https://transfonter.org/</a> 这个网站提供的转化工具还可以只转换自己需要的几个文字，这样减少字体文件大小。</p>
 <p>CSS文件会类似下面这个样子</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@font-face</span> &#123;</span><br><span class="line">    <span class="attribute">font-family</span>: <span class="string">&#x27;myfont&#x27;</span>;</span><br><span class="line">    <span class="attribute">src</span>: <span class="built_in">url</span>(data:application/font-woff;charset=utf-<span class="number">8</span>;base64,d09GRgABAAAAA ... 这里会很长 ... EADQABAAA=) <span class="built_in">format</span>(<span class="string">&#x27;woff&#x27;</span>);</span><br><span class="line">    <span class="attribute">font-weight</span>: bold;</span><br><span class="line">    <span class="attribute">font-style</span>: normal;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/09/07/小程序中使用-font-face/">https://blog.devmgr.cn/2019/09/07/小程序中使用-font-face/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
       
     </div>
@@ -510,12 +505,9 @@ net::ERR_CACHE_MISS </code></pre><p>虽然在模拟器中能正常显示字体�
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Stomp.setInterval &#x3D; function () &#123; ... &#125;</span><br><span class="line">Stomp.clearInterval &#x3D; function () &#123; ... &#125;</span><br></pre></td></tr></table></figure>
 <p>这是因为他们使用的是旧版本的Stomp.js， 从官方网站下载的 stomp.js 不再需要这些代码。</p>
 <h2 id="后端"><a href="#后端" class="headerlink" title="后端"></a>后端</h2><p>如果用spring boot的websocket，需要注意默认spring 禁止了非同源的访问，需要禁止掉，否则小程序端会抱403错误，无法连接。</p>
-<p><a href="https://blog.devmgr.cn/2019/08/29/客户端连接spring-websocket-返回403错误/">客户端连接 spring websocket 返回403错误</a></p>
-<p>心跳包需要后端也支持，可以 websocket 的配置中打开，下面例子的 <code>setHeartbeatValue(new long[] &#123;20000, 20000&#125;)</code> 是设置心跳包的</p>
+<p><a href="https://blog.devmgr.cn/2019/08/29/%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%BF%9E%E6%8E%A5spring-websocket-%E8%BF%94%E5%9B%9E403%E9%94%99%E8%AF%AF/">客户端连接 spring websocket 返回403错误</a></p>
+<p>心跳包需要后端也支持，可以 websocket 的配置中打开，下面例子的 <code>setHeartbeatValue(new long[] &#123;20000, 20000&#125;) </code> 是设置心跳包的</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">configureMessageBroker</span><span class="params">(MessageBrokerRegistry config)</span> </span>&#123;</span><br><span class="line">    ThreadPoolTaskScheduler scheduler = <span class="keyword">new</span> ThreadPoolTaskScheduler();</span><br><span class="line">    scheduler.setPoolSize(<span class="number">1</span>);</span><br><span class="line">    scheduler.setThreadNamePrefix(<span class="string">&quot;wss-heartbeat-thread-&quot;</span>);</span><br><span class="line">    scheduler.initialize();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 只有用enableSimpleBroker打开的地址前缀才可以在程序中使用，使用没设置enable的前缀时不会出错，但无法传递消息</span></span><br><span class="line">    <span class="comment">// 服务端发送，客户端接收</span></span><br><span class="line">    config.enableSimpleBroker(<span class="string">&quot;/topic&quot;</span>).setHeartbeatValue(<span class="keyword">new</span> <span class="keyword">long</span>[] &#123;<span class="number">20000</span>, <span class="number">20000</span>&#125;)</span><br><span class="line">            .setTaskScheduler(scheduler);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// @MessageMapping注解的设置的地址的会和这个前缀一起构成客户端需要声明的地址(stompClient.send()方法的第一个参数）</span></span><br><span class="line">    <span class="comment">// 客户端发送，服务端接收</span></span><br><span class="line">    config.setApplicationDestinationPrefixes(<span class="string">&quot;/app&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/09/03/小程序中使用stomp-over-websocket/">https://blog.devmgr.cn/2019/09/03/小程序中使用stomp-over-websocket/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
       
     </div>
@@ -587,7 +579,6 @@ net::ERR_CACHE_MISS </code></pre><p>虽然在模拟器中能正常显示字体�
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.rulelist</span>&#123;<span class="attribute">counter-reset</span>: ord; <span class="attribute">padding-left</span>:<span class="number">20px</span>; &#125;</span><br><span class="line"><span class="selector-class">.ruleitem</span>&#123;<span class="attribute">padding</span>:<span class="number">2px</span> <span class="number">0</span>; <span class="attribute">font-size</span>:<span class="number">14px</span>; <span class="attribute">line-height</span>: <span class="number">18px</span>;&#125;</span><br><span class="line"><span class="selector-class">.ruleitem</span><span class="selector-pseudo">:before</span>&#123;<span class="attribute">content</span>: <span class="built_in">counter</span>(ord) <span class="string">&quot;.&quot;</span>; <span class="attribute">counter-increment</span>: ord; <span class="attribute">margin-left</span>: -<span class="number">20px</span>; <span class="attribute">display</span>:inline-block; <span class="attribute">width</span>:<span class="number">20px</span>;&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>counter-rest 这个属性还可修改序号的起始值、增长步长等。</p>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/08/31/小程序中用css实现列表序号/">https://blog.devmgr.cn/2019/08/31/小程序中用css实现列表序号/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
       
     </div>
@@ -653,12 +644,12 @@ net::ERR_CACHE_MISS </code></pre><p>虽然在模拟器中能正常显示字体�
 
       
           <p>今天用小程序连接 spring websocket服务器，小程序端一直报403错误。</p>
-<pre><code>VM1513 asdebug.js:1 WebSocket connection to &apos;ws://localhost:8080/socket/&apos; failed: Error during WebSocket handshake: Unexpected response code: 403</code></pre><p>检查后端spring websecurity授权，没有问题，后来发现是被websocket默认给禁止了非同源访问。</p>
+<pre><code>VM1513 asdebug.js:1 WebSocket connection to &#39;ws://localhost:8080/socket/&#39; failed: Error during WebSocket handshake: Unexpected response code: 403</code></pre>
+<p>检查后端spring websecurity授权，没有问题，后来发现是被websocket默认给禁止了非同源访问。</p>
 <p>修改 websocket 的配置类，增加了 <code>.setAllowedOrigins(&quot;*&quot;)</code>，修改后如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebsocketConfig</span> <span class="keyword">implements</span> <span class="title">WebSocketMessageBrokerConfigurer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//其他部分略去</span></span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerStompEndpoints</span><span class="params">(StompEndpointRegistry registry)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//客户端调用的URL；</span></span><br><span class="line">        registry.addEndpoint(<span class="string">&quot;/socket&quot;</span>).setAllowedOrigins(<span class="string">&quot;*&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>改完后重启，小程序websocket就可以连接了。</p>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/08/29/客户端连接spring-websocket-返回403错误/">https://blog.devmgr.cn/2019/08/29/客户端连接spring-websocket-返回403错误/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
       
     </div>
@@ -783,36 +774,36 @@ Caused by: org.springframework.boot.web.server.WebServerException: Unable to sta
 Caused by: java.lang.IllegalStateException: StandardEngine[Tomcat].StandardHost[localhost].TomcatEmbeddedContext[] failed to start
     at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.rethrowDeferredStartupExceptions(TomcatWebServer.java:171)
     at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:109)
-    ... 19 more</code></pre><h1 id="原因和解决办法"><a href="#原因和解决办法" class="headerlink" title="原因和解决办法"></a>原因和解决办法</h1><p>这是java9 默认没有加载 JAXB-API 造成的，java9开始分模块，默认加载的模块不包含 jaxb-api。 有几个办法可以解决：</p>
+    ... 19 more</code></pre>
+<h1 id="原因和解决办法"><a href="#原因和解决办法" class="headerlink" title="原因和解决办法"></a>原因和解决办法</h1><p>这是java9 默认没有加载 JAXB-API 造成的，java9开始分模块，默认加载的模块不包含 jaxb-api。 有几个办法可以解决：</p>
 <ul>
 <li><p>命令后增加参数 <code>--add-modules java.xml.bind</code> 引入此模块</p>
 </li>
 <li><p>换java8</p>
 </li>
 <li><p>手工增加 jaxb的依赖</p>
-<pre><code class="xml"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span>
-     <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.xml.bind<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>
-     <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jaxb-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>
-     <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.3.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span>
- <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span>
- <span class="tag">&lt;<span class="name">dependency</span>&gt;</span>
-     <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.sun.xml.bind<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>
-     <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jaxb-impl<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>
-     <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.3.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span>
- <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span>
- <span class="tag">&lt;<span class="name">dependency</span>&gt;</span>
-     <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.glassfish.jaxb<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>
-     <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jaxb-runtime<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>
-     <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.3.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span>
- <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span>
- <span class="tag">&lt;<span class="name">dependency</span>&gt;</span>
-     <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.activation<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>
-     <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>activation<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>
-     <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.1.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span>
- <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></code></pre>
+<pre><code class="xml">&lt;dependency&gt;
+     &lt;groupId&gt;javax.xml.bind&lt;/groupId&gt;
+     &lt;artifactId&gt;jaxb-api&lt;/artifactId&gt;
+     &lt;version&gt;2.3.1&lt;/version&gt;
+ &lt;/dependency&gt;
+ &lt;dependency&gt;
+     &lt;groupId&gt;com.sun.xml.bind&lt;/groupId&gt;
+     &lt;artifactId&gt;jaxb-impl&lt;/artifactId&gt;
+     &lt;version&gt;2.3.1&lt;/version&gt;
+ &lt;/dependency&gt;
+ &lt;dependency&gt;
+     &lt;groupId&gt;org.glassfish.jaxb&lt;/groupId&gt;
+     &lt;artifactId&gt;jaxb-runtime&lt;/artifactId&gt;
+     &lt;version&gt;2.3.1&lt;/version&gt;
+ &lt;/dependency&gt;
+ &lt;dependency&gt;
+     &lt;groupId&gt;javax.activation&lt;/groupId&gt;
+     &lt;artifactId&gt;activation&lt;/artifactId&gt;
+     &lt;version&gt;1.1.1&lt;/version&gt;
+ &lt;/dependency&gt;</code></pre>
 </li>
 </ul>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/06/16/java-lang-reflect-invocationtargetexception/">https://blog.devmgr.cn/2019/06/16/java-lang-reflect-invocationtargetexception/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
       
     </div>
@@ -950,9 +941,6 @@ Caused by: java.lang.IllegalStateException: StandardEngine[Tomcat].StandardHost[
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PropertySource(&quot;classpath:configprops.properties&quot;)</span></span><br></pre></td></tr></table></figure>
 
 
-
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/06/08/value-vs-configurationproperties/">https://blog.devmgr.cn/2019/06/08/value-vs-configurationproperties/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
-
       
     </div>
 
@@ -1036,9 +1024,6 @@ Caused by: java.lang.IllegalStateException: StandardEngine[Tomcat].StandardHost[
 
 <h2 id="RestTemplate"><a href="#RestTemplate" class="headerlink" title="RestTemplate"></a>RestTemplate</h2><p>使用RestTemplate可以通过配置interceptor来统一增加压缩。实现代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.devmgr.springcloud;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.slf4j.Logger;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.LoggerFactory;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.http.HttpRequest;</span><br><span class="line"><span class="keyword">import</span> org.springframework.http.client.ClientHttpRequestExecution;</span><br><span class="line"><span class="keyword">import</span> org.springframework.http.client.ClientHttpRequestInterceptor;</span><br><span class="line"><span class="keyword">import</span> org.springframework.http.client.ClientHttpResponse;</span><br><span class="line"><span class="keyword">import</span> org.springframework.util.CollectionUtils;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.client.RestTemplate;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.ByteArrayOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.zip.GZIPOutputStream;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RestClientConfig</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> Logger logger = LoggerFactory.getLogger(RestClientConfig.class);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * request body超过1M时，自动开启压缩模式；（需要服务端支持）</span></span><br><span class="line"><span class="comment">     * 压缩和解压会增加程序处理时间，一般内网调用不压缩速度会更快；压缩只是在网络环境较差的情况下有使用意义。</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> RestTemplate <span class="title">restTemplate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        RestTemplate restTemplate = <span class="keyword">new</span> RestTemplate();</span><br><span class="line"></span><br><span class="line">        List&lt;ClientHttpRequestInterceptor&gt; interceptors = restTemplate.getInterceptors();</span><br><span class="line">        <span class="keyword">if</span> (CollectionUtils.isEmpty(interceptors)) &#123;</span><br><span class="line">            interceptors = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        &#125;</span><br><span class="line">        interceptors.add(<span class="keyword">new</span> RestTemplateCompressInterceptor());</span><br><span class="line"></span><br><span class="line">        restTemplate.setInterceptors(interceptors);</span><br><span class="line">        <span class="keyword">return</span> restTemplate;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">RestTemplateCompressInterceptor</span> <span class="keyword">implements</span> <span class="title">ClientHttpRequestInterceptor</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> ClientHttpResponse <span class="title">intercept</span><span class="params">(HttpRequest request, <span class="keyword">byte</span>[] body,</span></span></span><br><span class="line"><span class="function"><span class="params">                                            ClientHttpRequestExecution execution)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">            logger.trace(<span class="string">&quot;RestTemplateCompressInterceptor:intercept() body-length: &#123;&#125;&quot;</span>, body == <span class="keyword">null</span> ? <span class="number">0</span> : body.length);</span><br><span class="line">            <span class="keyword">byte</span>[] newBody = <span class="keyword">null</span>;</span><br><span class="line">            <span class="keyword">if</span>(body == <span class="keyword">null</span> || body.length &lt; <span class="number">1024</span> * <span class="number">1024</span>)&#123;</span><br><span class="line">                <span class="comment">// 小于1M不开启压缩模式</span></span><br><span class="line">                logger.trace(<span class="string">&quot;&#123;&#125;不需要压缩&quot;</span>, body == <span class="keyword">null</span> ? <span class="number">0</span> : body.length);</span><br><span class="line">                newBody = body;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                logger.trace(<span class="string">&quot;&#123;&#125;开启压缩模式&quot;</span>, body.length);</span><br><span class="line">                request.getHeaders().add(<span class="string">&quot;Content-Encoding&quot;</span>, <span class="string">&quot;gzip&quot;</span>);</span><br><span class="line">                ByteArrayOutputStream baos = <span class="keyword">new</span> ByteArrayOutputStream();</span><br><span class="line">                GZIPOutputStream gzip;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    gzip = <span class="keyword">new</span> GZIPOutputStream(baos);</span><br><span class="line">                    gzip.write(body);</span><br><span class="line">                    gzip.close();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                    logger.error(<span class="string">&quot;压缩request body出错.&quot;</span>, e);</span><br><span class="line">                    <span class="keyword">throw</span>(e);</span><br><span class="line">                &#125;</span><br><span class="line">                newBody = baos.toByteArray();</span><br><span class="line">                logger.trace(<span class="string">&quot;压缩后大小 &#123;&#125;&quot;</span>, newBody.length);</span><br><span class="line">            &#125;</span><br><span class="line">            ClientHttpResponse response = execution.execute(request, newBody);</span><br><span class="line">            <span class="keyword">return</span> response;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/06/08/传输压缩的json/">https://blog.devmgr.cn/2019/06/08/传输压缩的json/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
       
     </div>
@@ -1132,7 +1117,6 @@ Caused by: java.lang.IllegalStateException: StandardEngine[Tomcat].StandardHost[
 
 
 <p>以上内容中tutorial应该替换成自己的项目名</p>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/06/08/把spring-boot编译的jar作为service运行/">https://blog.devmgr.cn/2019/06/08/把spring-boot编译的jar作为service运行/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
       
     </div>

@@ -194,9 +194,6 @@
           <p>遇到一个Timer某些情况下会自动被cancel掉，再次schedule TimerTask时会抛出java.lang.IllegalStateException: Timer already cancelled. 程序中并无timer.cancel()的调用。最后发现是TimerTask执行时发生未被捕获的异常导致，例如下段代码肯定会出问题。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestTimer</span></span>&#123;</span><br><span class="line">     </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] argvs)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        Timer timer = <span class="keyword">new</span> Timer(<span class="keyword">true</span>);</span><br><span class="line">        timer.schedule(<span class="keyword">new</span> MyTimerTask(), <span class="number">1</span>); <span class="comment">//1毫秒后执行 MyTimerTask</span></span><br><span class="line"> </span><br><span class="line">        Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">        timer.schedule(<span class="keyword">new</span> MyTimerTask(), <span class="number">1</span>); <span class="comment">//这里会抛出 java.lang.IllegalStateException: Timer already cancelled.；因为执行上一个TimerTask时异常导致Timer结束了</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyTimerTask</span> <span class="keyword">extends</span> <span class="title">TimerTask</span> </span>&#123;</span><br><span class="line">     </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">//下面这句会导致运行此TimerTask的Timer被cancel掉</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2016/08/19/java-util-timer无故被cancel掉的可能原因/">https://blog.devmgr.cn/2016/08/19/java-util-timer无故被cancel掉的可能原因/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
-
       
     </div>
 
@@ -288,9 +285,6 @@
 <p>注意目录权限，注意server.xml配置端口不要重复</p>
 <p>重启可以用如下命令</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl restart tomcat1</span><br></pre></td></tr></table></figure>
-
-
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2016/06/04/在ubuntu-16-x-x-安装多个tomcat/">https://blog.devmgr.cn/2016/06/04/在ubuntu-16-x-x-安装多个tomcat/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
       
     </div>
@@ -419,7 +413,6 @@
 <li>release log，每周从周一开始记录直至发布</li>
 </ol>
 <p>注：上述流程看上去程序员会同时做很多事，开发、修改bug等等，其实大部分时间这些不是并行，因为每周要发布的内容中不是包含所有程序员的工作，可能一个程序员负责的部分2周甚至更长时间才有新功能发布一次。</p>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2015/09/23/每周定期发布新版本的版本管理策略/">https://blog.devmgr.cn/2015/09/23/每周定期发布新版本的版本管理策略/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
       
     </div>
@@ -507,7 +500,8 @@
 
 <p>注意force是因为使用root用户创建，gluster建议不用root创建。命令在任意一个机器上运行后，另外一个机器会自动同步。</p>
 <p>如果出现</p>
-<pre><code>volume create: gv0: failed: /home/gluster-test or a prefix of it is already part of a volume</code></pre><p>或类似的错误信息，可以用如下命令删除文件后，重新再运行 <code>gluster volume create</code></p>
+<pre><code>volume create: gv0: failed: /home/gluster-test or a prefix of it is already part of a volume</code></pre>
+<p>或类似的错误信息，可以用如下命令删除文件后，重新再运行 <code>gluster volume create</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">setfattr -x trusted.glusterfs.volume-id &#x2F;home&#x2F;gluster-test</span><br><span class="line">setfattr -x trusted.gfid &#x2F;home&#x2F;gluster-test</span><br><span class="line">rm -rf &#x2F;home&#x2F;gluster-test&#x2F;.glusterfs</span><br></pre></td></tr></table></figure>
 <p>如果没有setfattr，可以通过 <code>apt-get install attr</code> 来安装。</p>
 <p>可以使用 <code>gluster volume info</code> 查看上述卷状态。</p>
@@ -522,7 +516,6 @@
 
 <p>注意一共6部分，空格区分，每部分之间不要有空格</p>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="http://gluster.readthedocs.org/en/latest/Quick-Start-Guide/Quickstart/">http://gluster.readthedocs.org/en/latest/Quick-Start-Guide/Quickstart/</a></p>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2015/09/22/glusterfs同步文件/">https://blog.devmgr.cn/2015/09/22/glusterfs同步文件/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
       
     </div>
@@ -605,18 +598,19 @@
 <p>如果出现类似如下错误：</p>
 <pre><code>Web application could not be started
 cannot load such file -- bundler/setup (LoadError)
-  /usr/lib/ruby/1.9.1/rubygems/custom_require.rb:36:in `require&apos;
-  /usr/lib/ruby/1.9.1/rubygems/custom_require.rb:36:in `require&apos;
-  /usr/lib/ruby/vendor_ruby/phusion_passenger/loader_shared_helpers.rb:245:in `block in run_load_path_setup_code&apos;
-  /usr/lib/ruby/vendor_ruby/phusion_passenger/loader_shared_helpers.rb:348:in `running_bundler&apos;
-  /usr/lib/ruby/vendor_ruby/phusion_passenger/loader_shared_helpers.rb:243:in `run_load_path_setup_code&apos;
-  /usr/share/passenger/helper-scripts/rack-preloader.rb:100:in `preload_app&apos;
-  /usr/share/passenger/helper-scripts/rack-preloader.rb:158:in `&lt;module:App&gt;&apos;
-  /usr/share/passenger/helper-scripts/rack-preloader.rb:29:in `&lt;module:PhusionPassenger&gt;&apos;
-  /usr/share/passenger/helper-scripts/rack-preloader.rb:28:in `&lt;main&gt;&apos;
+  /usr/lib/ruby/1.9.1/rubygems/custom_require.rb:36:in `require&#39;
+  /usr/lib/ruby/1.9.1/rubygems/custom_require.rb:36:in `require&#39;
+  /usr/lib/ruby/vendor_ruby/phusion_passenger/loader_shared_helpers.rb:245:in `block in run_load_path_setup_code&#39;
+  /usr/lib/ruby/vendor_ruby/phusion_passenger/loader_shared_helpers.rb:348:in `running_bundler&#39;
+  /usr/lib/ruby/vendor_ruby/phusion_passenger/loader_shared_helpers.rb:243:in `run_load_path_setup_code&#39;
+  /usr/share/passenger/helper-scripts/rack-preloader.rb:100:in `preload_app&#39;
+  /usr/share/passenger/helper-scripts/rack-preloader.rb:158:in `&lt;module:App&gt;&#39;
+  /usr/share/passenger/helper-scripts/rack-preloader.rb:29:in `&lt;module:PhusionPassenger&gt;&#39;
+  /usr/share/passenger/helper-scripts/rack-preloader.rb:28:in `&lt;main&gt;&#39;
 Application root
 /usr/share/redmine
-...</code></pre><p>可能是ruby 没有安装bundle所致，用如下命令安装</p>
+...</code></pre>
+<p>可能是ruby 没有安装bundle所致，用如下命令安装</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gem install bundle</span><br></pre></td></tr></table></figure>
 
 <p>安装好后，要把目录权限修改下</p>
@@ -649,8 +643,8 @@ Application root
 <p>这样默认就是develop分支了</p>
 <p>以后push到git server的更新，commit message中有 #101 字样的提交会被自动关联到101号问题。</p>
 <p>例如：</p>
-<pre><code>fixed bug #101 @1h 30m </code></pre><p>如果需要自动更改问题状态，请在管理-&gt;配置-&gt;版本库处设置关键字。</p>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2015/03/21/redmine和git集成/">https://blog.devmgr.cn/2015/03/21/redmine和git集成/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
+<pre><code>fixed bug #101 @1h 30m </code></pre>
+<p>如果需要自动更改问题状态，请在管理-&gt;配置-&gt;版本库处设置关键字。</p>
 
       
     </div>
@@ -723,7 +717,6 @@ Application root
 <p>我估计在windows的eclipse的eclipse.ini中增加<br><code>-Dfile.encoding=UTF-8</code><br>也可以解决，只要两边保持一致即可。</p>
 <p>解决这个问题涉及到已经在CVS里存的目录、文件是什么编码的。</p>
 <p>最后：增加-Dfile.encoding=GBK后，eclipse 默认的workspace encoding就不是UTF-8而是GBK了，需要去eclipse-&gt;preferences-&gt;General-&gt;Workspace-&gt;Text file encoding中修改一下。</p>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2015/01/05/eclipse-jdk-8-mac-os-中文文件名乱码/">https://blog.devmgr.cn/2015/01/05/eclipse-jdk-8-mac-os-中文文件名乱码/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
       
     </div>
@@ -797,9 +790,6 @@ Application root
 
 
 
-
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2014/10/29/从剪贴板粘贴图片/">https://blog.devmgr.cn/2014/10/29/从剪贴板粘贴图片/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
-
       
     </div>
 
@@ -867,11 +857,10 @@ Application root
 <p>原因很简单：父子元素都使用了 android:weight=1属性。</p>
 <p>最好的解决办法，不要嵌套使用android:weight属性。可以通过RelativeLayout布局替代LinearLayout布局来改善原有代码。 RelativeLayout的layout_toRightOf , layouttoLeftOf等一起用可以达到充满剩余空间的效果。</p>
 <p>如果使用RelativeLayout仍旧无法达到效果，想不显示waring可以：</p>
-<p>add to the root of your layout: xmlns:tools=”<a target="_blank" rel="noopener" href="http://schemas.android.com/tools”">http://schemas.android.com/tools”</a>. Then in your buttons add tools:ignore=”NestedWeights”</p>
+<p>add to the root of your layout: xmlns:tools=”<a target="_blank" rel="noopener" href="http://schemas.android.com/tools%E2%80%9D">http://schemas.android.com/tools”</a>. Then in your buttons add tools:ignore=”NestedWeights”</p>
 <p>另外tools:ignore=”UselessParent”可以去掉提示两级元素多余（This LinearLayout layout or its FrameLayout parent is possibly useless; transfer the background attribute to the other view）的警告。</p>
 <p>Reference: <a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/19636323/nested-weights-are-bad-for-performance-in-my-xml-code">http://stackoverflow.com/questions/19636323/nested-weights-are-bad-for-performance-in-my-xml-code</a></p>
 <p>使用SystemUiHider时，全屏的Layout必须加android:keepScreenOn=”true”属性，非全屏模式下的空间增加android:fitsSystemWindows=”true”不可颠倒，错误可能会出现非全屏模式下控件布局占用android占用系统虚拟键位置导致被遮挡的现象</p>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2014/10/18/避开android警告-nested-weights-are-bad-for-performance/">https://blog.devmgr.cn/2014/10/18/避开android警告-nested-weights-are-bad-for-performance/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
       
     </div>
@@ -942,9 +931,6 @@ Application root
 
 <h1 id="java-代码"><a href="#java-代码" class="headerlink" title="java 代码"></a>java 代码</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.google.zxing.BarcodeFormat;</span><br><span class="line"><span class="keyword">import</span> com.google.zxing.EncodeHintType;</span><br><span class="line"><span class="keyword">import</span> com.google.zxing.MultiFormatWriter;</span><br><span class="line"><span class="keyword">import</span> com.google.zxing.client.j2se.MatrixToImageWriter;</span><br><span class="line"><span class="keyword">import</span> com.google.zxing.common.BitMatrix;</span><br><span class="line"><span class="keyword">import</span> com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.FileOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.util.Hashtable;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 创建二维码、一维码的例子</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Qrcode</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        createBarCode(<span class="string">&quot;012341&quot;</span>);</span><br><span class="line">        createQrCode(<span class="string">&quot;http://www.163.com&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 创建二维码</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> content</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> Exception</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">createQrCode</span><span class="params">(String content)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        String format = <span class="string">&quot;png&quot;</span>;</span><br><span class="line">        MultiFormatWriter multiFormatWriter = <span class="keyword">new</span> MultiFormatWriter();</span><br><span class="line">        Hashtable&lt;EncodeHintType, Object&gt; hints = <span class="keyword">new</span> Hashtable&lt;EncodeHintType, Object&gt;();</span><br><span class="line">        hints.put(EncodeHintType.CHARACTER_SET, <span class="string">&quot;utf-8&quot;</span>);</span><br><span class="line">        hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);<span class="comment">// 设置二维码排错率，可选L(7%)、M(15%)、Q(25%)、H(30%)</span></span><br><span class="line">        hints.put(EncodeHintType.MARGIN, <span class="number">10</span>);</span><br><span class="line">        BitMatrix bitMatrix = multiFormatWriter.encode(content, BarcodeFormat.QR_CODE, <span class="number">300</span>, <span class="number">300</span>, hints);</span><br><span class="line"></span><br><span class="line">        FileOutputStream fos = <span class="keyword">new</span> FileOutputStream(<span class="string">&quot;target/qrcode.png&quot;</span>);</span><br><span class="line">        MatrixToImageWriter.writeToStream(bitMatrix, format, fos);</span><br><span class="line">        fos.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 一维条码</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> text</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> Exception</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">createBarCode</span><span class="params">(String text)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        String format = <span class="string">&quot;png&quot;</span>;</span><br><span class="line">        Hashtable hints= <span class="keyword">new</span> Hashtable();</span><br><span class="line">        hints.put(EncodeHintType.CHARACTER_SET, <span class="string">&quot;utf-8&quot;</span>);</span><br><span class="line"></span><br><span class="line">        String content = <span class="string">&quot;http://www.163.com&quot;</span>;</span><br><span class="line">        BitMatrix bitMatrix = <span class="keyword">new</span> MultiFormatWriter().encode(content, BarcodeFormat.CODE_128, <span class="number">300</span>, <span class="number">80</span>, hints);</span><br><span class="line"></span><br><span class="line">        FileOutputStream fos = <span class="keyword">new</span> FileOutputStream(<span class="string">&quot;target/barcode.png&quot;</span>);</span><br><span class="line">        MatrixToImageWriter.writeToStream(bitMatrix, format, fos);</span><br><span class="line">        fos.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2013/10/16/用google-zxing生成二维码、一维码的小例子/">https://blog.devmgr.cn/2013/10/16/用google-zxing生成二维码、一维码的小例子/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
-
       
     </div>
 
@@ -1010,9 +996,6 @@ Application root
       
           <p>用Java生成图片，在图上叠加图，图上写字的例子</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> javax.imageio.ImageIO;</span><br><span class="line"><span class="keyword">import</span> java.awt.*;</span><br><span class="line"><span class="keyword">import</span> java.awt.image.BufferedImage;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ImageDrawer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] argvs)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">//获取一张图片做底图</span></span><br><span class="line">        BufferedImage bg = ImageIO.read(ImageDrawer.class.getClassLoader().getResourceAsStream(<span class="string">&quot;bg.jpg&quot;</span>));</span><br><span class="line"></span><br><span class="line">        Graphics2D g = bg.createGraphics();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//设置字体/颜色</span></span><br><span class="line">        Font font = <span class="keyword">new</span> Font(<span class="string">&quot;微软雅黑&quot;</span>, Font.PLAIN, <span class="number">50</span>);</span><br><span class="line">        g.setFont(font);</span><br><span class="line">        g.setColor(Color.BLACK);</span><br><span class="line"></span><br><span class="line">        g.drawString(<span class="string">&quot;文字&quot;</span>, <span class="number">200</span>, <span class="number">150</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//把另外一个图描画在底图上</span></span><br><span class="line">        BufferedImage img = ImageIO.read(ImageDrawer.class.getClassLoader().getResourceAsStream(<span class="string">&quot;icon.jpg&quot;</span>));</span><br><span class="line">        <span class="comment">//这个方法画全图，按照后两个参数设置的宽高缩放</span></span><br><span class="line">        g.drawImage(img, <span class="number">200</span>, <span class="number">200</span>, <span class="number">100</span>, <span class="number">100</span>, <span class="keyword">null</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//截取图片的一部分</span></span><br><span class="line">        BufferedImage subImg = img.getSubimage(<span class="number">70</span>, <span class="number">70</span>, <span class="number">120</span>, <span class="number">120</span>);</span><br><span class="line">        g.drawImage(subImg, <span class="number">20</span>, <span class="number">20</span>, <span class="number">60</span>, <span class="number">60</span>, <span class="keyword">null</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//保存图片</span></span><br><span class="line">        ImageIO.write(bg, <span class="string">&quot;jpeg&quot;</span>, <span class="keyword">new</span> File(<span class="string">&quot;target/newimg.jpg&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2013/09/06/java生成图片的例子/">https://blog.devmgr.cn/2013/09/06/java生成图片的例子/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
       
     </div>

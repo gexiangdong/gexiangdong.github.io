@@ -195,12 +195,10 @@
         <p>使用 <code>brew upgrade postgresql</code> 把 mac 上的 postgresql server 从10升级成11后，发现无法正常启动了</p>
 <p>查看 postgresql 的日志文件 /usr/local/var/log/postgres.log，发现如下两行说明了启动失败的原因</p>
 <pre><code>2019-09-14 09:39:57.355 CST [1586] FATAL:  database files are incompatible with server
-2019-09-14 09:39:57.355 CST [1586] DETAIL:  The data directory was initialized by PostgreSQL version 10, which is not compatible with this version 11.5.</code></pre><p>用如下命令可以迁移老的数据文件</p>
+2019-09-14 09:39:57.355 CST [1586] DETAIL:  The data directory was initialized by PostgreSQL version 10, which is not compatible with this version 11.5.</code></pre>
+<p>用如下命令可以迁移老的数据文件</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew postgresql-upgrade-database</span><br></pre></td></tr></table></figure>
 
-
-
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/09/14/brew-upgrade-postgresql-后无法启动/">https://blog.devmgr.cn/2019/09/14/brew-upgrade-postgresql-后无法启动/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
     </div>
 

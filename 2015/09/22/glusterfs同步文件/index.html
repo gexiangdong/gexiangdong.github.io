@@ -221,7 +221,8 @@
 
 <p>注意force是因为使用root用户创建，gluster建议不用root创建。命令在任意一个机器上运行后，另外一个机器会自动同步。</p>
 <p>如果出现</p>
-<pre><code>volume create: gv0: failed: /home/gluster-test or a prefix of it is already part of a volume</code></pre><p>或类似的错误信息，可以用如下命令删除文件后，重新再运行 <code>gluster volume create</code></p>
+<pre><code>volume create: gv0: failed: /home/gluster-test or a prefix of it is already part of a volume</code></pre>
+<p>或类似的错误信息，可以用如下命令删除文件后，重新再运行 <code>gluster volume create</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">setfattr -x trusted.glusterfs.volume-id &#x2F;home&#x2F;gluster-test</span><br><span class="line">setfattr -x trusted.gfid &#x2F;home&#x2F;gluster-test</span><br><span class="line">rm -rf &#x2F;home&#x2F;gluster-test&#x2F;.glusterfs</span><br></pre></td></tr></table></figure>
 <p>如果没有setfattr，可以通过 <code>apt-get install attr</code> 来安装。</p>
 <p>可以使用 <code>gluster volume info</code> 查看上述卷状态。</p>
@@ -236,7 +237,6 @@
 
 <p>注意一共6部分，空格区分，每部分之间不要有空格</p>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="http://gluster.readthedocs.org/en/latest/Quick-Start-Guide/Quickstart/">http://gluster.readthedocs.org/en/latest/Quick-Start-Guide/Quickstart/</a></p>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2015/09/22/glusterfs同步文件/">https://blog.devmgr.cn/2015/09/22/glusterfs同步文件/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
     </div>
 

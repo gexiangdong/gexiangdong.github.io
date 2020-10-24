@@ -206,7 +206,6 @@
 <p>这也是因为密文没有指明加密方式的前缀，用了DelegatingPasswordEncoder去match这个password是否正确，密文的加密方法前缀是null，才出这个错。</p>
 <h3 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h3><p>另外需要注意的，除了WebSecurityConfigurerAdapter会涉及到登录用户的密码外，在oauth Authentication Server的 ClientDetail 里的 client_secret 也需要类似处理。</p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://spring.io/blog/2017/11/01/spring-security-5-0-0-rc1-released#password-encoding">https://spring.io/blog/2017/11/01/spring-security-5-0-0-rc1-released#password-encoding</a></p>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2020/01/28/spring-security-5-x-的默认密码保存方式/">https://blog.devmgr.cn/2020/01/28/spring-security-5-x-的默认密码保存方式/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
     </div>
 

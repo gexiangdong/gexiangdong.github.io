@@ -200,11 +200,10 @@
 <p>原因很简单：父子元素都使用了 android:weight=1属性。</p>
 <p>最好的解决办法，不要嵌套使用android:weight属性。可以通过RelativeLayout布局替代LinearLayout布局来改善原有代码。 RelativeLayout的layout_toRightOf , layouttoLeftOf等一起用可以达到充满剩余空间的效果。</p>
 <p>如果使用RelativeLayout仍旧无法达到效果，想不显示waring可以：</p>
-<p>add to the root of your layout: xmlns:tools=”<a target="_blank" rel="noopener" href="http://schemas.android.com/tools”">http://schemas.android.com/tools”</a>. Then in your buttons add tools:ignore=”NestedWeights”</p>
+<p>add to the root of your layout: xmlns:tools=”<a target="_blank" rel="noopener" href="http://schemas.android.com/tools%E2%80%9D">http://schemas.android.com/tools”</a>. Then in your buttons add tools:ignore=”NestedWeights”</p>
 <p>另外tools:ignore=”UselessParent”可以去掉提示两级元素多余（This LinearLayout layout or its FrameLayout parent is possibly useless; transfer the background attribute to the other view）的警告。</p>
 <p>Reference: <a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/19636323/nested-weights-are-bad-for-performance-in-my-xml-code">http://stackoverflow.com/questions/19636323/nested-weights-are-bad-for-performance-in-my-xml-code</a></p>
 <p>使用SystemUiHider时，全屏的Layout必须加android:keepScreenOn=”true”属性，非全屏模式下的空间增加android:fitsSystemWindows=”true”不可颠倒，错误可能会出现非全屏模式下控件布局占用android占用系统虚拟键位置导致被遮挡的现象</p>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2014/10/18/避开android警告-nested-weights-are-bad-for-performance/">https://blog.devmgr.cn/2014/10/18/避开android警告-nested-weights-are-bad-for-performance/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
     </div>
 

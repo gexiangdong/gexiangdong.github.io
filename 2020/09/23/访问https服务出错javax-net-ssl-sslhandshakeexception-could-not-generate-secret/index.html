@@ -292,11 +292,11 @@ Caused by: java.security.InvalidKeyException: cannot identify XDH private key
     at org.bouncycastle.jcajce.provider.asymmetric.edec.KeyAgreementSpi.engineDoPhase(Unknown Source)
     at java.base/javax.crypto.KeyAgreement.doPhase(KeyAgreement.java:579)
     at java.base/sun.security.ssl.KAKeyDerivation.t12DeriveKey(KAKeyDerivation.java:75)
-    ... 83 more</code></pre><h1 id="排查"><a href="#排查" class="headerlink" title="排查"></a>排查</h1><p>单独用 HttpUrlConnection 来写main方法访问url，脱离项目环境，单独运行Java main方法，发现是好的。<br>因此可以排除是本地java环境和服务器证书问题，断定是堆栈中对应的org.bouncycastle导致的。</p>
+    ... 83 more</code></pre>
+<h1 id="排查"><a href="#排查" class="headerlink" title="排查"></a>排查</h1><p>单独用 HttpUrlConnection 来写main方法访问url，脱离项目环境，单独运行Java main方法，发现是好的。<br>因此可以排除是本地java环境和服务器证书问题，断定是堆栈中对应的org.bouncycastle导致的。</p>
 <p>通过 <code>mvn -X test</code> 运行项目，找到org.boundcycastle，找到使用它的上级jar，在pom里 exclusion 掉，再次运行，解决。</p>
 <h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><p>maven pom 中排除掉 org.bouncycastle:bcprov-jdk15on:jar:1.65</p>
 <p>如果你的项目需要这个包，升级到最新版。</p>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2020/09/23/访问https服务出错javax-net-ssl-sslhandshakeexception-could-not-generate-secret/">https://blog.devmgr.cn/2020/09/23/访问https服务出错javax-net-ssl-sslhandshakeexception-could-not-generate-secret/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
     </div>
 
