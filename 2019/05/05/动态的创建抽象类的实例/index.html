@@ -1,129 +1,50 @@
 <!DOCTYPE html>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-<html class="theme-next gemini use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.8.0">
+<html lang="zh-CN">
+<head>
   <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.devmgr.cn","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
 
-
-
-
-
-  <meta http-equiv="Cache-Control" content="no-transform">
-  <meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
-
-<link rel="stylesheet" href="/css/main.css?v=6.7.0">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.7.0">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.7.0">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.7.0">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=6.7.0" color="#222">
-
-
-
-
-
-
-
-<script id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '6.7.0',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: false,
-    fastclick: false,
-    lazyload: false,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
-
-
-  
-
-
-
-
-  <meta name="description" content="动态继承一个类/抽象类（不是接口），（动态实现接口参照https://gist.github.com/gexiangdong/f7536a8d86a631b1c391acf13d334a90 ） 此实现需要cglib, pom中增加依赖 12345&amp;lt;dependency&amp;gt;    &amp;lt;groupId&amp;gt;cglib&amp;lt;/groupId&amp;gt;    &amp;lt;artifactId">
-<meta name="keywords" content="java,后端,反射">
+  <meta name="description" content="动态继承一个类&#x2F;抽象类（不是接口），（动态实现接口参照https:&#x2F;&#x2F;gist.github.com&#x2F;gexiangdong&#x2F;f7536a8d86a631b1c391acf13d334a90 ） 此实现需要cglib, pom中增加依赖 12345&lt;dependency&gt;    &lt;groupId&gt;cglib&lt;&#x2F;groupId&gt;    &lt;artifactId">
 <meta property="og:type" content="article">
 <meta property="og:title" content="动态的创建抽象类的实例">
-<meta property="og:url" content="https://blog.devmgr.cn/2019/05/05/动态的创建抽象类的实例/index.html">
+<meta property="og:url" content="https://blog.devmgr.cn/2019/05/05/%E5%8A%A8%E6%80%81%E7%9A%84%E5%88%9B%E5%BB%BA%E6%8A%BD%E8%B1%A1%E7%B1%BB%E7%9A%84%E5%AE%9E%E4%BE%8B/index.html">
 <meta property="og:site_name" content="GeXiangDong">
-<meta property="og:description" content="动态继承一个类/抽象类（不是接口），（动态实现接口参照https://gist.github.com/gexiangdong/f7536a8d86a631b1c391acf13d334a90 ） 此实现需要cglib, pom中增加依赖 12345&amp;lt;dependency&amp;gt;    &amp;lt;groupId&amp;gt;cglib&amp;lt;/groupId&amp;gt;    &amp;lt;artifactId">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-06-07T10:51:02.981Z">
+<meta property="og:description" content="动态继承一个类&#x2F;抽象类（不是接口），（动态实现接口参照https:&#x2F;&#x2F;gist.github.com&#x2F;gexiangdong&#x2F;f7536a8d86a631b1c391acf13d334a90 ） 此实现需要cglib, pom中增加依赖 12345&lt;dependency&gt;    &lt;groupId&gt;cglib&lt;&#x2F;groupId&gt;    &lt;artifactId">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-05-05T06:22:58.000Z">
+<meta property="article:modified_time" content="2019-06-07T10:51:02.000Z">
+<meta property="article:author" content="GeXiangDong">
+<meta property="article:tag" content="后端">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="反射">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="动态的创建抽象类的实例">
-<meta name="twitter:description" content="动态继承一个类/抽象类（不是接口），（动态实现接口参照https://gist.github.com/gexiangdong/f7536a8d86a631b1c391acf13d334a90 ） 此实现需要cglib, pom中增加依赖 12345&amp;lt;dependency&amp;gt;    &amp;lt;groupId&amp;gt;cglib&amp;lt;/groupId&amp;gt;    &amp;lt;artifactId">
+
+<link rel="canonical" href="https://blog.devmgr.cn/2019/05/05/%E5%8A%A8%E6%80%81%E7%9A%84%E5%88%9B%E5%BB%BA%E6%8A%BD%E8%B1%A1%E7%B1%BB%E7%9A%84%E5%AE%9E%E4%BE%8B/">
 
 
-
-
-
-
-  <link rel="canonical" href="https://blog.devmgr.cn/2019/05/05/动态的创建抽象类的实例/">
-
-
-
-<script id="page.configurations">
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
   };
 </script>
 
@@ -135,15 +56,8 @@
 
 
 
-
-
-
-
-
-
   <noscript>
   <style>
-  .use-motion .motion-element,
   .use-motion .brand,
   .use-motion .menu-item,
   .sidebar-inner,
@@ -152,9 +66,8 @@
   .use-motion .comments,
   .use-motion .post-header,
   .use-motion .post-body,
-  .use-motion .collection-title { opacity: initial; }
+  .use-motion .collection-header { opacity: initial; }
 
-  .use-motion .logo,
   .use-motion .site-title,
   .use-motion .site-subtitle {
     opacity: initial;
@@ -168,217 +81,116 @@
 
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">GeXiangDong</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
-    
-      
-        <h1 class="site-subtitle" itemprop="description">精通Java、SQL、Spring的拼写，擅长Linux、Windows的开关机</h1>
-      
-    
-    
   </div>
 
-  <div class="site-nav-toggle">
-    <button aria-label="切换导航栏">
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">GeXiangDong</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">精通Java、SQL、Spring的拼写，擅长Linux、Windows的开关机</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
 
 
+
 <nav class="site-nav">
-  
-    <ul id="menu" class="menu">
-      
-        
-        
-        
-          
-          <li class="menu-item menu-item-home">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
 
-    
-    
-    
-      
-    
-
-    
-
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
 
   </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-about">
+        <li class="menu-item menu-item-archives">
 
-    
-    
-    
-      
-    
-
-    
-
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-archives">
-
-    
-    
-    
-      
-    
-
-    
-
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
-
-  </li>
-
-      
-      
-    </ul>
-  
-
-  
-
-  
+  </ul>
 </nav>
 
 
-
-  
 
 
 </div>
     </header>
 
     
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
 
 
-    <main id="main" class="main">
+    <main class="main">
       <div class="main-inner">
         <div class="content-wrap">
           
+
+          <div class="content post posts-expand">
             
 
-          
-          <div id="content" class="content">
-            
-
-  <div id="posts" class="posts-expand">
     
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/05/05/%E5%8A%A8%E6%80%81%E7%9A%84%E5%88%9B%E5%BB%BA%E6%8A%BD%E8%B1%A1%E7%B1%BB%E7%9A%84%E5%AE%9E%E4%BE%8B/">
 
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/05/05/动态的创建抽象类的实例/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="GeXiangDong">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="GeXiangDong">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">动态的创建抽象类的实例
-
-              
-            
-          </h2>
-        
+        <h1 class="post-title" itemprop="name headline">
+          动态的创建抽象类的实例
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
+              <span class="post-meta-item-text">发表于</span>
 
               <time title="创建时间：2019-05-05 14:22:58" itemprop="dateCreated datePublished" datetime="2019-05-05T14:22:58+08:00">2019-05-05</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-06-07 18:51:02" itemprop="dateModified" datetime="2019-06-07T18:51:02+08:00">2019-06-07</time>
+              </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -386,561 +198,160 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        <p>动态继承一个类/抽象类（不是接口），（动态实现接口参照<a href="https://gist.github.com/gexiangdong/f7536a8d86a631b1c391acf13d334a90" target="_blank" rel="noopener">https://gist.github.com/gexiangdong/f7536a8d86a631b1c391acf13d334a90</a> ）</p>
+        <p>动态继承一个类/抽象类（不是接口），（动态实现接口参照<a target="_blank" rel="noopener" href="https://gist.github.com/gexiangdong/f7536a8d86a631b1c391acf13d334a90">https://gist.github.com/gexiangdong/f7536a8d86a631b1c391acf13d334a90</a> ）</p>
 <p>此实现需要cglib, pom中增加依赖</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>cglib<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>cglib<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.2.10<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>实现代码如下：</p>
 <h1 id="待创建的父类，可以是抽象类"><a href="#待创建的父类，可以是抽象类" class="headerlink" title="待创建的父类，可以是抽象类"></a>待创建的父类，可以是抽象类</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 被创建的类的例子，也可以是抽象类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line"><span class="keyword">private</span> String name;</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line"><span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h1 id="动态创建"><a href="#动态创建" class="headerlink" title="动态创建"></a>动态创建</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> net.sf.cglib.proxy.Enhancer;</span><br><span class="line"><span class="keyword">import</span> net.sf.cglib.proxy.MethodInterceptor;</span><br><span class="line"><span class="keyword">import</span> net.sf.cglib.proxy.MethodProxy;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Array;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Modifier;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 使用CGLIB动态生成一个类的子类的例子</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyClassProxy</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] argvs)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">MyClass mc = createDefaultImplementation(MyClass.class);</span><br><span class="line">        mc.setName(<span class="string">"waytt"</span>);</span><br><span class="line">System.out.println(mc.getName());</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;A&gt; <span class="function">A <span class="title">createDefaultImplementation</span><span class="params">(Class&lt;A&gt; abstractClass)</span> </span>&#123;</span><br><span class="line">Enhancer enhancer = <span class="keyword">new</span> Enhancer();</span><br><span class="line">        enhancer.setSuperclass(abstractClass);</span><br><span class="line">        enhancer.setCallback(<span class="keyword">new</span> MethodInterceptor() &#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">intercept</span><span class="params">(Object proxy, Method method, Object[] args, MethodProxy methodProxy)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">System.out.println(<span class="string">"MethodInterceptor.intercept(proxy, "</span> + method.getName() + <span class="string">",...)"</span>);</span><br><span class="line"><span class="keyword">if</span> (!Modifier.isAbstract(method.getModifiers())) &#123;</span><br><span class="line"><span class="comment">//not abstract method, 可调用类的方法并返回</span></span><br><span class="line"><span class="keyword">return</span> methodProxy.invokeSuper(proxy, args);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line"><span class="comment">// 抽象方法，不能执行父类的方法了，需要自己构建一个返回值</span></span><br><span class="line">System.out.println(<span class="string">"abstract method...."</span>);</span><br><span class="line">Class type = method.getReturnType();</span><br><span class="line"><span class="comment">// 生成返回值</span></span><br><span class="line"><span class="keyword">return</span> <span class="keyword">null</span>；</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"><span class="keyword">return</span> (A) enhancer.create();</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;A&gt; <span class="function">A <span class="title">createDefaultImplementation</span><span class="params">(String className)</span> <span class="keyword">throws</span> ClassNotFoundException</span>&#123;</span><br><span class="line"><span class="keyword">return</span> (A) createDefaultImplementation(Class.forName(className));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="动态创建"><a href="#动态创建" class="headerlink" title="动态创建"></a>动态创建</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> net.sf.cglib.proxy.Enhancer;</span><br><span class="line"><span class="keyword">import</span> net.sf.cglib.proxy.MethodInterceptor;</span><br><span class="line"><span class="keyword">import</span> net.sf.cglib.proxy.MethodProxy;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Array;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Modifier;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 使用CGLIB动态生成一个类的子类的例子</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyClassProxy</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] argvs)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">MyClass mc = createDefaultImplementation(MyClass.class);</span><br><span class="line">        mc.setName(<span class="string">&quot;waytt&quot;</span>);</span><br><span class="line">System.out.println(mc.getName());</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;A&gt; <span class="function">A <span class="title">createDefaultImplementation</span><span class="params">(Class&lt;A&gt; abstractClass)</span> </span>&#123;</span><br><span class="line">Enhancer enhancer = <span class="keyword">new</span> Enhancer();</span><br><span class="line">        enhancer.setSuperclass(abstractClass);</span><br><span class="line">        enhancer.setCallback(<span class="keyword">new</span> MethodInterceptor() &#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">intercept</span><span class="params">(Object proxy, Method method, Object[] args, MethodProxy methodProxy)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">System.out.println(<span class="string">&quot;MethodInterceptor.intercept(proxy, &quot;</span> + method.getName() + <span class="string">&quot;,...)&quot;</span>);</span><br><span class="line"><span class="keyword">if</span> (!Modifier.isAbstract(method.getModifiers())) &#123;</span><br><span class="line"><span class="comment">//not abstract method, 可调用类的方法并返回</span></span><br><span class="line"><span class="keyword">return</span> methodProxy.invokeSuper(proxy, args);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line"><span class="comment">// 抽象方法，不能执行父类的方法了，需要自己构建一个返回值</span></span><br><span class="line">System.out.println(<span class="string">&quot;abstract method....&quot;</span>);</span><br><span class="line">Class type = method.getReturnType();</span><br><span class="line"><span class="comment">// 生成返回值</span></span><br><span class="line"><span class="keyword">return</span> <span class="keyword">null</span>；</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"><span class="keyword">return</span> (A) enhancer.create();</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;A&gt; <span class="function">A <span class="title">createDefaultImplementation</span><span class="params">(String className)</span> <span class="keyword">throws</span> ClassNotFoundException</span>&#123;</span><br><span class="line"><span class="keyword">return</span> (A) createDefaultImplementation(Class.forName(className));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/05/05/动态的创建抽象类的实例/">https://blog.devmgr.cn/2019/05/05/动态的创建抽象类的实例/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/05/05/动态的创建抽象类的实例/">https://blog.devmgr.cn/2019/05/05/动态的创建抽象类的实例/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
-      
     </div>
 
     
-
-    
-    
-    
-
-    
-
-    
-      
     
     
 
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/java/" rel="tag"># java</a>
-          
-            <a href="/tags/后端/" rel="tag"># 后端</a>
-          
-            <a href="/tags/反射/" rel="tag"># 反射</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2019/05/05/动态的创建接口的实例/" rel="next" title="动态的创建接口的实例">
-                <i class="fa fa-chevron-left"></i> 动态的创建接口的实例
-              </a>
-            
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag"># 后端</a>
+              <a href="/tags/java/" rel="tag"># java</a>
+              <a href="/tags/%E5%8F%8D%E5%B0%84/" rel="tag"># 反射</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/05/17/base64-java-lang-illegalargumentexception-illegal-base64-character-20/" rel="prev" title="Base64 java.lang.IllegalArgumentException: Illegal base64 character 20">
-                Base64 java.lang.IllegalArgumentException: Illegal base64 character 20 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/05/05/%E5%8A%A8%E6%80%81%E7%9A%84%E5%88%9B%E5%BB%BA%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%AE%9E%E4%BE%8B/" rel="prev" title="动态的创建接口的实例">
+      <i class="fa fa-chevron-left"></i> 动态的创建接口的实例
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/05/17/base64-java-lang-illegalargumentexception-illegal-base64-character-20/" rel="next" title="Base64 java.lang.IllegalArgumentException: Illegal base64 character 20">
+      Base64 java.lang.IllegalArgumentException: Illegal base64 character 20 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
+  
+  
+  
 
-
-  </div>
 
 
           </div>
           
-
-  
-
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-            
-              <img class="site-author-image" itemprop="image" src="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4" alt="GeXiangDong">
-            
-              <p class="site-author-name" itemprop="name">GeXiangDong</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          
-            <nav class="site-state motion-element">
-              
-                <div class="site-state-item site-state-posts">
-                
-                  <a href="/archives/">
-                
-                    <span class="site-state-item-count">89</span>
-                    <span class="site-state-item-name">日志</span>
-                  </a>
-                </div>
-              
-
-              
-
-              
-                
-                
-                <div class="site-state-item site-state-tags">
-                  <a href="/tags/index.html">
-                    
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">121</span>
-                    <span class="site-state-item-name">标签</span>
-                  </a>
-                </div>
-              
-            </nav>
-          
-
-          
-
-          
-            <div class="links-of-author motion-element">
-              
-                <span class="links-of-author-item">
-                  
-                  
-                    
-                  
-                  
-                    
-                  
-                  <a href="https://github.com/gexiangdong" title="GitHub &rarr; https://github.com/gexiangdong" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
-                </span>
-              
-                <span class="links-of-author-item">
-                  
-                  
-                    
-                  
-                  
-                    
-                  
-                  <a href="https://study.163.com/instructor/1137185922.htm" title="老葛课堂 &rarr; https://study.163.com/instructor/1137185922.htm" rel="noopener" target="_blank"><i class="fa fa-fw fa-video-camera"></i>老葛课堂</a>
-                </span>
-              
-            </div>
-          
-
-          
-
-          
-          
-            <div class="links-of-blogroll motion-element links-of-blogroll-block">
-              <div class="links-of-blogroll-title">
-                <i class="fa  fa-fw fa-link"></i>
-                Links
-              </div>
-              <ul class="links-of-blogroll-list">
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://gist.github.com/gexiangdong" title="https://gist.github.com/gexiangdong" rel="noopener" target="_blank">Gist</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://blog.devmgr.cn/front-end-vue/" title="https://blog.devmgr.cn/front-end-vue/">前端工程化入门：VUE的实践</a>
-                  </li>
-                
-              </ul>
-            </div>
-          
-
-          
-            
-          
-          
-        </div>
-      </div>
-
-      
-      <!--noindex-->
-        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-            
-            
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#待创建的父类，可以是抽象类"><span class="nav-number">1.</span> <span class="nav-text">待创建的父类，可以是抽象类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#动态创建"><span class="nav-number">2.</span> <span class="nav-text">动态创建</span></a></li></ol></div>
-            
-
-          </div>
-        </div>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
-  <span class="with-love" id="animate">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">GeXiangDong</span>
-
-  
-
-  
-</div>
-
-
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v6.7.0</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-    
-
-    
-  </div>
-
-  
 
 <script>
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BE%85%E5%88%9B%E5%BB%BA%E7%9A%84%E7%88%B6%E7%B1%BB%EF%BC%8C%E5%8F%AF%E4%BB%A5%E6%98%AF%E6%8A%BD%E8%B1%A1%E7%B1%BB"><span class="nav-number">1.</span> <span class="nav-text">待创建的父类，可以是抽象类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E5%88%9B%E5%BB%BA"><span class="nav-number">2.</span> <span class="nav-text">动态创建</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">GeXiangDong</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">91</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">122</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">GeXiangDong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
 
 
 
@@ -949,100 +360,43 @@
 
 
 
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
 
 
+<script src="/js/schemes/muse.js"></script>
 
 
-
-
-
-
-
-
-
-
-
+<script src="/js/next-boot.js"></script>
 
 
 
 
   
-  <script src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-
-  
-
-
-  <script src="/js/src/utils.js?v=6.7.0"></script>
-
-  <script src="/js/src/motion.js?v=6.7.0"></script>
-
-
-
-  
-  
-
-
-  <script src="/js/src/affix.js?v=6.7.0"></script>
-
-  <script src="/js/src/schemes/pisces.js?v=6.7.0"></script>
-
-
-
-
-  
-  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
-<script src="/js/src/post-details.js?v=6.7.0"></script>
-
-
-
-  
-
-
-  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
-
-
-
-  
-  
 
 
 
 
 
-  
 
 
 
 
 
-  
 
-  
 
-  
 
-  
 
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 
   
 

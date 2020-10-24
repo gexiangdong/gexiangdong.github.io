@@ -1,129 +1,48 @@
 <!DOCTYPE html>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-<html class="theme-next gemini use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.8.0">
+<html lang="zh-CN">
+<head>
   <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.devmgr.cn","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
 
-
-
-
-
-  <meta http-equiv="Cache-Control" content="no-transform">
-  <meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
-
-<link rel="stylesheet" href="/css/main.css?v=6.7.0">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.7.0">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.7.0">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.7.0">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=6.7.0" color="#222">
-
-
-
-
-
-
-
-<script id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '6.7.0',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: false,
-    fastclick: false,
-    lazyload: false,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
-
-
-  
-
-
-
-
-  <meta name="description" content="CURL常用用法汇总。 GET 方法调用GET方法最简单 1curl  http://127.0.0.1:8080/tvseries/  增加 header user-agent1curl -H &amp;quot;user-agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0“ http:">
-<meta name="keywords" content="curl">
+  <meta name="description" content="CURL常用用法汇总。 GET 方法调用GET方法最简单 1curl  http:&#x2F;&#x2F;127.0.0.1:8080&#x2F;tvseries&#x2F;  增加 header user-agent1curl -H &quot;user-agent: Mozilla&#x2F;5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko&amp;#x2">
 <meta property="og:type" content="article">
 <meta property="og:title" content="curl 常见用法汇总">
-<meta property="og:url" content="https://blog.devmgr.cn/2018/03/19/curl-常见用法汇总/index.html">
+<meta property="og:url" content="https://blog.devmgr.cn/2018/03/19/curl-%E5%B8%B8%E8%A7%81%E7%94%A8%E6%B3%95%E6%B1%87%E6%80%BB/index.html">
 <meta property="og:site_name" content="GeXiangDong">
-<meta property="og:description" content="CURL常用用法汇总。 GET 方法调用GET方法最简单 1curl  http://127.0.0.1:8080/tvseries/  增加 header user-agent1curl -H &amp;quot;user-agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0“ http:">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-06-09T06:09:12.358Z">
+<meta property="og:description" content="CURL常用用法汇总。 GET 方法调用GET方法最简单 1curl  http:&#x2F;&#x2F;127.0.0.1:8080&#x2F;tvseries&#x2F;  增加 header user-agent1curl -H &quot;user-agent: Mozilla&#x2F;5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko&amp;#x2">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-03-19T05:41:54.000Z">
+<meta property="article:modified_time" content="2019-06-09T06:09:12.000Z">
+<meta property="article:author" content="GeXiangDong">
+<meta property="article:tag" content="curl">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="curl 常见用法汇总">
-<meta name="twitter:description" content="CURL常用用法汇总。 GET 方法调用GET方法最简单 1curl  http://127.0.0.1:8080/tvseries/  增加 header user-agent1curl -H &amp;quot;user-agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0“ http:">
+
+<link rel="canonical" href="https://blog.devmgr.cn/2018/03/19/curl-%E5%B8%B8%E8%A7%81%E7%94%A8%E6%B3%95%E6%B1%87%E6%80%BB/">
 
 
-
-
-
-
-  <link rel="canonical" href="https://blog.devmgr.cn/2018/03/19/curl-常见用法汇总/">
-
-
-
-<script id="page.configurations">
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
   };
 </script>
 
@@ -135,15 +54,8 @@
 
 
 
-
-
-
-
-
-
   <noscript>
   <style>
-  .use-motion .motion-element,
   .use-motion .brand,
   .use-motion .menu-item,
   .sidebar-inner,
@@ -152,9 +64,8 @@
   .use-motion .comments,
   .use-motion .post-header,
   .use-motion .post-body,
-  .use-motion .collection-title { opacity: initial; }
+  .use-motion .collection-header { opacity: initial; }
 
-  .use-motion .logo,
   .use-motion .site-title,
   .use-motion .site-subtitle {
     opacity: initial;
@@ -168,217 +79,116 @@
 
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">GeXiangDong</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
-    
-      
-        <h1 class="site-subtitle" itemprop="description">精通Java、SQL、Spring的拼写，擅长Linux、Windows的开关机</h1>
-      
-    
-    
   </div>
 
-  <div class="site-nav-toggle">
-    <button aria-label="切换导航栏">
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">GeXiangDong</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">精通Java、SQL、Spring的拼写，擅长Linux、Windows的开关机</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
 
 
+
 <nav class="site-nav">
-  
-    <ul id="menu" class="menu">
-      
-        
-        
-        
-          
-          <li class="menu-item menu-item-home">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
 
-    
-    
-    
-      
-    
-
-    
-
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
 
   </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-about">
+        <li class="menu-item menu-item-archives">
 
-    
-    
-    
-      
-    
-
-    
-
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-archives">
-
-    
-    
-    
-      
-    
-
-    
-
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
-
-  </li>
-
-      
-      
-    </ul>
-  
-
-  
-
-  
+  </ul>
 </nav>
 
 
-
-  
 
 
 </div>
     </header>
 
     
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
 
 
-    <main id="main" class="main">
+    <main class="main">
       <div class="main-inner">
         <div class="content-wrap">
           
+
+          <div class="content post posts-expand">
             
 
-          
-          <div id="content" class="content">
-            
-
-  <div id="posts" class="posts-expand">
     
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/03/19/curl-%E5%B8%B8%E8%A7%81%E7%94%A8%E6%B3%95%E6%B1%87%E6%80%BB/">
 
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/03/19/curl-常见用法汇总/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="GeXiangDong">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="GeXiangDong">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">curl 常见用法汇总
-
-              
-            
-          </h2>
-        
+        <h1 class="post-title" itemprop="name headline">
+          curl 常见用法汇总
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
+              <span class="post-meta-item-text">发表于</span>
 
               <time title="创建时间：2018-03-19 13:41:54" itemprop="dateCreated datePublished" datetime="2018-03-19T13:41:54+08:00">2018-03-19</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-06-09 14:09:12" itemprop="dateModified" datetime="2019-06-09T14:09:12+08:00">2019-06-09</time>
+              </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -386,576 +196,175 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
         <p>CURL常用用法汇总。</p>
 <h1 id="GET-方法"><a href="#GET-方法" class="headerlink" title="GET 方法"></a>GET 方法</h1><p>调用GET方法最简单</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl  http://127.0.0.1:8080/tvseries/</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl  http:&#x2F;&#x2F;127.0.0.1:8080&#x2F;tvseries&#x2F;</span><br></pre></td></tr></table></figure>
 
-<h2 id="增加-header-user-agent"><a href="#增加-header-user-agent" class="headerlink" title="增加 header user-agent"></a>增加 header user-agent</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -H &quot;user-agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0“ http://localhost:8080</span><br></pre></td></tr></table></figure>
+<h2 id="增加-header-user-agent"><a href="#增加-header-user-agent" class="headerlink" title="增加 header user-agent"></a>增加 header user-agent</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -H &quot;user-agent: Mozilla&#x2F;5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko&#x2F;20100101 Firefox&#x2F;47.0“ http:&#x2F;&#x2F;localhost:8080</span><br></pre></td></tr></table></figure>
 
-<h2 id="增加header-授权信息"><a href="#增加header-授权信息" class="headerlink" title="增加header 授权信息"></a>增加header 授权信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -H &quot;Authorization: Bearer 7e161a1a-4590-4696-9d90-516c54113906&quot; http://localhost:8080/api/exam</span><br></pre></td></tr></table></figure>
+<h2 id="增加header-授权信息"><a href="#增加header-授权信息" class="headerlink" title="增加header 授权信息"></a>增加header 授权信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -H &quot;Authorization: Bearer 7e161a1a-4590-4696-9d90-516c54113906&quot; http:&#x2F;&#x2F;localhost:8080&#x2F;api&#x2F;exam</span><br></pre></td></tr></table></figure>
 
 <h2 id="显示详细信息-v"><a href="#显示详细信息-v" class="headerlink" title="显示详细信息 -v"></a>显示详细信息 -v</h2><p>增加 -v 参数可以显示连接过程的详细信息，发送和接收到的HTTP头信息等等，如果不增加 -v，只显示 http response body部分内容</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -v http://localhost:8080</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -v http:&#x2F;&#x2F;localhost:8080</span><br></pre></td></tr></table></figure>
 
-<h1 id="POST-方法"><a href="#POST-方法" class="headerlink" title="POST 方法"></a>POST 方法</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -H &quot;Content-Type:application/json&quot; -X POST --data &apos;&#123;&quot;name&quot;: &quot;West World&quot;, “originRelease&quot;:&quot;2016-10-02&quot;&#125;’ http://127.0.0.1:8080/tvseries/</span><br></pre></td></tr></table></figure>
-
+<h1 id="POST-方法"><a href="#POST-方法" class="headerlink" title="POST 方法"></a>POST 方法</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -H &quot;Content-Type:application&#x2F;json&quot; -X POST --data &#39;&#123;&quot;name&quot;: &quot;West World&quot;, “originRelease&quot;:&quot;2016-10-02&quot;&#125;’ http:&#x2F;&#x2F;127.0.0.1:8080&#x2F;tvseries&#x2F;</span><br></pre></td></tr></table></figure>
 <p>上面的data参数是用的单引号包含起来的，内容json部分有双引号。这种写法在windows下可能会出错，需要用双引号，改成如下方式：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -H &quot;Content-Type:application/json&quot; -X POST --data &quot;&#123;\&quot;name\&quot;: \&quot;West World\&quot;, \“originRelease\&quot;:\&quot;2016-10-02\&quot;&#125;\&quot; http://127.0.0.1:8080/tvseries/</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -H &quot;Content-Type:application&#x2F;json&quot; -X POST --data &quot;&#123;\&quot;name\&quot;: \&quot;West World\&quot;, \“originRelease\&quot;:\&quot;2016-10-02\&quot;&#125;\&quot; http:&#x2F;&#x2F;127.0.0.1:8080&#x2F;tvseries&#x2F;</span><br></pre></td></tr></table></figure>
 
-<h1 id="DELETE-方法"><a href="#DELETE-方法" class="headerlink" title="DELETE 方法"></a>DELETE 方法</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -X DELETE https://127.0.0.1:8080/tvseries/23/</span><br></pre></td></tr></table></figure>
 
-<h1 id="PUT-方法"><a href="#PUT-方法" class="headerlink" title="PUT 方法"></a>PUT 方法</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl  -H “Content-Type:application/json” -X PUT —data ‘&#123;“name”: “Person of Interest”&#125; http://127.0.0.1:8080/tvseries/33/</span><br></pre></td></tr></table></figure>
+<h1 id="DELETE-方法"><a href="#DELETE-方法" class="headerlink" title="DELETE 方法"></a>DELETE 方法</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -X DELETE https:&#x2F;&#x2F;127.0.0.1:8080&#x2F;tvseries&#x2F;23&#x2F;</span><br></pre></td></tr></table></figure>
+
+<h1 id="PUT-方法"><a href="#PUT-方法" class="headerlink" title="PUT 方法"></a>PUT 方法</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl  -H “Content-Type:application&#x2F;json” -X PUT —data ‘&#123;“name”: “Person of Interest”&#125; http:&#x2F;&#x2F;127.0.0.1:8080&#x2F;tvseries&#x2F;33&#x2F;</span><br></pre></td></tr></table></figure>
 
 <p>PUT 方法同 POST 方法，一般需要指定传输的数据。</p>
 <h1 id="提交压缩格式的post-body"><a href="#提交压缩格式的post-body" class="headerlink" title="提交压缩格式的post body"></a>提交压缩格式的post body</h1><p>需要服务端支持才可，并不是标准的HTTP服务。</p>
 <p>使用临时文件，需要2个命令，先创建一个压缩文件，后发送：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">echo &apos;&#123; &quot;mydummy&quot; : &quot;json&quot; &#125;&apos; | gzip &gt; body.gz</span><br><span class="line"></span><br><span class="line">curl -v -i http://127.0.0.1:8080/ss -H &apos;Content-Encoding: gzip&apos; -H &apos;Content-Type:application/json&apos; --data-binary @body.gz</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">echo &#39;&#123; &quot;mydummy&quot; : &quot;json&quot; &#125;&#39; | gzip &gt; body.gz</span><br><span class="line"></span><br><span class="line">curl -v -i http:&#x2F;&#x2F;127.0.0.1:8080&#x2F;ss -H &#39;Content-Encoding: gzip&#39; -H &#39;Content-Type:application&#x2F;json&#39; --data-binary @body.gz</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>或者使用管道符合并到一行上</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &apos;&#123;&quot;type&quot;: &quot;json&quot;, &quot;length&quot;: 2222&#125;&apos; | gzip | curl -H &quot;Content-Type: application/json&quot; -H &quot;Content-Type: gzip&quot; -X POST -d @- http://127.0.0.1:8080/ss</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo &#39;&#123;&quot;type&quot;: &quot;json&quot;, &quot;length&quot;: 2222&#125;&#39; | gzip | curl -H &quot;Content-Type: application&#x2F;json&quot; -H &quot;Content-Type: gzip&quot; -X POST -d @- http:&#x2F;&#x2F;127.0.0.1:8080&#x2F;ss</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2018/03/19/curl-常见用法汇总/">https://blog.devmgr.cn/2018/03/19/curl-常见用法汇总/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2018/03/19/curl-常见用法汇总/">https://blog.devmgr.cn/2018/03/19/curl-常见用法汇总/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
-
-      
     </div>
 
     
-
-    
-    
-    
-
-    
-
-    
-      
     
     
 
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/curl/" rel="tag"># curl</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2018/03/15/捕获spring-restcontroller中的异常，并记录日志/" rel="next" title="捕获spring restcontroller中的异常，并记录日志">
-                <i class="fa fa-chevron-left"></i> 捕获spring restcontroller中的异常，并记录日志
-              </a>
-            
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/curl/" rel="tag"># curl</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/03/26/spring项目开发过程的hot-swapping/" rel="prev" title="Spring项目开发过程的Hot Swapping">
-                Spring项目开发过程的Hot Swapping <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/03/15/%E6%8D%95%E8%8E%B7spring-restcontroller%E4%B8%AD%E7%9A%84%E5%BC%82%E5%B8%B8%EF%BC%8C%E5%B9%B6%E8%AE%B0%E5%BD%95%E6%97%A5%E5%BF%97/" rel="prev" title="捕获spring restcontroller中的异常，并记录日志">
+      <i class="fa fa-chevron-left"></i> 捕获spring restcontroller中的异常，并记录日志
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/03/26/spring%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B%E7%9A%84hot-swapping/" rel="next" title="Spring项目开发过程的Hot Swapping">
+      Spring项目开发过程的Hot Swapping <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
+  
+  
+  
 
-
-  </div>
 
 
           </div>
           
-
-  
-
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-            
-              <img class="site-author-image" itemprop="image" src="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4" alt="GeXiangDong">
-            
-              <p class="site-author-name" itemprop="name">GeXiangDong</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          
-            <nav class="site-state motion-element">
-              
-                <div class="site-state-item site-state-posts">
-                
-                  <a href="/archives/">
-                
-                    <span class="site-state-item-count">89</span>
-                    <span class="site-state-item-name">日志</span>
-                  </a>
-                </div>
-              
-
-              
-
-              
-                
-                
-                <div class="site-state-item site-state-tags">
-                  <a href="/tags/index.html">
-                    
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">121</span>
-                    <span class="site-state-item-name">标签</span>
-                  </a>
-                </div>
-              
-            </nav>
-          
-
-          
-
-          
-            <div class="links-of-author motion-element">
-              
-                <span class="links-of-author-item">
-                  
-                  
-                    
-                  
-                  
-                    
-                  
-                  <a href="https://github.com/gexiangdong" title="GitHub &rarr; https://github.com/gexiangdong" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
-                </span>
-              
-                <span class="links-of-author-item">
-                  
-                  
-                    
-                  
-                  
-                    
-                  
-                  <a href="https://study.163.com/instructor/1137185922.htm" title="老葛课堂 &rarr; https://study.163.com/instructor/1137185922.htm" rel="noopener" target="_blank"><i class="fa fa-fw fa-video-camera"></i>老葛课堂</a>
-                </span>
-              
-            </div>
-          
-
-          
-
-          
-          
-            <div class="links-of-blogroll motion-element links-of-blogroll-block">
-              <div class="links-of-blogroll-title">
-                <i class="fa  fa-fw fa-link"></i>
-                Links
-              </div>
-              <ul class="links-of-blogroll-list">
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://gist.github.com/gexiangdong" title="https://gist.github.com/gexiangdong" rel="noopener" target="_blank">Gist</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://blog.devmgr.cn/front-end-vue/" title="https://blog.devmgr.cn/front-end-vue/">前端工程化入门：VUE的实践</a>
-                  </li>
-                
-              </ul>
-            </div>
-          
-
-          
-            
-          
-          
-        </div>
-      </div>
-
-      
-      <!--noindex-->
-        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-            
-            
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#GET-方法"><span class="nav-number">1.</span> <span class="nav-text">GET 方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#增加-header-user-agent"><span class="nav-number">1.1.</span> <span class="nav-text">增加 header user-agent</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#增加header-授权信息"><span class="nav-number">1.2.</span> <span class="nav-text">增加header 授权信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#显示详细信息-v"><span class="nav-number">1.3.</span> <span class="nav-text">显示详细信息 -v</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#POST-方法"><span class="nav-number">2.</span> <span class="nav-text">POST 方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DELETE-方法"><span class="nav-number">3.</span> <span class="nav-text">DELETE 方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PUT-方法"><span class="nav-number">4.</span> <span class="nav-text">PUT 方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#提交压缩格式的post-body"><span class="nav-number">5.</span> <span class="nav-text">提交压缩格式的post body</span></a></li></ol></div>
-            
-
-          </div>
-        </div>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
-  <span class="with-love" id="animate">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">GeXiangDong</span>
-
-  
-
-  
-</div>
-
-
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v6.7.0</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-    
-
-    
-  </div>
-
-  
 
 <script>
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#GET-%E6%96%B9%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">GET 方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A2%9E%E5%8A%A0-header-user-agent"><span class="nav-number">1.1.</span> <span class="nav-text">增加 header user-agent</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A2%9E%E5%8A%A0header-%E6%8E%88%E6%9D%83%E4%BF%A1%E6%81%AF"><span class="nav-number">1.2.</span> <span class="nav-text">增加header 授权信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%98%BE%E7%A4%BA%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF-v"><span class="nav-number">1.3.</span> <span class="nav-text">显示详细信息 -v</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#POST-%E6%96%B9%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">POST 方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DELETE-%E6%96%B9%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">DELETE 方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PUT-%E6%96%B9%E6%B3%95"><span class="nav-number">4.</span> <span class="nav-text">PUT 方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8F%90%E4%BA%A4%E5%8E%8B%E7%BC%A9%E6%A0%BC%E5%BC%8F%E7%9A%84post-body"><span class="nav-number">5.</span> <span class="nav-text">提交压缩格式的post body</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">GeXiangDong</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">91</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">122</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">GeXiangDong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
 
 
 
@@ -964,100 +373,43 @@
 
 
 
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
 
 
+<script src="/js/schemes/muse.js"></script>
 
 
-
-
-
-
-
-
-
-
-
+<script src="/js/next-boot.js"></script>
 
 
 
 
   
-  <script src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-
-  
-
-
-  <script src="/js/src/utils.js?v=6.7.0"></script>
-
-  <script src="/js/src/motion.js?v=6.7.0"></script>
-
-
-
-  
-  
-
-
-  <script src="/js/src/affix.js?v=6.7.0"></script>
-
-  <script src="/js/src/schemes/pisces.js?v=6.7.0"></script>
-
-
-
-
-  
-  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
-<script src="/js/src/post-details.js?v=6.7.0"></script>
-
-
-
-  
-
-
-  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
-
-
-
-  
-  
 
 
 
 
 
-  
 
 
 
 
 
-  
 
-  
 
-  
 
-  
 
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 
   
 

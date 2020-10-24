@@ -1,129 +1,51 @@
 <!DOCTYPE html>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-<html class="theme-next gemini use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.8.0">
+<html lang="zh-CN">
+<head>
   <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-
-
-
-
-
-  <meta http-equiv="Cache-Control" content="no-transform">
-  <meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
-
-<link rel="stylesheet" href="/css/main.css?v=6.7.0">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.7.0">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.7.0">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.7.0">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=6.7.0" color="#222">
-
-
-
-
-
-
-
-<script id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '6.7.0',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: false,
-    fastclick: false,
-    lazyload: false,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
-
-
-  
-
-
-
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.devmgr.cn","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
 
   <meta name="description" content="使用NGINX做双向认证的网站，访问时需要客户端安装有证书才可继续访问。可用于仅限特定用户群的网站，例如企业内部的业务管理系统，可提高系统安全性，阻止未授权用户访问。 在下述方法中，客户端证书采用自制（可节约成本），服务器端证书可自制也可购买，两者不必同一个CA，建议购买（有免费的域名证书）因为自制的浏览器会出现不信任标志。 自制证书使用openssl工具，使用前需要先安装. 制作证书CA证书12">
-<meta name="keywords" content="https,ssl,client auth,nginx">
 <meta property="og:type" content="article">
 <meta property="og:title" content="制作HTTPS双向认证的网站">
-<meta property="og:url" content="https://blog.devmgr.cn/2018/09/20/制作https双向认证的网站/index.html">
+<meta property="og:url" content="https://blog.devmgr.cn/2018/09/20/%E5%88%B6%E4%BD%9Chttps%E5%8F%8C%E5%90%91%E8%AE%A4%E8%AF%81%E7%9A%84%E7%BD%91%E7%AB%99/index.html">
 <meta property="og:site_name" content="GeXiangDong">
 <meta property="og:description" content="使用NGINX做双向认证的网站，访问时需要客户端安装有证书才可继续访问。可用于仅限特定用户群的网站，例如企业内部的业务管理系统，可提高系统安全性，阻止未授权用户访问。 在下述方法中，客户端证书采用自制（可节约成本），服务器端证书可自制也可购买，两者不必同一个CA，建议购买（有免费的域名证书）因为自制的浏览器会出现不信任标志。 自制证书使用openssl工具，使用前需要先安装. 制作证书CA证书12">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-09T06:43:34.542Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-09-20T08:50:19.000Z">
+<meta property="article:modified_time" content="2019-09-09T06:43:34.000Z">
+<meta property="article:author" content="GeXiangDong">
+<meta property="article:tag" content="https">
+<meta property="article:tag" content="ssl">
+<meta property="article:tag" content="client auth">
+<meta property="article:tag" content="nginx">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="制作HTTPS双向认证的网站">
-<meta name="twitter:description" content="使用NGINX做双向认证的网站，访问时需要客户端安装有证书才可继续访问。可用于仅限特定用户群的网站，例如企业内部的业务管理系统，可提高系统安全性，阻止未授权用户访问。 在下述方法中，客户端证书采用自制（可节约成本），服务器端证书可自制也可购买，两者不必同一个CA，建议购买（有免费的域名证书）因为自制的浏览器会出现不信任标志。 自制证书使用openssl工具，使用前需要先安装. 制作证书CA证书12">
+
+<link rel="canonical" href="https://blog.devmgr.cn/2018/09/20/%E5%88%B6%E4%BD%9Chttps%E5%8F%8C%E5%90%91%E8%AE%A4%E8%AF%81%E7%9A%84%E7%BD%91%E7%AB%99/">
 
 
-
-
-
-
-  <link rel="canonical" href="https://blog.devmgr.cn/2018/09/20/制作https双向认证的网站/">
-
-
-
-<script id="page.configurations">
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
   };
 </script>
 
@@ -135,15 +57,8 @@
 
 
 
-
-
-
-
-
-
   <noscript>
   <style>
-  .use-motion .motion-element,
   .use-motion .brand,
   .use-motion .menu-item,
   .sidebar-inner,
@@ -152,9 +67,8 @@
   .use-motion .comments,
   .use-motion .post-header,
   .use-motion .post-body,
-  .use-motion .collection-title { opacity: initial; }
+  .use-motion .collection-header { opacity: initial; }
 
-  .use-motion .logo,
   .use-motion .site-title,
   .use-motion .site-subtitle {
     opacity: initial;
@@ -168,225 +82,121 @@
 
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">GeXiangDong</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
-    
-      
-        <h1 class="site-subtitle" itemprop="description">精通Java、SQL、Spring的拼写，擅长Linux、Windows的开关机</h1>
-      
-    
-    
   </div>
 
-  <div class="site-nav-toggle">
-    <button aria-label="切换导航栏">
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">GeXiangDong</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">精通Java、SQL、Spring的拼写，擅长Linux、Windows的开关机</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
 
 
+
 <nav class="site-nav">
-  
-    <ul id="menu" class="menu">
-      
-        
-        
-        
-          
-          <li class="menu-item menu-item-home">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
 
-    
-    
-    
-      
-    
-
-    
-
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
 
   </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-about">
+        <li class="menu-item menu-item-archives">
 
-    
-    
-    
-      
-    
-
-    
-
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-archives">
-
-    
-    
-    
-      
-    
-
-    
-
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
-
-  </li>
-
-      
-      
-    </ul>
-  
-
-  
-
-  
+  </ul>
 </nav>
 
 
-
-  
 
 
 </div>
     </header>
 
     
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
 
 
-    <main id="main" class="main">
+    <main class="main">
       <div class="main-inner">
         <div class="content-wrap">
           
+
+          <div class="content post posts-expand">
             
 
-          
-          <div id="content" class="content">
-            
-
-  <div id="posts" class="posts-expand">
     
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/09/20/%E5%88%B6%E4%BD%9Chttps%E5%8F%8C%E5%90%91%E8%AE%A4%E8%AF%81%E7%9A%84%E7%BD%91%E7%AB%99/">
 
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/09/20/制作https双向认证的网站/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="GeXiangDong">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="GeXiangDong">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">制作HTTPS双向认证的网站
-
-              
-            
-          </h2>
-        
+        <h1 class="post-title" itemprop="name headline">
+          制作HTTPS双向认证的网站
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
+              <span class="post-meta-item-text">发表于</span>
 
               <time title="创建时间：2018-09-20 16:50:19" itemprop="dateCreated datePublished" datetime="2018-09-20T16:50:19+08:00">2018-09-20</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-09-09 14:43:34" itemprop="dateModified" datetime="2019-09-09T14:43:34+08:00">2019-09-09</time>
+              </span>
 
           
 
         </div>
       </header>
-    
 
     
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
-      
 
       
         <p>使用NGINX做双向认证的网站，访问时需要客户端安装有证书才可继续访问。可用于仅限特定用户群的网站，例如企业内部的业务管理系统，可提高系统安全性，阻止未授权用户访问。</p>
@@ -410,555 +220,156 @@ Email Address []:someone@yourcompany.com</code></pre><p>下面这段需要输入
 <pre><code>Please enter the following &apos;extra&apos; attributes
 to be sent with your certificate request
 A challenge password []:
-An optional company name []:</code></pre><h1 id="更改nginx配置"><a href="#更改nginx配置" class="headerlink" title="更改nginx配置"></a>更改nginx配置</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 443;</span><br><span class="line">    server_name admin.devmgr.cn;</span><br><span class="line">    ssl on;</span><br><span class="line">    # 服务器端证书配置，具体参数请根据证书发行方提供的帮助配置</span><br><span class="line">    ssl_certificate /etc/nginx/certs/1_admin.devmgr.cn_bundle.crt;</span><br><span class="line">    ssl_certificate_key /etc/nginx/certs/2_admin.devmgr.cn.key;</span><br><span class="line">    ssl_session_timeout 5m;</span><br><span class="line">    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;</span><br><span class="line">    ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;</span><br><span class="line">    ssl_prefer_server_ciphers on;</span><br><span class="line"> </span><br><span class="line">    # 下面是配置客户端认证，需要配置使用的CA证书</span><br><span class="line">    ssl_client_certificate /etc/nginx/certs/ca.crt;</span><br><span class="line">    ssl_verify_client on;</span><br><span class="line"> </span><br><span class="line">    root /var/www/admin;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+An optional company name []:</code></pre><h1 id="更改nginx配置"><a href="#更改nginx配置" class="headerlink" title="更改nginx配置"></a>更改nginx配置</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 443;</span><br><span class="line">    server_name admin.devmgr.cn;</span><br><span class="line">    ssl on;</span><br><span class="line">    # 服务器端证书配置，具体参数请根据证书发行方提供的帮助配置</span><br><span class="line">    ssl_certificate &#x2F;etc&#x2F;nginx&#x2F;certs&#x2F;1_admin.devmgr.cn_bundle.crt;</span><br><span class="line">    ssl_certificate_key &#x2F;etc&#x2F;nginx&#x2F;certs&#x2F;2_admin.devmgr.cn.key;</span><br><span class="line">    ssl_session_timeout 5m;</span><br><span class="line">    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;</span><br><span class="line">    ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;</span><br><span class="line">    ssl_prefer_server_ciphers on;</span><br><span class="line"> </span><br><span class="line">    # 下面是配置客户端认证，需要配置使用的CA证书</span><br><span class="line">    ssl_client_certificate &#x2F;etc&#x2F;nginx&#x2F;certs&#x2F;ca.crt;</span><br><span class="line">    ssl_verify_client on;</span><br><span class="line"> </span><br><span class="line">    root &#x2F;var&#x2F;www&#x2F;admin;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <h1 id="在后端程序内获取客户端证书信息"><a href="#在后端程序内获取客户端证书信息" class="headerlink" title="在后端程序内获取客户端证书信息"></a>在后端程序内获取客户端证书信息</h1><p>NGINX会把客户端证书做成内置变量，可通过proxy_set_header传递给应用，在应用内获取request header即可得到证书对应的信息。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">location /webapp &#123;</span><br><span class="line">   proxy_pass http://127.0.0.1:8080;</span><br><span class="line">   proxy_set_header Host $host;</span><br><span class="line">   proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">   proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">   # 把客户端证书的主题信息作为request header (Client-Cert)传递给应用</span><br><span class="line">   proxy_set_header Client-Cert $ssl_client_s_dn;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">location &#x2F;webapp &#123;</span><br><span class="line">   proxy_pass http:&#x2F;&#x2F;127.0.0.1:8080;</span><br><span class="line">   proxy_set_header Host $host;</span><br><span class="line">   proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">   proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">   # 把客户端证书的主题信息作为request header (Client-Cert)传递给应用</span><br><span class="line">   proxy_set_header Client-Cert $ssl_client_s_dn;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>除了 $ssl_client_s_dn 外，NGINX还提供很多内置变量对应证书的其他部分内容，想起请参考 nginx的ngx_http_ssl_module 模块文档。使用时需要注意nginx版本是否支持对应的变量。</p>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2018/09/20/制作https双向认证的网站/">https://blog.devmgr.cn/2018/09/20/制作https双向认证的网站/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2018/09/20/制作https双向认证的网站/">https://blog.devmgr.cn/2018/09/20/制作https双向认证的网站/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
-      
     </div>
 
     
-
-    
-    
-    
-
-    
-
-    
-      
     
     
 
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/https/" rel="tag"># https</a>
-          
-            <a href="/tags/ssl/" rel="tag"># ssl</a>
-          
-            <a href="/tags/client-auth/" rel="tag"># client auth</a>
-          
-            <a href="/tags/nginx/" rel="tag"># nginx</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2018/09/04/websocket协议的连接过程/" rel="next" title="websocket协议的连接过程">
-                <i class="fa fa-chevron-left"></i> websocket协议的连接过程
-              </a>
-            
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/https/" rel="tag"># https</a>
+              <a href="/tags/ssl/" rel="tag"># ssl</a>
+              <a href="/tags/client-auth/" rel="tag"># client auth</a>
+              <a href="/tags/nginx/" rel="tag"># nginx</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/11/25/java正则表达式从字符串提取信息/" rel="prev" title="java正则表达式从字符串提取信息">
-                java正则表达式从字符串提取信息 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/09/04/websocket%E5%8D%8F%E8%AE%AE%E7%9A%84%E8%BF%9E%E6%8E%A5%E8%BF%87%E7%A8%8B/" rel="prev" title="websocket协议的连接过程">
+      <i class="fa fa-chevron-left"></i> websocket协议的连接过程
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/11/25/java%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%BB%8E%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%8F%90%E5%8F%96%E4%BF%A1%E6%81%AF/" rel="next" title="java正则表达式从字符串提取信息">
+      java正则表达式从字符串提取信息 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
+  
+  
+  
 
-
-  </div>
 
 
           </div>
           
-
-  
-
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-            
-              <img class="site-author-image" itemprop="image" src="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4" alt="GeXiangDong">
-            
-              <p class="site-author-name" itemprop="name">GeXiangDong</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          
-            <nav class="site-state motion-element">
-              
-                <div class="site-state-item site-state-posts">
-                
-                  <a href="/archives/">
-                
-                    <span class="site-state-item-count">89</span>
-                    <span class="site-state-item-name">日志</span>
-                  </a>
-                </div>
-              
-
-              
-
-              
-                
-                
-                <div class="site-state-item site-state-tags">
-                  <a href="/tags/index.html">
-                    
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">121</span>
-                    <span class="site-state-item-name">标签</span>
-                  </a>
-                </div>
-              
-            </nav>
-          
-
-          
-
-          
-            <div class="links-of-author motion-element">
-              
-                <span class="links-of-author-item">
-                  
-                  
-                    
-                  
-                  
-                    
-                  
-                  <a href="https://github.com/gexiangdong" title="GitHub &rarr; https://github.com/gexiangdong" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
-                </span>
-              
-                <span class="links-of-author-item">
-                  
-                  
-                    
-                  
-                  
-                    
-                  
-                  <a href="https://study.163.com/instructor/1137185922.htm" title="老葛课堂 &rarr; https://study.163.com/instructor/1137185922.htm" rel="noopener" target="_blank"><i class="fa fa-fw fa-video-camera"></i>老葛课堂</a>
-                </span>
-              
-            </div>
-          
-
-          
-
-          
-          
-            <div class="links-of-blogroll motion-element links-of-blogroll-block">
-              <div class="links-of-blogroll-title">
-                <i class="fa  fa-fw fa-link"></i>
-                Links
-              </div>
-              <ul class="links-of-blogroll-list">
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://gist.github.com/gexiangdong" title="https://gist.github.com/gexiangdong" rel="noopener" target="_blank">Gist</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://blog.devmgr.cn/front-end-vue/" title="https://blog.devmgr.cn/front-end-vue/">前端工程化入门：VUE的实践</a>
-                  </li>
-                
-              </ul>
-            </div>
-          
-
-          
-            
-          
-          
-        </div>
-      </div>
-
-      
-      <!--noindex-->
-        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-            
-            
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#制作证书"><span class="nav-number">1.</span> <span class="nav-text">制作证书</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CA证书"><span class="nav-number">1.1.</span> <span class="nav-text">CA证书</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务器证书"><span class="nav-number">1.2.</span> <span class="nav-text">服务器证书</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#客户端浏览器证书"><span class="nav-number">1.3.</span> <span class="nav-text">客户端浏览器证书</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#更改nginx配置"><span class="nav-number">2.</span> <span class="nav-text">更改nginx配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在后端程序内获取客户端证书信息"><span class="nav-number">3.</span> <span class="nav-text">在后端程序内获取客户端证书信息</span></a></li></ol></div>
-            
-
-          </div>
-        </div>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
-  <span class="with-love" id="animate">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">GeXiangDong</span>
-
-  
-
-  
-</div>
-
-
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v6.7.0</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-    
-
-    
-  </div>
-
-  
 
 <script>
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%B6%E4%BD%9C%E8%AF%81%E4%B9%A6"><span class="nav-number">1.</span> <span class="nav-text">制作证书</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CA%E8%AF%81%E4%B9%A6"><span class="nav-number">1.1.</span> <span class="nav-text">CA证书</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%AF%81%E4%B9%A6"><span class="nav-number">1.2.</span> <span class="nav-text">服务器证书</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%B5%8F%E8%A7%88%E5%99%A8%E8%AF%81%E4%B9%A6"><span class="nav-number">1.3.</span> <span class="nav-text">客户端浏览器证书</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9B%B4%E6%94%B9nginx%E9%85%8D%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text">更改nginx配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9C%A8%E5%90%8E%E7%AB%AF%E7%A8%8B%E5%BA%8F%E5%86%85%E8%8E%B7%E5%8F%96%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%AF%81%E4%B9%A6%E4%BF%A1%E6%81%AF"><span class="nav-number">3.</span> <span class="nav-text">在后端程序内获取客户端证书信息</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">GeXiangDong</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">91</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">122</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">GeXiangDong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
 
 
 
@@ -967,100 +378,43 @@ An optional company name []:</code></pre><h1 id="更改nginx配置"><a href="#�
 
 
 
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
 
 
+<script src="/js/schemes/muse.js"></script>
 
 
-
-
-
-
-
-
-
-
-
+<script src="/js/next-boot.js"></script>
 
 
 
 
   
-  <script src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-
-  
-
-
-  <script src="/js/src/utils.js?v=6.7.0"></script>
-
-  <script src="/js/src/motion.js?v=6.7.0"></script>
-
-
-
-  
-  
-
-
-  <script src="/js/src/affix.js?v=6.7.0"></script>
-
-  <script src="/js/src/schemes/pisces.js?v=6.7.0"></script>
-
-
-
-
-  
-  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
-<script src="/js/src/post-details.js?v=6.7.0"></script>
-
-
-
-  
-
-
-  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
-
-
-
-  
-  
 
 
 
 
 
-  
 
 
 
 
 
-  
 
-  
 
-  
 
-  
 
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 
   
 

@@ -1,124 +1,43 @@
 <!DOCTYPE html>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-<html class="theme-next gemini use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.8.0">
+<html lang="zh-CN">
+<head>
   <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-
-
-
-
-
-  <meta http-equiv="Cache-Control" content="no-transform">
-  <meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
-
-<link rel="stylesheet" href="/css/main.css?v=6.7.0">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.7.0">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.7.0">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.7.0">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=6.7.0" color="#222">
-
-
-
-
-
-
-
-<script id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '6.7.0',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: false,
-    fastclick: false,
-    lazyload: false,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
-
-
-  
-
-
-
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.devmgr.cn","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
 
   <meta property="og:type" content="website">
 <meta property="og:title" content="GeXiangDong">
 <meta property="og:url" content="https://blog.devmgr.cn/page/7/index.html">
 <meta property="og:site_name" content="GeXiangDong">
-<meta property="og:locale" content="zh-CN">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="GeXiangDong">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="GeXiangDong">
+
+<link rel="canonical" href="https://blog.devmgr.cn/page/7/">
 
 
-
-
-
-
-  <link rel="canonical" href="https://blog.devmgr.cn/page/7/">
-
-
-
-<script id="page.configurations">
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
   };
 </script>
 
@@ -130,15 +49,8 @@
 
 
 
-
-
-
-
-
-
   <noscript>
   <style>
-  .use-motion .motion-element,
   .use-motion .brand,
   .use-motion .menu-item,
   .sidebar-inner,
@@ -147,9 +59,8 @@
   .use-motion .comments,
   .use-motion .post-header,
   .use-motion .post-body,
-  .use-motion .collection-title { opacity: initial; }
+  .use-motion .collection-header { opacity: initial; }
 
-  .use-motion .logo,
   .use-motion .site-title,
   .use-motion .site-subtitle {
     opacity: initial;
@@ -163,220 +74,116 @@
 
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left 
-  page-home">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">GeXiangDong</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
-    
-      
-        <h1 class="site-subtitle" itemprop="description">精通Java、SQL、Spring的拼写，擅长Linux、Windows的开关机</h1>
-      
-    
-    
   </div>
 
-  <div class="site-nav-toggle">
-    <button aria-label="切换导航栏">
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">GeXiangDong</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">精通Java、SQL、Spring的拼写，擅长Linux、Windows的开关机</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
 
 
+
 <nav class="site-nav">
-  
-    <ul id="menu" class="menu">
-      
-        
-        
-        
-          
-          <li class="menu-item menu-item-home">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
 
-    
-    
-    
-      
-    
-
-    
-
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
 
   </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-about">
+        <li class="menu-item menu-item-archives">
 
-    
-    
-    
-      
-    
-
-    
-
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-archives">
-
-    
-    
-    
-      
-    
-
-    
-
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
-
-  </li>
-
-      
-      
-    </ul>
-  
-
-  
-
-  
+  </ul>
 </nav>
 
 
-
-  
 
 
 </div>
     </header>
 
     
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
 
 
-    <main id="main" class="main">
+    <main class="main">
       <div class="main-inner">
         <div class="content-wrap">
           
-            
 
-          
-          <div id="content" class="content">
+          <div class="content index posts-expand">
             
-  <section id="posts" class="posts-expand">
-    
       
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/04/06/%E8%AE%BE%E7%BD%AEjson%E4%B8%AD%E7%9A%84%E6%97%A5%E6%9C%9F%E6%97%B6%E9%97%B4%E6%A0%BC%E5%BC%8F/">
 
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/03/26/spring项目开发过程的hot-swapping/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="GeXiangDong">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="GeXiangDong">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/03/26/spring项目开发过程的hot-swapping/" class="post-title-link" itemprop="url">Spring项目开发过程的Hot Swapping</a>
-              
-            
-          </h2>
-        
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/04/06/%E8%AE%BE%E7%BD%AEjson%E4%B8%AD%E7%9A%84%E6%97%A5%E6%9C%9F%E6%97%B6%E9%97%B4%E6%A0%BC%E5%BC%8F/" class="post-title-link" itemprop="url">设置JSON中的日期时间格式</a>
+        </h2>
 
         <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
+              <span class="post-meta-item-text">发表于</span>
 
-              
-                
-              
-
-              <time title="创建时间：2018-03-26 18:27:39" itemprop="dateCreated datePublished" datetime="2018-03-26T18:27:39+08:00">2018-03-26</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
+              <time title="创建时间：2018-04-06 14:37:04" itemprop="dateCreated datePublished" datetime="2018-04-06T14:37:04+08:00">2018-04-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-09-09 14:42:27" itemprop="dateModified" datetime="2019-09-09T14:42:27+08:00">2019-09-09</time>
+              </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -384,146 +191,78 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
+          <p>定制RestController中Date类型转换为JSON时的格式有两种方法：</p>
+<ul>
+<li>通过application.yml配置修改全局设置，对所有Date型都生效</li>
+<li>给需要指定的属性增加注解，仅对被注解的属性生效</li>
+</ul>
+<p>两个方法都有，注解优先级高。</p>
+<h3 id="application-yml中可这样设置"><a href="#application-yml中可这样设置" class="headerlink" title="application.yml中可这样设置"></a>application.yml中可这样设置</h3><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">jackson:</span></span><br><span class="line">    <span class="attr">date-format:</span> <span class="string">yyyy-MM-dd</span>              <span class="comment">#用字符串表示日期时间时的字符串格式</span></span><br><span class="line">    <span class="attr">time-zone:</span> <span class="string">GMT+8</span>                     <span class="comment">#设置时区，不设置用格林威治时间</span></span><br><span class="line">    <span class="attr">serialization:</span></span><br><span class="line">      <span class="attr">write-dates-as-timestamps:</span> <span class="literal">false</span>   <span class="comment">#值为true表示用long型时间戳</span></span><br></pre></td></tr></table></figure>
 
-      
-        
-          
-            <p>POM文件中加入spring-boot-devtoools的依赖，可以在修改后自动重启，方便开发过程中测试。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-devtools<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="用注解设置可以使用下面2个注解"><a href="#用注解设置可以使用下面2个注解" class="headerlink" title="用注解设置可以使用下面2个注解"></a>用注解设置可以使用下面2个注解</h3><p>long型的timestamp表示日期： </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@JsonFormat(shape = JsonFormat.Shape.NUMBER)</span></span><br></pre></td></tr></table></figure>
+<p>字符串表示日期：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@JsonFormat(timezone=&quot;GMT+8&quot;, pattern=&quot;yyyy-MM-dd&quot;)</span></span><br></pre></td></tr></table></figure>
 
-<p>需要IDE工具打开自动编译，因为devtools是监视class文件的修改后自动重启，不是监视src目录下的java文件。</p>
-<p>IntelliJ IDEA可以通过Build菜单下的Build Project来编译项目。</p>
-<p>如果需要配置devtools，可以通过在application.yml里加入</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">  devtools:</span></span><br><span class="line"><span class="attr">    restart:</span></span><br><span class="line"><span class="attr">      enabled:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    livereload:</span></span><br><span class="line"><span class="attr">      port:</span> <span class="number">35727</span> <span class="comment"># 默认是35729，如果开发环境中运行多个项目都用devtools，这个端口会冲突，需要改成不同的</span></span><br><span class="line">      <span class="comment"># 还有其他一些属性可配置，请参考文档</span></span><br></pre></td></tr></table></figure>
 
-<p>如果使用了maven的多模块功能，devtools的依赖需要加到子模块中，<strong>加入到父模块不起作用</strong>，因为optional=true，是可选依赖，子模块不会继承它。</p>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2018/03/26/spring项目开发过程的hot-swapping/">https://blog.devmgr.cn/2018/03/26/spring项目开发过程的hot-swapping/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2018/04/06/设置json中的日期时间格式/">https://blog.devmgr.cn/2018/04/06/设置json中的日期时间格式/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
-          
-        
       
     </div>
 
     
-
     
     
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
+      <footer class="post-footer">
         <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
+      </footer>
   </article>
+  
+  
+  
 
-
-    
       
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/03/27/mybatis%E9%80%9A%E7%94%A8%E7%9A%84insert-update/">
 
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/03/19/curl-常见用法汇总/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="GeXiangDong">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="GeXiangDong">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/03/19/curl-常见用法汇总/" class="post-title-link" itemprop="url">curl 常见用法汇总</a>
-              
-            
-          </h2>
-        
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/03/27/mybatis%E9%80%9A%E7%94%A8%E7%9A%84insert-update/" class="post-title-link" itemprop="url">Mybatis通用的Insert/Update</a>
+        </h2>
 
         <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
+              <span class="post-meta-item-text">发表于</span>
 
-              
-                
-              
-
-              <time title="创建时间：2018-03-19 13:41:54" itemprop="dateCreated datePublished" datetime="2018-03-19T13:41:54+08:00">2018-03-19</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
+              <time title="创建时间：2018-03-27 10:45:39" itemprop="dateCreated datePublished" datetime="2018-03-27T10:45:39+08:00">2018-03-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-06-07 18:51:02" itemprop="dateModified" datetime="2019-06-07T18:51:02+08:00">2019-06-07</time>
+              </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -531,167 +270,238 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
+          <p>Mybatis写mapper时，每个表都需要INSERT UPDATE写很长的语句比较麻烦，80%的表和java bean是简单的一一对应关系，因此考虑使用mybatis的SQLProvider注解减少这部分重复劳动。<br>SELECT和DELETE语句由于涉及字段较少，写起来还在可接收范围内，所以没做通用的。</p>
+<p>也可以把javabean增加写注解，类似JPA那样指定表名、字段名、主键等，但做得太多就失去了mybatis依赖SQL的灵活性了</p>
+<h2 id="InsertUpdateSqlProvider-java"><a href="#InsertUpdateSqlProvider-java" class="headerlink" title="InsertUpdateSqlProvider.java"></a>InsertUpdateSqlProvider.java</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.lang.reflect.Field;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.jdbc.SQL;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 使用此类有几个默认规则： 表名和类名相对应，属性名和字段名对应</span></span><br><span class="line"><span class="comment"> * java类内用驼峰命名法；数据库表和字段都用下划线</span></span><br><span class="line"><span class="comment"> * 类的属性定义的变量名和get/set方法名，以及set的参数类型一致，才会映射到数据库字段</span></span><br><span class="line"><span class="comment"> * 例如： private String name; 而且有 public void setName(String name) 和 public String getName()方法</span></span><br><span class="line"><span class="comment"> * 如果不是严格按照此规则定义的属性，不会被影射到数据库字段上</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InsertUpdateSqlProvider</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * id如果传入了值，会被insert使用；如果id为null，不会被insert的columns列出</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">insert</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        Map&lt;String, String&gt; map;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            map = getFieldsMap(obj, <span class="keyword">true</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IllegalArgumentException | IllegalAccessException e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(e);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> SQL() &#123;</span><br><span class="line">            &#123;</span><br><span class="line">                INSERT_INTO(getTableName(obj));</span><br><span class="line">                <span class="keyword">for</span> (String col : map.keySet()) &#123;</span><br><span class="line">                    VALUES(col, map.get(col));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;.toString();</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> String <span class="title">updateById</span><span class="params">(Object obj, <span class="keyword">boolean</span> includeNullValueField)</span> </span>&#123;</span><br><span class="line">        Map&lt;String, String&gt; map;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            map = getFieldsMap(obj, includeNullValueField);</span><br><span class="line">            map.remove(<span class="string">&quot;id&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IllegalArgumentException | IllegalAccessException e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(e);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> SQL() &#123;</span><br><span class="line">            &#123;</span><br><span class="line">                UPDATE(getTableName(obj));</span><br><span class="line">                <span class="keyword">for</span> (String col : map.keySet()) &#123;</span><br><span class="line">                    SET(col + <span class="string">&quot;=&quot;</span> + map.get(col));</span><br><span class="line">                &#125;</span><br><span class="line">                WHERE(<span class="string">&quot;id = #&#123;id&#125;&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;.toString();</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">updateById</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> updateById(obj, <span class="keyword">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">updateNonNullById</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> updateById(obj, <span class="keyword">false</span>);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Map&lt;String, String&gt; <span class="title">getFieldsMap</span><span class="params">(Object obj, <span class="keyword">boolean</span> includeNullValue)</span></span></span><br><span class="line"><span class="function">            <span class="keyword">throws</span> IllegalArgumentException, IllegalAccessException </span>&#123;</span><br><span class="line">        HashMap&lt;String, String&gt; result = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        Class&lt;?&gt; cls = obj.getClass();</span><br><span class="line">        Field[] fields = cls.getDeclaredFields(); <span class="comment">// getDeclaredFields</span></span><br><span class="line">        <span class="keyword">for</span> (Field f : fields) &#123;</span><br><span class="line">            String col = f.getName();</span><br><span class="line">            String colName = col.substring(<span class="number">0</span>, <span class="number">1</span>).toUpperCase() + col.substring(<span class="number">1</span>);</span><br><span class="line">            f.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                cls.getMethod(<span class="string">&quot;get&quot;</span> + colName);</span><br><span class="line">                cls.getMethod(<span class="string">&quot;set&quot;</span> + colName, f.getType());</span><br><span class="line">            &#125; <span class="keyword">catch</span> (NoSuchMethodException | SecurityException e) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> ((!<span class="string">&quot;id&quot;</span>.equals(col) &amp;&amp; includeNullValue) || f.get(obj) != <span class="keyword">null</span>) &#123;</span><br><span class="line">                result.put(camelCase2Underscore(col), <span class="string">&quot;#&#123;&quot;</span> + col + <span class="string">&quot;&#125;&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getTableName</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> camelCase2Underscore(obj.getClass().getSimpleName());</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">camelCase2Underscore</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        StringBuffer buf = <span class="keyword">new</span> StringBuffer();</span><br><span class="line">        <span class="keyword">for</span> (String w : s.split(<span class="string">&quot;(?&lt;!(^|[A-Z]))(?=[A-Z])|(?&lt;!^)(?=[A-Z][a-z])&quot;</span>)) &#123;</span><br><span class="line">            buf.append(<span class="string">&quot;_&quot;</span>).append(w.toLowerCase());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> buf.substring(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用通用provider的Mapper类"><a href="#使用通用provider的Mapper类" class="headerlink" title="使用通用provider的Mapper类"></a>使用通用provider的Mapper类</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.ibatis.annotations.InsertProvider;</span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.annotations.Options;</span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.annotations.UpdateProvider;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Repository;</span><br><span class="line"> </span><br><span class="line"><span class="meta">@Repository</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">GenericDao</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="meta">@UpdateProvider(type=InsertUpdateSqlProvider.class, method=&quot;updateById&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">updateById</span><span class="params">(Object bean)</span></span>;</span><br><span class="line">     </span><br><span class="line">    <span class="meta">@UpdateProvider(type=InsertUpdateSqlProvider.class, method=&quot;updateNonNullById&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">updateNonNullById</span><span class="params">(Object bean)</span></span>;</span><br><span class="line">     </span><br><span class="line">    <span class="meta">@Options(useGeneratedKeys=true, keyProperty=&quot;id&quot;, keyColumn=&quot;id&quot;)</span></span><br><span class="line">    <span class="meta">@InsertProvider(type=InsertUpdateSqlProvider.class, method=&quot;insert&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">insert</span><span class="params">(Object bean)</span></span>;</span><br><span class="line">     </span><br><span class="line">    <span class="meta">@InsertProvider(type=InsertUpdateSqlProvider.class, method=&quot;insert&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">insertWithoutGeneratedKey</span><span class="params">(Object bean)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2018/03/27/mybatis通用的insert-update/">https://blog.devmgr.cn/2018/03/27/mybatis通用的insert-update/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
       
-        
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/03/26/spring%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B%E7%9A%84hot-swapping/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
           
-            <p>CURL常用用法汇总。</p>
+            <a href="/2018/03/26/spring%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B%E7%9A%84hot-swapping/" class="post-title-link" itemprop="url">Spring项目开发过程的Hot Swapping</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-03-26 18:27:39" itemprop="dateCreated datePublished" datetime="2018-03-26T18:27:39+08:00">2018-03-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-09-09 14:40:08" itemprop="dateModified" datetime="2019-09-09T14:40:08+08:00">2019-09-09</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>POM文件中加入spring-boot-devtoools的依赖，可以在修改后自动重启，方便开发过程中测试。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-devtools<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>需要IDE工具打开自动编译，因为devtools是监视class文件的修改后自动重启，不是监视src目录下的java文件。</p>
+<p>IntelliJ IDEA可以通过Build菜单下的Build Project来编译项目。</p>
+<p>如果需要配置devtools，可以通过在application.yml里加入</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">devtools:</span></span><br><span class="line">    <span class="attr">restart:</span></span><br><span class="line">      <span class="attr">enabled:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">livereload:</span></span><br><span class="line">      <span class="attr">port:</span> <span class="number">35727</span> <span class="comment"># 默认是35729，如果开发环境中运行多个项目都用devtools，这个端口会冲突，需要改成不同的</span></span><br><span class="line">      <span class="comment"># 还有其他一些属性可配置，请参考文档</span></span><br></pre></td></tr></table></figure>
+
+<p>如果使用了maven的多模块功能，devtools的依赖需要加到子模块中，<strong>加入到父模块不起作用</strong>，因为optional=true，是可选依赖，子模块不会继承它。</p>
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2018/03/26/spring项目开发过程的hot-swapping/">https://blog.devmgr.cn/2018/03/26/spring项目开发过程的hot-swapping/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/03/19/curl-%E5%B8%B8%E8%A7%81%E7%94%A8%E6%B3%95%E6%B1%87%E6%80%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/03/19/curl-%E5%B8%B8%E8%A7%81%E7%94%A8%E6%B3%95%E6%B1%87%E6%80%BB/" class="post-title-link" itemprop="url">curl 常见用法汇总</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-03-19 13:41:54" itemprop="dateCreated datePublished" datetime="2018-03-19T13:41:54+08:00">2018-03-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-06-09 14:09:12" itemprop="dateModified" datetime="2019-06-09T14:09:12+08:00">2019-06-09</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>CURL常用用法汇总。</p>
 <h1 id="GET-方法"><a href="#GET-方法" class="headerlink" title="GET 方法"></a>GET 方法</h1><p>调用GET方法最简单</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl  http://127.0.0.1:8080/tvseries/</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl  http:&#x2F;&#x2F;127.0.0.1:8080&#x2F;tvseries&#x2F;</span><br></pre></td></tr></table></figure>
 
-<h2 id="增加-header-user-agent"><a href="#增加-header-user-agent" class="headerlink" title="增加 header user-agent"></a>增加 header user-agent</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -H &quot;user-agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0“ http://localhost:8080</span><br></pre></td></tr></table></figure>
+<h2 id="增加-header-user-agent"><a href="#增加-header-user-agent" class="headerlink" title="增加 header user-agent"></a>增加 header user-agent</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -H &quot;user-agent: Mozilla&#x2F;5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko&#x2F;20100101 Firefox&#x2F;47.0“ http:&#x2F;&#x2F;localhost:8080</span><br></pre></td></tr></table></figure>
 
-<h2 id="增加header-授权信息"><a href="#增加header-授权信息" class="headerlink" title="增加header 授权信息"></a>增加header 授权信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -H &quot;Authorization: Bearer 7e161a1a-4590-4696-9d90-516c54113906&quot; http://localhost:8080/api/exam</span><br></pre></td></tr></table></figure>
+<h2 id="增加header-授权信息"><a href="#增加header-授权信息" class="headerlink" title="增加header 授权信息"></a>增加header 授权信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -H &quot;Authorization: Bearer 7e161a1a-4590-4696-9d90-516c54113906&quot; http:&#x2F;&#x2F;localhost:8080&#x2F;api&#x2F;exam</span><br></pre></td></tr></table></figure>
 
 <h2 id="显示详细信息-v"><a href="#显示详细信息-v" class="headerlink" title="显示详细信息 -v"></a>显示详细信息 -v</h2><p>增加 -v 参数可以显示连接过程的详细信息，发送和接收到的HTTP头信息等等，如果不增加 -v，只显示 http response body部分内容</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -v http://localhost:8080</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -v http:&#x2F;&#x2F;localhost:8080</span><br></pre></td></tr></table></figure>
 
-<h1 id="POST-方法"><a href="#POST-方法" class="headerlink" title="POST 方法"></a>POST 方法</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -H &quot;Content-Type:application/json&quot; -X POST --data &apos;&#123;&quot;name&quot;: &quot;West World&quot;, “originRelease&quot;:&quot;2016-10-02&quot;&#125;’ http://127.0.0.1:8080/tvseries/</span><br></pre></td></tr></table></figure>
-
+<h1 id="POST-方法"><a href="#POST-方法" class="headerlink" title="POST 方法"></a>POST 方法</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -H &quot;Content-Type:application&#x2F;json&quot; -X POST --data &#39;&#123;&quot;name&quot;: &quot;West World&quot;, “originRelease&quot;:&quot;2016-10-02&quot;&#125;’ http:&#x2F;&#x2F;127.0.0.1:8080&#x2F;tvseries&#x2F;</span><br></pre></td></tr></table></figure>
 <p>上面的data参数是用的单引号包含起来的，内容json部分有双引号。这种写法在windows下可能会出错，需要用双引号，改成如下方式：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -H &quot;Content-Type:application/json&quot; -X POST --data &quot;&#123;\&quot;name\&quot;: \&quot;West World\&quot;, \“originRelease\&quot;:\&quot;2016-10-02\&quot;&#125;\&quot; http://127.0.0.1:8080/tvseries/</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -H &quot;Content-Type:application&#x2F;json&quot; -X POST --data &quot;&#123;\&quot;name\&quot;: \&quot;West World\&quot;, \“originRelease\&quot;:\&quot;2016-10-02\&quot;&#125;\&quot; http:&#x2F;&#x2F;127.0.0.1:8080&#x2F;tvseries&#x2F;</span><br></pre></td></tr></table></figure>
 
-<h1 id="DELETE-方法"><a href="#DELETE-方法" class="headerlink" title="DELETE 方法"></a>DELETE 方法</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -X DELETE https://127.0.0.1:8080/tvseries/23/</span><br></pre></td></tr></table></figure>
 
-<h1 id="PUT-方法"><a href="#PUT-方法" class="headerlink" title="PUT 方法"></a>PUT 方法</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl  -H “Content-Type:application/json” -X PUT —data ‘&#123;“name”: “Person of Interest”&#125; http://127.0.0.1:8080/tvseries/33/</span><br></pre></td></tr></table></figure>
+<h1 id="DELETE-方法"><a href="#DELETE-方法" class="headerlink" title="DELETE 方法"></a>DELETE 方法</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -X DELETE https:&#x2F;&#x2F;127.0.0.1:8080&#x2F;tvseries&#x2F;23&#x2F;</span><br></pre></td></tr></table></figure>
+
+<h1 id="PUT-方法"><a href="#PUT-方法" class="headerlink" title="PUT 方法"></a>PUT 方法</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl  -H “Content-Type:application&#x2F;json” -X PUT —data ‘&#123;“name”: “Person of Interest”&#125; http:&#x2F;&#x2F;127.0.0.1:8080&#x2F;tvseries&#x2F;33&#x2F;</span><br></pre></td></tr></table></figure>
 
 <p>PUT 方法同 POST 方法，一般需要指定传输的数据。</p>
 <h1 id="提交压缩格式的post-body"><a href="#提交压缩格式的post-body" class="headerlink" title="提交压缩格式的post body"></a>提交压缩格式的post body</h1><p>需要服务端支持才可，并不是标准的HTTP服务。</p>
 <p>使用临时文件，需要2个命令，先创建一个压缩文件，后发送：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">echo &apos;&#123; &quot;mydummy&quot; : &quot;json&quot; &#125;&apos; | gzip &gt; body.gz</span><br><span class="line"></span><br><span class="line">curl -v -i http://127.0.0.1:8080/ss -H &apos;Content-Encoding: gzip&apos; -H &apos;Content-Type:application/json&apos; --data-binary @body.gz</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">echo &#39;&#123; &quot;mydummy&quot; : &quot;json&quot; &#125;&#39; | gzip &gt; body.gz</span><br><span class="line"></span><br><span class="line">curl -v -i http:&#x2F;&#x2F;127.0.0.1:8080&#x2F;ss -H &#39;Content-Encoding: gzip&#39; -H &#39;Content-Type:application&#x2F;json&#39; --data-binary @body.gz</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>或者使用管道符合并到一行上</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &apos;&#123;&quot;type&quot;: &quot;json&quot;, &quot;length&quot;: 2222&#125;&apos; | gzip | curl -H &quot;Content-Type: application/json&quot; -H &quot;Content-Type: gzip&quot; -X POST -d @- http://127.0.0.1:8080/ss</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo &#39;&#123;&quot;type&quot;: &quot;json&quot;, &quot;length&quot;: 2222&#125;&#39; | gzip | curl -H &quot;Content-Type: application&#x2F;json&quot; -H &quot;Content-Type: gzip&quot; -X POST -d @- http:&#x2F;&#x2F;127.0.0.1:8080&#x2F;ss</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2018/03/19/curl-常见用法汇总/">https://blog.devmgr.cn/2018/03/19/curl-常见用法汇总/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2018/03/19/curl-常见用法汇总/">https://blog.devmgr.cn/2018/03/19/curl-常见用法汇总/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
-
-          
-        
       
     </div>
 
     
-
     
     
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
+      <footer class="post-footer">
         <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
+      </footer>
   </article>
+  
+  
+  
 
-
-    
       
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/03/15/%E6%8D%95%E8%8E%B7spring-restcontroller%E4%B8%AD%E7%9A%84%E5%BC%82%E5%B8%B8%EF%BC%8C%E5%B9%B6%E8%AE%B0%E5%BD%95%E6%97%A5%E5%BF%97/">
 
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/03/15/捕获spring-restcontroller中的异常，并记录日志/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="GeXiangDong">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="GeXiangDong">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/03/15/捕获spring-restcontroller中的异常，并记录日志/" class="post-title-link" itemprop="url">捕获spring restcontroller中的异常，并记录日志</a>
-              
-            
-          </h2>
-        
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/03/15/%E6%8D%95%E8%8E%B7spring-restcontroller%E4%B8%AD%E7%9A%84%E5%BC%82%E5%B8%B8%EF%BC%8C%E5%B9%B6%E8%AE%B0%E5%BD%95%E6%97%A5%E5%BF%97/" class="post-title-link" itemprop="url">捕获spring restcontroller中的异常，并记录日志</a>
+        </h2>
 
         <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
+              <span class="post-meta-item-text">发表于</span>
 
               <time title="创建时间：2018-03-15 10:49:33" itemprop="dateCreated datePublished" datetime="2018-03-15T10:49:33+08:00">2018-03-15</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-06-07 18:51:02" itemprop="dateModified" datetime="2019-06-07T18:51:02+08:00">2019-06-07</time>
+              </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -699,143 +509,69 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        
-          
-            <p>在使用spring的时候，如果Controller中抛出异常，会被spring显示在客户端界面，而日志中一般没有记录。<br>客户端对异常的显示也是经spring处理后的信息，没有堆栈，这不方便找错和改错。</p>
+          <p>在使用spring的时候，如果Controller中抛出异常，会被spring显示在客户端界面，而日志中一般没有记录。<br>客户端对异常的显示也是经spring处理后的信息，没有堆栈，这不方便找错和改错。</p>
 <p>可以通过RestControllerAdvice注解定义一个异常处理类来解决这个问题。代码如下</p>
-<pre><code>注：也可以不继承ResponseEntityExceptionHandler类，此处继承只是省了一些通用异常的处理。</code></pre><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> org.apache.commons.logging.Log;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.logging.LogFactory;</span><br><span class="line"><span class="keyword">import</span> org.springframework.http.HttpHeaders;</span><br><span class="line"><span class="keyword">import</span> org.springframework.http.HttpStatus;</span><br><span class="line"><span class="keyword">import</span> org.springframework.http.ResponseEntity;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.ExceptionHandler;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.ResponseBody;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestControllerAdvice;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.context.request.WebRequest;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.NoHandlerFoundException;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * RestController执行过程中发生异常会被此处捕获处理</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@RestControllerAdvice</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ControllerExceptionHandler</span> <span class="keyword">extends</span> <span class="title">ResponseEntityExceptionHandler</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Log log = LogFactory.getLog(ControllerExceptionHandler.class);</span><br><span class="line">     </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 通过ExceptionHandler来设置待捕获的异常，Throwable可捕获任何异常，但优先级最低，因此</span></span><br><span class="line"><span class="comment">     * HttpRequestMethodNotSupportedException HttpMediaTypeNotSupportedException</span></span><br><span class="line"><span class="comment">     * HttpMediaTypeNotAcceptableException MissingPathVariableException</span></span><br><span class="line"><span class="comment">     * MissingServletRequestParameterException ServletRequestBindingException</span></span><br><span class="line"><span class="comment">     * ConversionNotSupportedException TypeMismatchException</span></span><br><span class="line"><span class="comment">     * HttpMessageNotReadableException HttpMessageNotWritableException</span></span><br><span class="line"><span class="comment">     * MethodArgumentNotValidException MissingServletRequestPartException</span></span><br><span class="line"><span class="comment">     * BindException NoHandlerFoundException AsyncRequestTimeoutException</span></span><br><span class="line"><span class="comment">     * 等已经在父类声明捕获的异常不会被此方法处理。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@ExceptionHandler</span>(Throwable.class)</span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function">ResponseEntity&lt;Object&gt; <span class="title">handleControllerException</span><span class="params">(Throwable ex, WebRequest request)</span> </span>&#123;</span><br><span class="line">        Map&lt;String,String&gt; responseBody = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="comment">// 这里控制返回给客户端的信息</span></span><br><span class="line">        responseBody.put(<span class="string">"message"</span>,<span class="string">"internal server error. "</span> + ex.getMessage());</span><br><span class="line">         </span><br><span class="line">        Exception e;</span><br><span class="line">        <span class="keyword">if</span>(ex <span class="keyword">instanceof</span> Exception) &#123;</span><br><span class="line">            e = (Exception) ex;</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            e = <span class="keyword">new</span> Exception(ex);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> handleExceptionInternal(e, responseBody, <span class="keyword">new</span> HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 需要覆盖这个方法，并且在此方法里记录日志；查看ResponseEntityExceptionHandler源码可知，</span></span><br><span class="line"><span class="comment">     * 有些异常被父类捕获，不会进入此类的handleControllerException，因此如果在handleControllerException</span></span><br><span class="line"><span class="comment">     * 记录异常日志，会导致部分异常无日志</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> ResponseEntity&lt;Object&gt; <span class="title">handleExceptionInternal</span><span class="params">(Exception ex, Object body,</span></span></span><br><span class="line"><span class="function"><span class="params">            HttpHeaders headers, HttpStatus status, WebRequest request)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(log.isErrorEnabled()) &#123;</span><br><span class="line">            log.error(<span class="string">"内部错误"</span>, ex);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.handleExceptionInternal(ex, body, headers, status, request);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>注：也可以不继承ResponseEntityExceptionHandler类，此处继承只是省了一些通用异常的处理。</code></pre><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> org.apache.commons.logging.Log;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.logging.LogFactory;</span><br><span class="line"><span class="keyword">import</span> org.springframework.http.HttpHeaders;</span><br><span class="line"><span class="keyword">import</span> org.springframework.http.HttpStatus;</span><br><span class="line"><span class="keyword">import</span> org.springframework.http.ResponseEntity;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.ExceptionHandler;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.ResponseBody;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestControllerAdvice;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.context.request.WebRequest;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.NoHandlerFoundException;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * RestController执行过程中发生异常会被此处捕获处理</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@RestControllerAdvice</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ControllerExceptionHandler</span> <span class="keyword">extends</span> <span class="title">ResponseEntityExceptionHandler</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Log log = LogFactory.getLog(ControllerExceptionHandler.class);</span><br><span class="line">     </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 通过ExceptionHandler来设置待捕获的异常，Throwable可捕获任何异常，但优先级最低，因此</span></span><br><span class="line"><span class="comment">     * HttpRequestMethodNotSupportedException HttpMediaTypeNotSupportedException</span></span><br><span class="line"><span class="comment">     * HttpMediaTypeNotAcceptableException MissingPathVariableException</span></span><br><span class="line"><span class="comment">     * MissingServletRequestParameterException ServletRequestBindingException</span></span><br><span class="line"><span class="comment">     * ConversionNotSupportedException TypeMismatchException</span></span><br><span class="line"><span class="comment">     * HttpMessageNotReadableException HttpMessageNotWritableException</span></span><br><span class="line"><span class="comment">     * MethodArgumentNotValidException MissingServletRequestPartException</span></span><br><span class="line"><span class="comment">     * BindException NoHandlerFoundException AsyncRequestTimeoutException</span></span><br><span class="line"><span class="comment">     * 等已经在父类声明捕获的异常不会被此方法处理。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@ExceptionHandler(Throwable.class)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function">ResponseEntity&lt;Object&gt; <span class="title">handleControllerException</span><span class="params">(Throwable ex, WebRequest request)</span> </span>&#123;</span><br><span class="line">        Map&lt;String,String&gt; responseBody = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="comment">// 这里控制返回给客户端的信息</span></span><br><span class="line">        responseBody.put(<span class="string">&quot;message&quot;</span>,<span class="string">&quot;internal server error. &quot;</span> + ex.getMessage());</span><br><span class="line">         </span><br><span class="line">        Exception e;</span><br><span class="line">        <span class="keyword">if</span>(ex <span class="keyword">instanceof</span> Exception) &#123;</span><br><span class="line">            e = (Exception) ex;</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            e = <span class="keyword">new</span> Exception(ex);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> handleExceptionInternal(e, responseBody, <span class="keyword">new</span> HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 需要覆盖这个方法，并且在此方法里记录日志；查看ResponseEntityExceptionHandler源码可知，</span></span><br><span class="line"><span class="comment">     * 有些异常被父类捕获，不会进入此类的handleControllerException，因此如果在handleControllerException</span></span><br><span class="line"><span class="comment">     * 记录异常日志，会导致部分异常无日志</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> ResponseEntity&lt;Object&gt; <span class="title">handleExceptionInternal</span><span class="params">(Exception ex, Object body,</span></span></span><br><span class="line"><span class="function"><span class="params">            HttpHeaders headers, HttpStatus status, WebRequest request)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(log.isErrorEnabled()) &#123;</span><br><span class="line">            log.error(<span class="string">&quot;内部错误&quot;</span>, ex);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.handleExceptionInternal(ex, body, headers, status, request);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2018/03/15/捕获spring-restcontroller中的异常，并记录日志/">https://blog.devmgr.cn/2018/03/15/捕获spring-restcontroller中的异常，并记录日志/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2018/03/15/捕获spring-restcontroller中的异常，并记录日志/">https://blog.devmgr.cn/2018/03/15/捕获spring-restcontroller中的异常，并记录日志/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
-
-          
-        
       
     </div>
 
     
-
     
     
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
+      <footer class="post-footer">
         <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
+      </footer>
   </article>
+  
+  
+  
 
-
-    
       
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/01/09/jmap%E6%9F%A5%E7%9C%8Bjava%E5%86%85%E5%AD%98%E4%BD%BF%E7%94%A8/">
 
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/01/09/jmap查看java内存使用/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="GeXiangDong">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="GeXiangDong">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/01/09/jmap查看java内存使用/" class="post-title-link" itemprop="url">jmap查看java内存使用</a>
-              
-            
-          </h2>
-        
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/01/09/jmap%E6%9F%A5%E7%9C%8Bjava%E5%86%85%E5%AD%98%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">jmap查看java内存使用</a>
+        </h2>
 
         <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
+              <span class="post-meta-item-text">发表于</span>
 
               <time title="创建时间：2018-01-09 10:38:26" itemprop="dateCreated datePublished" datetime="2018-01-09T10:38:26+08:00">2018-01-09</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-06-07 18:51:02" itemprop="dateModified" datetime="2019-06-07T18:51:02+08:00">2019-06-07</time>
+              </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -843,12 +579,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        
-          
-            <p>查看java内存使用状况可以通过jmap命令，例如： <code>jmap -histo:live PID</code></p>
+          <p>查看java内存使用状况可以通过jmap命令，例如： <code>jmap -histo:live PID</code></p>
 <p>如果执行命令是出现下述错误：</p>
 <pre><code>jmap -histo:live 19114
 19114: Unable to open socket file: target process not responding or HotSpot VM not loaded
@@ -857,132 +588,64 @@ The -F option can be used when the target process is not responding</code></pre>
 
 
 
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2018/01/09/jmap查看java内存使用/">https://blog.devmgr.cn/2018/01/09/jmap查看java内存使用/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2018/01/09/jmap查看java内存使用/">https://blog.devmgr.cn/2018/01/09/jmap查看java内存使用/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
-          
-        
       
     </div>
 
     
-
     
     
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
+      <footer class="post-footer">
         <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
+      </footer>
   </article>
+  
+  
+  
 
-
-    
       
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/01/06/restcontroller%E4%B8%AD%E8%AE%BE%E7%BD%AE%E8%BF%94%E5%9B%9E%E7%9A%84responsecode/">
 
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/01/06/restcontroller中设置返回的responsecode/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="GeXiangDong">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="GeXiangDong">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/01/06/restcontroller中设置返回的responsecode/" class="post-title-link" itemprop="url">RestController中设置返回的ResponseCode</a>
-              
-            
-          </h2>
-        
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/01/06/restcontroller%E4%B8%AD%E8%AE%BE%E7%BD%AE%E8%BF%94%E5%9B%9E%E7%9A%84responsecode/" class="post-title-link" itemprop="url">RestController中设置返回的ResponseCode</a>
+        </h2>
 
         <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
+              <span class="post-meta-item-text">发表于</span>
 
               <time title="创建时间：2018-01-06 18:18:48" itemprop="dateCreated datePublished" datetime="2018-01-06T18:18:48+08:00">2018-01-06</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-09-09 14:40:44" itemprop="dateModified" datetime="2019-09-09T14:40:44+08:00">2019-09-09</time>
+              </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -990,142 +653,68 @@ The -F option can be used when the target process is not responding</code></pre>
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        
-          
-            <p>可以把方法设置成返回 <code>ResponseEntity&lt;T&gt;</code> 类型，其中的泛型T取代以前想返回的类型，然后通过 <code>ResponseEntity.status(HttpStatus.OK).body(result)</code> 方法创建返回结果，其中第一个status就是设置返回的ResponseCode</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostMapping</span></span><br><span class="line"><span class="keyword">public</span> ResponseEntity&lt;Map&lt;String, Object&gt;&gt; login()&#123;</span><br><span class="line">    HashMap&lt;String, Object&gt; result = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    <span class="keyword">boolean</span> isOk = <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">if</span>( !isOk ) &#123;</span><br><span class="line">        result.put(<span class="string">"message"</span>, <span class="string">"invalid username or password"</span>);</span><br><span class="line">        <span class="comment">// status(HttpStatus.BAD_REQUEST) 是设置返回的状态码</span></span><br><span class="line">        <span class="keyword">return</span> ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> ResponseEntity.status(HttpStatus.OK).body(result);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <p>可以把方法设置成返回 <code>ResponseEntity&lt;T&gt;</code> 类型，其中的泛型T取代以前想返回的类型，然后通过 <code>ResponseEntity.status(HttpStatus.OK).body(result)</code> 方法创建返回结果，其中第一个status就是设置返回的ResponseCode</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostMapping</span></span><br><span class="line"><span class="keyword">public</span> ResponseEntity&lt;Map&lt;String, Object&gt;&gt; login()&#123;</span><br><span class="line">    HashMap&lt;String, Object&gt; result = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    <span class="keyword">boolean</span> isOk = <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">if</span>( !isOk ) &#123;</span><br><span class="line">        result.put(<span class="string">&quot;message&quot;</span>, <span class="string">&quot;invalid username or password&quot;</span>);</span><br><span class="line">        <span class="comment">// status(HttpStatus.BAD_REQUEST) 是设置返回的状态码</span></span><br><span class="line">        <span class="keyword">return</span> ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> ResponseEntity.status(HttpStatus.OK).body(result);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2018/01/06/restcontroller中设置返回的responsecode/">https://blog.devmgr.cn/2018/01/06/restcontroller中设置返回的responsecode/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2018/01/06/restcontroller中设置返回的responsecode/">https://blog.devmgr.cn/2018/01/06/restcontroller中设置返回的responsecode/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
-
-          
-        
       
     </div>
 
     
-
     
     
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
+      <footer class="post-footer">
         <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
+      </footer>
   </article>
+  
+  
+  
 
-
-    
       
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/01/06/java8%E4%B8%AD%E5%AE%9E%E7%8E%B0%E7%B1%BB%E4%BC%BCjavascript-promise%E7%9A%84%E5%8A%9F%E8%83%BD/">
 
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/01/06/java8中实现类似javascript-promise的功能/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="GeXiangDong">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="GeXiangDong">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/01/06/java8中实现类似javascript-promise的功能/" class="post-title-link" itemprop="url">java8中实现类似javascript Promise的功能</a>
-              
-            
-          </h2>
-        
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/01/06/java8%E4%B8%AD%E5%AE%9E%E7%8E%B0%E7%B1%BB%E4%BC%BCjavascript-promise%E7%9A%84%E5%8A%9F%E8%83%BD/" class="post-title-link" itemprop="url">java8中实现类似javascript Promise的功能</a>
+        </h2>
 
         <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
+              <span class="post-meta-item-text">发表于</span>
 
               <time title="创建时间：2018-01-06 10:40:45" itemprop="dateCreated datePublished" datetime="2018-01-06T10:40:45+08:00">2018-01-06</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-06-07 18:51:02" itemprop="dateModified" datetime="2019-06-07T18:51:02+08:00">2019-06-07</time>
+              </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -1133,143 +722,70 @@ The -F option can be used when the target process is not responding</code></pre>
     <div class="post-body" itemprop="articleBody">
 
       
-      
+          <p>java8中提供了类似javascript Promise方式的写法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.*;</span><br><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="keyword">import</span> java.util.stream.*;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestPromise</span></span>&#123;</span><br><span class="line">     </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] argvs)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        <span class="comment">// 简单的lambda表达式的例子</span></span><br><span class="line">        List&lt;Integer&gt; list = Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>);</span><br><span class="line">        list.forEach(n -&gt; System.out.println(n));</span><br><span class="line">        System.out.println(<span class="string">&quot;-------&quot;</span>);</span><br><span class="line">        list.forEach(System.out::println);</span><br><span class="line">        System.out.println(<span class="string">&quot;-------&quot;</span>);</span><br><span class="line">  </span><br><span class="line">        <span class="comment">//下面是2个异步执行，执行完毕后使用结果的例子</span></span><br><span class="line">        String s = CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;enter s1&quot;</span>);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(<span class="string">&quot;s1&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">        &#125;).thenCombine(CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;enter s2&quot;</span>);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">100</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(<span class="string">&quot;s2&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;world&quot;</span>;</span><br><span class="line">        &#125;), (s1, s2) -&gt; &#123;<span class="keyword">return</span> s1 + <span class="string">&quot; &quot;</span> + s2;&#125; ).join();</span><br><span class="line">        System.out.println(s);</span><br><span class="line">        System.out.println(<span class="string">&quot;-------&quot;</span>);</span><br><span class="line"> </span><br><span class="line">        <span class="comment">// 多个方法异步执行，结果通过操纵一个共有的Map来保存，待全部执行完毕后显示结果</span></span><br><span class="line">        Map&lt;String, String&gt;  result = <span class="keyword">new</span> HashMap&lt;String, String&gt;();</span><br><span class="line">        CompletableFuture.allOf(</span><br><span class="line">            CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;enter s1&quot;</span>);</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">                System.out.println(<span class="string">&quot;s1&quot;</span>);</span><br><span class="line">                result.put(<span class="string">&quot;k1&quot;</span>, <span class="string">&quot;11111&quot;</span>);</span><br><span class="line">                <span class="keyword">return</span> <span class="string">&quot;11&quot;</span>;</span><br><span class="line">            &#125;),</span><br><span class="line">            CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;enter s2&quot;</span>);</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">                System.out.println(<span class="string">&quot;s2&quot;</span>);</span><br><span class="line">                result.put(<span class="string">&quot;k2&quot;</span>, <span class="string">&quot;22222&quot;</span>);</span><br><span class="line">                <span class="keyword">return</span> <span class="string">&quot;22&quot;</span>;</span><br><span class="line">            &#125;),</span><br><span class="line">            CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;enter s3&quot;</span>);</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">10</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">                System.out.println(<span class="string">&quot;s3&quot;</span>);</span><br><span class="line">                result.put(<span class="string">&quot;k3&quot;</span>, <span class="string">&quot;33333&quot;</span>);</span><br><span class="line">                <span class="keyword">return</span> <span class="string">&quot;33&quot;</span>;</span><br><span class="line">            &#125;)</span><br><span class="line">        ).get();</span><br><span class="line">        <span class="comment">//.get()方法会等待allOf中所有参数方法执行完毕</span></span><br><span class="line">        System.out.println(result.get(<span class="string">&quot;k1&quot;</span>) + <span class="string">&quot; &quot;</span> + result.get(<span class="string">&quot;k2&quot;</span>) + <span class="string">&quot; &quot;</span> + result.get(<span class="string">&quot;k3&quot;</span>));</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">        System.out.println(<span class="string">&quot;\r\n-------------------\r\n&quot;</span>);</span><br><span class="line">        <span class="comment">// 改进一下第一个方法，使其更易读；</span></span><br><span class="line">        CompletableFuture&lt;Map&lt;String, Object&gt;&gt; cf1 = CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;enter s1&quot;</span>);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(<span class="string">&quot;s1&quot;</span>);</span><br><span class="line">            Map&lt;String, Object&gt; map = <span class="keyword">new</span> HashMap&lt;String, Object&gt;();</span><br><span class="line">            map.put(<span class="string">&quot;s1&quot;</span>, <span class="string">&quot;11111&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> map;</span><br><span class="line">        &#125;);</span><br><span class="line">        CompletableFuture&lt;Map&lt;String, Object&gt;&gt; cf2 = CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;enter s2&quot;</span>);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(<span class="string">&quot;s2&quot;</span>);</span><br><span class="line">            Map&lt;String, Object&gt; map = <span class="keyword">new</span> HashMap&lt;String, Object&gt;();</span><br><span class="line">            map.put(<span class="string">&quot;s2&quot;</span>, <span class="string">&quot;22222&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> map;</span><br><span class="line">        &#125;);</span><br><span class="line">        CompletableFuture&lt;Map&lt;String, Object&gt;&gt; cf3 = CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;enter s3&quot;</span>);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">10</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            Map&lt;String, Object&gt; map = <span class="keyword">new</span> HashMap&lt;String, Object&gt;();</span><br><span class="line">            map.put(<span class="string">&quot;s3&quot;</span>, <span class="string">&quot;33333&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> map;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="comment">// 注释掉的这2行和上一个例子相同，不处理cf1,cf2,cf3的返回值</span></span><br><span class="line">        <span class="comment">// CompletableFuture&lt;Void&gt; cf = CompletableFuture.allOf(cf1, cf2, cf3);</span></span><br><span class="line">        <span class="comment">// cf.get();</span></span><br><span class="line">        <span class="comment">// 把各个CompletableFuture的执行结果放到一起</span></span><br><span class="line"> </span><br><span class="line">        <span class="comment">// 把结果合并成一个List</span></span><br><span class="line">        <span class="comment">//List&lt;Map&lt;String, Object&gt;&gt; resultList = Stream.of(cf1, cf2, cf3).map(CompletableFuture::join).collect(Collectors.toList());</span></span><br><span class="line">        <span class="comment">//resultList.forEach(n -&gt; System.out.println(&quot;\t---&quot; + n));</span></span><br><span class="line"> </span><br><span class="line">        <span class="comment">// 把结果合并到一个map里</span></span><br><span class="line">        Map&lt;String, Object&gt; resultMap = <span class="keyword">new</span> HashMap&lt;String, Object&gt;();</span><br><span class="line">        Stream.of(cf1, cf2, cf3).map(CompletableFuture::join).forEach(v -&gt; resultMap.putAll(v));</span><br><span class="line">        System.out.println(resultMap);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-      
-        
-          
-            <p>java8中提供了类似javascript Promise方式的写法：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.*;</span><br><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="keyword">import</span> java.util.stream.*;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestPromise</span></span>&#123;</span><br><span class="line">     </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] argvs)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">        <span class="comment">// 简单的lambda表达式的例子</span></span><br><span class="line">        List&lt;Integer&gt; list = Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>);</span><br><span class="line">        list.forEach(n -&gt; System.out.println(n));</span><br><span class="line">        System.out.println(<span class="string">"-------"</span>);</span><br><span class="line">        list.forEach(System.out::println);</span><br><span class="line">        System.out.println(<span class="string">"-------"</span>);</span><br><span class="line">  </span><br><span class="line">        <span class="comment">//下面是2个异步执行，执行完毕后使用结果的例子</span></span><br><span class="line">        String s = CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">"enter s1"</span>);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(<span class="string">"s1"</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"hello"</span>;</span><br><span class="line">        &#125;).thenCombine(CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">"enter s2"</span>);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">100</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(<span class="string">"s2"</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"world"</span>;</span><br><span class="line">        &#125;), (s1, s2) -&gt; &#123;<span class="keyword">return</span> s1 + <span class="string">" "</span> + s2;&#125; ).join();</span><br><span class="line">        System.out.println(s);</span><br><span class="line">        System.out.println(<span class="string">"-------"</span>);</span><br><span class="line"> </span><br><span class="line">        <span class="comment">// 多个方法异步执行，结果通过操纵一个共有的Map来保存，待全部执行完毕后显示结果</span></span><br><span class="line">        Map&lt;String, String&gt;  result = <span class="keyword">new</span> HashMap&lt;String, String&gt;();</span><br><span class="line">        CompletableFuture.allOf(</span><br><span class="line">            CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">                System.out.println(<span class="string">"enter s1"</span>);</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">                System.out.println(<span class="string">"s1"</span>);</span><br><span class="line">                result.put(<span class="string">"k1"</span>, <span class="string">"11111"</span>);</span><br><span class="line">                <span class="keyword">return</span> <span class="string">"11"</span>;</span><br><span class="line">            &#125;),</span><br><span class="line">            CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">                System.out.println(<span class="string">"enter s2"</span>);</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">                System.out.println(<span class="string">"s2"</span>);</span><br><span class="line">                result.put(<span class="string">"k2"</span>, <span class="string">"22222"</span>);</span><br><span class="line">                <span class="keyword">return</span> <span class="string">"22"</span>;</span><br><span class="line">            &#125;),</span><br><span class="line">            CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">                System.out.println(<span class="string">"enter s3"</span>);</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">10</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">                System.out.println(<span class="string">"s3"</span>);</span><br><span class="line">                result.put(<span class="string">"k3"</span>, <span class="string">"33333"</span>);</span><br><span class="line">                <span class="keyword">return</span> <span class="string">"33"</span>;</span><br><span class="line">            &#125;)</span><br><span class="line">        ).get();</span><br><span class="line">        <span class="comment">//.get()方法会等待allOf中所有参数方法执行完毕</span></span><br><span class="line">        System.out.println(result.get(<span class="string">"k1"</span>) + <span class="string">" "</span> + result.get(<span class="string">"k2"</span>) + <span class="string">" "</span> + result.get(<span class="string">"k3"</span>));</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">        System.out.println(<span class="string">"\r\n-------------------\r\n"</span>);</span><br><span class="line">        <span class="comment">// 改进一下第一个方法，使其更易读；</span></span><br><span class="line">        CompletableFuture&lt;Map&lt;String, Object&gt;&gt; cf1 = CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">"enter s1"</span>);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(<span class="string">"s1"</span>);</span><br><span class="line">            Map&lt;String, Object&gt; map = <span class="keyword">new</span> HashMap&lt;String, Object&gt;();</span><br><span class="line">            map.put(<span class="string">"s1"</span>, <span class="string">"11111"</span>);</span><br><span class="line">            <span class="keyword">return</span> map;</span><br><span class="line">        &#125;);</span><br><span class="line">        CompletableFuture&lt;Map&lt;String, Object&gt;&gt; cf2 = CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">"enter s2"</span>);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(<span class="string">"s2"</span>);</span><br><span class="line">            Map&lt;String, Object&gt; map = <span class="keyword">new</span> HashMap&lt;String, Object&gt;();</span><br><span class="line">            map.put(<span class="string">"s2"</span>, <span class="string">"22222"</span>);</span><br><span class="line">            <span class="keyword">return</span> map;</span><br><span class="line">        &#125;);</span><br><span class="line">        CompletableFuture&lt;Map&lt;String, Object&gt;&gt; cf3 = CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">"enter s3"</span>);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">10</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            Map&lt;String, Object&gt; map = <span class="keyword">new</span> HashMap&lt;String, Object&gt;();</span><br><span class="line">            map.put(<span class="string">"s3"</span>, <span class="string">"33333"</span>);</span><br><span class="line">            <span class="keyword">return</span> map;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="comment">// 注释掉的这2行和上一个例子相同，不处理cf1,cf2,cf3的返回值</span></span><br><span class="line">        <span class="comment">// CompletableFuture&lt;Void&gt; cf = CompletableFuture.allOf(cf1, cf2, cf3);</span></span><br><span class="line">        <span class="comment">// cf.get();</span></span><br><span class="line">        <span class="comment">// 把各个CompletableFuture的执行结果放到一起</span></span><br><span class="line"> </span><br><span class="line">        <span class="comment">// 把结果合并成一个List</span></span><br><span class="line">        <span class="comment">//List&lt;Map&lt;String, Object&gt;&gt; resultList = Stream.of(cf1, cf2, cf3).map(CompletableFuture::join).collect(Collectors.toList());</span></span><br><span class="line">        <span class="comment">//resultList.forEach(n -&gt; System.out.println("\t---" + n));</span></span><br><span class="line"> </span><br><span class="line">        <span class="comment">// 把结果合并到一个map里</span></span><br><span class="line">        Map&lt;String, Object&gt; resultMap = <span class="keyword">new</span> HashMap&lt;String, Object&gt;();</span><br><span class="line">        Stream.of(cf1, cf2, cf3).map(CompletableFuture::join).forEach(v -&gt; resultMap.putAll(v));</span><br><span class="line">        System.out.println(resultMap);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><p>CompletableFurure 可参考javadoc <a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/8/docs/api/index.html?java/util/concurrent/CompletableFuture.html">https://docs.oracle.com/javase/8/docs/api/index.html?java/util/concurrent/CompletableFuture.html</a></p>
+<p>java的Lambda表达式介绍 <a target="_blank" rel="noopener" href="http://blog.oneapm.com/apm-tech/226.html">http://blog.oneapm.com/apm-tech/226.html</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.baeldung.com/java-completablefuture">http://www.baeldung.com/java-completablefuture</a></p>
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2018/01/06/java8中实现类似javascript-promise的功能/">https://blog.devmgr.cn/2018/01/06/java8中实现类似javascript-promise的功能/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
-<h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><p>CompletableFurure 可参考javadoc <a href="https://docs.oracle.com/javase/8/docs/api/index.html?java/util/concurrent/CompletableFuture.html" target="_blank" rel="noopener">https://docs.oracle.com/javase/8/docs/api/index.html?java/util/concurrent/CompletableFuture.html</a></p>
-<p>java的Lambda表达式介绍 <a href="http://blog.oneapm.com/apm-tech/226.html" target="_blank" rel="noopener">http://blog.oneapm.com/apm-tech/226.html</a></p>
-<p><a href="http://www.baeldung.com/java-completablefuture" target="_blank" rel="noopener">http://www.baeldung.com/java-completablefuture</a></p>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2018/01/06/java8中实现类似javascript-promise的功能/">https://blog.devmgr.cn/2018/01/06/java8中实现类似javascript-promise的功能/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
-
-          
-        
       
     </div>
 
     
-
     
     
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
+      <footer class="post-footer">
         <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
+      </footer>
   </article>
+  
+  
+  
 
-
-    
       
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2017/12/24/%E4%B8%A4%E4%B8%AAhttps%E8%AF%81%E4%B9%A6%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/">
 
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2017/12/24/两个https证书相关问题/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="GeXiangDong">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="GeXiangDong">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2017/12/24/两个https证书相关问题/" class="post-title-link" itemprop="url">两个https证书相关问题</a>
-              
-            
-          </h2>
-        
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/12/24/%E4%B8%A4%E4%B8%AAhttps%E8%AF%81%E4%B9%A6%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">两个https证书相关问题</a>
+        </h2>
 
         <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
+              <span class="post-meta-item-text">发表于</span>
 
               <time title="创建时间：2017-12-24 10:35:03" itemprop="dateCreated datePublished" datetime="2017-12-24T10:35:03+08:00">2017-12-24</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-06-07 18:51:02" itemprop="dateModified" datetime="2019-06-07T18:51:02+08:00">2019-06-07</time>
+              </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -1277,18 +793,13 @@ The -F option can be used when the target process is not responding</code></pre>
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        
-          
-            <h1 id="javax-net-ssl-SSLHandshakeException"><a href="#javax-net-ssl-SSLHandshakeException" class="headerlink" title="javax.net.ssl.SSLHandshakeException"></a>javax.net.ssl.SSLHandshakeException</h1><p>自制ssl证书，报错：javax.net.ssl.SSLHandshakeException: sun.security.validator.ValidatorException: Certificate signature algorithm disabled</p>
+          <h1 id="javax-net-ssl-SSLHandshakeException"><a href="#javax-net-ssl-SSLHandshakeException" class="headerlink" title="javax.net.ssl.SSLHandshakeException"></a>javax.net.ssl.SSLHandshakeException</h1><p>自制ssl证书，报错：javax.net.ssl.SSLHandshakeException: sun.security.validator.ValidatorException: Certificate signature algorithm disabled</p>
 <p>原因是jre里信任的CA不包含自制CA，可以用keytools加入自制ca:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -import -noprompt -trustcacerts -alias YOURALIS -file 自制CA的PEM文件 -keystore %JAVA_HOME%/jre/lib/security/cacerts -storepass changeit</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -import -noprompt -trustcacerts -alias YOURALIS -file 自制CA的PEM文件 -keystore %JAVA_HOME%&#x2F;jre&#x2F;lib&#x2F;security&#x2F;cacerts -storepass changeit</span><br></pre></td></tr></table></figure>
 
 <p>changeit 是默认密码</p>
 <p>查看所有信任的CA可以用命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -list  -keystore %JAVA_HOME%/jre/lib/security/cacerts</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -list  -keystore %JAVA_HOME%&#x2F;jre&#x2F;lib&#x2F;security&#x2F;cacerts</span><br></pre></td></tr></table></figure>
 
 <h1 id="java-security-cert-CertPathValidatorException"><a href="#java-security-cert-CertPathValidatorException" class="headerlink" title="java.security.cert.CertPathValidatorException"></a>java.security.cert.CertPathValidatorException</h1><p>在高版本jdk，访问某些老网站时，可能出错：java.security.cert.CertPathValidatorException: Usage constraint TLSServer check failed: SHA1 used with certificate: CN=GeoTrust Global CA, O=GeoTrust Inc., C=US.  Usage was tls server</p>
 <p>这是由于网站使用了SHA1的签名证书，而此版本JDK已经把SHA1证书列为禁止导致，如果要打开支持，可以编辑 %JAVA_HOME%/jre/lib/security/java.security文件，找到jdk.certpath.disabledAlgorithms=这行（后面值内容可能不同）：</p>
@@ -1296,132 +807,64 @@ The -F option can be used when the target process is not responding</code></pre>
 RSA keySize &amp;lt; 1024, DSA keySize &amp;lt; 1024, EC keySize &amp;lt; 224</code></pre><p>把里面SHA1部分删除掉改成</p>
 <pre><code>jdk.certpath.disabledAlgorithms=MD2, MD5, RSA keySize &amp;lt; 1024, \
 DSA keySize &amp;lt; 1024, EC keySize &amp;lt; 224</code></pre><p>另外jdk.tls.disabledAlgorithms 也是类似禁止某些tls算法的。</p>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2017/12/24/两个https证书相关问题/">https://blog.devmgr.cn/2017/12/24/两个https证书相关问题/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2017/12/24/两个https证书相关问题/">https://blog.devmgr.cn/2017/12/24/两个https证书相关问题/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
-          
-        
       
     </div>
 
     
-
     
     
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
+      <footer class="post-footer">
         <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
+      </footer>
   </article>
+  
+  
+  
 
-
-    
       
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2017/11/08/mybatis%E8%B0%83%E7%94%A8%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/">
 
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2017/11/08/mybatis调用存储过程/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="GeXiangDong">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="GeXiangDong">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2017/11/08/mybatis调用存储过程/" class="post-title-link" itemprop="url">mybatis调用存储过程</a>
-              
-            
-          </h2>
-        
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/11/08/mybatis%E8%B0%83%E7%94%A8%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/" class="post-title-link" itemprop="url">mybatis调用存储过程</a>
+        </h2>
 
         <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
+              <span class="post-meta-item-text">发表于</span>
 
               <time title="创建时间：2017-11-08 11:31:38" itemprop="dateCreated datePublished" datetime="2017-11-08T11:31:38+08:00">2017-11-08</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-06-10 11:34:23" itemprop="dateModified" datetime="2019-06-10T11:34:23+08:00">2019-06-10</time>
+              </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -1429,369 +872,35 @@ DSA keySize &amp;lt; 1024, EC keySize &amp;lt; 224</code></pre><p>另外jdk.tls.
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        
-          
-            <p>mybatis调用存储过程和调用普通的sql略有区别:</p>
+          <p>mybatis调用存储过程和调用普通的sql略有区别:</p>
 <ul>
 <li>首先xml文件中要增加参数 `statementType=”CALLABLE”</li>
 <li>调用存储过程的语句用大括号包含起来，并写上call关键字</li>
 </ul>
 <p>例如：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"loginByWxOpenId"</span> <span class="attr">resultType</span>=<span class="string">"cn.devmgr.exam.domain.Token"</span> <span class="attr">statementType</span>=<span class="string">"CALLABLE"</span>&gt;</span></span><br><span class="line">   &#123; call wxLogin(#&#123;wxOpenId&#125;, #&#123;ipAddr&#125;) &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;loginByWxOpenId&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;cn.devmgr.exam.domain.Token&quot;</span> <span class="attr">statementType</span>=<span class="string">&quot;CALLABLE&quot;</span>&gt;</span></span><br><span class="line">   &#123; call wxLogin(#&#123;wxOpenId&#125;, #&#123;ipAddr&#125;) &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p>传递的参数还是和普通sql一样，可以直接 <code>#{}</code> 来引用参数。</p>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2017/11/08/mybatis调用存储过程/">https://blog.devmgr.cn/2017/11/08/mybatis调用存储过程/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
+<p>传递的参数还是和普通sql一样，可以直接 <code>#&#123;&#125;</code> 来引用参数。</p>
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2017/11/08/mybatis调用存储过程/">https://blog.devmgr.cn/2017/11/08/mybatis调用存储过程/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
-          
-        
       
     </div>
 
     
-
     
     
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
+      <footer class="post-footer">
         <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
+      </footer>
   </article>
-
-
-    
-      
-
-  
-
   
   
   
 
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2017/09/28/查询postgresql的慢sql/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2017/09/28/查询postgresql的慢sql/" class="post-title-link" itemprop="url">查询postgresql的慢sql</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2017-09-28 15:31:10" itemprop="dateCreated datePublished" datetime="2017-09-28T15:31:10+08:00">2017-09-28</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>postgresql server提供了查询慢sql的方法，不过默认没有启动。</p>
-<h1 id="安装插件-pg-stat-statements"><a href="#安装插件-pg-stat-statements" class="headerlink" title="安装插件 pg_stat_statements"></a>安装插件 pg_stat_statements</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> extension pg_stat_statements;</span><br></pre></td></tr></table></figure>
-
-<p>安装插件就这一句sql，但pg_stat_statements还需要修改postgresql.conf，加入这句</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shared_preload_libraries = &apos;pg_stat_statements&apos;</span><br></pre></td></tr></table></figure>
-
-<p>默认的是有注释的shared_preload_libraries</p>
-<p>更改完配置文件需要重启postgresql server</p>
-<h1 id="重置计数器"><a href="#重置计数器" class="headerlink" title="重置计数器"></a>重置计数器</h1><p>可以使用如下sql重置计数器</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> pg_stat_reset();</span><br><span class="line"><span class="keyword">select</span> pg_stat_statements_reset();</span><br></pre></td></tr></table></figure>
-
-<h1 id="查询慢sql"><a href="#查询慢sql" class="headerlink" title="查询慢sql"></a>查询慢sql</h1><p>可以使用下面的sql查出来哪些sql执行的比较慢：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from pg_stat_statements order by total_time desc limit 5;</span><br></pre></td></tr></table></figure>
-
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://help.aliyun.com/knowledge_detail/43562.html" target="_blank" rel="noopener">https://help.aliyun.com/knowledge_detail/43562.html</a></p>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2017/09/28/查询postgresql的慢sql/">https://blog.devmgr.cn/2017/09/28/查询postgresql的慢sql/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2017/09/18/java-不带堆栈信息的异常/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2017/09/18/java-不带堆栈信息的异常/" class="post-title-link" itemprop="url">java 不带堆栈信息的异常</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2017-09-18 15:34:33" itemprop="dateCreated datePublished" datetime="2017-09-18T15:34:33+08:00">2017-09-18</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Java的异常默认都有堆栈信息，详细显示出来调用层次，这对查找错误原因很有帮助。今日遇到一个无堆栈信息的java.lang.NullPointerException<br>经查询原来是HotSpot VM提供的一种叫fast throw的优化导致的。</p>
-<h1 id="Fast-Throw"><a href="#Fast-Throw" class="headerlink" title="Fast Throw"></a>Fast Throw</h1><p>有些特定的隐式异常类型（NullPointerException、ArithmeticException（ / 0）之类）如果在代码里某个特定位置被抛出过多次的话，HotSpot Server Compiler（C2）会透明的决定用fast throw来优化这个抛出异常的地方——直接抛出一个事先分配好的、类型匹配的异常对象。这个对象的message和stack trace都被清空。抛出这个异常的速度是非常快，不但不用额外分配内存，而且也不用爬栈；但反面就是可能正好是需要知道哪里出问题的时候看不到stack trace了。从Sun JDK5开始要避免C2做这个优化还得额外传个VM参数：<code>-XX:-OmitStackTraceInFastThrow</code>。</p>
-<p>既然这种异常速度比较快，那么我们自定义的一些业务异常，有些是不会使用堆栈信息的，是不是也可这样做呢？是的。可以通过继承Throwable，使用构造函数Throwable(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace)来实现。</p>
-<p>如果不是继承的Throwable，其它异常也有类似的protected方法，例如RuntimeException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace)</p>
-<h2 id="禁用-Fast-Throw"><a href="#禁用-Fast-Throw" class="headerlink" title="禁用 Fast Throw"></a>禁用 Fast Throw</h2><p>ubuntu 16.x 可以修改/etc/systemd/system/tomcat 配置文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Environment=’CATALINA_OPTS=-Xms512M -Xmx2048M -server -XX:+UseParallelGC -XX:-OmitStackTraceInFastThrow‘</span><br></pre></td></tr></table></figure>
-
-<h1 id="重现-Fast-Throw"><a href="#重现-Fast-Throw" class="headerlink" title="重现 Fast Throw"></a>重现 Fast Throw</h1><p>可以用下面的这段代码重现没有堆栈的异常：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NpeThief</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">callManyNPEInLoop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> preLen = -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10000000</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                ((Object)<span class="keyword">null</span>).getClass();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                <span class="keyword">if</span>(e.getStackTrace().length != preLen)&#123;</span><br><span class="line">                    System.out.println(<span class="string">"#"</span> + i + <span class="string">"   "</span> + e.getStackTrace().length);</span><br><span class="line">                    preLen = e.getStackTrace().length;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        NpeThief thief = <span class="keyword">new</span> NpeThief();</span><br><span class="line">        thief.callManyNPEInLoop();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>用java NpeThief运行，会输出2、0两行<br>用java -XX:-OmitStackTraceInFastThrow NpeTHief运行，则只会有2一行,也能直接感觉到Fast Throw优化带来的运行速度的提升。</p>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2017/09/18/java-不带堆栈信息的异常/">https://blog.devmgr.cn/2017/09/18/java-不带堆栈信息的异常/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-  </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1799,442 +908,107 @@ DSA keySize &amp;lt; 1024, EC keySize &amp;lt; 224</code></pre><p>另外jdk.tls.
           </div>
           
 
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-            
-              <img class="site-author-image" itemprop="image" src="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4" alt="GeXiangDong">
-            
-              <p class="site-author-name" itemprop="name">GeXiangDong</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          
-            <nav class="site-state motion-element">
-              
-                <div class="site-state-item site-state-posts">
-                
-                  <a href="/archives/">
-                
-                    <span class="site-state-item-count">89</span>
-                    <span class="site-state-item-name">日志</span>
-                  </a>
-                </div>
-              
-
-              
-
-              
-                
-                
-                <div class="site-state-item site-state-tags">
-                  <a href="/tags/index.html">
-                    
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">121</span>
-                    <span class="site-state-item-name">标签</span>
-                  </a>
-                </div>
-              
-            </nav>
-          
-
-          
-
-          
-            <div class="links-of-author motion-element">
-              
-                <span class="links-of-author-item">
-                  
-                  
-                    
-                  
-                  
-                    
-                  
-                  <a href="https://github.com/gexiangdong" title="GitHub &rarr; https://github.com/gexiangdong" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
-                </span>
-              
-                <span class="links-of-author-item">
-                  
-                  
-                    
-                  
-                  
-                    
-                  
-                  <a href="https://study.163.com/instructor/1137185922.htm" title="老葛课堂 &rarr; https://study.163.com/instructor/1137185922.htm" rel="noopener" target="_blank"><i class="fa fa-fw fa-video-camera"></i>老葛课堂</a>
-                </span>
-              
-            </div>
-          
-
-          
-
-          
-          
-            <div class="links-of-blogroll motion-element links-of-blogroll-block">
-              <div class="links-of-blogroll-title">
-                <i class="fa  fa-fw fa-link"></i>
-                Links
-              </div>
-              <ul class="links-of-blogroll-list">
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://gist.github.com/gexiangdong" title="https://gist.github.com/gexiangdong" rel="noopener" target="_blank">Gist</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://blog.devmgr.cn/front-end-vue/" title="https://blog.devmgr.cn/front-end-vue/">前端工程化入门：VUE的实践</a>
-                  </li>
-                
-              </ul>
-            </div>
-          
-
-          
-            
-          
-          
-        </div>
-      </div>
-
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
-  <span class="with-love" id="animate">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">GeXiangDong</span>
-
-  
-
-  
-</div>
-
-
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v6.7.0</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-    
-
-    
-  </div>
-
-  
-
 <script>
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">GeXiangDong</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">91</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">122</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">GeXiangDong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
 
 
 
@@ -2243,94 +1017,43 @@ DSA keySize &amp;lt; 1024, EC keySize &amp;lt; 224</code></pre><p>另外jdk.tls.
 
 
 
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
 
 
+<script src="/js/schemes/muse.js"></script>
 
 
-
-
-
-
-
-
-
-
-
+<script src="/js/next-boot.js"></script>
 
 
 
 
   
-  <script src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-
-  
-
-
-  <script src="/js/src/utils.js?v=6.7.0"></script>
-
-  <script src="/js/src/motion.js?v=6.7.0"></script>
-
-
-
-  
-  
-
-
-  <script src="/js/src/affix.js?v=6.7.0"></script>
-
-  <script src="/js/src/schemes/pisces.js?v=6.7.0"></script>
-
-
-
-
-  
-
-  
-
-
-  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
-
-
-
-  
-
-
-
-
-  
 
 
 
 
 
-  
 
-  
 
-  
 
-  
 
-  
 
-  
 
-  
 
-  
 
-  
 
-  
-
-  
 
   
 

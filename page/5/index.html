@@ -1,124 +1,43 @@
 <!DOCTYPE html>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-<html class="theme-next gemini use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.8.0">
+<html lang="zh-CN">
+<head>
   <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-
-
-
-
-
-  <meta http-equiv="Cache-Control" content="no-transform">
-  <meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
-
-<link rel="stylesheet" href="/css/main.css?v=6.7.0">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.7.0">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.7.0">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.7.0">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=6.7.0" color="#222">
-
-
-
-
-
-
-
-<script id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '6.7.0',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: false,
-    fastclick: false,
-    lazyload: false,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
-
-
-  
-
-
-
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.devmgr.cn","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
 
   <meta property="og:type" content="website">
 <meta property="og:title" content="GeXiangDong">
 <meta property="og:url" content="https://blog.devmgr.cn/page/5/index.html">
 <meta property="og:site_name" content="GeXiangDong">
-<meta property="og:locale" content="zh-CN">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="GeXiangDong">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="GeXiangDong">
+
+<link rel="canonical" href="https://blog.devmgr.cn/page/5/">
 
 
-
-
-
-
-  <link rel="canonical" href="https://blog.devmgr.cn/page/5/">
-
-
-
-<script id="page.configurations">
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
   };
 </script>
 
@@ -130,15 +49,8 @@
 
 
 
-
-
-
-
-
-
   <noscript>
   <style>
-  .use-motion .motion-element,
   .use-motion .brand,
   .use-motion .menu-item,
   .sidebar-inner,
@@ -147,9 +59,8 @@
   .use-motion .comments,
   .use-motion .post-header,
   .use-motion .post-body,
-  .use-motion .collection-title { opacity: initial; }
+  .use-motion .collection-header { opacity: initial; }
 
-  .use-motion .logo,
   .use-motion .site-title,
   .use-motion .site-subtitle {
     opacity: initial;
@@ -163,220 +74,116 @@
 
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left 
-  page-home">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">GeXiangDong</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
-    
-      
-        <h1 class="site-subtitle" itemprop="description">精通Java、SQL、Spring的拼写，擅长Linux、Windows的开关机</h1>
-      
-    
-    
   </div>
 
-  <div class="site-nav-toggle">
-    <button aria-label="切换导航栏">
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">GeXiangDong</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">精通Java、SQL、Spring的拼写，擅长Linux、Windows的开关机</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
 
 
+
 <nav class="site-nav">
-  
-    <ul id="menu" class="menu">
-      
-        
-        
-        
-          
-          <li class="menu-item menu-item-home">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
 
-    
-    
-    
-      
-    
-
-    
-
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
 
   </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-about">
+        <li class="menu-item menu-item-archives">
 
-    
-    
-    
-      
-    
-
-    
-
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-archives">
-
-    
-    
-    
-      
-    
-
-    
-
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
-
-  </li>
-
-      
-      
-    </ul>
-  
-
-  
-
-  
+  </ul>
 </nav>
 
 
-
-  
 
 
 </div>
     </header>
 
     
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
 
 
-    <main id="main" class="main">
+    <main class="main">
       <div class="main-inner">
         <div class="content-wrap">
           
-            
 
-          
-          <div id="content" class="content">
+          <div class="content index posts-expand">
             
-  <section id="posts" class="posts-expand">
-    
       
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/04/14/mac-commands/">
 
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/03/06/java8-用imageio处理tiff图片/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="GeXiangDong">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="GeXiangDong">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/06/java8-用imageio处理tiff图片/" class="post-title-link" itemprop="url">Java8 用ImageIO处理TIFF图片</a>
-              
-            
-          </h2>
-        
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/04/14/mac-commands/" class="post-title-link" itemprop="url">Mac 下几个实用命令</a>
+        </h2>
 
         <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
+              <span class="post-meta-item-text">发表于</span>
 
-              
-                
-              
-
-              <time title="创建时间：2019-03-06 09:01:30" itemprop="dateCreated datePublished" datetime="2019-03-06T09:01:30+08:00">2019-03-06</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
+              <time title="创建时间：2019-04-14 08:48:36" itemprop="dateCreated datePublished" datetime="2019-04-14T08:48:36+08:00">2019-04-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-06-07 19:22:52" itemprop="dateModified" datetime="2019-06-07T19:22:52+08:00">2019-06-07</time>
+              </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -384,147 +191,253 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
+          <h1 id="查找某个命令-文件所在的位置"><a href="#查找某个命令-文件所在的位置" class="headerlink" title="查找某个命令/文件所在的位置"></a>查找某个命令/文件所在的位置</h1><h2 id="whereis"><a href="#whereis" class="headerlink" title="whereis"></a>whereis</h2><p>只查询标准的可执行路径内文件（默认只有 /usr/bin, /bin, /usr/sbin, /sbin 等四个目录）</p>
+<p>使用方法：  <code>whereis  filename</code></p>
+<h2 id="which"><a href="#which" class="headerlink" title="which"></a>which</h2><p>查询PATH环境变量中设置的所有目录。</p>
+<p>使用方法：  <code>which  filename</code> 或 <code>which -a filename</code> -a 参数表示查询并列出所有，不加此参数只列出第一个。</p>
+<h2 id="locate"><a href="#locate" class="headerlink" title="locate"></a>locate</h2><p>整个磁盘查询，但需要先建立索引数据库。 <code>sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.locate.plist</code> 用来建索引</p>
+<h2 id="find"><a href="#find" class="headerlink" title="find"></a>find</h2><p>整个硬盘查询，速度慢。</p>
+<p>使用方法： <code>find / -name filename</code></p>
+<h1 id="ls-的参数"><a href="#ls-的参数" class="headerlink" title="ls 的参数"></a>ls 的参数</h1><h2 id="显示完整日期"><a href="#显示完整日期" class="headerlink" title="显示完整日期"></a>显示完整日期</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ls --full-time</span><br><span class="line">ls -l --time-style=full</span><br><span class="line">ls -l --timestyle <span class="string">&#x27;+%Y%m%d %H:%M:%S&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>如果经常使用，也可以把TIME_STYLE设置到环境变量里，以后ls -l即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export TIME_STYLE&#x3D;&#39;+%Y%m%d %H:%M:%S&#39;</span><br><span class="line">ls -l</span><br></pre></td></tr></table></figure>
+
+<h2 id="ls排序"><a href="#ls排序" class="headerlink" title="ls排序"></a>ls排序</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ls --sort=extension</span><br><span class="line">ls --sort=size</span><br><span class="line">ls --sort=time</span><br><span class="line">ls --sort=version</span><br><span class="line">ls --sort=none</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>-t 按修改日期排序；DESC</li>
+<li>-S 按文件大小排序，DESC</li>
+<li>-r 反转排序，变成DESC</li>
+<li>-U 使用创建日期，不使用修改日期（显示和排序）</li>
+</ul>
+<h1 id="统计文件个数"><a href="#统计文件个数" class="headerlink" title="统计文件个数"></a>统计文件个数</h1><h2 id="统计某文件夹下文件的个数"><a href="#统计某文件夹下文件的个数" class="headerlink" title="统计某文件夹下文件的个数"></a>统计某文件夹下文件的个数</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -l |grep <span class="string">&quot;^-&quot;</span>|wc -l</span><br></pre></td></tr></table></figure>
+
+<h2 id="统计某文件夹下目录的个数"><a href="#统计某文件夹下目录的个数" class="headerlink" title="统计某文件夹下目录的个数"></a>统计某文件夹下目录的个数</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -l |grep <span class="string">&quot;^ｄ&quot;</span>|wc -l</span><br></pre></td></tr></table></figure>
+
+<h2 id="统计文件夹下文件的个数，包括子文件夹里的"><a href="#统计文件夹下文件的个数，包括子文件夹里的" class="headerlink" title="统计文件夹下文件的个数，包括子文件夹里的"></a>统计文件夹下文件的个数，包括子文件夹里的</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -lR|grep <span class="string">&quot;^-&quot;</span>|wc -l</span><br></pre></td></tr></table></figure>
+
+<p>如统计/home/temp 目录(包含子目录)下的所有文件包含java的文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -lR /home/temp | grep java | wc -l </span><br></pre></td></tr></table></figure>
+
+<p>统计文件夹下目录的个数，包括子文件夹里的</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -lR | grep <span class="string">&quot;^d&quot;</span> | wc -l</span><br></pre></td></tr></table></figure>
+
+<h1 id="查看目录下所有文件大小"><a href="#查看目录下所有文件大小" class="headerlink" title="查看目录下所有文件大小"></a>查看目录下所有文件大小</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">du -d 1 -h</span><br></pre></td></tr></table></figure>
+
+<p>命令查看当前目录下所有文件夹的大小 -d 指深度，后面加一个数值，表示统计到几级子目录。</p>
+<h1 id="修改文件创建-修改时间"><a href="#修改文件创建-修改时间" class="headerlink" title="修改文件创建/修改时间"></a>修改文件创建/修改时间</h1><h2 id="修改文件创建时间"><a href="#修改文件创建时间" class="headerlink" title="修改文件创建时间"></a>修改文件创建时间</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch -mt YYYYMMDDhhmm filename</span><br></pre></td></tr></table></figure>
+
+<h2 id="修改文件更新时间"><a href="#修改文件更新时间" class="headerlink" title="修改文件更新时间"></a>修改文件更新时间</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch -t  YYYYMMDDhhmm filename</span><br></pre></td></tr></table></figure>
+
+
+
+
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/04/14/mac-commands/">https://blog.devmgr.cn/2019/04/14/mac-commands/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
       
-        
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/03/31/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BC%A0%E7%BB%99%E5%90%8E%E7%AB%AF%E7%9A%84iv%E5%8F%AA%E6%9C%8915%E4%B8%AAbyte%E7%9A%84%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
           
-            <h1 id="Java8-ImageIO读取TIFF会得到null"><a href="#Java8-ImageIO读取TIFF会得到null" class="headerlink" title="Java8 ImageIO读取TIFF会得到null"></a>Java8 ImageIO读取TIFF会得到null</h1><p>默认java8（或更低版本）不能处理tiff图片，例如</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">BufferedImage bufferedImage = ImageIO.read(<span class="keyword">new</span> File(<span class="string">"desk.tif"</span>));</span><br><span class="line"><span class="comment">// 这里得到的bufferedImage == null</span></span><br></pre></td></tr></table></figure>
+            <a href="/2019/03/31/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BC%A0%E7%BB%99%E5%90%8E%E7%AB%AF%E7%9A%84iv%E5%8F%AA%E6%9C%8915%E4%B8%AAbyte%E7%9A%84%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">小程序传给后端的iv只有15个byte的问题</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-03-31 11:25:52" itemprop="dateCreated datePublished" datetime="2019-03-31T11:25:52+08:00">2019-03-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-06-10 11:29:43" itemprop="dateModified" datetime="2019-06-10T11:29:43+08:00">2019-06-10</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>微信小程序获得iv, sessionkey 后传递给后端API，然后解密用户信息等敏感信息，有时解密时报错，说iv只有15个byte的问题(应该是16个）。</p>
+<p>这是由于小程序段获得的iv是base64 encode之后的，其中可能含有“+”，+通过url参数直接传递，到服务端后，会被当作空格，空格base64.decode后会少一位，变成了15位。</p>
+<p>要得到正确的iv，需要小程序传递前先转义，再传递才行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">url &#x3D; &quot;xxx?iv&#x3D;&quot; + encodeURIComponent(iv)</span><br></pre></td></tr></table></figure>
+
+<p>encryptedData也需要类似的处理。</p>
+<p>这样才不会被认作空格，认作空格后，base64.decode会少一位。</p>
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/03/31/小程序传给后端的iv只有15个byte的问题/">https://blog.devmgr.cn/2019/03/31/小程序传给后端的iv只有15个byte的问题/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/03/06/java8-%E7%94%A8imageio%E5%A4%84%E7%90%86tiff%E5%9B%BE%E7%89%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/03/06/java8-%E7%94%A8imageio%E5%A4%84%E7%90%86tiff%E5%9B%BE%E7%89%87/" class="post-title-link" itemprop="url">Java8 用ImageIO处理TIFF图片</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-03-06 09:01:30" itemprop="dateCreated datePublished" datetime="2019-03-06T09:01:30+08:00">2019-03-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-06-07 18:51:02" itemprop="dateModified" datetime="2019-06-07T18:51:02+08:00">2019-06-07</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Java8-ImageIO读取TIFF会得到null"><a href="#Java8-ImageIO读取TIFF会得到null" class="headerlink" title="Java8 ImageIO读取TIFF会得到null"></a>Java8 ImageIO读取TIFF会得到null</h1><p>默认java8（或更低版本）不能处理tiff图片，例如</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">BufferedImage bufferedImage = ImageIO.read(<span class="keyword">new</span> File(<span class="string">&quot;desk.tif&quot;</span>));</span><br><span class="line"><span class="comment">// 这里得到的bufferedImage == null</span></span><br></pre></td></tr></table></figure>
 
 <p>上面的代码得到的 bufferedImage 变量是null值</p>
 <h1 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h1><p>在maven的依赖里增加一个imageio-tiff就会解决这个问题。</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.twelvemonkeys.imageio<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>imageio-tiff<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.4.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p>此依赖的详细信息可参考如下网址:<br><a href="https://github.com/haraldk/TwelveMonkeys" target="_blank" rel="noopener">https://github.com/haraldk/TwelveMonkeys</a></p>
+<p>此依赖的详细信息可参考如下网址:<br><a target="_blank" rel="noopener" href="https://github.com/haraldk/TwelveMonkeys">https://github.com/haraldk/TwelveMonkeys</a></p>
 <h1 id="Java-9-与-TIFF"><a href="#Java-9-与-TIFF" class="headerlink" title="Java 9 与 TIFF"></a>Java 9 与 TIFF</h1><p>Java 9开始jdk已经支持TIFF，不用再额外增加依赖。</p>
-<p><a href="https://docs.oracle.com/javase/9/docs/api/javax/imageio/package-summary.html" target="_blank" rel="noopener">Java 9支持的图片格式，oracle官方文档</a></p>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/03/06/java8-用imageio处理tiff图片/">https://blog.devmgr.cn/2019/03/06/java8-用imageio处理tiff图片/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
+<p><a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/9/docs/api/javax/imageio/package-summary.html">Java 9支持的图片格式，oracle官方文档</a></p>
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/03/06/java8-用imageio处理tiff图片/">https://blog.devmgr.cn/2019/03/06/java8-用imageio处理tiff图片/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
-          
-        
       
     </div>
 
     
-
     
     
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
+      <footer class="post-footer">
         <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
+      </footer>
   </article>
+  
+  
+  
 
-
-    
       
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/02/06/%E5%9C%A8%E9%9D%9Espring%E9%A1%B9%E7%9B%AE%E4%B8%AD%E4%BD%BF%E7%94%A8slf4j%E5%92%8Clogback/">
 
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/02/06/在非spring项目中使用slf4j和logback/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="GeXiangDong">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="GeXiangDong">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/02/06/在非spring项目中使用slf4j和logback/" class="post-title-link" itemprop="url">在非spring项目中使用slf4j和logback</a>
-              
-            
-          </h2>
-        
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/02/06/%E5%9C%A8%E9%9D%9Espring%E9%A1%B9%E7%9B%AE%E4%B8%AD%E4%BD%BF%E7%94%A8slf4j%E5%92%8Clogback/" class="post-title-link" itemprop="url">在非spring项目中使用slf4j和logback</a>
+        </h2>
 
         <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
+              <span class="post-meta-item-text">发表于</span>
 
               <time title="创建时间：2019-02-06 19:08:40" itemprop="dateCreated datePublished" datetime="2019-02-06T19:08:40+08:00">2019-02-06</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-06-07 19:27:43" itemprop="dateModified" datetime="2019-06-07T19:27:43+08:00">2019-06-07</time>
+              </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -532,146 +445,72 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        
-          
-            <p>在 spring-boot 项目中， slf4j和logback被自动引入，只需要配置logback即可使用，当不是spring-boot项目时，需要我们手工做点事才能使用。 （<a href="https://devmgr.cn/2018/06/01/配置logback记录日志/" target="_blank" rel="noopener">Spring Boot项目中配置logback, 请参考这里</a>)</p>
+          <p>在 spring-boot 项目中， slf4j和logback被自动引入，只需要配置logback即可使用，当不是spring-boot项目时，需要我们手工做点事才能使用。 （<a target="_blank" rel="noopener" href="https://devmgr.cn/2018/06/01/配置logback记录日志/">Spring Boot项目中配置logback, 请参考这里</a>)</p>
 <h1 id="增加依赖"><a href="#增加依赖" class="headerlink" title="增加依赖"></a>增加依赖</h1><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>ch.qos.logback<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>logback-classic<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>这一个依赖就够了，它会自动帮我们增加另外两个依赖： logback-core 和 slf4j-api</p>
 <h1 id="配置logback-xml"><a href="#配置logback-xml" class="headerlink" title="配置logback.xml"></a>配置logback.xml</h1><p>这和spring-boot中项目中区别不大，文件名从logback-spring.xml被改成了 logback.xml，还是放置到 src/main/resources 目录下，里面不再设置spring的profile了。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">appender</span> <span class="attr">name</span>=<span class="string">"STDOUT"</span> <span class="attr">class</span>=<span class="string">"ch.qos.logback.core.ConsoleAppender"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">encoder</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">Pattern</span>&gt;</span>%d&#123;HH:mm:ss.SSS&#125; [%thread] %-5level %logger&#123;36&#125; - %msg%n<span class="tag">&lt;/<span class="name">Pattern</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">encoder</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">appender</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">appender</span> <span class="attr">name</span>=<span class="string">"FILE"</span> <span class="attr">class</span>=<span class="string">"ch.qos.logback.core.rolling.RollingFileAppender"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">file</span>&gt;</span>target/log.log<span class="tag">&lt;/<span class="name">file</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">rollingPolicy</span> <span class="attr">class</span>=<span class="string">"ch.qos.logback.core.rolling.TimeBasedRollingPolicy"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">fileNamePattern</span>&gt;</span>log.%d&#123;yyyy-MM-dd&#125;.log<span class="tag">&lt;/<span class="name">fileNamePattern</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">maxHistory</span>&gt;</span>30<span class="tag">&lt;/<span class="name">maxHistory</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">totalSizeCap</span>&gt;</span>1GB<span class="tag">&lt;/<span class="name">totalSizeCap</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">rollingPolicy</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">encoder</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">pattern</span>&gt;</span>%-4relative [%thread] %-5level %logger&#123;35&#125; - %msg%n<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">encoder</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">appender</span>&gt;</span></span><br><span class="line">  </span><br><span class="line">  <span class="tag">&lt;<span class="name">logger</span> <span class="attr">name</span>=<span class="string">"cn.devmgr"</span> <span class="attr">level</span>=<span class="string">"TRACE"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">root</span> <span class="attr">level</span>=<span class="string">"INFO"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">"STDOUT"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">"FILE"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">root</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">appender</span> <span class="attr">name</span>=<span class="string">&quot;STDOUT&quot;</span> <span class="attr">class</span>=<span class="string">&quot;ch.qos.logback.core.ConsoleAppender&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">encoder</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">Pattern</span>&gt;</span>%d&#123;HH:mm:ss.SSS&#125; [%thread] %-5level %logger&#123;36&#125; - %msg%n<span class="tag">&lt;/<span class="name">Pattern</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">encoder</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">appender</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">appender</span> <span class="attr">name</span>=<span class="string">&quot;FILE&quot;</span> <span class="attr">class</span>=<span class="string">&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">file</span>&gt;</span>target/log.log<span class="tag">&lt;/<span class="name">file</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">rollingPolicy</span> <span class="attr">class</span>=<span class="string">&quot;ch.qos.logback.core.rolling.TimeBasedRollingPolicy&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">fileNamePattern</span>&gt;</span>log.%d&#123;yyyy-MM-dd&#125;.log<span class="tag">&lt;/<span class="name">fileNamePattern</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">maxHistory</span>&gt;</span>30<span class="tag">&lt;/<span class="name">maxHistory</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">totalSizeCap</span>&gt;</span>1GB<span class="tag">&lt;/<span class="name">totalSizeCap</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">rollingPolicy</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">encoder</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">pattern</span>&gt;</span>%-4relative [%thread] %-5level %logger&#123;35&#125; - %msg%n<span class="tag">&lt;/<span class="name">pattern</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">encoder</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">appender</span>&gt;</span></span><br><span class="line">  </span><br><span class="line">  <span class="tag">&lt;<span class="name">logger</span> <span class="attr">name</span>=<span class="string">&quot;cn.devmgr&quot;</span> <span class="attr">level</span>=<span class="string">&quot;TRACE&quot;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">root</span> <span class="attr">level</span>=<span class="string">&quot;INFO&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">&quot;STDOUT&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">&quot;FILE&quot;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">root</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/02/06/在非spring项目中使用slf4j和logback/">https://blog.devmgr.cn/2019/02/06/在非spring项目中使用slf4j和logback/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/02/06/在非spring项目中使用slf4j和logback/">https://blog.devmgr.cn/2019/02/06/在非spring项目中使用slf4j和logback/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
-
-          
-        
       
     </div>
 
     
-
     
     
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
+      <footer class="post-footer">
         <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
+      </footer>
   </article>
+  
+  
+  
 
-
-    
       
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/01/10/java-%E7%BB%99%E4%B8%80%E4%B8%AA%E4%BB%BB%E5%8A%A1%E8%AE%BE%E7%BD%AE%E8%B6%85%E6%97%B6%E8%BF%94%E5%9B%9E/">
 
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/01/10/java-给一个任务设置超时返回/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="GeXiangDong">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="GeXiangDong">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/01/10/java-给一个任务设置超时返回/" class="post-title-link" itemprop="url">Java 给一个任务设置超时返回</a>
-              
-            
-          </h2>
-        
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/01/10/java-%E7%BB%99%E4%B8%80%E4%B8%AA%E4%BB%BB%E5%8A%A1%E8%AE%BE%E7%BD%AE%E8%B6%85%E6%97%B6%E8%BF%94%E5%9B%9E/" class="post-title-link" itemprop="url">Java 给一个任务设置超时返回</a>
+        </h2>
 
         <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
+              <span class="post-meta-item-text">发表于</span>
 
               <time title="创建时间：2019-01-10 11:01:05" itemprop="dateCreated datePublished" datetime="2019-01-10T11:01:05+08:00">2019-01-10</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-06-07 18:51:02" itemprop="dateModified" datetime="2019-06-07T18:51:02+08:00">2019-06-07</time>
+              </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -679,142 +518,68 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        
-          
-            <p>可以通过CompletableFuture 来执行某个任务，超时后放弃任务。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.CompletableFuture;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.ExecutionException;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.TimeUnit;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.TimeoutException;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CompletableFutureTester</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] argvs)</span> </span>&#123;</span><br><span class="line">        CompletableFuture&lt;String&gt; cf1 = CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">"enter cf"</span>);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">//sleep 3秒</span></span><br><span class="line">                Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(<span class="string">"s1"</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"done"</span>;</span><br><span class="line">        &#125;);</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//试图在2秒内得到结果，否则算超时</span></span><br><span class="line">            String result = cf1.get(<span class="number">2</span>, TimeUnit.SECONDS);</span><br><span class="line">            System.out.println(<span class="string">"result is : "</span> + result);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ExecutionException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (TimeoutException e) &#123;</span><br><span class="line">            System.out.println(<span class="string">"超时未得到结果"</span>);</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <p>可以通过CompletableFuture 来执行某个任务，超时后放弃任务。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.CompletableFuture;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.ExecutionException;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.TimeUnit;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.TimeoutException;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CompletableFutureTester</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] argvs)</span> </span>&#123;</span><br><span class="line">        CompletableFuture&lt;String&gt; cf1 = CompletableFuture.supplyAsync(() -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;enter cf&quot;</span>);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">//sleep 3秒</span></span><br><span class="line">                Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(<span class="string">&quot;s1&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;done&quot;</span>;</span><br><span class="line">        &#125;);</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//试图在2秒内得到结果，否则算超时</span></span><br><span class="line">            String result = cf1.get(<span class="number">2</span>, TimeUnit.SECONDS);</span><br><span class="line">            System.out.println(<span class="string">&quot;result is : &quot;</span> + result);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ExecutionException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (TimeoutException e) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;超时未得到结果&quot;</span>);</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/01/10/java-给一个任务设置超时返回/">https://blog.devmgr.cn/2019/01/10/java-给一个任务设置超时返回/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2019/01/10/java-给一个任务设置超时返回/">https://blog.devmgr.cn/2019/01/10/java-给一个任务设置超时返回/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
-
-          
-        
       
     </div>
 
     
-
     
     
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
+      <footer class="post-footer">
         <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
+      </footer>
   </article>
+  
+  
+  
 
-
-    
       
-
-  
-
   
   
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/12/27/springmvc-x-frame-options-deny/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="GeXiangDong">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="GeXiangDong">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/12/27/springmvc-x-frame-options-deny/" class="post-title-link" itemprop="url">SpringMVC X-Frame-Options:Deny</a>
-              
-            
-          </h2>
-        
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/12/27/springmvc-x-frame-options-deny/" class="post-title-link" itemprop="url">SpringMVC X-Frame-Options:Deny</a>
+        </h2>
 
         <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
+              <span class="post-meta-item-text">发表于</span>
 
               <time title="创建时间：2018-12-27 08:29:57" itemprop="dateCreated datePublished" datetime="2018-12-27T08:29:57+08:00">2018-12-27</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-09-09 14:39:59" itemprop="dateModified" datetime="2019-09-09T14:39:59+08:00">2019-09-09</time>
+              </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -822,141 +587,68 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        
-          
-            <h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><p>使用 SpringMVC + Spring Security 做的网页，前端嵌套在 iframe/frame 中内容不显示，一片空白。</p>
+          <h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><p>使用 SpringMVC + Spring Security 做的网页，前端嵌套在 iframe/frame 中内容不显示，一片空白。</p>
 <p>打开浏览器的网页检查器，会在主控台发现错误信息：</p>
 <pre><code>Refused to display ‘http://x.x.x.x/xx/’ in a frame because it set ‘X-Frame-Options’ to ‘DENY’.</code></pre><p>查看 Response Header 会发现 spring security 加了一个header</p>
 <pre><code>X-Frame-Options: Deny</code></pre><h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>通过在 Spring Security 中设置<br><code>httpSecurity.headers().frameOptions().disable()</code><br>禁止调这个头信息即可。</p>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2018/12/27/springmvc-x-frame-options-deny/">https://blog.devmgr.cn/2018/12/27/springmvc-x-frame-options-deny/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2018/12/27/springmvc-x-frame-options-deny/">https://blog.devmgr.cn/2018/12/27/springmvc-x-frame-options-deny/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
-          
-        
       
     </div>
 
     
-
     
     
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
+      <footer class="post-footer">
         <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
+      </footer>
   </article>
+  
+  
+  
 
-
-    
       
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/11/25/java%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%BB%8E%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%8F%90%E5%8F%96%E4%BF%A1%E6%81%AF/">
 
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/11/25/java正则表达式从字符串提取信息/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="GeXiangDong">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="GeXiangDong">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/11/25/java正则表达式从字符串提取信息/" class="post-title-link" itemprop="url">java正则表达式从字符串提取信息</a>
-              
-            
-          </h2>
-        
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/11/25/java%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%BB%8E%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%8F%90%E5%8F%96%E4%BF%A1%E6%81%AF/" class="post-title-link" itemprop="url">java正则表达式从字符串提取信息</a>
+        </h2>
 
         <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
+              <span class="post-meta-item-text">发表于</span>
 
               <time title="创建时间：2018-11-25 10:58:50" itemprop="dateCreated datePublished" datetime="2018-11-25T10:58:50+08:00">2018-11-25</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-06-07 18:51:02" itemprop="dateModified" datetime="2019-06-07T18:51:02+08:00">2019-06-07</time>
+              </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -964,13 +656,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        
-          
-            <p>使用正则表达式，从markdown文件中提取链接显示的字符和链接到的地址。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">String content = <span class="string">"这是段.md文件的内容。其中[这是一个链接](./html/README.md)，还有其他内容，这里又有一个[another link](another.md)，这次链接到了another.md。"</span>;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//括号用于分组；需要匹配括号则用\c</span></span><br><span class="line"><span class="comment">//[^\]] 表示任意不是']'的字符，后面的*表示任意多个</span></span><br><span class="line">Pattern p = Pattern.compile(<span class="string">"\\[([^\\]]*)\\]\\(([^\\)]*)\\)"</span>, Pattern.CASE_INSENSITIVE);</span><br><span class="line"> </span><br><span class="line">Matcher matcher = p.matcher(content);</span><br><span class="line"><span class="keyword">while</span>(matcher != <span class="keyword">null</span> &amp;&amp; matcher.find()) &#123;</span><br><span class="line">    String link = matcher.group();</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;= matcher.groupCount(); i++)&#123;</span><br><span class="line">        <span class="comment">//得到的分组，第0个是整个字串，例如第一次发现时打印：[这是一个链接](./html/README.md)</span></span><br><span class="line">        <span class="comment">//第一个是正则表达式中第一个括号匹配到的内容，例如第一次发现时打印：这是一个链接</span></span><br><span class="line">        System.out.println(matcher.group(i));</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <p>使用正则表达式，从markdown文件中提取链接显示的字符和链接到的地址。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">String content = <span class="string">&quot;这是段.md文件的内容。其中[这是一个链接](./html/README.md)，还有其他内容，这里又有一个[another link](another.md)，这次链接到了another.md。&quot;</span>;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//括号用于分组；需要匹配括号则用\c</span></span><br><span class="line"><span class="comment">//[^\]] 表示任意不是&#x27;]&#x27;的字符，后面的*表示任意多个</span></span><br><span class="line">Pattern p = Pattern.compile(<span class="string">&quot;\\[([^\\]]*)\\]\\(([^\\)]*)\\)&quot;</span>, Pattern.CASE_INSENSITIVE);</span><br><span class="line"> </span><br><span class="line">Matcher matcher = p.matcher(content);</span><br><span class="line"><span class="keyword">while</span>(matcher != <span class="keyword">null</span> &amp;&amp; matcher.find()) &#123;</span><br><span class="line">    String link = matcher.group();</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;= matcher.groupCount(); i++)&#123;</span><br><span class="line">        <span class="comment">//得到的分组，第0个是整个字串，例如第一次发现时打印：[这是一个链接](./html/README.md)</span></span><br><span class="line">        <span class="comment">//第一个是正则表达式中第一个括号匹配到的内容，例如第一次发现时打印：这是一个链接</span></span><br><span class="line">        System.out.println(matcher.group(i));</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>运行结果:</p>
 <pre><code>[这是一个链接](https://blog.devmgr.cn)
@@ -979,132 +666,64 @@
 
 [another link](https://www.google.com)
 another link
-another.md</code></pre><p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2018/11/25/java正则表达式从字符串提取信息/">https://blog.devmgr.cn/2018/11/25/java正则表达式从字符串提取信息/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
+another.md</code></pre><p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2018/11/25/java正则表达式从字符串提取信息/">https://blog.devmgr.cn/2018/11/25/java正则表达式从字符串提取信息/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
-          
-        
       
     </div>
 
     
-
     
     
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
+      <footer class="post-footer">
         <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
+      </footer>
   </article>
+  
+  
+  
 
-
-    
       
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/09/20/%E5%88%B6%E4%BD%9Chttps%E5%8F%8C%E5%90%91%E8%AE%A4%E8%AF%81%E7%9A%84%E7%BD%91%E7%AB%99/">
 
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/09/20/制作https双向认证的网站/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="GeXiangDong">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="GeXiangDong">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/09/20/制作https双向认证的网站/" class="post-title-link" itemprop="url">制作HTTPS双向认证的网站</a>
-              
-            
-          </h2>
-        
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/09/20/%E5%88%B6%E4%BD%9Chttps%E5%8F%8C%E5%90%91%E8%AE%A4%E8%AF%81%E7%9A%84%E7%BD%91%E7%AB%99/" class="post-title-link" itemprop="url">制作HTTPS双向认证的网站</a>
+        </h2>
 
         <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
+              <span class="post-meta-item-text">发表于</span>
 
               <time title="创建时间：2018-09-20 16:50:19" itemprop="dateCreated datePublished" datetime="2018-09-20T16:50:19+08:00">2018-09-20</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-09-09 14:43:34" itemprop="dateModified" datetime="2019-09-09T14:43:34+08:00">2019-09-09</time>
+              </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -1112,12 +731,7 @@ another.md</code></pre><p><strong>本文地址</strong>： <a href="https://blog
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        
-          
-            <p>使用NGINX做双向认证的网站，访问时需要客户端安装有证书才可继续访问。可用于仅限特定用户群的网站，例如企业内部的业务管理系统，可提高系统安全性，阻止未授权用户访问。</p>
+          <p>使用NGINX做双向认证的网站，访问时需要客户端安装有证书才可继续访问。可用于仅限特定用户群的网站，例如企业内部的业务管理系统，可提高系统安全性，阻止未授权用户访问。</p>
 <p>在下述方法中，客户端证书采用自制（可节约成本），服务器端证书可自制也可购买，两者不必同一个CA，建议购买（有免费的域名证书）因为自制的浏览器会出现不信任标志。</p>
 <p>自制证书使用openssl工具，使用前需要先安装.</p>
 <h1 id="制作证书"><a href="#制作证书" class="headerlink" title="制作证书"></a>制作证书</h1><h2 id="CA证书"><a href="#CA证书" class="headerlink" title="CA证书"></a>CA证书</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#制作CA私钥</span></span><br><span class="line">openssl genrsa -out ca.key 2048</span><br><span class="line"> </span><br><span class="line"><span class="comment">#制作CA根证书（包含公钥），会要求填写信息</span></span><br><span class="line">openssl req -new -x509 -days 3650 -key ca.key -out ca.crt</span><br></pre></td></tr></table></figure>
@@ -1138,138 +752,70 @@ Email Address []:someone@yourcompany.com</code></pre><p>下面这段需要输入
 <pre><code>Please enter the following &apos;extra&apos; attributes
 to be sent with your certificate request
 A challenge password []:
-An optional company name []:</code></pre><h1 id="更改nginx配置"><a href="#更改nginx配置" class="headerlink" title="更改nginx配置"></a>更改nginx配置</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 443;</span><br><span class="line">    server_name admin.devmgr.cn;</span><br><span class="line">    ssl on;</span><br><span class="line">    # 服务器端证书配置，具体参数请根据证书发行方提供的帮助配置</span><br><span class="line">    ssl_certificate /etc/nginx/certs/1_admin.devmgr.cn_bundle.crt;</span><br><span class="line">    ssl_certificate_key /etc/nginx/certs/2_admin.devmgr.cn.key;</span><br><span class="line">    ssl_session_timeout 5m;</span><br><span class="line">    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;</span><br><span class="line">    ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;</span><br><span class="line">    ssl_prefer_server_ciphers on;</span><br><span class="line"> </span><br><span class="line">    # 下面是配置客户端认证，需要配置使用的CA证书</span><br><span class="line">    ssl_client_certificate /etc/nginx/certs/ca.crt;</span><br><span class="line">    ssl_verify_client on;</span><br><span class="line"> </span><br><span class="line">    root /var/www/admin;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+An optional company name []:</code></pre><h1 id="更改nginx配置"><a href="#更改nginx配置" class="headerlink" title="更改nginx配置"></a>更改nginx配置</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 443;</span><br><span class="line">    server_name admin.devmgr.cn;</span><br><span class="line">    ssl on;</span><br><span class="line">    # 服务器端证书配置，具体参数请根据证书发行方提供的帮助配置</span><br><span class="line">    ssl_certificate &#x2F;etc&#x2F;nginx&#x2F;certs&#x2F;1_admin.devmgr.cn_bundle.crt;</span><br><span class="line">    ssl_certificate_key &#x2F;etc&#x2F;nginx&#x2F;certs&#x2F;2_admin.devmgr.cn.key;</span><br><span class="line">    ssl_session_timeout 5m;</span><br><span class="line">    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;</span><br><span class="line">    ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;</span><br><span class="line">    ssl_prefer_server_ciphers on;</span><br><span class="line"> </span><br><span class="line">    # 下面是配置客户端认证，需要配置使用的CA证书</span><br><span class="line">    ssl_client_certificate &#x2F;etc&#x2F;nginx&#x2F;certs&#x2F;ca.crt;</span><br><span class="line">    ssl_verify_client on;</span><br><span class="line"> </span><br><span class="line">    root &#x2F;var&#x2F;www&#x2F;admin;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <h1 id="在后端程序内获取客户端证书信息"><a href="#在后端程序内获取客户端证书信息" class="headerlink" title="在后端程序内获取客户端证书信息"></a>在后端程序内获取客户端证书信息</h1><p>NGINX会把客户端证书做成内置变量，可通过proxy_set_header传递给应用，在应用内获取request header即可得到证书对应的信息。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">location /webapp &#123;</span><br><span class="line">   proxy_pass http://127.0.0.1:8080;</span><br><span class="line">   proxy_set_header Host $host;</span><br><span class="line">   proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">   proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">   # 把客户端证书的主题信息作为request header (Client-Cert)传递给应用</span><br><span class="line">   proxy_set_header Client-Cert $ssl_client_s_dn;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">location &#x2F;webapp &#123;</span><br><span class="line">   proxy_pass http:&#x2F;&#x2F;127.0.0.1:8080;</span><br><span class="line">   proxy_set_header Host $host;</span><br><span class="line">   proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">   proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">   # 把客户端证书的主题信息作为request header (Client-Cert)传递给应用</span><br><span class="line">   proxy_set_header Client-Cert $ssl_client_s_dn;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>除了 $ssl_client_s_dn 外，NGINX还提供很多内置变量对应证书的其他部分内容，想起请参考 nginx的ngx_http_ssl_module 模块文档。使用时需要注意nginx版本是否支持对应的变量。</p>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2018/09/20/制作https双向认证的网站/">https://blog.devmgr.cn/2018/09/20/制作https双向认证的网站/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2018/09/20/制作https双向认证的网站/">https://blog.devmgr.cn/2018/09/20/制作https双向认证的网站/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
-          
-        
       
     </div>
 
     
-
     
     
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
+      <footer class="post-footer">
         <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
+      </footer>
   </article>
+  
+  
+  
 
-
-    
       
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/09/04/websocket%E5%8D%8F%E8%AE%AE%E7%9A%84%E8%BF%9E%E6%8E%A5%E8%BF%87%E7%A8%8B/">
 
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/09/04/websocket协议的连接过程/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="GeXiangDong">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="GeXiangDong">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/09/04/websocket协议的连接过程/" class="post-title-link" itemprop="url">websocket协议的连接过程</a>
-              
-            
-          </h2>
-        
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/09/04/websocket%E5%8D%8F%E8%AE%AE%E7%9A%84%E8%BF%9E%E6%8E%A5%E8%BF%87%E7%A8%8B/" class="post-title-link" itemprop="url">websocket协议的连接过程</a>
+        </h2>
 
         <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
+              <span class="post-meta-item-text">发表于</span>
 
               <time title="创建时间：2018-09-04 10:57:36" itemprop="dateCreated datePublished" datetime="2018-09-04T10:57:36+08:00">2018-09-04</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-06-07 18:51:02" itemprop="dateModified" datetime="2019-06-07T18:51:02+08:00">2019-06-07</time>
+              </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -1277,12 +823,7 @@ An optional company name []:</code></pre><h1 id="更改nginx配置"><a href="#�
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        
-          
-            <p>websocket协议的握手过程。<br>首先客户端和服务器端建立的是http 1.1的连接，客户端发送请求，请求的资源地址是websocket的地址，但在连接中增加几个请求头：</p>
+          <p>websocket协议的握手过程。<br>首先客户端和服务器端建立的是http 1.1的连接，客户端发送请求，请求的资源地址是websocket的地址，但在连接中增加几个请求头：</p>
 <pre><code>Connection: upgrade
 Upgrade: Websocket
 Sec-WebSocket-Key: base64格式的随机数
@@ -1293,136 +834,67 @@ Upgrade: websocket
 Connection: upgrade
 Sec-WebSocket-Accept: OfS0wDaT5NoxF2gqm7Zj2YtetzM=
 Date: Tue, 04 Sep 2018 05:46:48 GMT</code></pre><p>之后websocket连接就建好了，双方可以通讯了，下面有段建立连接的代码，可以参考。解析websocket帧部分没有写，只是当成字符串打印出来了，因为帧中包含一些二进制的控制信息，所以打印内容会有乱码（即使消息是纯文本也有乱码，因为有部分帧的头部信息也被当成字符串打印了）</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.net.*;</span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebsocketClient</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"> </span><br><span class="line">        String hostname = <span class="string">"localhost"</span>;</span><br><span class="line">        <span class="keyword">int</span> port = <span class="number">8080</span>;</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">try</span> (Socket socket = <span class="keyword">new</span> Socket(hostname, port)) &#123;</span><br><span class="line"> </span><br><span class="line">            OutputStream output = socket.getOutputStream();</span><br><span class="line">            PrintWriter writer = <span class="keyword">new</span> PrintWriter(output, <span class="keyword">true</span>);</span><br><span class="line"> </span><br><span class="line">            writer.println(<span class="string">"GET /chat HTTP/1.1"</span>);</span><br><span class="line">            writer.println(<span class="string">"Host: "</span> + hostname + <span class="string">":"</span> + port);</span><br><span class="line">            <span class="comment">// 下面两行是告诉服务器端，此次连接的使用的http协议期望升级到websocket协议，如果服务端同意升级会返回</span></span><br><span class="line">            <span class="comment">// Connection: upgrade  upgrade: websocket表示已经升级了，而且状态吗是101 switching protocols</span></span><br><span class="line">            writer.println(<span class="string">"Connection: upgrade"</span>);</span><br><span class="line">            writer.println(<span class="string">"Upgrade: WebSocket"</span>);</span><br><span class="line">            <span class="comment">// 下面这2行是必须的，sec-websocket-key是base64格式的一个随机数，由客户端生成</span></span><br><span class="line">            <span class="comment">// sec-websocket-version是指明客户端的websocket版本</span></span><br><span class="line">            writer.println(<span class="string">"Sec-WebSocket-Key:  "</span>AQIDBAUGBwgJCgsMDQ4PEC=<span class="string">" ="</span>);</span><br><span class="line">            writer.println(<span class="string">"Sec-WebSocket-Version: 13"</span>);</span><br><span class="line">            writer.println(<span class="string">"User-Agent: MSIE"</span>);</span><br><span class="line">            writer.println(<span class="string">"Origin: http://localhost:8080/"</span>);</span><br><span class="line">            writer.println();</span><br><span class="line"> </span><br><span class="line">            InputStream input = socket.getInputStream();</span><br><span class="line"> </span><br><span class="line">            BufferedReader reader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(input));</span><br><span class="line"> </span><br><span class="line">            System.out.println(<span class="string">"request sent..."</span>);</span><br><span class="line">            <span class="keyword">int</span> i=<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">while</span> (i &lt; <span class="number">10</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (reader.ready())&#123;</span><br><span class="line">                    <span class="comment">// 在读websocket发送过来的消息时，这里没有解码消息帧，都当字符串了，消息的数据报文格式前面有些事数据包控制的bit，所以打印时有乱码</span></span><br><span class="line">                    <span class="keyword">char</span>[] bin = <span class="keyword">new</span> <span class="keyword">char</span>[<span class="number">2048</span>];</span><br><span class="line">                    <span class="keyword">int</span> len = reader.read(bin, <span class="number">0</span>, bin.length);</span><br><span class="line">                    <span class="keyword">char</span>[] buf = <span class="keyword">new</span> <span class="keyword">char</span>[len];</span><br><span class="line">                    System.arraycopy(bin, <span class="number">0</span>, buf, <span class="number">0</span>, len);</span><br><span class="line">                    System.out.println(<span class="keyword">new</span> String(buf));</span><br><span class="line">                    i++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 连接好了后可以发送数据，发送的数据报格式是 Base Framing Protocol， ABNF RFC5234</span></span><br><span class="line">            writer.close();</span><br><span class="line">            output.close();</span><br><span class="line">            socket.close();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (UnknownHostException ex) &#123;</span><br><span class="line">            System.out.println(<span class="string">"Server not found: "</span> + ex.getMessage());</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException ex) &#123;</span><br><span class="line">            System.out.println(<span class="string">"I/O error: "</span> + ex.getMessage());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.net.*;</span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebsocketClient</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"> </span><br><span class="line">        String hostname = <span class="string">&quot;localhost&quot;</span>;</span><br><span class="line">        <span class="keyword">int</span> port = <span class="number">8080</span>;</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">try</span> (Socket socket = <span class="keyword">new</span> Socket(hostname, port)) &#123;</span><br><span class="line"> </span><br><span class="line">            OutputStream output = socket.getOutputStream();</span><br><span class="line">            PrintWriter writer = <span class="keyword">new</span> PrintWriter(output, <span class="keyword">true</span>);</span><br><span class="line"> </span><br><span class="line">            writer.println(<span class="string">&quot;GET /chat HTTP/1.1&quot;</span>);</span><br><span class="line">            writer.println(<span class="string">&quot;Host: &quot;</span> + hostname + <span class="string">&quot;:&quot;</span> + port);</span><br><span class="line">            <span class="comment">// 下面两行是告诉服务器端，此次连接的使用的http协议期望升级到websocket协议，如果服务端同意升级会返回</span></span><br><span class="line">            <span class="comment">// Connection: upgrade  upgrade: websocket表示已经升级了，而且状态吗是101 switching protocols</span></span><br><span class="line">            writer.println(<span class="string">&quot;Connection: upgrade&quot;</span>);</span><br><span class="line">            writer.println(<span class="string">&quot;Upgrade: WebSocket&quot;</span>);</span><br><span class="line">            <span class="comment">// 下面这2行是必须的，sec-websocket-key是base64格式的一个随机数，由客户端生成</span></span><br><span class="line">            <span class="comment">// sec-websocket-version是指明客户端的websocket版本</span></span><br><span class="line">            writer.println(<span class="string">&quot;Sec-WebSocket-Key:  &quot;</span>AQIDBAUGBwgJCgsMDQ4PEC=<span class="string">&quot; =&quot;</span>);</span><br><span class="line">            writer.println(<span class="string">&quot;Sec-WebSocket-Version: 13&quot;</span>);</span><br><span class="line">            writer.println(<span class="string">&quot;User-Agent: MSIE&quot;</span>);</span><br><span class="line">            writer.println(<span class="string">&quot;Origin: http://localhost:8080/&quot;</span>);</span><br><span class="line">            writer.println();</span><br><span class="line"> </span><br><span class="line">            InputStream input = socket.getInputStream();</span><br><span class="line"> </span><br><span class="line">            BufferedReader reader = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(input));</span><br><span class="line"> </span><br><span class="line">            System.out.println(<span class="string">&quot;request sent...&quot;</span>);</span><br><span class="line">            <span class="keyword">int</span> i=<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">while</span> (i &lt; <span class="number">10</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (reader.ready())&#123;</span><br><span class="line">                    <span class="comment">// 在读websocket发送过来的消息时，这里没有解码消息帧，都当字符串了，消息的数据报文格式前面有些事数据包控制的bit，所以打印时有乱码</span></span><br><span class="line">                    <span class="keyword">char</span>[] bin = <span class="keyword">new</span> <span class="keyword">char</span>[<span class="number">2048</span>];</span><br><span class="line">                    <span class="keyword">int</span> len = reader.read(bin, <span class="number">0</span>, bin.length);</span><br><span class="line">                    <span class="keyword">char</span>[] buf = <span class="keyword">new</span> <span class="keyword">char</span>[len];</span><br><span class="line">                    System.arraycopy(bin, <span class="number">0</span>, buf, <span class="number">0</span>, len);</span><br><span class="line">                    System.out.println(<span class="keyword">new</span> String(buf));</span><br><span class="line">                    i++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 连接好了后可以发送数据，发送的数据报格式是 Base Framing Protocol， ABNF RFC5234</span></span><br><span class="line">            writer.close();</span><br><span class="line">            output.close();</span><br><span class="line">            socket.close();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (UnknownHostException ex) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;Server not found: &quot;</span> + ex.getMessage());</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException ex) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;I/O error: &quot;</span> + ex.getMessage());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2018/09/04/websocket协议的连接过程/">https://blog.devmgr.cn/2018/09/04/websocket协议的连接过程/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2018/09/04/websocket协议的连接过程/">https://blog.devmgr.cn/2018/09/04/websocket协议的连接过程/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
-
-          
-        
       
     </div>
 
     
-
     
     
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
+      <footer class="post-footer">
         <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
+      </footer>
   </article>
+  
+  
+  
 
-
-    
       
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/08/28/%E5%88%B6%E4%BD%9C%E5%8D%95%E4%B8%AA%E6%96%87%E4%BB%B6%E5%B9%B6%E5%8F%AF%E6%89%A7%E8%A1%8C%E7%9A%84jar/">
 
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/08/28/制作单个文件并可执行的jar/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="GeXiangDong">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="GeXiangDong">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/08/28/制作单个文件并可执行的jar/" class="post-title-link" itemprop="url">制作单个文件并可执行的jar</a>
-              
-            
-          </h2>
-        
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/08/28/%E5%88%B6%E4%BD%9C%E5%8D%95%E4%B8%AA%E6%96%87%E4%BB%B6%E5%B9%B6%E5%8F%AF%E6%89%A7%E8%A1%8C%E7%9A%84jar/" class="post-title-link" itemprop="url">制作单个文件并可执行的jar</a>
+        </h2>
 
         <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
+              <span class="post-meta-item-text">发表于</span>
 
               <time title="创建时间：2018-08-28 10:55:51" itemprop="dateCreated datePublished" datetime="2018-08-28T10:55:51+08:00">2018-08-28</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-06-07 18:51:02" itemprop="dateModified" datetime="2019-06-07T18:51:02+08:00">2019-06-07</time>
+              </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -1430,358 +902,32 @@ Date: Tue, 04 Sep 2018 05:46:48 GMT</code></pre><p>之后websocket连接就建�
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
-        
-          
-            <p>通过maven可以把依赖的各种jar和自己的程序都打包成一个jar，这样在部署的时候就非常方便了，这点在做可执行的jar包时就更方便了。<br>这依赖一个maven的插件：shade</p>
+          <p>通过maven可以把依赖的各种jar和自己的程序都打包成一个jar，这样在部署的时候就非常方便了，这点在做可执行的jar包时就更方便了。<br>这依赖一个maven的插件：shade</p>
 <p>在pom里配置shade插件即可：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-shade-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.1.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">transformers</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">transformer</span> <span class="attr">implementation</span>=<span class="string">"org.apache.maven.plugins.shade.resource.ManifestResourceTransformer"</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 下面这个改成运行jar包时需要执行的java类 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">mainClass</span>&gt;</span>cn.devmgr.spider.Application<span class="tag">&lt;/<span class="name">mainClass</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">transformer</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">transformers</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">phase</span>&gt;</span>package<span class="tag">&lt;/<span class="name">phase</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">goal</span>&gt;</span>shade<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-shade-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.1.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">transformers</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">transformer</span> <span class="attr">implementation</span>=<span class="string">&quot;org.apache.maven.plugins.shade.resource.ManifestResourceTransformer&quot;</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 下面这个改成运行jar包时需要执行的java类 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">mainClass</span>&gt;</span>cn.devmgr.spider.Application<span class="tag">&lt;/<span class="name">mainClass</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">transformer</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">transformers</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">phase</span>&gt;</span>package<span class="tag">&lt;/<span class="name">phase</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">goal</span>&gt;</span>shade<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>使用 <code>mvn package</code> 打包时，就可以把所有依赖的jar都打包到一个jar里了。要运行只需要 <code>java -jar xxx.jar</code> 不用在classpath参数里写一大堆jar了，是不是很方便？</p>
 <p>shade插件还可以配置排除/包含某些jar包。</p>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2018/08/28/制作单个文件并可执行的jar/">https://blog.devmgr.cn/2018/08/28/制作单个文件并可执行的jar/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2018/08/28/制作单个文件并可执行的jar/">https://blog.devmgr.cn/2018/08/28/制作单个文件并可执行的jar/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
-          
-        
       
     </div>
 
     
-
     
     
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
+      <footer class="post-footer">
         <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
+      </footer>
   </article>
-
-
-    
-      
-
-  
-
   
   
   
 
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/08/06/使用activemq-发送接收消息的例子/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/08/06/使用activemq-发送接收消息的例子/" class="post-title-link" itemprop="url">使用ActiveMQ 发送接收消息的例子</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-08-06 19:05:37" itemprop="dateCreated datePublished" datetime="2018-08-06T19:05:37+08:00">2018-08-06</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>不用spring，仅仅jms和activeMQ</p>
-<h1 id="pom-xml"><a href="#pom-xml" class="headerlink" title="pom.xml"></a>pom.xml</h1><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/POM/4.0.0"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>cn.devmgr.activemqlistener<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>activemq-listener<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.jms<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jms<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.activemq<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>activemq-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.7.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="发送端-JmsMessageSender-java"><a href="#发送端-JmsMessageSender-java" class="headerlink" title="发送端 JmsMessageSender.java"></a>发送端 JmsMessageSender.java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.devmgr.activemqlistener;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.activemq.ActiveMQConnectionFactory;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.jms.Connection;</span><br><span class="line"><span class="keyword">import</span> javax.jms.ConnectionFactory;</span><br><span class="line"><span class="keyword">import</span> javax.jms.Message;</span><br><span class="line"><span class="keyword">import</span> javax.jms.MessageProducer;</span><br><span class="line"><span class="keyword">import</span> javax.jms.Queue;</span><br><span class="line"><span class="keyword">import</span> javax.jms.Session;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JmsMessageSender</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] argvs)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        ConnectionFactory connectionFactory = <span class="keyword">new</span> ActiveMQConnectionFactory(<span class="string">"tcp://localhost:61616"</span>);</span><br><span class="line">        Connection connection = connectionFactory.createConnection();</span><br><span class="line">        Session session = connection.createSession(<span class="keyword">false</span>, Session.AUTO_ACKNOWLEDGE);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 消息生产者；发送消息</span></span><br><span class="line">        Queue queue = session.createQueue(<span class="string">"print-queue"</span>);</span><br><span class="line">        String payload = <span class="string">"需要打印了"</span>;</span><br><span class="line">        Message msg = session.createTextMessage(payload);</span><br><span class="line">        MessageProducer producer = session.createProducer(queue);</span><br><span class="line">        System.out.println(<span class="string">"Sending text '"</span> + payload + <span class="string">"'"</span>);</span><br><span class="line">        producer.send(msg);</span><br><span class="line"></span><br><span class="line">        session.close();</span><br><span class="line">        connection.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="接收端-JmsMessageReceiver-java"><a href="#接收端-JmsMessageReceiver-java" class="headerlink" title="接收端 JmsMessageReceiver.java"></a>接收端 JmsMessageReceiver.java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.devmgr.activemqlistener;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.activemq.ActiveMQConnectionFactory;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.jms.Connection;</span><br><span class="line"><span class="keyword">import</span> javax.jms.ConnectionFactory;</span><br><span class="line"><span class="keyword">import</span> javax.jms.JMSException;</span><br><span class="line"><span class="keyword">import</span> javax.jms.Message;</span><br><span class="line"><span class="keyword">import</span> javax.jms.MessageConsumer;</span><br><span class="line"><span class="keyword">import</span> javax.jms.Queue;</span><br><span class="line"><span class="keyword">import</span> javax.jms.Session;</span><br><span class="line"><span class="keyword">import</span> javax.jms.TextMessage;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JmsMessageReceiver</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] argvs)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        ConnectionFactory connectionFactory = <span class="keyword">new</span> ActiveMQConnectionFactory(<span class="string">"tcp://localhost:61616"</span>);</span><br><span class="line">        Connection connection = connectionFactory.createConnection();</span><br><span class="line">        Session session = connection.createSession(<span class="keyword">false</span>, Session.AUTO_ACKNOWLEDGE);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 消息消费者： 接收消息</span></span><br><span class="line">        Queue queue = session.createQueue(<span class="string">"print-queue"</span>);</span><br><span class="line">        MessageConsumer consumer = session.createConsumer(queue);</span><br><span class="line">        consumer.setMessageListener(<span class="keyword">new</span> ConsumerMessageListener(<span class="string">"print-queue"</span>));</span><br><span class="line">        connection.start();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//60秒后退出</span></span><br><span class="line">        Thread.sleep(<span class="number">60000</span>);</span><br><span class="line">        session.close();</span><br><span class="line"></span><br><span class="line">        connection.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">ConsumerMessageListener</span> <span class="keyword">implements</span> <span class="title">javax</span>.<span class="title">jms</span>.<span class="title">MessageListener</span> </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> String consumerName;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">ConsumerMessageListener</span><span class="params">(String consumerName)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.consumerName = consumerName;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onMessage</span><span class="params">(Message message)</span> </span>&#123;</span><br><span class="line">            TextMessage textMessage = (TextMessage) message;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                System.out.println(consumerName + <span class="string">" received "</span> + textMessage.getText());</span><br><span class="line">            &#125; <span class="keyword">catch</span> (JMSException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2018/08/06/使用activemq-发送接收消息的例子/">https://blog.devmgr.cn/2018/08/06/使用activemq-发送接收消息的例子/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/08/06/用poi导出excel格式数据/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/08/06/用poi导出excel格式数据/" class="post-title-link" itemprop="url">用POI导出excel格式数据</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-08-06 14:42:15" itemprop="dateCreated datePublished" datetime="2018-08-06T14:42:15+08:00">2018-08-06</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="pom文件增加依赖"><a href="#pom文件增加依赖" class="headerlink" title="pom文件增加依赖"></a>pom文件增加依赖</h1><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.poi<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>poi<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.17<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.poi<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>poi-ooxml<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.17<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="做一个excel模板文件放到src-main-resources目录下"><a href="#做一个excel模板文件放到src-main-resources目录下" class="headerlink" title="做一个excel模板文件放到src/main/resources目录下"></a>做一个excel模板文件放到src/main/resources目录下</h1><p>最好再建个子目录，这样资源更方便管理。</p>
-<p>使用模板调格式会方便很多（宽度、字体、数字格式等等，节省代码，容易修改）</p>
-<h1 id="数据导出"><a href="#数据导出" class="headerlink" title="数据导出"></a>数据导出</h1><p>下面的例子是写在spring controller内的，如果不是controler，需要变化的只有只有最后返回的部分。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="meta">@GetMapping</span>(<span class="string">"/export"</span>)</span><br><span class="line"><span class="keyword">public</span> ResponseEntity&lt;<span class="keyword">byte</span>[]&gt; exportExcel() <span class="keyword">throws</span> Exception&#123;</span><br><span class="line">    logger.trace(<span class="string">"exportExcel"</span>);</span><br><span class="line">    HttpHeaders responseHeaders = <span class="keyword">new</span> HttpHeaders();</span><br><span class="line">    responseHeaders.setContentDispositionFormData(<span class="string">"attachment"</span>,<span class="keyword">new</span> String(<span class="string">"导出的文件名.xlsx"</span>.getBytes(), <span class="string">"ISO8859-1"</span>));</span><br><span class="line">    responseHeaders.setContentType(MediaType.APPLICATION_OCTET_STREAM);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//中文文件名需要用iso8859-1编码</span></span><br><span class="line">    InputStream templateIs = <span class="keyword">this</span>.getClass().getResourceAsStream(<span class="string">"/excel-templates/templet.xlsx"</span>);</span><br><span class="line">    XSSFWorkbook workbook = <span class="keyword">new</span> XSSFWorkbook(templateIs);</span><br><span class="line">    XSSFSheet sheet = workbook.getSheetAt(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    List&lt;SampleItem&gt; list = getDataList();</span><br><span class="line"></span><br><span class="line">    CellStyle cellStyle = workbook.createCellStyle();</span><br><span class="line">    CreationHelper createHelper = workbook.getCreationHelper();</span><br><span class="line">    cellStyle.setDataFormat(createHelper.createDataFormat().getFormat(<span class="string">"yyyy/mm/dd"</span>));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;list.size(); i++) &#123;</span><br><span class="line">        SampleItem si = list.get(i);</span><br><span class="line"></span><br><span class="line">        XSSFRow row = sheet.createRow(i + <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">        Cell cell1 = row.createCell(<span class="number">0</span>);</span><br><span class="line">        cell1.setCellValue(si.getDate());</span><br><span class="line">        cell1.setCellStyle(cellStyle);</span><br><span class="line"></span><br><span class="line">        Cell cell2 = row.createCell(<span class="number">1</span>);</span><br><span class="line">        cell2.setCellValue(si.getName());</span><br><span class="line"></span><br><span class="line">        Cell cell3 = row.createCell(<span class="number">2</span>);</span><br><span class="line">        cell3.setCellValue(si.getScore());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ByteArrayOutputStream bos = <span class="keyword">new</span> ByteArrayOutputStream();</span><br><span class="line">    workbook.write(bos);</span><br><span class="line">    workbook.close();</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ResponseEntity&lt;<span class="keyword">byte</span>[]&gt;(bos.toByteArray(), responseHeaders, HttpStatus.OK);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2018/08/06/用poi导出excel格式数据/">https://blog.devmgr.cn/2018/08/06/用poi导出excel格式数据/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-  </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1789,442 +935,107 @@ Date: Tue, 04 Sep 2018 05:46:48 GMT</code></pre><p>之后websocket连接就建�
           </div>
           
 
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-            
-              <img class="site-author-image" itemprop="image" src="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4" alt="GeXiangDong">
-            
-              <p class="site-author-name" itemprop="name">GeXiangDong</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          
-            <nav class="site-state motion-element">
-              
-                <div class="site-state-item site-state-posts">
-                
-                  <a href="/archives/">
-                
-                    <span class="site-state-item-count">89</span>
-                    <span class="site-state-item-name">日志</span>
-                  </a>
-                </div>
-              
-
-              
-
-              
-                
-                
-                <div class="site-state-item site-state-tags">
-                  <a href="/tags/index.html">
-                    
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">121</span>
-                    <span class="site-state-item-name">标签</span>
-                  </a>
-                </div>
-              
-            </nav>
-          
-
-          
-
-          
-            <div class="links-of-author motion-element">
-              
-                <span class="links-of-author-item">
-                  
-                  
-                    
-                  
-                  
-                    
-                  
-                  <a href="https://github.com/gexiangdong" title="GitHub &rarr; https://github.com/gexiangdong" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
-                </span>
-              
-                <span class="links-of-author-item">
-                  
-                  
-                    
-                  
-                  
-                    
-                  
-                  <a href="https://study.163.com/instructor/1137185922.htm" title="老葛课堂 &rarr; https://study.163.com/instructor/1137185922.htm" rel="noopener" target="_blank"><i class="fa fa-fw fa-video-camera"></i>老葛课堂</a>
-                </span>
-              
-            </div>
-          
-
-          
-
-          
-          
-            <div class="links-of-blogroll motion-element links-of-blogroll-block">
-              <div class="links-of-blogroll-title">
-                <i class="fa  fa-fw fa-link"></i>
-                Links
-              </div>
-              <ul class="links-of-blogroll-list">
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://gist.github.com/gexiangdong" title="https://gist.github.com/gexiangdong" rel="noopener" target="_blank">Gist</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://blog.devmgr.cn/front-end-vue/" title="https://blog.devmgr.cn/front-end-vue/">前端工程化入门：VUE的实践</a>
-                  </li>
-                
-              </ul>
-            </div>
-          
-
-          
-            
-          
-          
-        </div>
-      </div>
-
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
-  <span class="with-love" id="animate">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">GeXiangDong</span>
-
-  
-
-  
-</div>
-
-
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v6.7.0</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-    
-
-    
-  </div>
-
-  
-
 <script>
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">GeXiangDong</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">91</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">122</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">GeXiangDong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
 
 
 
@@ -2233,94 +1044,43 @@ Date: Tue, 04 Sep 2018 05:46:48 GMT</code></pre><p>之后websocket连接就建�
 
 
 
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
 
 
+<script src="/js/schemes/muse.js"></script>
 
 
-
-
-
-
-
-
-
-
-
+<script src="/js/next-boot.js"></script>
 
 
 
 
   
-  <script src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-
-  
-
-
-  <script src="/js/src/utils.js?v=6.7.0"></script>
-
-  <script src="/js/src/motion.js?v=6.7.0"></script>
-
-
-
-  
-  
-
-
-  <script src="/js/src/affix.js?v=6.7.0"></script>
-
-  <script src="/js/src/schemes/pisces.js?v=6.7.0"></script>
-
-
-
-
-  
-
-  
-
-
-  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
-
-
-
-  
-
-
-
-
-  
 
 
 
 
 
-  
 
-  
 
-  
 
-  
 
-  
 
-  
 
-  
 
-  
 
-  
 
-  
-
-  
 
   
 

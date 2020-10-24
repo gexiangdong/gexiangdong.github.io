@@ -1,129 +1,49 @@
 <!DOCTYPE html>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-<html class="theme-next gemini use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.8.0">
+<html lang="zh-CN">
+<head>
   <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-
-
-
-
-
-  <meta http-equiv="Cache-Control" content="no-transform">
-  <meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
-
-<link rel="stylesheet" href="/css/main.css?v=6.7.0">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.7.0">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.7.0">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.7.0">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=6.7.0" color="#222">
-
-
-
-
-
-
-
-<script id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '6.7.0',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: false,
-    fastclick: false,
-    lazyload: false,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
-
-
-  
-
-
-
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.devmgr.cn","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
 
   <meta name="description" content="PostgreSQL里有两种特殊的字段类型，数组和JSON，这2个字段在处理一些数据类型时会非常方便。不用多建表还能方便的查询其中内容。 数组数据中的多对多，我们之前一般需要建一个映射表来处理；或者是在某方建一个比较长的字段（例如text类型）然后用某种分隔符（例如逗号）保存数据。 一对多如果在在「一」方保存「多」的信息，也只能类似多对多的处理方式。 有了数组类型，就可以直接建个数组字段保存这些值">
-<meta name="keywords" content="postgresql,数据库">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PostgreSQL的数组和JSON字段">
-<meta property="og:url" content="https://blog.devmgr.cn/2020/02/23/postgresql的数组和json字段/index.html">
+<meta property="og:url" content="https://blog.devmgr.cn/2020/02/23/postgresql%E7%9A%84%E6%95%B0%E7%BB%84%E5%92%8Cjson%E5%AD%97%E6%AE%B5/index.html">
 <meta property="og:site_name" content="GeXiangDong">
 <meta property="og:description" content="PostgreSQL里有两种特殊的字段类型，数组和JSON，这2个字段在处理一些数据类型时会非常方便。不用多建表还能方便的查询其中内容。 数组数据中的多对多，我们之前一般需要建一个映射表来处理；或者是在某方建一个比较长的字段（例如text类型）然后用某种分隔符（例如逗号）保存数据。 一对多如果在在「一」方保存「多」的信息，也只能类似多对多的处理方式。 有了数组类型，就可以直接建个数组字段保存这些值">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-02-23T02:53:18.618Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-02-23T02:21:41.000Z">
+<meta property="article:modified_time" content="2020-02-23T02:53:18.000Z">
+<meta property="article:author" content="GeXiangDong">
+<meta property="article:tag" content="postgresql">
+<meta property="article:tag" content="数据库">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="PostgreSQL的数组和JSON字段">
-<meta name="twitter:description" content="PostgreSQL里有两种特殊的字段类型，数组和JSON，这2个字段在处理一些数据类型时会非常方便。不用多建表还能方便的查询其中内容。 数组数据中的多对多，我们之前一般需要建一个映射表来处理；或者是在某方建一个比较长的字段（例如text类型）然后用某种分隔符（例如逗号）保存数据。 一对多如果在在「一」方保存「多」的信息，也只能类似多对多的处理方式。 有了数组类型，就可以直接建个数组字段保存这些值">
+
+<link rel="canonical" href="https://blog.devmgr.cn/2020/02/23/postgresql%E7%9A%84%E6%95%B0%E7%BB%84%E5%92%8Cjson%E5%AD%97%E6%AE%B5/">
 
 
-
-
-
-
-  <link rel="canonical" href="https://blog.devmgr.cn/2020/02/23/postgresql的数组和json字段/">
-
-
-
-<script id="page.configurations">
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
   };
 </script>
 
@@ -135,15 +55,8 @@
 
 
 
-
-
-
-
-
-
   <noscript>
   <style>
-  .use-motion .motion-element,
   .use-motion .brand,
   .use-motion .menu-item,
   .sidebar-inner,
@@ -152,9 +65,8 @@
   .use-motion .comments,
   .use-motion .post-header,
   .use-motion .post-body,
-  .use-motion .collection-title { opacity: initial; }
+  .use-motion .collection-header { opacity: initial; }
 
-  .use-motion .logo,
   .use-motion .site-title,
   .use-motion .site-subtitle {
     opacity: initial;
@@ -168,225 +80,115 @@
 
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">GeXiangDong</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
-    
-      
-        <h1 class="site-subtitle" itemprop="description">精通Java、SQL、Spring的拼写，擅长Linux、Windows的开关机</h1>
-      
-    
-    
   </div>
 
-  <div class="site-nav-toggle">
-    <button aria-label="切换导航栏">
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">GeXiangDong</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">精通Java、SQL、Spring的拼写，擅长Linux、Windows的开关机</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
 
 
+
 <nav class="site-nav">
-  
-    <ul id="menu" class="menu">
-      
-        
-        
-        
-          
-          <li class="menu-item menu-item-home">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
 
-    
-    
-    
-      
-    
-
-    
-
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
 
   </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-about">
+        <li class="menu-item menu-item-archives">
 
-    
-    
-    
-      
-    
-
-    
-
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-archives">
-
-    
-    
-    
-      
-    
-
-    
-
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
-
-  </li>
-
-      
-      
-    </ul>
-  
-
-  
-
-  
+  </ul>
 </nav>
 
 
-
-  
 
 
 </div>
     </header>
 
     
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
 
 
-    <main id="main" class="main">
+    <main class="main">
       <div class="main-inner">
         <div class="content-wrap">
           
+
+          <div class="content post posts-expand">
             
 
-          
-          <div id="content" class="content">
-            
-
-  <div id="posts" class="posts-expand">
     
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2020/02/23/postgresql%E7%9A%84%E6%95%B0%E7%BB%84%E5%92%8Cjson%E5%AD%97%E6%AE%B5/">
 
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2020/02/23/postgresql的数组和json字段/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="GeXiangDong">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="GeXiangDong">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">PostgreSQL的数组和JSON字段
-
-              
-            
-          </h2>
-        
+        <h1 class="post-title" itemprop="name headline">
+          PostgreSQL的数组和JSON字段
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
+              <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-02-23 10:21:41" itemprop="dateCreated datePublished" datetime="2020-02-23T10:21:41+08:00">2020-02-23</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
+              <time title="创建时间：2020-02-23 10:21:41 / 修改时间：10:53:18" itemprop="dateCreated datePublished" datetime="2020-02-23T10:21:41+08:00">2020-02-23</time>
+            </span>
 
           
 
         </div>
       </header>
-    
 
     
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
-      
 
       
         <p>PostgreSQL里有两种特殊的字段类型，数组和JSON，这2个字段在处理一些数据类型时会非常方便。不用多建表还能方便的查询其中内容。</p>
@@ -395,12 +197,10 @@
 <p>有了数组类型，就可以直接建个数组字段保存这些值了，很简单的实现了一对多。</p>
 <h2 id="数组字段的查询"><a href="#数组字段的查询" class="headerlink" title="数组字段的查询"></a>数组字段的查询</h2><p>例如，我们创建一个表，产品表，每个产品可以有多张图片，图片用数组字段</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> product(</span><br><span class="line">  <span class="keyword">id</span>      <span class="built_in">serial</span> primary <span class="keyword">key</span>,</span><br><span class="line">  <span class="keyword">name</span>  <span class="built_in">char</span>(<span class="number">50</span>)  <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">  imgs   <span class="built_in">varchar</span>(<span class="number">50</span>)  <span class="keyword">not</span> <span class="literal">null</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-
 <p>添加一条记录，有3张图p1.jpg, p2.jpg, p3.jpg</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> product(<span class="keyword">name</span>, imgs) </span><br><span class="line">   <span class="keyword">values</span>(<span class="string">'手机'</span>, <span class="string">'&#123;"p1.jpg", "p2.jpg", "p3.jpg"&#125;'</span>);</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> product(<span class="keyword">name</span>, imgs) </span><br><span class="line">   <span class="keyword">values</span>(<span class="string">&#x27;手机&#x27;</span>, <span class="string">&#x27;&#123;&quot;p1.jpg&quot;, &quot;p2.jpg&quot;, &quot;p3.jpg&quot;&#125;&#x27;</span>);</span><br></pre></td></tr></table></figure>
 <p>查询imgs字段包含 p1.jpg 的记录</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> product <span class="keyword">where</span> <span class="string">'p2.jpg'</span> = <span class="keyword">ANY</span>(imgs)</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> product <span class="keyword">where</span> <span class="string">&#x27;p2.jpg&#x27;</span> = <span class="keyword">ANY</span>(imgs)</span><br></pre></td></tr></table></figure>
 
 <h2 id="更多"><a href="#更多" class="headerlink" title="更多"></a>更多</h2><p>PostgreSQL 支持多维数组，而且是各种类型的数组、int[], timestamp[] 等等，不仅仅是字符串数组，多维数组形式例如： varchar(100)[][] </p>
 <h1 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h1><p>JSON字段用于保存更复杂的数据类型。</p>
@@ -414,549 +214,152 @@
 <p>根据这个特点，如果我们的JSON数据只是在程序中处理，可以选择json类型；如果需要PostgreSQL处理则选择jsonb更佳。</p>
 <h1 id="官方文档"><a href="#官方文档" class="headerlink" title="官方文档"></a>官方文档</h1><p>Postgresql 的官方文档做得非常好，更多信息看 </p>
 <ul>
-<li><a href="https://www.postgresql.org/docs/current/arrays.html" target="_blank" rel="noopener">https://www.postgresql.org/docs/current/arrays.html</a></li>
-<li><a href="https://www.postgresql.org/docs/current/datatype-json.html" target="_blank" rel="noopener">https://www.postgresql.org/docs/current/datatype-json.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.postgresql.org/docs/current/arrays.html">https://www.postgresql.org/docs/current/arrays.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.postgresql.org/docs/current/datatype-json.html">https://www.postgresql.org/docs/current/datatype-json.html</a></li>
 </ul>
-<p>PostgreSQL还有些其它很有意思的字段，例如：区间类型（日期区间、数值区间等）、复合类型、枚举类型、甚至点线多边形等几何图形等字段类型，而且对于这些类型都有相应的一些辅助运算函数的支持。<a href="https://www.postgresql.org/docs/current/datatype.html" target="_blank" rel="noopener">数据类型</a></p>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2020/02/23/postgresql的数组和json字段/">https://blog.devmgr.cn/2020/02/23/postgresql的数组和json字段/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
+<p>PostgreSQL还有些其它很有意思的字段，例如：区间类型（日期区间、数值区间等）、复合类型、枚举类型、甚至点线多边形等几何图形等字段类型，而且对于这些类型都有相应的一些辅助运算函数的支持。<a target="_blank" rel="noopener" href="https://www.postgresql.org/docs/current/datatype.html">数据类型</a></p>
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2020/02/23/postgresql的数组和json字段/">https://blog.devmgr.cn/2020/02/23/postgresql的数组和json字段/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
-      
     </div>
 
     
-
-    
-    
-    
-
-    
-
-    
-      
     
     
 
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/postgresql/" rel="tag"># postgresql</a>
-          
-            <a href="/tags/数据库/" rel="tag"># 数据库</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2020/02/16/spring-gateway-遇到异常unable-to-start-servletwebserverapplicationcontext-due-to-missing-servletwebserverfactory-bean-无法启动/" rel="next" title="Spring Gateway 遇到异常Unable to start ServletWebServerApplicationContext due to missing ServletWebServerFactory bean.无法启动">
-                <i class="fa fa-chevron-left"></i> Spring Gateway 遇到异常Unable to start ServletWebServerApplicationContext due to missing ServletWebServerFactory bean.无法启动
-              </a>
-            
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/postgresql/" rel="tag"># postgresql</a>
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag"># 数据库</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/03/16/spring-rest-docs-java-lang-illegalargumentexception-urltemplate-not-found-if-you-are-using-mockmvc-did-you-use-restdocumentationrequestbuilders-to-build-the-request/" rel="prev" title="Spring REST Docs java.lang.IllegalArgumentException: urlTemplate not found. If you are using MockMvc did you use RestDocumentationRequestBuilders to build the request?">
-                Spring REST Docs java.lang.IllegalArgumentException: urlTemplate not found. If you are using MockMvc did you use RestDocumentationRequestBuilders to build the request? <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/02/16/spring-gateway-%E9%81%87%E5%88%B0%E5%BC%82%E5%B8%B8unable-to-start-servletwebserverapplicationcontext-due-to-missing-servletwebserverfactory-bean-%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8/" rel="prev" title="Spring Gateway 遇到异常Unable to start ServletWebServerApplicationContext due to missing ServletWebServerFactory bean.无法启动">
+      <i class="fa fa-chevron-left"></i> Spring Gateway 遇到异常Unable to start ServletWebServerApplicationContext due to missing ServletWebServerFactory bean.无法启动
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/16/spring-rest-docs-java-lang-illegalargumentexception-urltemplate-not-found-if-you-are-using-mockmvc-did-you-use-restdocumentationrequestbuilders-to-build-the-request/" rel="next" title="Spring REST Docs java.lang.IllegalArgumentException: urlTemplate not found. If you are using MockMvc did you use RestDocumentationRequestBuilders to build the request?">
+      Spring REST Docs java.lang.IllegalArgumentException: urlTemplate not found. If you are using MockMvc did you use RestDocumentationRequestBuilders to build the request? <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
+  
+  
+  
 
-
-  </div>
 
 
           </div>
           
-
-  
-
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-            
-              <img class="site-author-image" itemprop="image" src="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4" alt="GeXiangDong">
-            
-              <p class="site-author-name" itemprop="name">GeXiangDong</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          
-            <nav class="site-state motion-element">
-              
-                <div class="site-state-item site-state-posts">
-                
-                  <a href="/archives/">
-                
-                    <span class="site-state-item-count">89</span>
-                    <span class="site-state-item-name">日志</span>
-                  </a>
-                </div>
-              
-
-              
-
-              
-                
-                
-                <div class="site-state-item site-state-tags">
-                  <a href="/tags/index.html">
-                    
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">121</span>
-                    <span class="site-state-item-name">标签</span>
-                  </a>
-                </div>
-              
-            </nav>
-          
-
-          
-
-          
-            <div class="links-of-author motion-element">
-              
-                <span class="links-of-author-item">
-                  
-                  
-                    
-                  
-                  
-                    
-                  
-                  <a href="https://github.com/gexiangdong" title="GitHub &rarr; https://github.com/gexiangdong" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
-                </span>
-              
-                <span class="links-of-author-item">
-                  
-                  
-                    
-                  
-                  
-                    
-                  
-                  <a href="https://study.163.com/instructor/1137185922.htm" title="老葛课堂 &rarr; https://study.163.com/instructor/1137185922.htm" rel="noopener" target="_blank"><i class="fa fa-fw fa-video-camera"></i>老葛课堂</a>
-                </span>
-              
-            </div>
-          
-
-          
-
-          
-          
-            <div class="links-of-blogroll motion-element links-of-blogroll-block">
-              <div class="links-of-blogroll-title">
-                <i class="fa  fa-fw fa-link"></i>
-                Links
-              </div>
-              <ul class="links-of-blogroll-list">
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://gist.github.com/gexiangdong" title="https://gist.github.com/gexiangdong" rel="noopener" target="_blank">Gist</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://blog.devmgr.cn/front-end-vue/" title="https://blog.devmgr.cn/front-end-vue/">前端工程化入门：VUE的实践</a>
-                  </li>
-                
-              </ul>
-            </div>
-          
-
-          
-            
-          
-          
-        </div>
-      </div>
-
-      
-      <!--noindex-->
-        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-            
-            
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数组"><span class="nav-number">1.</span> <span class="nav-text">数组</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数组字段的查询"><span class="nav-number">1.1.</span> <span class="nav-text">数组字段的查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更多"><span class="nav-number">1.2.</span> <span class="nav-text">更多</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JSON"><span class="nav-number">2.</span> <span class="nav-text">JSON</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#json-vs-jsonb"><span class="nav-number">2.1.</span> <span class="nav-text">json vs. jsonb</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#官方文档"><span class="nav-number">3.</span> <span class="nav-text">官方文档</span></a></li></ol></div>
-            
-
-          </div>
-        </div>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
-  <span class="with-love" id="animate">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">GeXiangDong</span>
-
-  
-
-  
-</div>
-
-
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v6.7.0</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-    
-
-    
-  </div>
-
-  
 
 <script>
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E7%BB%84"><span class="nav-number">1.</span> <span class="nav-text">数组</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E5%AD%97%E6%AE%B5%E7%9A%84%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.1.</span> <span class="nav-text">数组字段的查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9B%B4%E5%A4%9A"><span class="nav-number">1.2.</span> <span class="nav-text">更多</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JSON"><span class="nav-number">2.</span> <span class="nav-text">JSON</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#json-vs-jsonb"><span class="nav-number">2.1.</span> <span class="nav-text">json vs. jsonb</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3"><span class="nav-number">3.</span> <span class="nav-text">官方文档</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">GeXiangDong</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">91</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">122</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">GeXiangDong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
 
 
 
@@ -965,100 +368,43 @@
 
 
 
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
 
 
+<script src="/js/schemes/muse.js"></script>
 
 
-
-
-
-
-
-
-
-
-
+<script src="/js/next-boot.js"></script>
 
 
 
 
   
-  <script src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-
-  
-
-
-  <script src="/js/src/utils.js?v=6.7.0"></script>
-
-  <script src="/js/src/motion.js?v=6.7.0"></script>
-
-
-
-  
-  
-
-
-  <script src="/js/src/affix.js?v=6.7.0"></script>
-
-  <script src="/js/src/schemes/pisces.js?v=6.7.0"></script>
-
-
-
-
-  
-  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
-<script src="/js/src/post-details.js?v=6.7.0"></script>
-
-
-
-  
-
-
-  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
-
-
-
-  
-  
 
 
 
 
 
-  
 
 
 
 
 
-  
 
-  
 
-  
 
-  
 
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 
   
 

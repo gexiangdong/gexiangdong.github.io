@@ -1,129 +1,50 @@
 <!DOCTYPE html>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-<html class="theme-next gemini use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.8.0">
+<html lang="zh-CN">
+<head>
   <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.devmgr.cn","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
 
-
-
-
-
-  <meta http-equiv="Cache-Control" content="no-transform">
-  <meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
-
-<link rel="stylesheet" href="/css/main.css?v=6.7.0">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.7.0">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.7.0">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.7.0">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=6.7.0" color="#222">
-
-
-
-
-
-
-
-<script id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Gemini',
-    version: '6.7.0',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: false,
-    fastclick: false,
-    lazyload: false,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
-
-
-  
-
-
-
-
-  <meta name="description" content="在单页面应用中，为了利用浏览器的后退/前进按钮，可以通过改变地址栏为#foo 和 onhashchange 事件一起来控制。但这有个缺点：在一个树形网站结构中点来点去时，浏览器并不会按照我们需要的返回上一级，而只是返回前一个看的页面，特别是在提交表单后，点返回又到了表单页。 HTML5提供了一种解决办法，可以通过window.history.pushState等方法来实现。 下面是例子： 1234">
-<meta name="keywords" content="前端,HTML,javascript">
+  <meta name="description" content="在单页面应用中，为了利用浏览器的后退&#x2F;前进按钮，可以通过改变地址栏为#foo 和 onhashchange 事件一起来控制。但这有个缺点：在一个树形网站结构中点来点去时，浏览器并不会按照我们需要的返回上一级，而只是返回前一个看的页面，特别是在提交表单后，点返回又到了表单页。 HTML5提供了一种解决办法，可以通过window.history.pushState等方法来实现。 下面是例子： 1234">
 <meta property="og:type" content="article">
 <meta property="og:title" content="javascript 控制浏览器的前进后退操作">
-<meta property="og:url" content="https://blog.devmgr.cn/2016/09/30/javascript-控制浏览器的前进后退操作/index.html">
+<meta property="og:url" content="https://blog.devmgr.cn/2016/09/30/javascript-%E6%8E%A7%E5%88%B6%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E5%89%8D%E8%BF%9B%E5%90%8E%E9%80%80%E6%93%8D%E4%BD%9C/index.html">
 <meta property="og:site_name" content="GeXiangDong">
-<meta property="og:description" content="在单页面应用中，为了利用浏览器的后退/前进按钮，可以通过改变地址栏为#foo 和 onhashchange 事件一起来控制。但这有个缺点：在一个树形网站结构中点来点去时，浏览器并不会按照我们需要的返回上一级，而只是返回前一个看的页面，特别是在提交表单后，点返回又到了表单页。 HTML5提供了一种解决办法，可以通过window.history.pushState等方法来实现。 下面是例子： 1234">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-06-07T10:51:02.981Z">
+<meta property="og:description" content="在单页面应用中，为了利用浏览器的后退&#x2F;前进按钮，可以通过改变地址栏为#foo 和 onhashchange 事件一起来控制。但这有个缺点：在一个树形网站结构中点来点去时，浏览器并不会按照我们需要的返回上一级，而只是返回前一个看的页面，特别是在提交表单后，点返回又到了表单页。 HTML5提供了一种解决办法，可以通过window.history.pushState等方法来实现。 下面是例子： 1234">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2016-09-30T07:11:18.000Z">
+<meta property="article:modified_time" content="2019-06-07T10:51:02.000Z">
+<meta property="article:author" content="GeXiangDong">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="HTML">
+<meta property="article:tag" content="javascript">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="javascript 控制浏览器的前进后退操作">
-<meta name="twitter:description" content="在单页面应用中，为了利用浏览器的后退/前进按钮，可以通过改变地址栏为#foo 和 onhashchange 事件一起来控制。但这有个缺点：在一个树形网站结构中点来点去时，浏览器并不会按照我们需要的返回上一级，而只是返回前一个看的页面，特别是在提交表单后，点返回又到了表单页。 HTML5提供了一种解决办法，可以通过window.history.pushState等方法来实现。 下面是例子： 1234">
+
+<link rel="canonical" href="https://blog.devmgr.cn/2016/09/30/javascript-%E6%8E%A7%E5%88%B6%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E5%89%8D%E8%BF%9B%E5%90%8E%E9%80%80%E6%93%8D%E4%BD%9C/">
 
 
-
-
-
-
-  <link rel="canonical" href="https://blog.devmgr.cn/2016/09/30/javascript-控制浏览器的前进后退操作/">
-
-
-
-<script id="page.configurations">
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
   };
 </script>
 
@@ -135,15 +56,8 @@
 
 
 
-
-
-
-
-
-
   <noscript>
   <style>
-  .use-motion .motion-element,
   .use-motion .brand,
   .use-motion .menu-item,
   .sidebar-inner,
@@ -152,9 +66,8 @@
   .use-motion .comments,
   .use-motion .post-header,
   .use-motion .post-body,
-  .use-motion .collection-title { opacity: initial; }
+  .use-motion .collection-header { opacity: initial; }
 
-  .use-motion .logo,
   .use-motion .site-title,
   .use-motion .site-subtitle {
     opacity: initial;
@@ -168,217 +81,116 @@
 
 </head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">GeXiangDong</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
-    
-      
-        <h1 class="site-subtitle" itemprop="description">精通Java、SQL、Spring的拼写，擅长Linux、Windows的开关机</h1>
-      
-    
-    
   </div>
 
-  <div class="site-nav-toggle">
-    <button aria-label="切换导航栏">
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">GeXiangDong</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">精通Java、SQL、Spring的拼写，擅长Linux、Windows的开关机</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
 
 
+
 <nav class="site-nav">
-  
-    <ul id="menu" class="menu">
-      
-        
-        
-        
-          
-          <li class="menu-item menu-item-home">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
 
-    
-    
-    
-      
-    
-
-    
-
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
 
   </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-about">
+        <li class="menu-item menu-item-archives">
 
-    
-    
-    
-      
-    
-
-    
-
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-archives">
-
-    
-    
-    
-      
-    
-
-    
-
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
-
-  </li>
-
-      
-      
-    </ul>
-  
-
-  
-
-  
+  </ul>
 </nav>
 
 
-
-  
 
 
 </div>
     </header>
 
     
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
 
 
-    <main id="main" class="main">
+    <main class="main">
       <div class="main-inner">
         <div class="content-wrap">
           
+
+          <div class="content post posts-expand">
             
 
-          
-          <div id="content" class="content">
-            
-
-  <div id="posts" class="posts-expand">
     
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2016/09/30/javascript-%E6%8E%A7%E5%88%B6%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E5%89%8D%E8%BF%9B%E5%90%8E%E9%80%80%E6%93%8D%E4%BD%9C/">
 
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2016/09/30/javascript-控制浏览器的前进后退操作/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="GeXiangDong">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="GeXiangDong">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">javascript 控制浏览器的前进后退操作
-
-              
-            
-          </h2>
-        
+        <h1 class="post-title" itemprop="name headline">
+          javascript 控制浏览器的前进后退操作
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
+              <span class="post-meta-item-text">发表于</span>
 
               <time title="创建时间：2016-09-30 15:11:18" itemprop="dateCreated datePublished" datetime="2016-09-30T15:11:18+08:00">2016-09-30</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-06-07 18:51:02" itemprop="dateModified" datetime="2019-06-07T18:51:02+08:00">2019-06-07</time>
+              </span>
 
           
 
         </div>
       </header>
-    
 
     
     
@@ -386,530 +198,154 @@
     <div class="post-body" itemprop="articleBody">
 
       
-      
-
-      
         <p>在单页面应用中，为了利用浏览器的后退/前进按钮，可以通过改变地址栏为#foo 和 onhashchange 事件一起来控制。但这有个缺点：在一个树形网站结构中点来点去时，浏览器并不会按照我们需要的返回上一级，而只是返回前一个看的页面，特别是在提交表单后，点返回又到了表单页。</p>
 <p>HTML5提供了一种解决办法，可以通过window.history.pushState等方法来实现。</p>
 <p>下面是例子：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Content-Type"</span> <span class="attr">content</span>=<span class="string">"text/html; charset=utf-8"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span>  <span class="attr">content</span>=<span class="string">"width=device-width"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">    #content div&#123;text-align:center; padding-top:20px;&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">    var visitHistory = [];</span></span><br><span class="line"><span class="undefined">    var currentPage = null;</span></span><br><span class="line"><span class="undefined"> </span></span><br><span class="line"><span class="undefined">    window.onload = function() &#123;</span></span><br><span class="line"><span class="undefined">        var homePage = &#123;"id":"index", params:&#123;&#125;&#125;; //id是主要部分，不同类型页面不重复；params用于记录页面需要的参数，方面返回时重新描画页面用</span></span><br><span class="line"><span class="undefined">        window.history.pushState(visitHistory, homePage, "#");</span></span><br><span class="line"><span class="undefined">        gotoPage(homePage);</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"> </span></span><br><span class="line"><span class="undefined">    function gotoPage(page)&#123;</span></span><br><span class="line"><span class="undefined">        for(var i = 0; i &lt; visitHistory.length; i++)&#123;</span></span><br><span class="line"><span class="undefined">            if(visitHistory[i].id == page.id)&#123;</span></span><br><span class="line"><span class="undefined">                //exists, delete items after this</span></span><br><span class="line"><span class="undefined">                while(visitHistory.length &gt; i)&#123;</span></span><br><span class="line"><span class="undefined">                    visitHistory.pop();</span></span><br><span class="line"><span class="undefined">                &#125;</span></span><br><span class="line"><span class="undefined">                currentPage = null; //如果进入已存路径上页面，则当前页面不用保存了</span></span><br><span class="line"><span class="undefined">                break;</span></span><br><span class="line"><span class="undefined">            &#125;</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined"> </span></span><br><span class="line"><span class="undefined">        if(currentPage != null)&#123;</span></span><br><span class="line"><span class="undefined">            visitHistory.push(currentPage);</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">        currentPage = page;</span></span><br><span class="line"><span class="undefined"> </span></span><br><span class="line"><span class="undefined">        window.history.replaceState(visitHistory, page.id, "#");</span></span><br><span class="line"><span class="undefined">        showPage(page);</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"> </span></span><br><span class="line"><span class="undefined">    window.onpopstate = function() &#123;</span></span><br><span class="line"><span class="undefined">        if (visitHistory.length &gt; 0) &#123;</span></span><br><span class="line"><span class="undefined">            currentPage = visitHistory.pop();</span></span><br><span class="line"><span class="undefined">            window.history.pushState(visitHistory, currentPage.id, "#"); // + pg);</span></span><br><span class="line"><span class="undefined">            showPage(currentPage);</span></span><br><span class="line"><span class="undefined">        &#125; else &#123;</span></span><br><span class="line"><span class="undefined">            //No "history" - let them exit or keep them in the app.</span></span><br><span class="line"><span class="undefined">            showMessage("no history, exit or leave with no action.");</span></span><br><span class="line"><span class="undefined"> </span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"> </span></span><br><span class="line"><span class="undefined">    /**</span></span><br><span class="line"><span class="undefined">     * 这个是具体的描画页面的函数，根据需要改写</span></span><br><span class="line"><span class="undefined">     * page参数类型时JSON，例如：&#123;"id":"index", params:&#123;&#125;&#125;</span></span><br><span class="line"><span class="undefined">     */</span></span><br><span class="line"><span class="undefined">    function showPage(page)&#123;</span></span><br><span class="line"><span class="undefined">        var id = page.id;</span></span><br><span class="line"><span class="undefined">        document.getElementById("title").innerHTML = id;</span></span><br><span class="line"><span class="xml">        var pathHTML = '<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"javascript:gotoPageId(\'index\')"</span>&gt;</span>Home<span class="tag">&lt;/<span class="name">a</span>&gt;</span> &amp;gt; ';</span></span><br><span class="line"><span class="xml">        var contentHTML = '<span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"border:1px solid #999;background-color:#DDD;width:200px;height:50px;border-radius:5px;"</span> <span class="attr">onclick</span>=<span class="string">"gotoPageId(\'1\');"</span>&gt;</span>goto 1<span class="tag">&lt;/<span class="name">div</span>&gt;</span>';</span></span><br><span class="line"><span class="undefined"> </span></span><br><span class="line"><span class="undefined">        if(id == "1")&#123;</span></span><br><span class="line"><span class="xml">            pathHTML += '<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"javascript:gotoPageId(\'1\')"</span>&gt;</span>1<span class="tag">&lt;/<span class="name">a</span>&gt;</span>  ';</span></span><br><span class="line"><span class="xml">            contentHTML = '<span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"border:1px solid #999;background-color:#DDD;width:200px;height:50px;border-radius:5px;"</span> <span class="attr">onclick</span>=<span class="string">"gotoPageId(\'1.1\');"</span>&gt;</span>goto 1.1<span class="tag">&lt;/<span class="name">div</span>&gt;</span>';</span></span><br><span class="line"><span class="undefined">        &#125;else if(id == '1.1')&#123;</span></span><br><span class="line"><span class="xml">            pathHTML += '<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"javascript:gotoPageId(\'1\')"</span>&gt;</span>1<span class="tag">&lt;/<span class="name">a</span>&gt;</span> &amp;gt; ';</span></span><br><span class="line"><span class="xml">            pathHTML += '<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"javascript:gotoPageId(\'1.1\')"</span>&gt;</span>1.1<span class="tag">&lt;/<span class="name">a</span>&gt;</span>  ';</span></span><br><span class="line"><span class="xml">            contentHTML = '<span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"border:1px solid #999;background-color:#DDD;width:200px;height:50px;border-radius:5px;"</span> <span class="attr">onclick</span>=<span class="string">"gotoPageId(\'1.1.1\');"</span>&gt;</span>goto 1.1.1<span class="tag">&lt;/<span class="name">div</span>&gt;</span>';</span></span><br><span class="line"><span class="undefined">        &#125;else if(id == '1.1.1')&#123;</span></span><br><span class="line"><span class="xml">            pathHTML += '<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"javascript:gotoPageId(\'1\')"</span>&gt;</span>1<span class="tag">&lt;/<span class="name">a</span>&gt;</span> &amp;gt; ';</span></span><br><span class="line"><span class="xml">            pathHTML += '<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"javascript:gotoPageId(\'1.1\')"</span>&gt;</span>1.1<span class="tag">&lt;/<span class="name">a</span>&gt;</span> &amp;gt; ';</span></span><br><span class="line"><span class="xml">            pathHTML += '<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"javascript:gotoPageId(\'1.1.1\')"</span>&gt;</span>1.1.1<span class="tag">&lt;/<span class="name">a</span>&gt;</span>  ';</span></span><br><span class="line"><span class="undefined">            contentHTML = 'no child page.';</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined"> </span></span><br><span class="line"><span class="undefined">        document.getElementById("path").innerHTML = pathHTML;</span></span><br><span class="line"><span class="undefined">        document.getElementById("content").innerHTML = contentHTML;</span></span><br><span class="line"><span class="undefined"> </span></span><br><span class="line"><span class="undefined">        showMessage("showPage---" + id);</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"> </span></span><br><span class="line"><span class="undefined">    /**</span></span><br><span class="line"><span class="undefined">     * 这个函数是供showPage函数例子中链接用的，实际根据需要写或不写</span></span><br><span class="line"><span class="undefined">     */</span></span><br><span class="line"><span class="undefined">    function gotoPageId(id)&#123;</span></span><br><span class="line"><span class="undefined">        gotoPage(&#123;"id":id, "params":&#123;&#125;&#125;);</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">    /**</span></span><br><span class="line"><span class="undefined">     * window.history.pushState 不会触发onHashChange事件了，下面这个函数/事件无意义</span></span><br><span class="line"><span class="undefined">     */</span></span><br><span class="line"><span class="undefined">    window.onhashchange = function()&#123;</span></span><br><span class="line"><span class="undefined">        document.getElementById("addressbar").innerHTML = "hashchange:" + window.location.href;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">    /**</span></span><br><span class="line"><span class="undefined">     * 供测试用的函数</span></span><br><span class="line"><span class="undefined">     */</span></span><br><span class="line"><span class="undefined">    function showMessage(msg)&#123;</span></span><br><span class="line"><span class="xml">        document.getElementById("msg").innerHTML += "<span class="tag">&lt;<span class="name">br</span>&gt;</span>" + msg;</span></span><br><span class="line"><span class="undefined">    &#125;  </span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span> <span class="attr">id</span>=<span class="string">"title"</span> <span class="attr">style</span>=<span class="string">"text-align:center;"</span>&gt;</span>none<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"path"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"> </span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"content"</span> <span class="attr">style</span>=<span class="string">"padding:20px;"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"> </span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"msg"</span> <span class="attr">style</span>=<span class="string">"border:1px solid #333;margin:10px; min-height:300px"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"addressbar"</span> <span class="attr">style</span>=<span class="string">"border:1px solid #666"</span>&gt;</span>none<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;Content-Type&quot;</span> <span class="attr">content</span>=<span class="string">&quot;text/html; charset=utf-8&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span>  <span class="attr">content</span>=<span class="string">&quot;width=device-width&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span>&gt;</span></span><br><span class="line"><span class="css">    <span class="selector-id">#content</span> <span class="selector-tag">div</span>&#123;<span class="attribute">text-align</span>:center; <span class="attribute">padding-top</span>:<span class="number">20px</span>;&#125;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> visitHistory = [];</span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> currentPage = <span class="literal">null</span>;</span></span><br><span class="line"> </span><br><span class="line"><span class="javascript">    <span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> homePage = &#123;<span class="string">&quot;id&quot;</span>:<span class="string">&quot;index&quot;</span>, <span class="attr">params</span>:&#123;&#125;&#125;; <span class="comment">//id是主要部分，不同类型页面不重复；params用于记录页面需要的参数，方面返回时重新描画页面用</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">window</span>.history.pushState(visitHistory, homePage, <span class="string">&quot;#&quot;</span>);</span></span><br><span class="line">        gotoPage(homePage);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line"><span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">gotoPage</span>(<span class="params">page</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="title">for</span>(<span class="params"><span class="keyword">var</span> i = <span class="number">0</span>; i &lt; visitHistory.length; i++</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="function"><span class="title">if</span>(<span class="params">visitHistory[i].id == page.id</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">                <span class="comment">//exists, delete items after this</span></span></span><br><span class="line"><span class="javascript">                <span class="function"><span class="title">while</span>(<span class="params">visitHistory.length &gt; i</span>)</span>&#123;</span></span><br><span class="line">                    visitHistory.pop();</span><br><span class="line">                &#125;</span><br><span class="line"><span class="javascript">                currentPage = <span class="literal">null</span>; <span class="comment">//如果进入已存路径上页面，则当前页面不用保存了</span></span></span><br><span class="line"><span class="javascript">                <span class="keyword">break</span>;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line"><span class="javascript">        <span class="function"><span class="title">if</span>(<span class="params">currentPage != <span class="literal">null</span></span>)</span>&#123;</span></span><br><span class="line">            visitHistory.push(currentPage);</span><br><span class="line">        &#125;</span><br><span class="line">        currentPage = page;</span><br><span class="line"> </span><br><span class="line"><span class="javascript">        <span class="built_in">window</span>.history.replaceState(visitHistory, page.id, <span class="string">&quot;#&quot;</span>);</span></span><br><span class="line">        showPage(page);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line"><span class="javascript">    <span class="built_in">window</span>.onpopstate = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line">        if (visitHistory.length &gt; 0) &#123;</span><br><span class="line">            currentPage = visitHistory.pop();</span><br><span class="line"><span class="javascript">            <span class="built_in">window</span>.history.pushState(visitHistory, currentPage.id, <span class="string">&quot;#&quot;</span>); <span class="comment">// + pg);</span></span></span><br><span class="line">            showPage(currentPage);</span><br><span class="line"><span class="javascript">        &#125; <span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="javascript">            <span class="comment">//No &quot;history&quot; - let them exit or keep them in the app.</span></span></span><br><span class="line"><span class="javascript">            showMessage(<span class="string">&quot;no history, exit or leave with no action.&quot;</span>);</span></span><br><span class="line"> </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    /**</span><br><span class="line">     * 这个是具体的描画页面的函数，根据需要改写</span><br><span class="line"><span class="javascript">     * page参数类型时<span class="built_in">JSON</span>，例如：&#123;<span class="string">&quot;id&quot;</span>:<span class="string">&quot;index&quot;</span>, <span class="attr">params</span>:&#123;&#125;&#125;</span></span><br><span class="line">     */</span><br><span class="line"><span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">showPage</span>(<span class="params">page</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> id = page.id;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">document</span>.getElementById(<span class="string">&quot;title&quot;</span>).innerHTML = id;</span></span><br><span class="line"><span class="handlebars"><span class="xml">        var pathHTML = &#x27;<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;javascript:gotoPageId(\&#x27;index\&#x27;)&quot;</span>&gt;</span>Home<span class="tag">&lt;/<span class="name">a</span>&gt;</span> <span class="symbol">&amp;gt;</span> &#x27;;</span></span></span><br><span class="line"><span class="handlebars"><span class="xml">        var contentHTML = &#x27;<span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;border:1px solid #999;background-color:#DDD;width:200px;height:50px;border-radius:5px;&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;gotoPageId(\&#x27;1\&#x27;);&quot;</span>&gt;</span>goto 1<span class="tag">&lt;/<span class="name">div</span>&gt;</span>&#x27;;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="javascript">        <span class="function"><span class="title">if</span>(<span class="params">id == <span class="string">&quot;1&quot;</span></span>)</span>&#123;</span></span><br><span class="line"><span class="handlebars"><span class="xml">            pathHTML += &#x27;<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;javascript:gotoPageId(\&#x27;1\&#x27;)&quot;</span>&gt;</span>1<span class="tag">&lt;/<span class="name">a</span>&gt;</span>  &#x27;;</span></span></span><br><span class="line"><span class="handlebars"><span class="xml">            contentHTML = &#x27;<span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;border:1px solid #999;background-color:#DDD;width:200px;height:50px;border-radius:5px;&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;gotoPageId(\&#x27;1.1\&#x27;);&quot;</span>&gt;</span>goto 1.1<span class="tag">&lt;/<span class="name">div</span>&gt;</span>&#x27;;</span></span></span><br><span class="line"><span class="javascript">        &#125;<span class="keyword">else</span> <span class="function"><span class="title">if</span>(<span class="params">id == <span class="string">&#x27;1.1&#x27;</span></span>)</span>&#123;</span></span><br><span class="line"><span class="handlebars"><span class="xml">            pathHTML += &#x27;<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;javascript:gotoPageId(\&#x27;1\&#x27;)&quot;</span>&gt;</span>1<span class="tag">&lt;/<span class="name">a</span>&gt;</span> <span class="symbol">&amp;gt;</span> &#x27;;</span></span></span><br><span class="line"><span class="handlebars"><span class="xml">            pathHTML += &#x27;<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;javascript:gotoPageId(\&#x27;1.1\&#x27;)&quot;</span>&gt;</span>1.1<span class="tag">&lt;/<span class="name">a</span>&gt;</span>  &#x27;;</span></span></span><br><span class="line"><span class="handlebars"><span class="xml">            contentHTML = &#x27;<span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;border:1px solid #999;background-color:#DDD;width:200px;height:50px;border-radius:5px;&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;gotoPageId(\&#x27;1.1.1\&#x27;);&quot;</span>&gt;</span>goto 1.1.1<span class="tag">&lt;/<span class="name">div</span>&gt;</span>&#x27;;</span></span></span><br><span class="line"><span class="javascript">        &#125;<span class="keyword">else</span> <span class="function"><span class="title">if</span>(<span class="params">id == <span class="string">&#x27;1.1.1&#x27;</span></span>)</span>&#123;</span></span><br><span class="line"><span class="handlebars"><span class="xml">            pathHTML += &#x27;<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;javascript:gotoPageId(\&#x27;1\&#x27;)&quot;</span>&gt;</span>1<span class="tag">&lt;/<span class="name">a</span>&gt;</span> <span class="symbol">&amp;gt;</span> &#x27;;</span></span></span><br><span class="line"><span class="handlebars"><span class="xml">            pathHTML += &#x27;<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;javascript:gotoPageId(\&#x27;1.1\&#x27;)&quot;</span>&gt;</span>1.1<span class="tag">&lt;/<span class="name">a</span>&gt;</span> <span class="symbol">&amp;gt;</span> &#x27;;</span></span></span><br><span class="line"><span class="handlebars"><span class="xml">            pathHTML += &#x27;<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;javascript:gotoPageId(\&#x27;1.1.1\&#x27;)&quot;</span>&gt;</span>1.1.1<span class="tag">&lt;/<span class="name">a</span>&gt;</span>  &#x27;;</span></span></span><br><span class="line"><span class="javascript">            contentHTML = <span class="string">&#x27;no child page.&#x27;</span>;</span></span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line"><span class="javascript">        <span class="built_in">document</span>.getElementById(<span class="string">&quot;path&quot;</span>).innerHTML = pathHTML;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">document</span>.getElementById(<span class="string">&quot;content&quot;</span>).innerHTML = contentHTML;</span></span><br><span class="line"> </span><br><span class="line"><span class="javascript">        showMessage(<span class="string">&quot;showPage---&quot;</span> + id);</span></span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    /**</span><br><span class="line">     * 这个函数是供showPage函数例子中链接用的，实际根据需要写或不写</span><br><span class="line">     */</span><br><span class="line"><span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">gotoPageId</span>(<span class="params">id</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">        gotoPage(&#123;<span class="string">&quot;id&quot;</span>:id, <span class="string">&quot;params&quot;</span>:&#123;&#125;&#125;);</span></span><br><span class="line">    &#125;</span><br><span class="line">    /**</span><br><span class="line"><span class="javascript">     * <span class="built_in">window</span>.history.pushState 不会触发onHashChange事件了，下面这个函数/事件无意义</span></span><br><span class="line">     */</span><br><span class="line"><span class="javascript">    <span class="built_in">window</span>.onhashchange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">document</span>.getElementById(<span class="string">&quot;addressbar&quot;</span>).innerHTML = <span class="string">&quot;hashchange:&quot;</span> + <span class="built_in">window</span>.location.href;</span></span><br><span class="line">    &#125;</span><br><span class="line">    /**</span><br><span class="line">     * 供测试用的函数</span><br><span class="line">     */</span><br><span class="line"><span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">showMessage</span>(<span class="params">msg</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">document</span>.getElementById(<span class="string">&quot;msg&quot;</span>).innerHTML += <span class="string">&quot;&lt;br&gt;&quot;</span> + msg;</span></span><br><span class="line">    &#125;  </span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span> <span class="attr">id</span>=<span class="string">&quot;title&quot;</span> <span class="attr">style</span>=<span class="string">&quot;text-align:center;&quot;</span>&gt;</span>none<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;path&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"> </span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;content&quot;</span> <span class="attr">style</span>=<span class="string">&quot;padding:20px;&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"> </span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;msg&quot;</span> <span class="attr">style</span>=<span class="string">&quot;border:1px solid #333;margin:10px; min-height:300px&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;addressbar&quot;</span> <span class="attr">style</span>=<span class="string">&quot;border:1px solid #666&quot;</span>&gt;</span>none<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>IOS 9以上开始支持（IOS8不支持）</p>
-<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2016/09/30/javascript-控制浏览器的前进后退操作/">https://blog.devmgr.cn/2016/09/30/javascript-控制浏览器的前进后退操作/</a> <br><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" rel="noopener">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
+<p><strong>本文地址</strong>： <a href="https://blog.devmgr.cn/2016/09/30/javascript-控制浏览器的前进后退操作/">https://blog.devmgr.cn/2016/09/30/javascript-控制浏览器的前进后退操作/</a> <br /><strong>版权声明</strong>：除特别声明外，本站文章均采用 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">CC BY-NC-SA 3.0 CN</a> 许可协议，转载需注明出处。</p>
 
-      
     </div>
 
     
-
-    
-    
-    
-
-    
-
-    
-      
     
     
 
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/前端/" rel="tag"># 前端</a>
-          
-            <a href="/tags/html/" rel="tag"># HTML</a>
-          
-            <a href="/tags/javascript/" rel="tag"># javascript</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2016/08/19/java-util-timer无故被cancel掉的可能原因/" rel="next" title="java.util.Timer无故被cancel掉的可能原因">
-                <i class="fa fa-chevron-left"></i> java.util.Timer无故被cancel掉的可能原因
-              </a>
-            
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag"># 前端</a>
+              <a href="/tags/html/" rel="tag"># HTML</a>
+              <a href="/tags/javascript/" rel="tag"># javascript</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/11/19/pmbok各个过程输入输出关系图/" rel="prev" title="PMBOK各个过程输入输出关系图">
-                PMBOK各个过程输入输出关系图 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/08/19/java-util-timer%E6%97%A0%E6%95%85%E8%A2%ABcancel%E6%8E%89%E7%9A%84%E5%8F%AF%E8%83%BD%E5%8E%9F%E5%9B%A0/" rel="prev" title="java.util.Timer无故被cancel掉的可能原因">
+      <i class="fa fa-chevron-left"></i> java.util.Timer无故被cancel掉的可能原因
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2016/11/19/pmbok%E5%90%84%E4%B8%AA%E8%BF%87%E7%A8%8B%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E5%85%B3%E7%B3%BB%E5%9B%BE/" rel="next" title="PMBOK各个过程输入输出关系图">
+      PMBOK各个过程输入输出关系图 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
+  
+  
+  
 
-
-  </div>
 
 
           </div>
           
-
-  
-
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-            
-              <img class="site-author-image" itemprop="image" src="https://avatars3.githubusercontent.com/u/9672068?s=400&u=a4b841ea4922c3897895593db78a3caa165676a8&v=4" alt="GeXiangDong">
-            
-              <p class="site-author-name" itemprop="name">GeXiangDong</p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          
-            <nav class="site-state motion-element">
-              
-                <div class="site-state-item site-state-posts">
-                
-                  <a href="/archives/">
-                
-                    <span class="site-state-item-count">89</span>
-                    <span class="site-state-item-name">日志</span>
-                  </a>
-                </div>
-              
-
-              
-
-              
-                
-                
-                <div class="site-state-item site-state-tags">
-                  <a href="/tags/index.html">
-                    
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">121</span>
-                    <span class="site-state-item-name">标签</span>
-                  </a>
-                </div>
-              
-            </nav>
-          
-
-          
-
-          
-            <div class="links-of-author motion-element">
-              
-                <span class="links-of-author-item">
-                  
-                  
-                    
-                  
-                  
-                    
-                  
-                  <a href="https://github.com/gexiangdong" title="GitHub &rarr; https://github.com/gexiangdong" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
-                </span>
-              
-                <span class="links-of-author-item">
-                  
-                  
-                    
-                  
-                  
-                    
-                  
-                  <a href="https://study.163.com/instructor/1137185922.htm" title="老葛课堂 &rarr; https://study.163.com/instructor/1137185922.htm" rel="noopener" target="_blank"><i class="fa fa-fw fa-video-camera"></i>老葛课堂</a>
-                </span>
-              
-            </div>
-          
-
-          
-
-          
-          
-            <div class="links-of-blogroll motion-element links-of-blogroll-block">
-              <div class="links-of-blogroll-title">
-                <i class="fa  fa-fw fa-link"></i>
-                Links
-              </div>
-              <ul class="links-of-blogroll-list">
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://gist.github.com/gexiangdong" title="https://gist.github.com/gexiangdong" rel="noopener" target="_blank">Gist</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="https://blog.devmgr.cn/front-end-vue/" title="https://blog.devmgr.cn/front-end-vue/">前端工程化入门：VUE的实践</a>
-                  </li>
-                
-              </ul>
-            </div>
-          
-
-          
-            
-          
-          
-        </div>
-      </div>
-
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
-  <span class="with-love" id="animate">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">GeXiangDong</span>
-
-  
-
-  
-</div>
-
-
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v6.7.0</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-    
-
-    
-  </div>
-
-  
 
 <script>
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">GeXiangDong</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">91</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">122</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">GeXiangDong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
 
 
 
@@ -918,100 +354,43 @@
 
 
 
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
 
 
+<script src="/js/schemes/muse.js"></script>
 
 
-
-
-
-
-
-
-
-
-
+<script src="/js/next-boot.js"></script>
 
 
 
 
   
-  <script src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-
-  
-
-
-  <script src="/js/src/utils.js?v=6.7.0"></script>
-
-  <script src="/js/src/motion.js?v=6.7.0"></script>
-
-
-
-  
-  
-
-
-  <script src="/js/src/affix.js?v=6.7.0"></script>
-
-  <script src="/js/src/schemes/pisces.js?v=6.7.0"></script>
-
-
-
-
-  
-  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
-<script src="/js/src/post-details.js?v=6.7.0"></script>
-
-
-
-  
-
-
-  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
-
-
-
-  
-  
 
 
 
 
 
-  
 
 
 
 
 
-  
 
-  
 
-  
 
-  
 
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
 
   
 
