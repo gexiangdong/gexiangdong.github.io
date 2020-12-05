@@ -28,7 +28,7 @@
 <meta property="og:description" content="@Value和@ConfigurationProperties两个注解都可以从配置文件获取值并设置到属性中，用法上有区别。 @Value适用一些比较简单的情形，用得比较普遍；而@ConfigurationProperties则可适用一些@Value无法处理更复杂的情形。 123456789101112131415161718myapp:  simple:    name: ABC    count">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-06-08T08:09:11.000Z">
-<meta property="article:modified_time" content="2020-12-05T01:11:43.396Z">
+<meta property="article:modified_time" content="2020-12-05T03:47:19.097Z">
 <meta property="article:author" content="GeXiangDong">
 <meta property="article:tag" content="后端">
 <meta property="article:tag" content="spring boot">
@@ -186,7 +186,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-05 09:11:43" itemprop="dateModified" datetime="2020-12-05T09:11:43+08:00">2020-12-05</time>
+                <time title="修改时间：2020-12-05 11:47:19" itemprop="dateModified" datetime="2020-12-05T11:47:19+08:00">2020-12-05</time>
               </span>
 
           
@@ -272,7 +272,12 @@
 <p>@EnableConfigurationProperties需要写在Spring Boot的启动类或配置类上。</p>
 <h1 id="从其他配置文件中读取"><a href="#从其他配置文件中读取" class="headerlink" title="从其他配置文件中读取"></a>从其他配置文件中读取</h1><p>如果信息配置在了自定义的配置文件中（不是applicaiton.yml)，则可以使用@PropertySource注解来告诉spring从哪个文件读取配置信息，例如：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PropertySource(&quot;classpath:configprops.properties&quot;)</span></span><br></pre></td></tr></table></figure>
+<p>@PropertySource 注解默认只能解析 properties 文件，如果是yml文件，需要自定义一个解析器</p>
+<p>如果需要从其他yml文件读取配置，可以利用 @PropertySource 的 factory 属性，先写一个解析yml 文件的类，这很简单</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.slf4j.Logger;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.LoggerFactory;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.config.YamlPropertiesFactoryBean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.env.PropertiesPropertySource;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.env.PropertySource;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.io.support.EncodedResource;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.io.support.PropertySourceFactory;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.util.Properties;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">YamlPropertySourceFactory</span> <span class="keyword">implements</span> <span class="title">PropertySourceFactory</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger logger = LoggerFactory.getLogger(YamlPropertySourceFactory.class);</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="keyword">public</span> PropertySource&lt;?&gt; createPropertySource(String name, EncodedResource encodedResource)</span><br><span class="line">      <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">    YamlPropertiesFactoryBean factory = <span class="keyword">new</span> YamlPropertiesFactoryBean();</span><br><span class="line">    factory.setResources(encodedResource.getResource());</span><br><span class="line">    Properties properties = factory.getObject();</span><br><span class="line">    logger.trace(</span><br><span class="line">        <span class="string">&quot;read from &#123;&#125;, exists:&#123;&#125;&quot;</span>,</span><br><span class="line">        encodedResource.getResource().getFile().getAbsoluteFile(),</span><br><span class="line">        encodedResource.getResource().exists());</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> PropertiesPropertySource(encodedResource.getResource().getFilename(), properties);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
+<p>之后在使用 @PropertySource 注解时增加 factory 属性</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PropertySource(factory = YamlPropertySourceFactory.class, value = &quot;classpath:yamlfile.yml&quot;)</span></span><br></pre></td></tr></table></figure>
 
     </div>
 
