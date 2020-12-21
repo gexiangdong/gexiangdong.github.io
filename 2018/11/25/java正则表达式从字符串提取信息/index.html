@@ -28,7 +28,7 @@
 <meta property="og:description" content="使用正则表达式，从markdown文件中提取链接显示的字符和链接到的地址。 12345678910111213141516String content &#x3D; &quot;这是段.md文件的内容。其中[这是一个链接](.&#x2F;html&#x2F;README.md)，还有其他内容，这里又有一个[another link](another.md)，这次链接到了another.md。&quot;; &#x2F;&#x2F;括号用于分组；需">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2018-11-25T02:58:50.000Z">
-<meta property="article:modified_time" content="2019-06-07T10:51:02.000Z">
+<meta property="article:modified_time" content="2020-12-21T06:52:43.963Z">
 <meta property="article:author" content="GeXiangDong">
 <meta property="article:tag" content="java">
 <meta property="article:tag" content="正则表达式">
@@ -183,7 +183,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-06-07 18:51:02" itemprop="dateModified" datetime="2019-06-07T18:51:02+08:00">2019-06-07</time>
+                <time title="修改时间：2020-12-21 14:52:43" itemprop="dateModified" datetime="2020-12-21T14:52:43+08:00">2020-12-21</time>
               </span>
 
           
@@ -201,13 +201,8 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">String content = <span class="string">&quot;这是段.md文件的内容。其中[这是一个链接](./html/README.md)，还有其他内容，这里又有一个[another link](another.md)，这次链接到了another.md。&quot;</span>;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//括号用于分组；需要匹配括号则用\c</span></span><br><span class="line"><span class="comment">//[^\]] 表示任意不是&#x27;]&#x27;的字符，后面的*表示任意多个</span></span><br><span class="line">Pattern p = Pattern.compile(<span class="string">&quot;\\[([^\\]]*)\\]\\(([^\\)]*)\\)&quot;</span>, Pattern.CASE_INSENSITIVE);</span><br><span class="line"> </span><br><span class="line">Matcher matcher = p.matcher(content);</span><br><span class="line"><span class="keyword">while</span>(matcher != <span class="keyword">null</span> &amp;&amp; matcher.find()) &#123;</span><br><span class="line">    String link = matcher.group();</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;= matcher.groupCount(); i++)&#123;</span><br><span class="line">        <span class="comment">//得到的分组，第0个是整个字串，例如第一次发现时打印：[这是一个链接](./html/README.md)</span></span><br><span class="line">        <span class="comment">//第一个是正则表达式中第一个括号匹配到的内容，例如第一次发现时打印：这是一个链接</span></span><br><span class="line">        System.out.println(matcher.group(i));</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>运行结果:</p>
-<pre><code>[这是一个链接](https://blog.devmgr.cn)
-这是一个链接
-./html/README.md
-
-[another link](https://www.google.com)
-another link
-another.md</code></pre>
+<p><a href="./html/README.md">这是一个链接</a><br>这是一个链接<br>./html/README.md</p>
+<p><a href="another.md">another link</a><br>another link<br>another.md</p>
 
     </div>
 
