@@ -636,7 +636,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-06-07 18:51:02" itemprop="dateModified" datetime="2019-06-07T18:51:02+08:00">2019-06-07</time>
+                <time title="修改时间：2021-01-04 15:04:51" itemprop="dateModified" datetime="2021-01-04T15:04:51+08:00">2021-01-04</time>
               </span>
 
           
@@ -713,8 +713,13 @@ Application root
 <p>这样默认就是develop分支了</p>
 <p>以后push到git server的更新，commit message中有 #101 字样的提交会被自动关联到101号问题。</p>
 <p>例如：</p>
-<pre><code>fixed bug #101 @1h 30m </code></pre>
+<pre><code>fixed bug #101 @1h30m </code></pre>
 <p>如果需要自动更改问题状态，请在管理-&gt;配置-&gt;版本库处设置关键字。</p>
+<h2 id="登记耗时不成功的可能原因"><a href="#登记耗时不成功的可能原因" class="headerlink" title="登记耗时不成功的可能原因"></a>登记耗时不成功的可能原因</h2><p>如果在 git commit message 中写的 耗时不被记载入redmine，可能是以下几个原因</p>
+<ol>
+<li> 在版本库配置「在提交信息中引用和解决问题」处，记录的活动选择了「默认」，而枚举值设置中，「活动（时间跟踪）」没有设置默认值</li>
+<li> 提交的用户和项目中设置的开发人员不匹配，git提交的用户，用户名和邮箱需要和项目中开发人员对应的账号匹配</li>
+</ol>
 
       
     </div>
@@ -1117,7 +1122,7 @@ Application root
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-gg"></i>
   </span>
