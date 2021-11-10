@@ -146,6 +146,73 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2017/03/24/no-authentication-challenges-found/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2017/03/24/no-authentication-challenges-found/" class="post-title-link" itemprop="url">no authentication challenges found</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-03-24 15:20:28" itemprop="dateCreated datePublished" datetime="2017-03-24T15:20:28+08:00">2017-03-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-06-07 18:51:02" itemprop="dateModified" datetime="2019-06-07T18:51:02+08:00">2019-06-07</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h1><p>后端服务返回HTTP状态码401时，没有Header “WWW-Authenticate”，某些版本Android客户端会出错，错误信息为no authentication challenges found。</p>
+<h1 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h1><p>可修改服务器的返回，在401的返回增加 <code>Header WWW-Authenticate, Basic realm=”fake” </code> 来避免此问题。</p>
+<h1 id="android-4-x-的DELETE方法问题"><a href="#android-4-x-的DELETE方法问题" class="headerlink" title="android(4.x) 的DELETE方法问题"></a>android(4.x) 的DELETE方法问题</h1><p>另外某些Android版本（4.x）在调用DELETE方法（RESTFul中会用到）如果HTTP BODY中有内容会出错，服务器收不到请求。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2016/11/22/pmbok-47%E4%B8%AA%E8%BF%87%E7%A8%8B%E7%94%A8%E5%88%B0%E7%9A%84%E5%B7%A5%E5%85%B7%E5%92%8C%E6%8A%80%E6%9C%AF/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -949,78 +1016,6 @@ Application root
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2014/10/29/%E4%BB%8E%E5%89%AA%E8%B4%B4%E6%9D%BF%E7%B2%98%E8%B4%B4%E5%9B%BE%E7%89%87/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2014/10/29/%E4%BB%8E%E5%89%AA%E8%B4%B4%E6%9D%BF%E7%B2%98%E8%B4%B4%E5%9B%BE%E7%89%87/" class="post-title-link" itemprop="url">从剪贴板粘贴图片</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2014-10-29 13:44:15" itemprop="dateCreated datePublished" datetime="2014-10-29T13:44:15+08:00">2014-10-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-06-07 18:51:02" itemprop="dateModified" datetime="2019-06-07T18:51:02+08:00">2019-06-07</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>部分浏览器支持直接从剪贴板粘贴图片到HTML编辑器内，不同浏览器处理方式有差异。</p>
-<h2 id="chrome"><a href="#chrome" class="headerlink" title="chrome"></a>chrome</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.onpaste = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> items = (event.clipboardData || event.originalEvent.clipboardData).items;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(items)); <span class="comment">// will give you the mime types</span></span><br><span class="line">  <span class="keyword">var</span> blob = items[<span class="number">0</span>].getAsFile();</span><br><span class="line">  <span class="keyword">var</span> reader = <span class="keyword">new</span> FileReader();</span><br><span class="line">  reader.onload = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(event.target.result)&#125;; <span class="comment">// data url!</span></span><br><span class="line">    reader.readAsDataURL(blob);</span><br><span class="line">    <span class="comment">//upload to the server here.....................</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="Firefox"><a href="#Firefox" class="headerlink" title="Firefox"></a>Firefox</h2><p>firefox粘贴比较简单，直接贴出来的是base64后的代码, 例如：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span>  <span class="attr">src</span>=<span class="string">&quot;data:image/png;base64,iVBORw0KGgoAAAAN...................................&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1090,7 +1085,7 @@ Application root
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">94</span>
+          <span class="site-state-item-count">95</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

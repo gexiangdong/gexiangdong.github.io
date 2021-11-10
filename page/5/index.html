@@ -146,6 +146,79 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/05/18/spring-return-403-when-post/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/05/18/spring-return-403-when-post/" class="post-title-link" itemprop="url">SpringMVC POST 时返回403禁止访问</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-05-18 14:55:04" itemprop="dateCreated datePublished" datetime="2019-05-18T14:55:04+08:00">2019-05-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-09-09 14:40:20" itemprop="dateModified" datetime="2019-09-09T14:40:20+08:00">2019-09-09</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="出现的问题及原因"><a href="#出现的问题及原因" class="headerlink" title="出现的问题及原因"></a>出现的问题及原因</h1><p>Spring boot 在 SpringMVC / REST 和Spring Security一起使用时，编写的RestController 或 Controller 中的方法，GET不出错， POST 403，这可能是CSRF保护导致的。</p>
+<h1 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h1><p>可以通过 <code>httpSecurity.csrf().disable()</code> 关闭csrf防护。</p>
+<p>但这不是推荐的做法。官方推荐的做法是增加csrf token</p>
+<p><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#csrf-include-csrf-token">https://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#csrf-include-csrf-token</a></p>
+<p>SpringMVC中可以在form中增加：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">”hidden”</span> <span class="attr">th:name</span>=<span class="string">”$&#123;_csrf.parameterName&#125;”</span> <span class="attr">th:value</span>=<span class="string">”$&#123;_csrf.token&#125;”/</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>RESTful API需要把这2个值作为http header传递给后端。</p>
+<h1 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h1><p>CSRF是网络攻击的一种，<a target="_blank" rel="noopener" href="https://study.163.com/course/courseLearn.htm?courseId=1006121037&share=2&shareId=400000000447005#/learn/video?lessonId=1053739036&courseId=1006121037">此处有详细说明</a>。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/05/17/base64-java-lang-illegalargumentexception-illegal-base64-character-20/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -813,75 +886,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/11/25/java%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%BB%8E%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%8F%90%E5%8F%96%E4%BF%A1%E6%81%AF/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/11/25/java%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%BB%8E%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%8F%90%E5%8F%96%E4%BF%A1%E6%81%AF/" class="post-title-link" itemprop="url">java正则表达式从字符串提取信息</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-11-25 10:58:50" itemprop="dateCreated datePublished" datetime="2018-11-25T10:58:50+08:00">2018-11-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-21 18:41:36" itemprop="dateModified" datetime="2020-12-21T18:41:36+08:00">2020-12-21</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>使用正则表达式，从markdown文件中提取链接显示的字符和链接到的地址。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">String content = <span class="string">&quot;这是段.md文件的内容。其中[这是一个链接](./html/README.md)，还有其他内容，这里又有一个[another link](another.md)，这次链接到了another.md。&quot;</span>;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//括号用于分组；需要匹配括号则用\c</span></span><br><span class="line"><span class="comment">//[^\]] 表示任意不是&#x27;]&#x27;的字符，后面的*表示任意多个</span></span><br><span class="line">Pattern p = Pattern.compile(<span class="string">&quot;\\[([^\\]]*)\\]\\(([^\\)]*)\\)&quot;</span>, Pattern.CASE_INSENSITIVE);</span><br><span class="line"> </span><br><span class="line">Matcher matcher = p.matcher(content);</span><br><span class="line"><span class="keyword">while</span>(matcher != <span class="keyword">null</span> &amp;&amp; matcher.find()) &#123;</span><br><span class="line">    String link = matcher.group();</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;= matcher.groupCount(); i++)&#123;</span><br><span class="line">        <span class="comment">//得到的分组，第0个是整个字串，例如第一次发现时打印：[这是一个链接](./html/README.md)</span></span><br><span class="line">        <span class="comment">//第一个是正则表达式中第一个括号匹配到的内容，例如第一次发现时打印：这是一个链接</span></span><br><span class="line">        System.out.println(matcher.group(i));</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>运行结果:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[这是一个链接](.&#x2F;html&#x2F;README.md)</span><br><span class="line">这是一个链接</span><br><span class="line">.&#x2F;html&#x2F;README.md</span><br><span class="line"></span><br><span class="line">[another link](another.md)</span><br><span class="line">another link</span><br><span class="line">another.md</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -951,7 +955,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">94</span>
+          <span class="site-state-item-count">95</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

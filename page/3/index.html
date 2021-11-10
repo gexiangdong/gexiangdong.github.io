@@ -146,6 +146,148 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/10/19/spring-boot-error-circular-view-path-would-dispatch-back-to-the-current-handler-url-again-check-your-viewresolver-setup/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/10/19/spring-boot-error-circular-view-path-would-dispatch-back-to-the-current-handler-url-again-check-your-viewresolver-setup/" class="post-title-link" itemprop="url">spring boot error: Circular view path []: would dispatch back to the current handler URL [/] again. Check your ViewResolver setup</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-10-19 09:48:27 / 修改时间：09:52:04" itemprop="dateCreated datePublished" datetime="2019-10-19T09:48:27+08:00">2019-10-19</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>spring boot 项目访问某个controller时出错，错误信息如下：</p>
+<pre><code>2019-10-19 09:46:01.451 ERROR 1040 --- [nio-4675-exec-1] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Circular view path []: would dispatch back to the current handler URL [/] again. Check your ViewResolver setup! (Hint: This may be the result of an unspecified view, due to default view name generation.)] with root cause
+
+javax.servlet.ServletException: Circular view path []: would dispatch back to the current handler URL [/] again. Check your ViewResolver setup! (Hint: This may be the result of an unspecified view, due to default view name generation.)
+    at org.springframework.web.servlet.view.InternalResourceView.prepareForRendering(InternalResourceView.java:209) ~[spring-webmvc-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+    at org.springframework.web.servlet.view.InternalResourceView.renderMergedOutputModel(InternalResourceView.java:147) ~[spring-webmvc-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+    at org.springframework.web.servlet.view.AbstractView.render(AbstractView.java:316) ~[spring-webmvc-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+    at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1370) ~[spring-webmvc-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+    at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1116) ~[spring-webmvc-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+    at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1055) ~[spring-webmvc-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+    at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942) ~[spring-webmvc-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+    at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1005) ~[spring-webmvc-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+    at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:908) ~[spring-webmvc-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+    at javax.servlet.http.HttpServlet.service(HttpServlet.java:660) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:882) ~[spring-webmvc-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+    at javax.servlet.http.HttpServlet.service(HttpServlet.java:741) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-embed-websocket-9.0.14.jar:9.0.14]
+    at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:320) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+    at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:127) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+    at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:91) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+    at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+    at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:119) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+    at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+    at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:137) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+    at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+    at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:111) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+    at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+    at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:170) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+    at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+    at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+    at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+    at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:116) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+    at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+    at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:74) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+    at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+    at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+    at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:105) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+    at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+    at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:56) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+    at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+    at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+    at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:215) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+    at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
+    at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:357) ~[spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+    at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:270) ~[spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+    at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99) ~[spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+    at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+    at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:92) ~[spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+    at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+    at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:93) ~[spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+    at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+    at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200) ~[spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+    at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
+    at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:199) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96) [tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:490) [tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139) [tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) [tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) [tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343) [tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408) [tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66) [tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:834) [tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1417) [tomcat-embed-core-9.0.14.jar:9.0.14]
+    at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) [tomcat-embed-core-9.0.14.jar:9.0.14]
+    at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [na:1.8.0_131]
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [na:1.8.0_131]
+    at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-embed-core-9.0.14.jar:9.0.14]
+    at java.lang.Thread.run(Thread.java:748) [na:1.8.0_131]</code></pre>
+<p>这个错误是由于访问的是 Controller， 而该 Controller对方的方法没有对应的视图造成的。 我这里出现这个错误，是因为我本来就不需要视图，我是想返回 JSON，但把 RestController 误写成了 Controller。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/10/14/%E5%AD%97%E4%BD%93%E7%9A%84%E5%8D%95%E4%BD%8D/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1028,160 +1170,6 @@ net::ERR_CACHE_MISS </code></pre>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/06/16/java-lang-reflect-invocationtargetexception/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/06/16/java-lang-reflect-invocationtargetexception/" class="post-title-link" itemprop="url">org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-06-16 14:28:42" itemprop="dateCreated datePublished" datetime="2019-06-16T14:28:42+08:00">2019-06-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-01-11 11:17:29" itemprop="dateModified" datetime="2020-01-11T11:17:29+08:00">2020-01-11</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h1><p>java9 启动 spring 项目时报错：</p>
-<pre><code>org.springframework.context.ApplicationContextException: Unable to start web server; nested exception is org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
-    at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:157) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
-    at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:543) ~[spring-context-5.1.7.RELEASE.jar:5.1.7.RELEASE]
-    at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:142) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
-    at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:775) [spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
-    at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397) [spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
-    at org.springframework.boot.SpringApplication.run(SpringApplication.java:316) [spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
-    at org.springframework.boot.SpringApplication.run(SpringApplication.java:1260) [spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
-    at org.springframework.boot.SpringApplication.run(SpringApplication.java:1248) [spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
-    at cn.devmgr.springcloud.register.eureka.Application.main(Application.java:14) [classes/:na]
-    at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
-    at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
-    at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
-    at java.base/java.lang.reflect.Method.invoke(Method.java:564) ~[na:na]
-    at org.springframework.boot.maven.AbstractRunMojo$LaunchRunner.run(AbstractRunMojo.java:558) [spring-boot-maven-plugin-2.1.5.RELEASE.jar:2.1.5.RELEASE]
-    at java.base/java.lang.Thread.run(Thread.java:844) [na:na]
-Caused by: org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
-    at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:125) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
-    at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.&lt;init&gt;(TomcatWebServer.java:86) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
-    at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getTomcatWebServer(TomcatServletWebServerFactory.java:427) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
-    at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getWebServer(TomcatServletWebServerFactory.java:180) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
-    at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.createWebServer(ServletWebServerApplicationContext.java:181) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
-    at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:154) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
-    ... 14 common frames omitted
-Caused by: java.lang.IllegalStateException: StandardEngine[Tomcat].StandardHost[localhost].TomcatEmbeddedContext[] failed to start
-    at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.rethrowDeferredStartupExceptions(TomcatWebServer.java:171) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
-    at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:109) ~[spring-boot-2.1.5.RELEASE.jar:2.1.5.RELEASE]
-    ... 19 common frames omitted
-
-[WARNING] 
-java.lang.reflect.InvocationTargetException
-    at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-    at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-    at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-    at java.base/java.lang.reflect.Method.invoke(Method.java:564)
-    at org.springframework.boot.maven.AbstractRunMojo$LaunchRunner.run(AbstractRunMojo.java:558)
-    at java.base/java.lang.Thread.run(Thread.java:844)
-Caused by: org.springframework.context.ApplicationContextException: Unable to start web server; nested exception is org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
-    at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:157)
-    at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:543)
-    at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:142)
-    at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:775)
-    at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397)
-    at org.springframework.boot.SpringApplication.run(SpringApplication.java:316)
-    at org.springframework.boot.SpringApplication.run(SpringApplication.java:1260)
-    at org.springframework.boot.SpringApplication.run(SpringApplication.java:1248)
-    at cn.devmgr.springcloud.register.eureka.Application.main(Application.java:14)
-    ... 6 more
-Caused by: org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
-    at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:125)
-    at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.&lt;init&gt;(TomcatWebServer.java:86)
-    at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getTomcatWebServer(TomcatServletWebServerFactory.java:427)
-    at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getWebServer(TomcatServletWebServerFactory.java:180)
-    at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.createWebServer(ServletWebServerApplicationContext.java:181)
-    at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:154)
-    ... 14 more
-Caused by: java.lang.IllegalStateException: StandardEngine[Tomcat].StandardHost[localhost].TomcatEmbeddedContext[] failed to start
-    at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.rethrowDeferredStartupExceptions(TomcatWebServer.java:171)
-    at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(TomcatWebServer.java:109)
-    ... 19 more</code></pre>
-<h1 id="原因和解决办法"><a href="#原因和解决办法" class="headerlink" title="原因和解决办法"></a>原因和解决办法</h1><p>这是java9 默认没有加载 JAXB-API 造成的，java9开始分模块，默认加载的模块不包含 jaxb-api。 有几个办法可以解决：</p>
-<ul>
-<li><p>命令后增加参数 <code>--add-modules java.xml.bind</code> 引入此模块</p>
-</li>
-<li><p>换java8</p>
-</li>
-<li><p>手工增加 jaxb的依赖</p>
-<pre><code class="xml">&lt;dependency&gt;
-     &lt;groupId&gt;javax.xml.bind&lt;/groupId&gt;
-     &lt;artifactId&gt;jaxb-api&lt;/artifactId&gt;
-     &lt;version&gt;2.3.1&lt;/version&gt;
- &lt;/dependency&gt;
- &lt;dependency&gt;
-     &lt;groupId&gt;com.sun.xml.bind&lt;/groupId&gt;
-     &lt;artifactId&gt;jaxb-impl&lt;/artifactId&gt;
-     &lt;version&gt;2.3.1&lt;/version&gt;
- &lt;/dependency&gt;
- &lt;dependency&gt;
-     &lt;groupId&gt;org.glassfish.jaxb&lt;/groupId&gt;
-     &lt;artifactId&gt;jaxb-runtime&lt;/artifactId&gt;
-     &lt;version&gt;2.3.1&lt;/version&gt;
- &lt;/dependency&gt;
- &lt;dependency&gt;
-     &lt;groupId&gt;javax.activation&lt;/groupId&gt;
-     &lt;artifactId&gt;activation&lt;/artifactId&gt;
-     &lt;version&gt;1.1.1&lt;/version&gt;
- &lt;/dependency&gt;</code></pre>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1251,7 +1239,7 @@ Caused by: java.lang.IllegalStateException: StandardEngine[Tomcat].StandardHost[
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">94</span>
+          <span class="site-state-item-count">95</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

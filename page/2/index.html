@@ -146,6 +146,71 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2020/02/13/vue-js%E5%9C%A8%E4%B8%80%E4%B8%AA%E9%A1%B5%E9%9D%A2%E4%B8%8A%E4%BD%BF%E7%94%A8%E5%90%8C%E4%B8%80%E4%B8%AA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6%E5%A4%9A%E6%AC%A1%E6%97%B6%E9%81%87%E5%88%B0%E7%9A%84%E6%80%AA%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/13/vue-js%E5%9C%A8%E4%B8%80%E4%B8%AA%E9%A1%B5%E9%9D%A2%E4%B8%8A%E4%BD%BF%E7%94%A8%E5%90%8C%E4%B8%80%E4%B8%AA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6%E5%A4%9A%E6%AC%A1%E6%97%B6%E9%81%87%E5%88%B0%E7%9A%84%E6%80%AA%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">VUE.js在一个页面上使用同一个自定义组件多次时遇到的怪问题</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-02-13 20:43:39 / 修改时间：20:54:36" itemprop="dateCreated datePublished" datetime="2020-02-13T20:43:39+08:00">2020-02-13</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>在一个页面上对同一个自定义组件调用了2次，代码如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">MyComponent</span></span></span><br><span class="line"><span class="tag">  <span class="attr">v-if</span>=<span class="string">&quot;type1 == 2&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">v-model</span>=<span class="string">&quot;data1&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">name</span>=<span class="string">&quot;标题A&quot;</span>  /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">MyComponent</span></span></span><br><span class="line"><span class="tag">  <span class="attr">v-if</span>=<span class="string">&quot;banner.type == 3&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">v-model</span>=<span class="string">&quot;data2&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">name</span>=<span class="string">&quot;标题B&quot;</span>  /&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在页面上还有一组单选按钮，用来选择 <code>type</code>，当 type==2 时，显示上面的 name 是“标题A”的自定义组件，当 type==3 时，则显示下面的 name 是“标题B”的组件。 乍看之下，运行良好，当组件扩充里面有data部分时，问题出现了，对上面的组件实例进行操作导致 data 的值变化后，下面的组件实例的data部分也会跟着变，加入日志显示，两个实例似乎共享了data部分，props部分还保持自己的，没有被更改。</p>
+<p>这不科学，不符合 VUE.js 手册上对用户自定义组件的描述，而且组件的data部分是函数，也是按照 VUE.js 手册的标准写法写的。</p>
+<h1 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h1><p>后来发现是两次调用都有 v-if 一次只能出现一个导致 vue 在使用时混乱了导致，给每个对组件的引用都增加了key属性，并使用了不同的key值，问题得以解决。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">MyComponent</span></span></span><br><span class="line"><span class="tag">  <span class="attr">v-if</span>=<span class="string">&quot;type1 == 2&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">key</span>=<span class="string">&quot;componentA&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">v-model</span>=<span class="string">&quot;data1&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">name</span>=<span class="string">&quot;标题A&quot;</span>  /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">MyComponent</span></span></span><br><span class="line"><span class="tag">  <span class="attr">v-if</span>=<span class="string">&quot;banner.type == 3&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">key</span>=<span class="string">&quot;componentB&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">v-model</span>=<span class="string">&quot;data2&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">name</span>=<span class="string">&quot;标题B&quot;</span>  /&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2020/02/08/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%92%8Cvue-js%E8%AF%AD%E6%B3%95%E5%B7%AE%E5%BC%82/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -891,148 +956,6 @@ list-members                list all members of a group</code></pre>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/10/19/spring-boot-error-circular-view-path-would-dispatch-back-to-the-current-handler-url-again-check-your-viewresolver-setup/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/10/19/spring-boot-error-circular-view-path-would-dispatch-back-to-the-current-handler-url-again-check-your-viewresolver-setup/" class="post-title-link" itemprop="url">spring boot error: Circular view path []: would dispatch back to the current handler URL [/] again. Check your ViewResolver setup</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2019-10-19 09:48:27 / 修改时间：09:52:04" itemprop="dateCreated datePublished" datetime="2019-10-19T09:48:27+08:00">2019-10-19</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>spring boot 项目访问某个controller时出错，错误信息如下：</p>
-<pre><code>2019-10-19 09:46:01.451 ERROR 1040 --- [nio-4675-exec-1] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Circular view path []: would dispatch back to the current handler URL [/] again. Check your ViewResolver setup! (Hint: This may be the result of an unspecified view, due to default view name generation.)] with root cause
-
-javax.servlet.ServletException: Circular view path []: would dispatch back to the current handler URL [/] again. Check your ViewResolver setup! (Hint: This may be the result of an unspecified view, due to default view name generation.)
-    at org.springframework.web.servlet.view.InternalResourceView.prepareForRendering(InternalResourceView.java:209) ~[spring-webmvc-5.1.4.RELEASE.jar:5.1.4.RELEASE]
-    at org.springframework.web.servlet.view.InternalResourceView.renderMergedOutputModel(InternalResourceView.java:147) ~[spring-webmvc-5.1.4.RELEASE.jar:5.1.4.RELEASE]
-    at org.springframework.web.servlet.view.AbstractView.render(AbstractView.java:316) ~[spring-webmvc-5.1.4.RELEASE.jar:5.1.4.RELEASE]
-    at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1370) ~[spring-webmvc-5.1.4.RELEASE.jar:5.1.4.RELEASE]
-    at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1116) ~[spring-webmvc-5.1.4.RELEASE.jar:5.1.4.RELEASE]
-    at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1055) ~[spring-webmvc-5.1.4.RELEASE.jar:5.1.4.RELEASE]
-    at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942) ~[spring-webmvc-5.1.4.RELEASE.jar:5.1.4.RELEASE]
-    at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1005) ~[spring-webmvc-5.1.4.RELEASE.jar:5.1.4.RELEASE]
-    at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:908) ~[spring-webmvc-5.1.4.RELEASE.jar:5.1.4.RELEASE]
-    at javax.servlet.http.HttpServlet.service(HttpServlet.java:660) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:882) ~[spring-webmvc-5.1.4.RELEASE.jar:5.1.4.RELEASE]
-    at javax.servlet.http.HttpServlet.service(HttpServlet.java:741) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-embed-websocket-9.0.14.jar:9.0.14]
-    at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:320) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-    at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:127) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-    at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:91) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-    at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-    at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:119) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-    at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-    at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:137) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-    at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-    at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:111) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-    at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-    at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:170) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-    at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-    at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-    at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-    at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:116) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-    at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-    at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:74) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-    at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
-    at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-    at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:105) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-    at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-    at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:56) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-    at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
-    at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-    at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:215) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-    at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178) ~[spring-security-web-5.1.3.RELEASE.jar:5.1.3.RELEASE]
-    at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:357) ~[spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
-    at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:270) ~[spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
-    at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99) ~[spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
-    at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
-    at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:92) ~[spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
-    at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
-    at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:93) ~[spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
-    at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
-    at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200) ~[spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
-    at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.4.RELEASE.jar:5.1.4.RELEASE]
-    at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:199) ~[tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96) [tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:490) [tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139) [tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) [tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) [tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343) [tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408) [tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66) [tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:834) [tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1417) [tomcat-embed-core-9.0.14.jar:9.0.14]
-    at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) [tomcat-embed-core-9.0.14.jar:9.0.14]
-    at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [na:1.8.0_131]
-    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [na:1.8.0_131]
-    at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-embed-core-9.0.14.jar:9.0.14]
-    at java.lang.Thread.run(Thread.java:748) [na:1.8.0_131]</code></pre>
-<p>这个错误是由于访问的是 Controller， 而该 Controller对方的方法没有对应的视图造成的。 我这里出现这个错误，是因为我本来就不需要视图，我是想返回 JSON，但把 RestController 误写成了 Controller。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1102,7 +1025,7 @@ javax.servlet.ServletException: Circular view path []: would dispatch back to th
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">94</span>
+          <span class="site-state-item-count">95</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
