@@ -146,6 +146,286 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2020/03/16/spring-rest-docs-java-lang-illegalargumentexception-urltemplate-not-found-if-you-are-using-mockmvc-did-you-use-restdocumentationrequestbuilders-to-build-the-request/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/16/spring-rest-docs-java-lang-illegalargumentexception-urltemplate-not-found-if-you-are-using-mockmvc-did-you-use-restdocumentationrequestbuilders-to-build-the-request/" class="post-title-link" itemprop="url">Spring REST Docs java.lang.IllegalArgumentException: urlTemplate not found. If you are using MockMvc did you use RestDocumentationRequestBuilders to build the request?</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-03-16 15:43:35 / 修改时间：15:50:36" itemprop="dateCreated datePublished" datetime="2020-03-16T15:43:35+08:00">2020-03-16</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在使用 Spring RESTDocs 时，有如下代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.mockMvc</span><br><span class="line">      .perform(</span><br><span class="line">          get(<span class="string">&quot;/books/123/images/5&quot;</span>)</span><br><span class="line">              .accept(MediaType.APPLICATION_JSON))</span><br><span class="line">      .andExpect(status().isOk())</span><br><span class="line">      .andDo(...);</span><br></pre></td></tr></table></figure>
+
+<p>运行正常</p>
+<p>当把其中url替换成参数形式，改成如下代码时，</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.mockMvc</span><br><span class="line">      .perform(</span><br><span class="line">          get(<span class="string">&quot;/books/&#123;bookId&#125;/images/&#123;imageId&#125;&quot;</span>,</span><br><span class="line">                  bookId,</span><br><span class="line">                  imageId)</span><br><span class="line">              .accept(MediaType.APPLICATION_JSON))</span><br><span class="line">      .andExpect(status().isOk())</span><br><span class="line">      .andDo(...);</span><br></pre></td></tr></table></figure>
+<p>执行时出现错误：</p>
+<p>  java.lang.IllegalArgumentException: urlTemplate not found. If you are using MockMvc did you use RestDocumentationRequestBuilders to build the request?</p>
+<p>这个提示也比较清晰，但对于不太了解 RESTDocs 的初学者，可能会迷惑一会，这是由于，静态方法有2个</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;</span><br></pre></td></tr></table></figure>
+<p>上面这个是MockMvc里提供的，不支持URLTemplate这种形式，下面这个是RESTDocs里提供的，支持URLTemplate这种形式，需要用下面这个</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;</span><br></pre></td></tr></table></figure>
+
+<p>替换掉import，倒入正确的get方法即可正常运行。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2020/02/23/postgresql%E7%9A%84%E6%95%B0%E7%BB%84%E5%92%8Cjson%E5%AD%97%E6%AE%B5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/23/postgresql%E7%9A%84%E6%95%B0%E7%BB%84%E5%92%8Cjson%E5%AD%97%E6%AE%B5/" class="post-title-link" itemprop="url">PostgreSQL的数组和JSON字段</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-02-23 10:21:41 / 修改时间：10:53:18" itemprop="dateCreated datePublished" datetime="2020-02-23T10:21:41+08:00">2020-02-23</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>PostgreSQL里有两种特殊的字段类型，数组和JSON，这2个字段在处理一些数据类型时会非常方便。不用多建表还能方便的查询其中内容。</p>
+<h1 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h1><p>数据中的多对多，我们之前一般需要建一个映射表来处理；或者是在某方建一个比较长的字段（例如text类型）然后用某种分隔符（例如逗号）保存数据。</p>
+<p>一对多如果在在「一」方保存「多」的信息，也只能类似多对多的处理方式。</p>
+<p>有了数组类型，就可以直接建个数组字段保存这些值了，很简单的实现了一对多。</p>
+<h2 id="数组字段的查询"><a href="#数组字段的查询" class="headerlink" title="数组字段的查询"></a>数组字段的查询</h2><p>例如，我们创建一个表，产品表，每个产品可以有多张图片，图片用数组字段</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> product(</span><br><span class="line">  <span class="keyword">id</span>      <span class="built_in">serial</span> primary <span class="keyword">key</span>,</span><br><span class="line">  <span class="keyword">name</span>  <span class="built_in">char</span>(<span class="number">50</span>)  <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">  imgs   <span class="built_in">varchar</span>(<span class="number">50</span>)  <span class="keyword">not</span> <span class="literal">null</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>添加一条记录，有3张图p1.jpg, p2.jpg, p3.jpg</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> product(<span class="keyword">name</span>, imgs) </span><br><span class="line">   <span class="keyword">values</span>(<span class="string">&#x27;手机&#x27;</span>, <span class="string">&#x27;&#123;&quot;p1.jpg&quot;, &quot;p2.jpg&quot;, &quot;p3.jpg&quot;&#125;&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<p>查询imgs字段包含 p1.jpg 的记录</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> product <span class="keyword">where</span> <span class="string">&#x27;p2.jpg&#x27;</span> = <span class="keyword">ANY</span>(imgs)</span><br></pre></td></tr></table></figure>
+
+<h2 id="更多"><a href="#更多" class="headerlink" title="更多"></a>更多</h2><p>PostgreSQL 支持多维数组，而且是各种类型的数组、int[], timestamp[] 等等，不仅仅是字符串数组，多维数组形式例如： varchar(100)[][] </p>
+<h1 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h1><p>JSON字段用于保存更复杂的数据类型。</p>
+<h2 id="json-vs-jsonb"><a href="#json-vs-jsonb" class="headerlink" title="json vs. jsonb"></a>json vs. jsonb</h2><p>PostgreSQL中有2种JSON类型： json 和 jsonb ，两种类型的区别是：</p>
+<ul>
+<li>json 保存原始值，不会对值进行处理（例如去空格，去重等）。insert/update后 select出来的值的字符串形式是相同的</li>
+<li>jsonb 保存是处理过的值，会对值去空格去重；insert/update后 select出来的值的字符串形式会不同</li>
+<li>jsonb 保存(insert/update)速度会稍慢于json</li>
+<li>如果使用PostgreSQL 自身的JSON函数查询字段，jsonb会快于json</li>
+</ul>
+<p>根据这个特点，如果我们的JSON数据只是在程序中处理，可以选择json类型；如果需要PostgreSQL处理则选择jsonb更佳。</p>
+<h1 id="官方文档"><a href="#官方文档" class="headerlink" title="官方文档"></a>官方文档</h1><p>Postgresql 的官方文档做得非常好，更多信息看 </p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.postgresql.org/docs/current/arrays.html">https://www.postgresql.org/docs/current/arrays.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.postgresql.org/docs/current/datatype-json.html">https://www.postgresql.org/docs/current/datatype-json.html</a></li>
+</ul>
+<p>PostgreSQL还有些其它很有意思的字段，例如：区间类型（日期区间、数值区间等）、复合类型、枚举类型、甚至点线多边形等几何图形等字段类型，而且对于这些类型都有相应的一些辅助运算函数的支持。<a target="_blank" rel="noopener" href="https://www.postgresql.org/docs/current/datatype.html">数据类型</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2020/02/16/spring-gateway-%E9%81%87%E5%88%B0%E5%BC%82%E5%B8%B8unable-to-start-servletwebserverapplicationcontext-due-to-missing-servletwebserverfactory-bean-%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/16/spring-gateway-%E9%81%87%E5%88%B0%E5%BC%82%E5%B8%B8unable-to-start-servletwebserverapplicationcontext-due-to-missing-servletwebserverfactory-bean-%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8/" class="post-title-link" itemprop="url">Spring Gateway 遇到异常Unable to start ServletWebServerApplicationContext due to missing ServletWebServerFactory bean.无法启动</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-02-16 14:57:08 / 修改时间：15:03:35" itemprop="dateCreated datePublished" datetime="2020-02-16T14:57:08+08:00">2020-02-16</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h1><p>spring gateway 遇到异常，无法启动，异常如下：</p>
+<pre><code>14:07:09.901 [main] ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.context.ApplicationContextException: Unable to start web server; nested exception is org.springframework.context.ApplicationContextException: Unable to start ServletWebServerApplicationContext due to missing ServletWebServerFactory bean.
+    at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:156)
+    at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:544)
+    at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:141)
+    at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:747)
+    at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397)
+    at org.springframework.boot.SpringApplication.run(SpringApplication.java:315)
+    at org.springframework.boot.SpringApplication.run(SpringApplication.java:1226)
+    at org.springframework.boot.SpringApplication.run(SpringApplication.java:1215)
+    at cn.devmgr.mall.gateway.GatewayMpApplication.main(GatewayMpApplication.java:20)
+Caused by: org.springframework.context.ApplicationContextException: Unable to start ServletWebServerApplicationContext due to missing ServletWebServerFactory bean.
+    at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.getWebServerFactory(ServletWebServerApplicationContext.java:203)
+    at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.createWebServer(ServletWebServerApplicationContext.java:179)
+    at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:153)
+    ... 8 common frames omitted</code></pre>
+<h1 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h1><p>出现这种状况，是由于项目中混入了 spring-webmvc 的包导致的，spring gateway  使用 webflux， 而webflux和webmvc不兼容，就会出现上面的错误。</p>
+<h1 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h1><p>一般不是直接包含了 spring-webmvc，是引入的某个包需要依赖webmvc，找到并排除就好了，但找起来，需要点方法。</p>
+<p>用命令 <code>mvn -X  package</code>增加一个 -X 参数去打包，会把详细的依赖路径全部都显示出来。例如：</p>
+<pre><code>[INFO] &lt;&lt;&lt; spring-boot-maven-plugin:2.2.1.RELEASE:run (default-cli) &lt; test-compile @ gateway-mp-server &lt;&lt;&lt;
+[DEBUG] Dependency collection stats: &#123;ConflictMarker.analyzeTime=1, ConflictMarker.markTime=0, ConflictMarker.nodeCount=909, ConflictIdSorter.graphTime=1, ConflictIdSorter.topsortTime=0, ConflictIdSorter.conflictIdCount=230, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=15, ConflictResolver.conflictItemCount=552, DefaultDependencyCollector.collectTime=27, DefaultDependencyCollector.transformTime=17&#125;
+[DEBUG] cn.devmgr.mall:gateway-mp-server:jar:1.0.0
+[DEBUG]    cn.devmgr:common-api:jar:1.0.0:compile
+[DEBUG]       org.springframework:spring-webmvc:jar:5.2.1.RELEASE:compile
+[DEBUG]          org.springframework:spring-beans:jar:5.2.1.RELEASE:compile
+[DEBUG]          org.springframework:spring-context:jar:5.2.1.RELEASE:compile
+[DEBUG]          org.springframework:spring-expression:jar:5.2.1.RELEASE:compile
+[DEBUG]          org.springframework:spring-web:jar:5.2.1.RELEASE:compile
+[DEBUG]       org.springframework.security:spring-security-web:jar:5.2.1.RELEASE:compile
+[DEBUG]          org.springframework.security:spring-security-core:jar:5.2.1.RELEASE:compile
+[DEBUG]       com.auth0:java-jwt:jar:3.9.0:compile
+[DEBUG]          com.fasterxml.jackson.core:jackson-databind:jar:2.10.0:compile (version managed from 2.10.0.pr3 by com.fasterxml.jackson:jackson-bom:2.10.0)
+[DEBUG]          commons-codec:commons-codec:jar:1.13:compile (version managed from 1.12 by org.springframework.boot:spring-boot-dependencies:2.2.1.RELEASE)
+[DEBUG]    org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:jar:2.2.0.RELEASE:compile
+[DEBUG]       org.springframework.cloud:spring-cloud-starter:jar:2.2.0.RELEASE:compile
+[DEBUG]          org.springframework.cloud:spring-cloud-context:jar:2.2.0.RELEASE:compile
+[DEBUG]             org.springframework.security:spring-security-crypto:jar:5.2.1.RELEASE:compile
+[DEBUG]          org.springframework.cloud:spring-cloud-commons:jar:2.2.0.RELEASE:compile
+[DEBUG]          org.springframework.security:spring-security-rsa:jar:1.0.7.RELEASE:compile
+[DEBUG]             org.bouncycastle:bcpkix-jdk15on:jar:1.60:compile
+[DEBUG]                org.bouncycastle:bcprov-jdk15on:jar:1.60:compile
+[DEBUG]       org.springframework.cloud:spring-cloud-netflix-hystrix:jar:2.2.0.RELEASE:compile
+[DEBUG]          org.springframework.boot:spring-boot-starter-aop:jar:2.2.1.RELEASE:compile
+[DEBUG]       org.springframework.cloud:spring-cloud-netflix-eureka-client:jar:2.2.0.RELEASE:compile
+[DEBUG]       com.netflix.eureka:eureka-client:jar:1.9.13:compile
+[DEBUG]          org.codehaus.jettison:jettison:jar:1.3.7:runtime
+[DEBUG]             stax:stax-api:jar:1.0.1:runtime
+[DEBUG]          com.netflix.netflix-commons:netflix-eventbus:jar:0.3.0:runtime
+[DEBUG]             com.netflix.netflix-commons:netflix-infix:jar:0.3.0:runtime
+[DEBUG]                commons-jxpath:commons-jxpath:jar:1.3:runtime
+[DEBUG]                joda-time:joda-time:jar:2.10.5:runtime (version managed from 2.3 by org.springframework.boot:spring-boot-dependencies:2.2.1.RELEASE)
+[DEBUG]                org.antlr:antlr-runtime:jar:3.4:runtime
+[DEBUG]                   org.antlr:stringtemplate:jar:3.2.1:runtime
+[DEBUG]                   antlr:antlr:jar:2.7.7:runtime
+[DEBUG]             org.apache.commons:commons-math:jar:2.2:runtime
+[DEBUG]          com.netflix.archaius:archaius-core:jar:0.7.6:compile
+[DEBUG]          javax.ws.rs:jsr311-api:jar:1.1.1:runtime
+[DEBUG]          com.netflix.servo:servo-core:jar:0.12.21:runtime
+[DEBUG]          com.sun.jersey:jersey-core:jar:1.19.1:runtime
+[DEBUG]          com.sun.jersey:jersey-client:jar:1.19.1:runtime
+[DEBUG]          com.sun.jersey.contribs:jersey-apache-client4:jar:1.19.1:runtime
+[DEBUG]          org.apache.httpcomponents:httpclient:jar:4.5.10:compile (version managed from 4.5.3 by org.springframework.boot:spring-boot-dependencies:2.2.1.RELEASE)</code></pre>
+<p>在输入里面搜索 webmvc ，找到最上级后，在pom里排除掉即可，例如：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>cn.devmgr<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>common-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span><span class="comment">&lt;!-- 这里是排除掉webmvc --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-webmvc<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2020/02/13/vue-js%E5%9C%A8%E4%B8%80%E4%B8%AA%E9%A1%B5%E9%9D%A2%E4%B8%8A%E4%BD%BF%E7%94%A8%E5%90%8C%E4%B8%80%E4%B8%AA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6%E5%A4%9A%E6%AC%A1%E6%97%B6%E9%81%87%E5%88%B0%E7%9A%84%E6%80%AA%E9%97%AE%E9%A2%98/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -741,221 +1021,6 @@ list-members                list all members of a group</code></pre>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2020/01/10/java9-java-lang-noclassdeffounderror-javax-xml-bind-jaxbexception/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/01/10/java9-java-lang-noclassdeffounderror-javax-xml-bind-jaxbexception/" class="post-title-link" itemprop="url">Java9: java.lang.NoClassDefFoundError: javax/xml/bind/JAXBException</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-01-10 10:21:48" itemprop="dateCreated datePublished" datetime="2020-01-10T10:21:48+08:00">2020-01-10</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-01-11 08:44:54" itemprop="dateModified" datetime="2020-01-11T08:44:54+08:00">2020-01-11</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="问题表现"><a href="#问题表现" class="headerlink" title="问题表现"></a>问题表现</h2><p>在老程序升级到java9或以后版本时，如果遇到 java.lang.NoClassDefFoundError: javax/xml/bind/JAXBException 错误：</p>
-<pre><code>org.springframework.beans.factory.BeanCreationException: Error creating bean with name &#39;springSecurityFilterChain&#39; defined in class path resource [org/springframework/security/config/annotation/web/configuration/WebSecurityConfiguration.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [javax.servlet.Filter]: Factory method &#39;springSecurityFilterChain&#39; threw exception; nested exception is java.lang.NoClassDefFoundError: javax/xml/bind/JAXBException
-    at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:645) ~[spring-beans-5.2.1.RELEASE.jar:5.2.1.RELEASE]
-    at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:475) ~[spring-beans-5.2.1.RELEASE.jar:5.2.1.RELEASE]</code></pre>
-<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>这是由于JAXB API没找到造成的。 JAXB 在是 Java EE API的一部分，在java9开始不再包含在默认的java9的module中（java9开始分module了），甚至在java11开始，干脆把它给移除出JDK了。</p>
-<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>知道了原因解决办法也就有了：</p>
-<ul>
-<li>继续用Java8</li>
-<li>命令后增加 <code>add-modules java.xml.bin</code>，这个方法只对 java9 java10有效</li>
-<li>一劳永逸的解决问题（对9和以后版本都生效）增加maven依赖（或者gradle）</li>
-</ul>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>jakarta.xml.bind<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jakarta.xml.bind-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.3.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.glassfish.jaxb<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jaxb-runtime<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.3.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><p>在 <a href="https://blog.devmgr.cn/2019/06/16/java-lang-reflect-invocationtargetexception/">这篇文章：org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat</a>也遇到过相同的JAXBException，解决方式类似。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/12/29/%E5%9C%A8%E5%9B%BE%E7%89%87%E4%B8%8A%E6%8F%8F%E7%94%BB%E6%96%87%E5%AD%97%E6%97%B6%E7%9A%84%E6%8A%97%E9%94%AF%E9%BD%BF%E5%8A%9F%E8%83%BD/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/29/%E5%9C%A8%E5%9B%BE%E7%89%87%E4%B8%8A%E6%8F%8F%E7%94%BB%E6%96%87%E5%AD%97%E6%97%B6%E7%9A%84%E6%8A%97%E9%94%AF%E9%BD%BF%E5%8A%9F%E8%83%BD/" class="post-title-link" itemprop="url">在图片上描画文字时的抗锯齿功能</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-12-29 16:11:10" itemprop="dateCreated datePublished" datetime="2019-12-29T16:11:10+08:00">2019-12-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-01-09 16:51:14" itemprop="dateModified" datetime="2020-01-09T16:51:14+08:00">2020-01-09</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>用java的 Graphics 的 drawString 往图片上描画文字的时候，文字边缘可能会出现粗糙的锯齿（如下图，上部的”文“字的放大效果），可以通过Graphics2D设置抗锯齿效果。</p>
-<p>代码和两种的比较效果如下(只有第18行是设置抗锯齿效果的代码)：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">BufferedImage img = <span class="keyword">new</span> BufferedImage(<span class="number">800</span>, <span class="number">300</span>, BufferedImage.TYPE_INT_ARGB);</span><br><span class="line">Graphics g = img.getGraphics();</span><br><span class="line"></span><br><span class="line">InputStream fi = Thread.currentThread().getContextClassLoader().getResourceAsStream(<span class="string">&quot;fonts/msyh.ttf&quot;</span>);</span><br><span class="line">BufferedInputStream bisYh = <span class="keyword">new</span> BufferedInputStream(fi);</span><br><span class="line">Font yahei = Font.createFont(Font.TRUETYPE_FONT, bisYh);</span><br><span class="line"></span><br><span class="line">g.setColor(Color.WHITE);</span><br><span class="line">g.fillRect(<span class="number">0</span>, <span class="number">0</span>, <span class="number">800</span>, <span class="number">300</span>);</span><br><span class="line"></span><br><span class="line">Font font = yahei.deriveFont(Font.BOLD, <span class="number">48</span>);</span><br><span class="line">g.setColor(Color.BLACK);</span><br><span class="line"></span><br><span class="line">g.setFont(font);</span><br><span class="line">g.drawString(<span class="string">&quot;中文字体，无抗锯齿效果&quot;</span>, <span class="number">10</span>, <span class="number">50</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 下面这行是设置文字抗锯齿效果的</span></span><br><span class="line">((Graphics2D) g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);</span><br><span class="line">g.drawString(<span class="string">&quot;中文字体，有抗锯齿效果&quot;</span>, <span class="number">10</span>, <span class="number">150</span>);</span><br><span class="line"></span><br><span class="line">FileOutputStream fos = <span class="keyword">new</span> FileOutputStream(<span class="string">&quot;target/font.png&quot;</span> );</span><br><span class="line">ImageIO.write(img, <span class="string">&quot;png&quot;</span>, fos);</span><br><span class="line"></span><br><span class="line">fos.flush();</span><br><span class="line">fos.close();</span><br></pre></td></tr></table></figure>
-<p><img src="/images/font.jpg" alt="字体"></p>
-<p>通过上图可以看出，设置抗锯齿效果后，会在文字边缘有些过度颜色的点。如果是要在单色打印机上打印（例如android下连接小票打印机），就不需要这种抗锯齿效果了，有它反而会增加麻烦，我就是在调试android下单色打印机时发现的这个效果。</p>
-<p>描画图片时也可以设置抗锯齿效果</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/10/19/graphics2d-drawstring-%E6%96%B9%E6%B3%95%E7%9A%84x-y%E5%8F%82%E6%95%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/10/19/graphics2d-drawstring-%E6%96%B9%E6%B3%95%E7%9A%84x-y%E5%8F%82%E6%95%B0/" class="post-title-link" itemprop="url">Graphics2D.drawString 方法的x,y参数</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2019-10-19 20:36:07 / 修改时间：20:49:55" itemprop="dateCreated datePublished" datetime="2019-10-19T20:36:07+08:00">2019-10-19</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>JDK中Graphics2D类 <code>drawString(String str, float x, float y)</code> 方法的后两个参数是用来控制字符串的位置。</p>
-<p>这2个参数即不是字符串左上角距画布原点的坐标，也不是左下角距原点的坐标，而是baseline起点距原点的坐标。说到baseline，请参照下图</p>
-<p><img src="/images/drawstring.png" alt="字体"></p>
-<p>如上图，红色线是字体描画时的baseline（基线），小写英文字母是可能有些部分在baseline以下的，比如 gjpqy 等，中文每个字都有可能有部分在baseline以下。baseline和字的最上方之间的距离称作 ascent，baseline和最下方之间的距离叫 descent. 这两段距离可以通过 FontMetrics 类获取。</p>
-<p>如果要想被画的文字左上角在x,y 位置，可以通过如下代码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">drawString</span><span class="params">(Graphics2D g, String s, <span class="keyword">float</span> x, <span class="keyword">float</span> y)</span></span>&#123;</span><br><span class="line">  FontMetrics metrics = g.getFontMetrics(g.getFont());</span><br><span class="line">  g.drawString(s, x, y - metrics.getAscent());</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>通过FontMetrics类，我们还可以获取一段文字的实际占用宽度等，可以实现右对齐和居中对齐</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1025,13 +1090,13 @@ list-members                list all members of a group</code></pre>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">95</span>
+          <span class="site-state-item-count">98</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">127</span>
+        <span class="site-state-item-count">136</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

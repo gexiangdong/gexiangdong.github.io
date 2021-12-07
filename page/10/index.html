@@ -146,6 +146,318 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2015/09/22/glusterfs%E5%90%8C%E6%AD%A5%E6%96%87%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2015/09/22/glusterfs%E5%90%8C%E6%AD%A5%E6%96%87%E4%BB%B6/" class="post-title-link" itemprop="url">GlusterFS同步文件</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2015-09-22 14:21:09" itemprop="dateCreated datePublished" datetime="2015-09-22T14:21:09+08:00">2015-09-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-06-07 18:51:02" itemprop="dateModified" datetime="2019-06-07T18:51:02+08:00">2019-06-07</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>glusterfs可以用来给同步两台机器（或更多）做文件镜像，而且是所有节点都在线可用得实时热备份。</p>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install glusterfs-server</span><br></pre></td></tr></table></figure>
+
+<p>即可完成安装，也有glusterfs-client可用。</p>
+<h1 id="配置Gluster节点"><a href="#配置Gluster节点" class="headerlink" title="配置Gluster节点"></a>配置Gluster节点</h1><p>先在2个机器的hosts文件里加入类似的域名指向，以便后面使用<br>【以下方案仅限于2台主机同步，3台不可行】</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">192.168.1.10  node1</span><br><span class="line">192.168.1.11  node2</span><br></pre></td></tr></table></figure>
+<p>注意：文件里不要有127.0.0.1 node1这样的行（如果node1和机器名重名会出现此现象）</p>
+<p>在node1上运行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gluster peer probe node2</span><br></pre></td></tr></table></figure>
+<p>在node2上运行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gluster peer probe node1</span><br></pre></td></tr></table></figure>
+
+<p>之后可以使用下面的命令查看状态</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gluster peer status</span><br></pre></td></tr></table></figure>
+
+<h1 id="配置镜像的卷"><a href="#配置镜像的卷" class="headerlink" title="配置镜像的卷"></a>配置镜像的卷</h1><p>实际使用中应该用一个单独的逻辑分区，此处仅仅是使用了一个目录<br>在两个机器上都分别运行下面命令创建一个目录。（不要使用已经存在的目录）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir &#x2F;home&#x2F;gluster-test</span><br></pre></td></tr></table></figure>
+
+<p>然后在任意一台机器上运行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gluster volume create gv0 replica 2 node1:&#x2F;home&#x2F;gluster-test node2:&#x2F;home&#x2F;gluster-test force</span><br><span class="line">gluster volume start gv0</span><br></pre></td></tr></table></figure>
+
+<p>注意force是因为使用root用户创建，gluster建议不用root创建。命令在任意一个机器上运行后，另外一个机器会自动同步。</p>
+<p>如果出现</p>
+<pre><code>volume create: gv0: failed: /home/gluster-test or a prefix of it is already part of a volume</code></pre>
+<p>或类似的错误信息，可以用如下命令删除文件后，重新再运行 <code>gluster volume create</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">setfattr -x trusted.glusterfs.volume-id &#x2F;home&#x2F;gluster-test</span><br><span class="line">setfattr -x trusted.gfid &#x2F;home&#x2F;gluster-test</span><br><span class="line">rm -rf &#x2F;home&#x2F;gluster-test&#x2F;.glusterfs</span><br></pre></td></tr></table></figure>
+<p>如果没有setfattr，可以通过 <code>apt-get install attr</code> 来安装。</p>
+<p>可以使用 <code>gluster volume info</code> 查看上述卷状态。</p>
+<p>注意：卷创建成功后，不要去修改/home/gluster-test目录下地任何文件、目录等（如果是单独分区，不mount最好）</p>
+<h1 id="挂载gluster的卷"><a href="#挂载gluster的卷" class="headerlink" title="挂载gluster的卷"></a>挂载gluster的卷</h1><p>在需要使用文件的机器上执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mount -t glusterfs node1:&#x2F;gv0 &#x2F;mnt</span><br></pre></td></tr></table></figure>
+
+<p>此命令会把上一步骤创建的卷挂载到/mnt目录下，以后可以访问/mnt目录，读写文件。文件会自动同步到node1,node2的节点。</p>
+<p>如果不需要访问，只供备份的节点可以不用此步骤。</p>
+<p>在/etc/fstab文件里加入如下行，可以避免每次启动都要手工mount，可自动mount</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node1:&#x2F;gv0   &#x2F;web    glusterfs     defaults,nobootwait,_netdev  0  0</span><br></pre></td></tr></table></figure>
+
+<p>注意一共6部分，空格区分，每部分之间不要有空格</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="http://gluster.readthedocs.org/en/latest/Quick-Start-Guide/Quickstart/">http://gluster.readthedocs.org/en/latest/Quick-Start-Guide/Quickstart/</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2015/03/21/redmine%E5%92%8Cgit%E9%9B%86%E6%88%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2015/03/21/redmine%E5%92%8Cgit%E9%9B%86%E6%88%90/" class="post-title-link" itemprop="url">redmine和git集成</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2015-03-21 13:52:48" itemprop="dateCreated datePublished" datetime="2015-03-21T13:52:48+08:00">2015-03-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-04-13 17:39:39" itemprop="dateModified" datetime="2021-04-13T17:39:39+08:00">2021-04-13</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="安装redmine"><a href="#安装redmine" class="headerlink" title="安装redmine"></a>安装redmine</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install redmine redmine-pgsql apache2 libapache2-mod-passenger apparmor</span><br></pre></td></tr></table></figure>
+
+<p>如果安装过程后自动启动的配置出错，可以随时使用如下命令启动配置redmine的进程</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dpkg-reconfigure -plow redmine </span><br></pre></td></tr></table></figure>
+
+<p>安装完后配置remine，在Apache的000-default.conf中映射<br>在/web/htdocs(网站根目录）下创建一个连接</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s &#x2F;usr&#x2F;share&#x2F;redmine&#x2F;public redmine</span><br></pre></td></tr></table></figure>
+
+<p>在apache 0000-default.conf中加入（也可在其他部分）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;Directory &#x2F;web&#x2F;htdocs&#x2F;redmine&gt;</span><br><span class="line">  RailsBaseURI &#x2F;redmine</span><br><span class="line">  PassengerResolveSymlinksInDocumentRoot on</span><br><span class="line">&lt;&#x2F;Directory&gt;</span><br></pre></td></tr></table></figure>
+
+<p>之后可以用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service restart apache2</span><br></pre></td></tr></table></figure>
+
+<p>重启apache，并在浏览器输入 <code>http://localhost/redmine/</code> 查看是否已经成功。</p>
+<p>如果出现类似如下错误：</p>
+<pre><code>Web application could not be started
+cannot load such file -- bundler/setup (LoadError)
+  /usr/lib/ruby/1.9.1/rubygems/custom_require.rb:36:in `require&#39;
+  /usr/lib/ruby/1.9.1/rubygems/custom_require.rb:36:in `require&#39;
+  /usr/lib/ruby/vendor_ruby/phusion_passenger/loader_shared_helpers.rb:245:in `block in run_load_path_setup_code&#39;
+  /usr/lib/ruby/vendor_ruby/phusion_passenger/loader_shared_helpers.rb:348:in `running_bundler&#39;
+  /usr/lib/ruby/vendor_ruby/phusion_passenger/loader_shared_helpers.rb:243:in `run_load_path_setup_code&#39;
+  /usr/share/passenger/helper-scripts/rack-preloader.rb:100:in `preload_app&#39;
+  /usr/share/passenger/helper-scripts/rack-preloader.rb:158:in `&lt;module:App&gt;&#39;
+  /usr/share/passenger/helper-scripts/rack-preloader.rb:29:in `&lt;module:PhusionPassenger&gt;&#39;
+  /usr/share/passenger/helper-scripts/rack-preloader.rb:28:in `&lt;main&gt;&#39;
+Application root
+/usr/share/redmine
+...</code></pre>
+<p>可能是ruby 没有安装bundle所致，用如下命令安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gem install bundle</span><br></pre></td></tr></table></figure>
+
+<p>安装好后，要把目录权限修改下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chown -R nobody:nogroup &#x2F;usr&#x2F;share&#x2F;redmine</span><br></pre></td></tr></table></figure>
+
+<p>注意上面的nobody nogroup是apache用户和组</p>
+<h1 id="安装-git"><a href="#安装-git" class="headerlink" title="安装 git"></a>安装 git</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install git-core</span><br></pre></td></tr></table></figure>
+
+<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><h3 id="创建redmine用的仓库镜像"><a href="#创建redmine用的仓库镜像" class="headerlink" title="创建redmine用的仓库镜像"></a>创建redmine用的仓库镜像</h3><p>在/var/lib/redmine下创建一个repos目录，也可以放其他地方。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;var&#x2F;lib&#x2F;redmine</span><br><span class="line">mkdir repos</span><br><span class="line">git clone --mirror &#x2F;home&#x2F;git&#x2F;projects&#x2F;test.git  </span><br><span class="line">chown -R git:git test.git</span><br></pre></td></tr></table></figure>
+
+<p>注意：不需要单独创建项目的.git目录，git clone会自动创建。</p>
+<p>修改mirror里地权限设置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;var&#x2F;lib&#x2F;redmine&#x2F;repos&#x2F;test.git</span><br><span class="line">chmod a+rX -R .&#x2F;</span><br><span class="line">git config --add core.sharedRepository 644</span><br></pre></td></tr></table></figure>
+
+<p>以上设置是为了确保redmine程序对这里有读取的权限。</p>
+<p>如果redmine访问时出现「404 版本库中不存在该条目和（或）其修订版本。」提示，那么可能是上述配置没有加好。</p>
+<h3 id="在redmine中登记仓库镜像位置"><a href="#在redmine中登记仓库镜像位置" class="headerlink" title="在redmine中登记仓库镜像位置"></a>在redmine中登记仓库镜像位置</h3><p>进入redmine对应的项目-&gt;配置-&gt;版本库，选择新增版本库<br>SCM选择Git，库路径处输入 /var/lib/redmine/repos/test.git，并设置其他项目最后保存。（注意：如果用的docker redmine，这里要填写的路径是docker内的路径，不要写成宿主机的路径，一般是存在宿主机上，通过docker -v参数映射给docker访问，这是就是映射的目录+仓库目录了）</p>
+<p>从redmine里版本库标签看到的是master分支的源码，可以前后到其他标签，如果默认想看其他标签的，例如develop分支</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;var&#x2F;lib&#x2F;redmine&#x2F;repos&#x2F;test.git</span><br><span class="line">git symbolic-ref HEAD refs&#x2F;heads&#x2F;develop</span><br></pre></td></tr></table></figure>
+
+<p>这样默认就是develop分支了</p>
+<h3 id="git-commit-message-和-redmine-issue-关联"><a href="#git-commit-message-和-redmine-issue-关联" class="headerlink" title="git commit message 和 redmine issue 关联"></a>git commit message 和 redmine issue 关联</h3><p>以后push到git server的更新，commit message中有 #101 字样的提交会被自动关联到101号问题。</p>
+<p>例如：</p>
+<pre><code>fixed bug #101 @1h30m </code></pre>
+<p>如果需要自动更改问题状态，请在管理-&gt;配置-&gt;版本库处设置关键字。</p>
+<h3 id="设置git仓库，收到提交后自动更新redmine用镜像"><a href="#设置git仓库，收到提交后自动更新redmine用镜像" class="headerlink" title="设置git仓库，收到提交后自动更新redmine用镜像"></a>设置git仓库，收到提交后自动更新redmine用镜像</h3><p>通过设置hooks 来实现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;home&#x2F;git&#x2F;projects&#x2F;test.git&#x2F;hooks</span><br></pre></td></tr></table></figure>
+
+<p>创建post-receive文件，文件内容</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">/usr/bin/git push --mirror /var/lib/redmine/repos/test.git</span><br><span class="line">curl <span class="string">&quot;http://127.0.0.1/redmine/sys/fetch_changesets?key=&#123;apikey&#125;&quot;</span> &amp;</span><br></pre></td></tr></table></figure>
+
+<p>apikey在redmine 管理-&gt;配置-&gt;版本库下面，选中“启用用于版本库管理的WebService”，然后生成一个API key。并把生成的key拷贝到这里。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chmod 755 post-receive</span><br><span class="line">chown git:git post-receive</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="登记耗时不成功的可能原因"><a href="#登记耗时不成功的可能原因" class="headerlink" title="登记耗时不成功的可能原因"></a>登记耗时不成功的可能原因</h2><p>如果在 git commit message 中写的 耗时不被记载入redmine，可能是以下几个原因</p>
+<ol>
+<li> 在版本库配置「在提交信息中引用和解决问题」处，记录的活动选择了「默认」，而枚举值设置中，「活动（时间跟踪）」没有设置默认值</li>
+<li> 提交的用户和项目中设置的开发人员不匹配，git提交的用户，用户名和邮箱需要和项目中开发人员对应的账号匹配</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2015/01/05/eclipse-jdk-8-mac-os-%E4%B8%AD%E6%96%87%E6%96%87%E4%BB%B6%E5%90%8D%E4%B9%B1%E7%A0%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2015/01/05/eclipse-jdk-8-mac-os-%E4%B8%AD%E6%96%87%E6%96%87%E4%BB%B6%E5%90%8D%E4%B9%B1%E7%A0%81/" class="post-title-link" itemprop="url">Eclipse + JDK 8 + Mac OS 中文文件名乱码</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2015-01-05 13:51:06" itemprop="dateCreated datePublished" datetime="2015-01-05T13:51:06+08:00">2015-01-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-06-07 18:51:02" itemprop="dateModified" datetime="2019-06-07T18:51:02+08:00">2019-06-07</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在Mac OS上 Java 8, Eclipse从CVS上取回的中文文件名（目录）乱码，导致无法和windows下的eclipse共享。</p>
+<p>可以通过修改 eclipse.ini(在Eclipse.app/Content/MacOS目录下）在最后增加一行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-Dfile.encoding&#x3D;GBK</span><br></pre></td></tr></table></figure>
+
+<p>来解决。</p>
+<p>我估计在windows的eclipse的eclipse.ini中增加<br><code>-Dfile.encoding=UTF-8</code><br>也可以解决，只要两边保持一致即可。</p>
+<p>解决这个问题涉及到已经在CVS里存的目录、文件是什么编码的。</p>
+<p>最后：增加-Dfile.encoding=GBK后，eclipse 默认的workspace encoding就不是UTF-8而是GBK了，需要去eclipse-&gt;preferences-&gt;General-&gt;Workspace-&gt;Text file encoding中修改一下。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2014/10/29/%E4%BB%8E%E5%89%AA%E8%B4%B4%E6%9D%BF%E7%B2%98%E8%B4%B4%E5%9B%BE%E7%89%87/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -566,13 +878,13 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">95</span>
+          <span class="site-state-item-count">98</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">127</span>
+        <span class="site-state-item-count">136</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

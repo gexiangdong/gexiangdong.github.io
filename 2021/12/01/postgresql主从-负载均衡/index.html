@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.devmgr.cn","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="PostgreSQL的读写分离是通过2部分实现的  主从集群（可以一主多从） Pgpool-II 代理来分发读写操作到不同服务器  Pgpool-II 功能强大，还可实现一个表&#x2F;数据库分发到不同服务器上等等，此处不做讨论 环境三台服务器（可以把以下3个服务安装到一台，此处三台仅仅是为表达清晰）  Pgpool-II ， IP： 192.168.1.10 PostgreSQL 主服务器， IP: 1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PostgreSQL主从+负载均衡">
+<meta property="og:url" content="https://blog.devmgr.cn/2021/12/01/postgresql%E4%B8%BB%E4%BB%8E-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/index.html">
+<meta property="og:site_name" content="GeXiangDong">
+<meta property="og:description" content="PostgreSQL的读写分离是通过2部分实现的  主从集群（可以一主多从） Pgpool-II 代理来分发读写操作到不同服务器  Pgpool-II 功能强大，还可实现一个表&#x2F;数据库分发到不同服务器上等等，此处不做讨论 环境三台服务器（可以把以下3个服务安装到一台，此处三台仅仅是为表达清晰）  Pgpool-II ， IP： 192.168.1.10 PostgreSQL 主服务器， IP: 1">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-12-01T02:16:20.000Z">
+<meta property="article:modified_time" content="2021-12-07T06:30:44.290Z">
+<meta property="article:author" content="GeXiangDong">
+<meta property="article:tag" content="PostgreSQL">
+<meta property="article:tag" content="主从">
+<meta property="article:tag" content="集群">
+<meta property="article:tag" content="读写分离">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://blog.devmgr.cn/2021/12/01/postgresql%E4%B8%BB%E4%BB%8E-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>PostgreSQL主从+负载均衡 | GeXiangDong</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">GeXiangDong</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">精通Java、SQL、Spring的拼写，擅长Linux、Windows的开关机</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2021/12/01/postgresql%E4%B8%BB%E4%BB%8E-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          PostgreSQL主从+负载均衡
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-12-01 10:16:20" itemprop="dateCreated datePublished" datetime="2021-12-01T10:16:20+08:00">2021-12-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-12-07 14:30:44" itemprop="dateModified" datetime="2021-12-07T14:30:44+08:00">2021-12-07</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>PostgreSQL的读写分离是通过2部分实现的</p>
+<ol>
+<li>主从集群（可以一主多从）</li>
+<li>Pgpool-II 代理来分发读写操作到不同服务器</li>
+</ol>
+<p>Pgpool-II 功能强大，还可实现一个表/数据库分发到不同服务器上等等，此处不做讨论</p>
+<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p>三台服务器（可以把以下3个服务安装到一台，此处三台仅仅是为表达清晰）</p>
+<ul>
+<li>Pgpool-II ， IP： 192.168.1.10</li>
+<li>PostgreSQL 主服务器， IP: 192.168.1.11</li>
+<li>PostgreSQL 从服务器,   IP: 192.168.1.12</li>
+</ul>
+<h2 id="集群环境搭建"><a href="#集群环境搭建" class="headerlink" title="集群环境搭建"></a>集群环境搭建</h2><h3 id="安装PostgreSQL"><a href="#安装PostgreSQL" class="headerlink" title="安装PostgreSQL"></a>安装PostgreSQL</h3><p> 分别在主从服务器（192.168.1.11, 192.168.1.12) 上安装PostgreSQL, <code>apt install postgresql</code></p>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>以下操作主从两个服务器都需要</p>
+<h4 id="设置可以从网络访问"><a href="#设置可以从网络访问" class="headerlink" title="设置可以从网络访问"></a>设置可以从网络访问</h4><p>修改 postgresql.conf 文件（如果apt安装且版本12，在/etc/postgresql/12/main/目录下）</p>
+<p>更改 listen_addresses 修改为*或者自己的IP地址</p>
+<h4 id="设置主从复制用户访问"><a href="#设置主从复制用户访问" class="headerlink" title="设置主从复制用户访问"></a>设置主从复制用户访问</h4><p>修改 pg_hba.conf，在末尾增加一行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">host    replication     all             192.168.1.1&#x2F;24         trust</span><br></pre></td></tr></table></figure>
+<p>这行是信任本地网络上所有复制用操作的连接</p>
+<h4 id="在从服务器上设置"><a href="#在从服务器上设置" class="headerlink" title="在从服务器上设置"></a>在从服务器上设置</h4><p>在从服务器（192.168.1.12）上配置复制， 修改 postgresql.conf 文件，找到 primary_conninfo, hot_standby, wal_level 并修改他们</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">primary_conninfo &#x3D; &#39;host&#x3D;192.168.1.11 port&#x3D;5432 user&#x3D;postgres password&#x3D;&#39;</span><br><span class="line">hot_standby &#x3D; on </span><br><span class="line">wal_level &#x3D; replica</span><br></pre></td></tr></table></figure>
+
+<p><em>这几项不设置也行，下面的pg_basebackup命令会在main目录下生成相应的配置</em></p>
+<p>192.168.1.11是主数据库服务器IP，postgres是连接用户名，password是密码，因为我设置了信任所有本地网络用户，所以这里没密码，这行要根据自己的环境修改。</p>
+<p>停止从服务器上的postgresql服务  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop postgresql</span><br></pre></td></tr></table></figure>
+
+<p>进入数据库所在目录（如果ubuntu, apt安装12版，在 /var/lib/postgresql/12），并删除main目录，之后运行pg_basebackup命令从主服务器拷贝数据库文件，最后别忘了把新的main目录改成postgresql的用户</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;var&#x2F;lib&#x2F;postgrewsql&#x2F;12</span><br><span class="line">rm -r main</span><br><span class="line">pg_basebackup -h 192.168.1.11 -p 5432 -U postgres  -Fp -Xs -Pv -R -D .&#x2F;main</span><br><span class="line">chown -R postgres:postgres main</span><br></pre></td></tr></table></figure>
+
+<p>如果pg_basebackup命令成功，会出现类似提示</p>
+<pre><code>pg_basebackup: initiating base backup, waiting for checkpoint to complete
+pg_basebackup: checkpoint completed
+pg_basebackup: write-ahead log start point: 0/4000028 on timeline 1
+pg_basebackup: starting background WAL receiver
+pg_basebackup: created temporary replication slot &quot;pg_basebackup_8071&quot;
+32514/32514 kB (100%), 1/1 tablespace                                         
+pg_basebackup: write-ahead log end point: 0/4000100
+pg_basebackup: waiting for background process to finish streaming ...
+pg_basebackup: syncing data to disk ...
+pg_basebackup: base backup completed</code></pre>
+<p>并且在main目录下有一个 standby.signal 文件</p>
+<p>之后启用postgresql</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start postgresql</span><br></pre></td></tr></table></figure>
+
+<p>这时，可以用psql连接到从服务器，进行以下测试了，正确的结果应该是查询的sql都没问题，更新的sql不能执行了，会提示事务是只读的。<br>也可以执行<code>select pg_is_in_recovery();</code>应该返回T，表示服务器处于恢复模式</p>
+<h3 id="其他配置（和主从无关）"><a href="#其他配置（和主从无关）" class="headerlink" title="其他配置（和主从无关）"></a>其他配置（和主从无关）</h3><p>仅仅为主从可忽略此部分</p>
+<h4 id="postgresql-conf"><a href="#postgresql-conf" class="headerlink" title="postgresql.conf"></a>postgresql.conf</h4><ul>
+<li>max_connections 默认为100，可根据需要增大最大连接数；<em>从服务器的最大连接数不能小于主服务器，否则会启动失败</em></li>
+<li>shared_buffers  在独立的数据库服务器上一般设置为物理内存的1/4</li>
+<li>work_mem增大则对单个SQL的排序等效果明显</li>
+</ul>
+<h4 id="pg-hba-conf"><a href="#pg-hba-conf" class="headerlink" title="pg_hba.conf"></a>pg_hba.conf</h4><p>可根据需要设置允许网络上某个用户连接及连接方式，例如把本地网络连接都允许且设置为trust，则可免去每次都输入密码的麻烦</p>
+<h2 id="负载均衡，Pgpool-II-搭建"><a href="#负载均衡，Pgpool-II-搭建" class="headerlink" title="负载均衡，Pgpool-II 搭建"></a>负载均衡，Pgpool-II 搭建</h2><p>以下操作都在 Pgpool-II （192.168.1.10）服务器上操作</p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install pgpool2</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置-1"><a href="#配置-1" class="headerlink" title="配置"></a>配置</h3><h3 id="修改-etc-pgpool2-pgpool-conf-文件"><a href="#修改-etc-pgpool2-pgpool-conf-文件" class="headerlink" title="修改 /etc/pgpool2/pgpool.conf 文件"></a>修改 /etc/pgpool2/pgpool.conf 文件</h3><h4 id="数据库节点配置"><a href="#数据库节点配置" class="headerlink" title="数据库节点配置"></a>数据库节点配置</h4><p>默认代理端口号是5433，可根据需要修改</p>
+<p>增加2个节点，找到 backend_hostname0部分，按照下面内容修改</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">backend_hostname0 &#x3D; &#39;192.168.1.11&#39;</span><br><span class="line">backend_port0 &#x3D; 5432</span><br><span class="line">backend_weight0 &#x3D; 1</span><br><span class="line"></span><br><span class="line">backend_hostname1 &#x3D; &#39;192.168.1.12&#39;</span><br><span class="line">backend_port1 &#x3D; 5432</span><br><span class="line">backend_weight1 &#x3D; 1</span><br><span class="line"></span><br><span class="line">replication_mode &#x3D; off</span><br><span class="line"></span><br><span class="line">load_balance_mode &#x3D; on</span><br><span class="line"></span><br><span class="line">master_slave_mode &#x3D; on</span><br></pre></td></tr></table></figure>
+
+<p>replication_mode 要设置成off。如果设置on，是由pgpool做复制操作，它会把所有更改SQL发送到每个节点，每个节点都执行一份，当有节点离线时，不会自动在上线后重发，需要设置很多东西，比较麻烦，所以还是用上面的postgresql自己内置的replication机制。</p>
+<p>load_balance_mode 可是实现查询操作的负载均衡，如果off，所有sql都在backend0执行，如果on则根据 backend_weight权重比例来分配查询sql</p>
+<p>master_slave_mode  指定服务器采用主从模式，backend0为主</p>
+<h4 id="pgpool-管理用配置"><a href="#pgpool-管理用配置" class="headerlink" title="pgpool 管理用配置"></a>pgpool 管理用配置</h4><p>pgpool通过一系列pcp命令来维护/管理各个backend node（节点），默认管理端口时9898，如需修改在pgpool.conf内修改 pcp_port， 也可修改pcp_listen_addresses来允许远程管理</p>
+<p>首先需要给pcp管理创建一个用户，通过修改pcp.conf实现，例如增加一行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pcp:ac5c74b64b4b8352ef2f181affb5ac2a</span><br></pre></td></tr></table></figure>
+
+<p>则增加了一个用户，用户名pcp，密码sql（密码存储的是md5值）</p>
+<h3 id="backend-node-的状态"><a href="#backend-node-的状态" class="headerlink" title="backend node 的状态"></a>backend node 的状态</h3><p>节点的状态维护并不是默认自动的，需要使用pcp命令来管理</p>
+<p>除了backend0外，其他新增节点默认是 unused 状态，需要用pcp_attach_node改变状态</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pcp_attach_node -U pcp -p 9898 -h 127.0.0.1 1</span><br></pre></td></tr></table></figure>
+<p>pcp_attach_node 用于把节点状态变为可用，最后一个1是节点序号，在pgpool.conf设置backend时的需要，也可以用sql命令<code>show pool_nodes</code>查到。</p>
+<p>成功执行pcp_attach_node后，如果连接节点没问题，节点状态会变更为 up，否则为down</p>
+<p>每个down/unused状态不会自动变为up</p>
+<p>up也不会自动变为down，这在分发sql时就会出现问题，把sql分发到了已经停止服务的节点不是我们想要的，为了避免需要配置 health check</p>
+<p>在pgpool.conf内做如下配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">health_check_period &#x3D; 10    #单位秒</span><br><span class="line">health_check_timeout &#x3D; 20</span><br><span class="line">health_check_user &#x3D; &#39;postgres&#39;</span><br><span class="line">health_check_pass &#x3D; &#39;&#39;</span><br><span class="line">health_check_database &#x3D; &#39;tempdb&#39;    </span><br></pre></td></tr></table></figure>
+<p>需要把用户名、密码、数据等配制成自己环境所需，之后重启，pgpool就可以检查每个节点的状态是否依旧在线了，如果已经连接不到，则会自动变成down状态</p>
+<p> (down, unused) =&gt; up 通过 pcp_attach_node </p>
+<h2 id="pgpool-配置中的2个参数"><a href="#pgpool-配置中的2个参数" class="headerlink" title="pgpool 配置中的2个参数"></a>pgpool 配置中的2个参数</h2><h3 id="num-init-children"><a href="#num-init-children" class="headerlink" title="num_init_children"></a>num_init_children</h3><p>num_init_children 这个项目是启动多少个线程来接收pgpool的客户端（一般是我门开发的程序）的连接，当连接数超过这个值时，客户端就会等待直到有连接释放出来或者超时。</p>
+<p>如果不使用pgpool时，直接连接postgresql，与postgresql的max_connections类似（在这个数目内都能正常连接，超过这个数就不正常了，区别是超过这个数后，连接postgresql的自动断了，连接pgpool的会进入等待队列）</p>
+<p>默认值：100</p>
+<p>如果自己的程序中使用了连接池，那么连接池的最大连接数不要超过这个值。</p>
+<h3 id="max-pool"><a href="#max-pool" class="headerlink" title="max_pool"></a>max_pool</h3><p>这个有点特殊，和postgresql中没有对应的项目。它是每一个连接（num_init_children的每个线程）可以对应的往pgpool的 backend node的连接池数，如果使用多个数据库，这个一般设置成常用的数据库数目。让每个线程都有到每个数据库的连接池，这样速度最快。但要注意  num_init_children * max_pool 应该小于等于 backend node的max_connections</p>
+<p>默认值：4</p>
+<p>如果服务器上仅仅有一个数据库是用于生产的，那么改成1是个不错的选择。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/postgresql/" rel="tag"># PostgreSQL</a>
+              <a href="/tags/%E4%B8%BB%E4%BB%8E/" rel="tag"># 主从</a>
+              <a href="/tags/%E9%9B%86%E7%BE%A4/" rel="tag"># 集群</a>
+              <a href="/tags/%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB/" rel="tag"># 读写分离</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/11/10/java-graphics2d-%E7%94%BB%E4%B8%80%E4%B8%AA%E9%80%8F%E6%98%8E%E7%9A%84%E5%9C%86/" rel="prev" title="java Graphics2D 画一个透明的圆">
+      <i class="fa fa-chevron-left"></i> java Graphics2D 画一个透明的圆
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/12/07/redis%E4%B8%AD%E5%AD%98%E5%82%A8pojo%EF%BC%8Cpojo%E5%A2%9E%E5%88%A0%E5%B1%9E%E6%80%A7%E5%90%8E%E9%87%8D%E6%96%B0%E9%83%A8%E7%BD%B2%EF%BC%8C%E6%9C%AA%E6%B8%85%E9%99%A4redis%E7%BC%93%E5%AD%98%E5%AF%BC%E8%87%B4%E7%9A%84%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%A4%B1%E8%B4%A5/" rel="next" title="Redis中存储POJO，POJO增删属性后重新部署，未清除Redis缓存导致的反序列化失败">
+      Redis中存储POJO，POJO增删属性后重新部署，未清除Redis缓存导致的反序列化失败 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83"><span class="nav-number">1.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9B%86%E7%BE%A4%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-number">2.</span> <span class="nav-text">集群环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85PostgreSQL"><span class="nav-number">2.1.</span> <span class="nav-text">安装PostgreSQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE"><span class="nav-number">2.2.</span> <span class="nav-text">配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E5%8F%AF%E4%BB%A5%E4%BB%8E%E7%BD%91%E7%BB%9C%E8%AE%BF%E9%97%AE"><span class="nav-number">2.2.1.</span> <span class="nav-text">设置可以从网络访问</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E7%94%A8%E6%88%B7%E8%AE%BF%E9%97%AE"><span class="nav-number">2.2.2.</span> <span class="nav-text">设置主从复制用户访问</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8%E4%BB%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E8%AE%BE%E7%BD%AE"><span class="nav-number">2.2.3.</span> <span class="nav-text">在从服务器上设置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E9%85%8D%E7%BD%AE%EF%BC%88%E5%92%8C%E4%B8%BB%E4%BB%8E%E6%97%A0%E5%85%B3%EF%BC%89"><span class="nav-number">2.3.</span> <span class="nav-text">其他配置（和主从无关）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#postgresql-conf"><span class="nav-number">2.3.1.</span> <span class="nav-text">postgresql.conf</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#pg-hba-conf"><span class="nav-number">2.3.2.</span> <span class="nav-text">pg_hba.conf</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%EF%BC%8CPgpool-II-%E6%90%AD%E5%BB%BA"><span class="nav-number">3.</span> <span class="nav-text">负载均衡，Pgpool-II 搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">3.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-1"><span class="nav-number">3.2.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9-etc-pgpool2-pgpool-conf-%E6%96%87%E4%BB%B6"><span class="nav-number">3.3.</span> <span class="nav-text">修改 &#x2F;etc&#x2F;pgpool2&#x2F;pgpool.conf 文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E8%8A%82%E7%82%B9%E9%85%8D%E7%BD%AE"><span class="nav-number">3.3.1.</span> <span class="nav-text">数据库节点配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#pgpool-%E7%AE%A1%E7%90%86%E7%94%A8%E9%85%8D%E7%BD%AE"><span class="nav-number">3.3.2.</span> <span class="nav-text">pgpool 管理用配置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#backend-node-%E7%9A%84%E7%8A%B6%E6%80%81"><span class="nav-number">3.4.</span> <span class="nav-text">backend node 的状态</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pgpool-%E9%85%8D%E7%BD%AE%E4%B8%AD%E7%9A%842%E4%B8%AA%E5%8F%82%E6%95%B0"><span class="nav-number">4.</span> <span class="nav-text">pgpool 配置中的2个参数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#num-init-children"><span class="nav-number">4.1.</span> <span class="nav-text">num_init_children</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#max-pool"><span class="nav-number">4.2.</span> <span class="nav-text">max_pool</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">GeXiangDong</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">98</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">136</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-gg"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">GeXiangDong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

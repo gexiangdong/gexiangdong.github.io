@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.devmgr.cn","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="现象使用spring boot的时候，缓存是常用的服务之一，放在缓存里的数据经常是个pojo，Java类放入缓存默认是通过序列化实现存储的。有时候升级改代码会增删一些属性，如果部署前忘记把相应的缓存先清除一下，就会遇到反序列化失败的异常了，异常信息一般如下：    org.springframework.data.redis.serializer.SerializationException: C">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis中存储POJO，POJO增删属性后重新部署，未清除Redis缓存导致的反序列化失败">
+<meta property="og:url" content="https://blog.devmgr.cn/2021/12/07/redis%E4%B8%AD%E5%AD%98%E5%82%A8pojo%EF%BC%8Cpojo%E5%A2%9E%E5%88%A0%E5%B1%9E%E6%80%A7%E5%90%8E%E9%87%8D%E6%96%B0%E9%83%A8%E7%BD%B2%EF%BC%8C%E6%9C%AA%E6%B8%85%E9%99%A4redis%E7%BC%93%E5%AD%98%E5%AF%BC%E8%87%B4%E7%9A%84%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%A4%B1%E8%B4%A5/index.html">
+<meta property="og:site_name" content="GeXiangDong">
+<meta property="og:description" content="现象使用spring boot的时候，缓存是常用的服务之一，放在缓存里的数据经常是个pojo，Java类放入缓存默认是通过序列化实现存储的。有时候升级改代码会增删一些属性，如果部署前忘记把相应的缓存先清除一下，就会遇到反序列化失败的异常了，异常信息一般如下：    org.springframework.data.redis.serializer.SerializationException: C">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-12-07T06:07:55.000Z">
+<meta property="article:modified_time" content="2021-12-07T06:32:23.366Z">
+<meta property="article:author" content="GeXiangDong">
+<meta property="article:tag" content="spring-boot">
+<meta property="article:tag" content="cache">
+<meta property="article:tag" content="deserialize">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://blog.devmgr.cn/2021/12/07/redis%E4%B8%AD%E5%AD%98%E5%82%A8pojo%EF%BC%8Cpojo%E5%A2%9E%E5%88%A0%E5%B1%9E%E6%80%A7%E5%90%8E%E9%87%8D%E6%96%B0%E9%83%A8%E7%BD%B2%EF%BC%8C%E6%9C%AA%E6%B8%85%E9%99%A4redis%E7%BC%93%E5%AD%98%E5%AF%BC%E8%87%B4%E7%9A%84%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%A4%B1%E8%B4%A5/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Redis中存储POJO，POJO增删属性后重新部署，未清除Redis缓存导致的反序列化失败 | GeXiangDong</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">GeXiangDong</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">精通Java、SQL、Spring的拼写，擅长Linux、Windows的开关机</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2021/12/07/redis%E4%B8%AD%E5%AD%98%E5%82%A8pojo%EF%BC%8Cpojo%E5%A2%9E%E5%88%A0%E5%B1%9E%E6%80%A7%E5%90%8E%E9%87%8D%E6%96%B0%E9%83%A8%E7%BD%B2%EF%BC%8C%E6%9C%AA%E6%B8%85%E9%99%A4redis%E7%BC%93%E5%AD%98%E5%AF%BC%E8%87%B4%E7%9A%84%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%A4%B1%E8%B4%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Redis中存储POJO，POJO增删属性后重新部署，未清除Redis缓存导致的反序列化失败
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-12-07 14:07:55 / 修改时间：14:32:23" itemprop="dateCreated datePublished" datetime="2021-12-07T14:07:55+08:00">2021-12-07</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h2><p>使用spring boot的时候，缓存是常用的服务之一，放在缓存里的数据经常是个pojo，Java类放入缓存默认是通过序列化实现存储的。有时候升级改代码会增删一些属性，如果部署前忘记把相应的缓存先清除一下，就会遇到反序列化失败的异常了，异常信息一般如下：<br>    org.springframework.data.redis.serializer.SerializationException: Cannot deserialize; nested exception is org.springframework.core.serializer.support.SerializationFailedException: Failed to deserialize payload. Is the byte array a result of corresponding serialization for DefaultDeserializer?; nested exception is java.io.InvalidClassException: com.package-of-pojo.Xxxx; local class incompatible: stream classdesc serialVersionUID = -2364286648166609117, local class serialVersionUID = -8974455668551700477<br>        at org.springframework.data.redis.serializer.JdkSerializationRedisSerializer.deserialize(JdkSerializationRedisSerializer.java:84)<br>        at org.springframework.data.redis.serializer.DefaultRedisElementReader.read(DefaultRedisElementReader.java:48)<br>        at org.springframework.data.redis.serializer.RedisSerializationContext$SerializationPair.read(RedisSerializationContext.java:272)<br>        at org.springframework.data.redis.cache.RedisCache.deserializeCacheValue(RedisCache.java:260)<br>        at org.springframework.data.redis.cache.RedisCache.lookup(RedisCache.java:94)<br>        at org.springframework.cache.support.AbstractValueAdaptingCache.get(AbstractValueAdaptingCache.java:58)<br>        at org.springframework.cache.interceptor.AbstractCacheInvoker.doGet(AbstractCacheInvoker.java:73)<br>        at org.springframework.cache.interceptor.CacheAspectSupport.findInCaches(CacheAspectSupport.java:554)<br>        at org.springframework.cache.interceptor.CacheAspectSupport.findCachedItem(CacheAspectSupport.java:519)<br>        at org.springframework.cache.interceptor.CacheAspectSupport.execute(CacheAspectSupport.java:401)<br>        at org.springframework.cache.interceptor.CacheAspectSupport.execute(CacheAspectSupport.java:345)<br>        at org.springframework.cache.interceptor.CacheInterceptor.invoke(CacheInterceptor.java:61)<br>        at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)<br>        at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:747)<br>        at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:93)<br>        at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)<br>        at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:747)<br>        at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:689)</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>遇到这种异常，一般很容易解决，使用 <code>redis-cli keys &#39;xxx*&#39; | xargs -n 1 redis-cli del</code> 这个命令去把所有的这个缓存查出来并且删了就好了。</p>
+<p>但是这是一个很容易出现的问题，每次都手工去避免比较麻烦。是不是能够通过程序实现，如果遇到这种异常，自动清除redis内的对应内容并自动执行对应的方法，不从redis取了呢（例如 Cacheable 注解的方法，执行方法返回结果并将返回内容重新放入缓存服务器），这个思路是可行的，通过配置一个自定义的 CacheErrorHandler来实现。</p>
+<h3 id="自定义的CacheErrorHandler"><a href="#自定义的CacheErrorHandler" class="headerlink" title="自定义的CacheErrorHandler"></a>自定义的CacheErrorHandler</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.slf4j.Logger;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.LoggerFactory;</span><br><span class="line"><span class="keyword">import</span> org.springframework.cache.Cache;</span><br><span class="line"><span class="keyword">import</span> org.springframework.cache.interceptor.CacheErrorHandler;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.serializer.support.SerializationFailedException;</span><br><span class="line"></span><br><span class="line"><span class="comment">/** 此类处理过的异常，spring 不会再次抛出了，除非这里的代码里再次抛出 */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CustomCacheErrorHandler</span> <span class="keyword">implements</span> <span class="title">CacheErrorHandler</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger logger = LoggerFactory.getLogger(CustomCacheErrorHandler.class);</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleCacheGetError</span><span class="params">(RuntimeException e, Cache cache, Object key)</span> </span>&#123;</span><br><span class="line">    logger.error(<span class="string">&quot;获取缓存数据时发生异常 cache-name: &#123;&#125;, cache-key:&#123;&#125;&quot;</span>, cache.getName(), key, e);</span><br><span class="line">    <span class="keyword">if</span> (e <span class="keyword">instanceof</span> SerializationFailedException) &#123;</span><br><span class="line">      logger.warn(<span class="string">&quot;序列化失败导致，清除该cache&quot;</span>);</span><br><span class="line">      cache.clear();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleCachePutError</span><span class="params">(RuntimeException e, Cache cache, Object o, Object key)</span> </span>&#123;</span><br><span class="line">    logger.error(<span class="string">&quot;handleCachePutError cache-name: &#123;&#125;, cache-key:&#123;&#125;&quot;</span>, cache.getName(), key, e);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleCacheEvictError</span><span class="params">(RuntimeException e, Cache cache, Object key)</span> </span>&#123;</span><br><span class="line">    logger.error(<span class="string">&quot;handleCacheEvictError cache-name: &#123;&#125;, cache-key:&#123;&#125;&quot;</span>, cache.getName(), key, e);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleCacheClearError</span><span class="params">(RuntimeException e, Cache cache)</span> </span>&#123;</span><br><span class="line">    logger.error(<span class="string">&quot;handleCacheClearError cache-name: &#123;&#125;, cache-key:&#123;&#125;&quot;</span>, cache.getName(), e);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>spring在redis里存储的key都是 User:1111 User:2222 这种类型，其中 User 是cache的name， 1111 / 2222 则是key，当pojo反序列化失败时，所有cache-name相同的条目都失效了，所以17行有 cache.clear() 把整个cache都清除了；如果不写这行，则每个key执行一次，从结果上看也没问题。</p>
+<h3 id="注册这个自定义个的CacheErrorHandler"><a href="#注册这个自定义个的CacheErrorHandler" class="headerlink" title="注册这个自定义个的CacheErrorHandler"></a>注册这个自定义个的CacheErrorHandler</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CacheErrorHandlerConfig</span> <span class="keyword">extends</span> <span class="title">CachingConfigurerSupport</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger logger = LoggerFactory.getLogger(CacheErrorHandlerConfig.class);</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> CacheErrorHandler <span class="title">errorHandler</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> CustomCacheErrorHandler();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/spring-boot/" rel="tag"># spring-boot</a>
+              <a href="/tags/cache/" rel="tag"># cache</a>
+              <a href="/tags/deserialize/" rel="tag"># deserialize</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/12/01/postgresql%E4%B8%BB%E4%BB%8E-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/" rel="prev" title="PostgreSQL主从+负载均衡">
+      <i class="fa fa-chevron-left"></i> PostgreSQL主从+负载均衡
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/12/07/spring-boot%E4%B8%AD%E8%8E%B7%E5%8F%96%E8%BF%9E%E6%8E%A5%E6%B1%A0%E4%BD%BF%E7%94%A8%E7%8A%B6%E5%86%B5%EF%BC%88%E5%BD%93%E5%89%8D%E6%B4%BB%E5%8A%A8%E8%BF%9E%E6%8E%A5%E6%95%B0%E7%AD%89%EF%BC%89/" rel="next" title="spring boot中获取连接池使用状况（当前活动连接数等）">
+      spring boot中获取连接池使用状况（当前活动连接数等） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%B0%E8%B1%A1"><span class="nav-number">1.</span> <span class="nav-text">现象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">2.</span> <span class="nav-text">解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9A%84CacheErrorHandler"><span class="nav-number">2.1.</span> <span class="nav-text">自定义的CacheErrorHandler</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E5%86%8C%E8%BF%99%E4%B8%AA%E8%87%AA%E5%AE%9A%E4%B9%89%E4%B8%AA%E7%9A%84CacheErrorHandler"><span class="nav-number">2.2.</span> <span class="nav-text">注册这个自定义个的CacheErrorHandler</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">GeXiangDong</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">98</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">136</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-gg"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">GeXiangDong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
