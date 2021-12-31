@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.devmgr.cn","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="服务器上抛出了异常，java.lang.OutOfMemoryError，这种异常比较难解决，因为有可能大量占用内存的地方并不是抛出异常的位置，抛异常处可能是正常使用内存，只是内存没了。 java.lang.OutOfMemoryError: unable to create native thread: possibly out of memory or process&#x2F;resource lim">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一次java.lang.OutOfMemoryError异常的排查">
+<meta property="og:url" content="https://blog.devmgr.cn/2021/12/31/%E4%B8%80%E6%AC%A1java-lang-outofmemoryerror%E5%BC%82%E5%B8%B8%E7%9A%84%E6%8E%92%E6%9F%A5/index.html">
+<meta property="og:site_name" content="GeXiangDong">
+<meta property="og:description" content="服务器上抛出了异常，java.lang.OutOfMemoryError，这种异常比较难解决，因为有可能大量占用内存的地方并不是抛出异常的位置，抛异常处可能是正常使用内存，只是内存没了。 java.lang.OutOfMemoryError: unable to create native thread: possibly out of memory or process&#x2F;resource lim">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-12-31T07:30:18.000Z">
+<meta property="article:modified_time" content="2021-12-31T08:09:44.876Z">
+<meta property="article:author" content="GeXiangDong">
+<meta property="article:tag" content="OutOfMemoryError">
+<meta property="article:tag" content="Thead">
+<meta property="article:tag" content="StackTrace">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://blog.devmgr.cn/2021/12/31/%E4%B8%80%E6%AC%A1java-lang-outofmemoryerror%E5%BC%82%E5%B8%B8%E7%9A%84%E6%8E%92%E6%9F%A5/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>一次java.lang.OutOfMemoryError异常的排查 | GeXiangDong</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">GeXiangDong</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">精通Java、SQL、Spring的拼写，擅长Linux、Windows的开关机</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2021/12/31/%E4%B8%80%E6%AC%A1java-lang-outofmemoryerror%E5%BC%82%E5%B8%B8%E7%9A%84%E6%8E%92%E6%9F%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          一次java.lang.OutOfMemoryError异常的排查
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-12-31 15:30:18 / 修改时间：16:09:44" itemprop="dateCreated datePublished" datetime="2021-12-31T15:30:18+08:00">2021-12-31</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>服务器上抛出了异常，java.lang.OutOfMemoryError，这种异常比较难解决，因为有可能大量占用内存的地方并不是抛出异常的位置，抛异常处可能是正常使用内存，只是内存没了。</p>
+<pre><code>java.lang.OutOfMemoryError: unable to create native thread: possibly out of memory or process/resource limits reached
+        at java.base/java.lang.Thread.start0(Native Method)
+        at java.base/java.lang.Thread.start(Thread.java:798)
+        at me.chanjar.weixin.common.api.WxMessageInMemoryDuplicateChecker.checkBackgroundProcessStarted(WxMessageInMemoryDuplicateChecker.java:81)
+        at me.chanjar.weixin.common.api.WxMessageInMemoryDuplicateChecker.isDuplicate(WxMessageInMemoryDuplicateChecker.java:89)
+        at me.chanjar.weixin.mp.api.WxMpMessageRouter.isMsgDuplicated(WxMpMessageRouter.java:257)
+        at me.chanjar.weixin.mp.api.WxMpMessageRouter.route(WxMpMessageRouter.java:172)
+        at me.chanjar.weixin.open.api.impl.WxOpenMessageRouter.route(WxOpenMessageRouter.java:24)
+        at me.chanjar.weixin.open.api.impl.WxOpenMessageRouter.route(WxOpenMessageRouter.java:20)
+        at cn.devmgr.mall.wechatopen.WechatNotifyController.callback(WechatNotifyController.java:269)
+        at jdk.internal.reflect.GeneratedMethodAccessor433.invoke(Unknown Source)
+        at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+          ... ...</code></pre>
+<p>首先在抛出这种异常后，我先查看了下服务器的内存（之前已经写好的查询实例内存的接口），返回信息如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&quot;memory&quot;: &#123;</span><br><span class="line">  &quot;total&quot;: 161480704,</span><br><span class="line">  &quot;max&quot;: 536870912,</span><br><span class="line">  &quot;free&quot;: 50741880</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个结果说明了不是内存不足，实际上内存不足的exception一般是 <code>java.lang.OutOfMemoryError: Java heap space</code>，而这次的是 <code>java.lang.OutOfMemoryError: unable to create native thread: possibly out of memory or process/resource limits reached</code><br>所以判断 process/resource limits reached 引发的。</p>
+<p>于是写了段代码查询当前实例的线程数：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (Thread t : Thread.getAllStackTraces().keySet()) &#123;</span><br><span class="line">  <span class="comment">// 统计每个线程的信息</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>发现抛出异常时，waiting状态的线程甚至达到了6000多个，这肯定是有些线程没有结束导致，查询自己的代码，没有搜到new Thread()，应该是调用其他类库不当导致，要找出原因还得写监控程序。</p>
+<p>于是开始统计实例那所有的线程堆栈信息（这个异常虽然不容易重现，但可较容易观察到线程数量增常，这给查找原因带来了方便）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (Thread t : Thread.getAllStackTraces().keySet()) &#123;</span><br><span class="line">    StackTraceElement[] elements = t.getStackTrace();</span><br><span class="line">     <span class="comment">//  按照堆栈分组统计各个线程的数量</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>按照堆栈分组，我采用的办法是把每个StackTraceElement的className, methodName, lineNumber拼接成一个字符串，用这个字符串作为key，判断是否属于一组线程。</p>
+<p>发现了如下这个堆栈对应的线程数很多，且呈现出随时间增长不减退的趋势：</p>
+<pre><code>jdk.internal.misc.Unsafepark(Unsafe.java:-2)
+java.util.concurrent.locks.LockSupportpark(LockSupport.java:194)
+java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObjectawait(AbstractQueuedSynchronizer.java:2081)
+java.util.concurrent.LinkedBlockingQueuetakeLinked(BlockingQueue.java:433)
+java.util.concurrent.ThreadPoolExecutorgetTask(ThreadPoolExecutor.java:1054)
+java.util.concurrent.ThreadPoolExecutorrunWorker(ThreadPoolExecutor.java:1114)
+java.util.concurrent.ThreadPoolExecutor$Workerrun(ThreadPoolExecutor.java:628)
+java.lang.Threadrun(Thread.java:829)</code></pre>
+<p>很遗憾的是，从这个堆栈里只能看出被创建了ThreadPoolExecutor，这个堆栈信息里所有类都是JDK的，没有任何第三方代码，还是没法知道是哪的程序。于是想找到线程的调用方，网上搜索到stackoverflow内有一个有趣的问答</p>
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/18999444/how-to-find-out-who-create-a-thread-in-java">https://stackoverflow.com/questions/18999444/how-to-find-out-who-create-a-thread-in-java</a></p>
+<p>在此贴 Aaron Digulla给出了7种方法来查找线程的调用方，7种，引用如下：</p>
+<pre><code>Here is the list of approaches, sorted from quickest / most reliable to slowest / hardest:
+
+1. If you have the source of the class, create an exception in the constructor (without actually throwing it). You can simply examine or print it when you need to know when the thread was created.
+2. If you don&#39;t have the sources, the thread name can be a good hint who created it.
+3. If the name hints to a generic service (like java.util.Timer), then you can create a conditional breakpoint in your IDE in the constructor. The condition should be the thread name; the debugger will then stop when someone creates a thread with this name.
+4. If you don&#39;t have too many threads, set a breakpoint in the constructors of Thread.
+5. If you have many threads, attach a debugger to the app and freeze it. Then examine the stack traces.
+6. If everything else fails, get the source code for the Java runtime and add logging code in the classes you want to observe, compile a new rt.jar and replace the original one with your version. Don&#39;t try this in production, please.
+7. If money isn&#39;t an issue, you can use dynamic tracing tools like Compuware APM or, if you&#39;re on Linux or Solaris, you can try SystemTap and dtrace, respectively.</code></pre>
+<p>我采用了第2种，修改了查询所有线程堆栈的地方，增加了线程名字，然后继续监控，发现了线程名就是一个第三方类库的类名，找到它源码，发现里面有new ExecutorService，而我代码多次new了这个类。修改代码，不再多次new它；部署后看监控程序 thread数目不再增长，解决。</p>
+<h3 id="附录：此次排查中使用的完整的监控代码"><a href="#附录：此次排查中使用的完整的监控代码" class="headerlink" title="附录：此次排查中使用的完整的监控代码"></a>附录：此次排查中使用的完整的监控代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.zaxxer.hikari.HikariDataSource;</span><br><span class="line"><span class="keyword">import</span> com.zaxxer.hikari.HikariPoolMXBean;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.Logger;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.LoggerFactory;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Value;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.GetMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.sql.DataSource;</span><br><span class="line"><span class="keyword">import</span> java.sql.Connection;</span><br><span class="line"><span class="keyword">import</span> java.sql.SQLException;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/service-status&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ServiceStatusController</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger logger = LoggerFactory.getLogger(ServiceStatusController.class);</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Autowired(required = false)</span></span><br><span class="line">  <span class="keyword">private</span> DataSource dataSource;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Value(&quot;$&#123;spring.application.name:no_name&#125;&quot;)</span></span><br><span class="line">  <span class="keyword">private</span> String appName;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@GetMapping</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Map&lt;String, Object&gt; <span class="title">getStatus</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Map&lt;String, Object&gt; result = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    result.put(<span class="string">&quot;applicationName&quot;</span>, appName);</span><br><span class="line">    Map&lt;String, Object&gt; memory = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    Runtime rt = Runtime.getRuntime();</span><br><span class="line">    memory.put(<span class="string">&quot;total&quot;</span>, rt.totalMemory());</span><br><span class="line">    memory.put(<span class="string">&quot;free&quot;</span>, rt.freeMemory());</span><br><span class="line">    memory.put(<span class="string">&quot;max&quot;</span>, rt.maxMemory());</span><br><span class="line">    result.put(<span class="string">&quot;memory&quot;</span>, memory);</span><br><span class="line">    result.put(<span class="string">&quot;availableProcessors&quot;</span>, rt.availableProcessors());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (dataSource != <span class="keyword">null</span>) &#123;</span><br><span class="line">      <span class="keyword">if</span> (dataSource <span class="keyword">instanceof</span> HikariDataSource) &#123;</span><br><span class="line">        HikariDataSource hds = (HikariDataSource) dataSource;</span><br><span class="line">        <span class="keyword">if</span> (hds.getHikariPoolMXBean() == <span class="keyword">null</span>) &#123;</span><br><span class="line">          <span class="comment">// 先获取一次才能取得 poolMXBean, 如果程序中有其他请求已经使用过数据库，则不需要这里的获取conn</span></span><br><span class="line">          <span class="keyword">try</span> &#123;</span><br><span class="line">            Connection conn = hds.getConnection();</span><br><span class="line">            conn.close();</span><br><span class="line">          &#125; <span class="keyword">catch</span> (SQLException sqlException) &#123;</span><br><span class="line">            logger.error(<span class="string">&quot;cannot get conn&quot;</span>, sqlException);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        HikariPoolMXBean pool = hds.getHikariPoolMXBean();</span><br><span class="line">        <span class="keyword">if</span> (pool != <span class="keyword">null</span>) &#123;</span><br><span class="line">          Map&lt;String, Object&gt; poolStatus = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">          poolStatus.put(<span class="string">&quot;active&quot;</span>, pool.getActiveConnections());</span><br><span class="line">          poolStatus.put(<span class="string">&quot;idle&quot;</span>, pool.getIdleConnections());</span><br><span class="line">          poolStatus.put(<span class="string">&quot;total&quot;</span>, pool.getTotalConnections());</span><br><span class="line">          poolStatus.put(<span class="string">&quot;awaiting&quot;</span>, pool.getThreadsAwaitingConnection());</span><br><span class="line">          poolStatus.put(<span class="string">&quot;maximumPoolSize&quot;</span>, hds.getMaximumPoolSize());</span><br><span class="line">          poolStatus.put(<span class="string">&quot;minimumIdle&quot;</span>, hds.getMinimumIdle());</span><br><span class="line">          poolStatus.put(<span class="string">&quot;idleTimeout&quot;</span>, hds.getIdleTimeout());</span><br><span class="line">          result.put(<span class="string">&quot;dataSourcePool&quot;</span>, poolStatus);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        logger.info(<span class="string">&quot;datasource is not hikari&quot;</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      logger.info(<span class="string">&quot;no datasource&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#123;</span><br><span class="line">      Map&lt;String, Integer&gt; threadsStatus = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">      <span class="keyword">for</span> (Thread t : Thread.getAllStackTraces().keySet()) &#123;</span><br><span class="line">        String key = t.getState().toString().toLowerCase();</span><br><span class="line">        Integer cnt = threadsStatus.get(key);</span><br><span class="line">        <span class="keyword">if</span> (cnt == <span class="keyword">null</span>) &#123;</span><br><span class="line">          threadsStatus.put(key, <span class="number">1</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          threadsStatus.put(key, cnt + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      threadsStatus.put(<span class="string">&quot;total&quot;</span>, Thread.getAllStackTraces().size());</span><br><span class="line">      result.put(<span class="string">&quot;threads&quot;</span>, threadsStatus);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@GetMapping(&quot;/threads&quot;)</span></span><br><span class="line">  <span class="keyword">public</span> Map&lt;String, ?&gt; getThreadStackTraces() &#123;</span><br><span class="line">    logger.trace(<span class="string">&quot;getThreadStackTraces&quot;</span>);</span><br><span class="line">    Map&lt;String, List&lt;Map&lt;String, Object&gt;&gt;&gt; result = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    Map&lt;String, Map&lt;String, Object&gt;&gt; threadInfoByKey = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    <span class="keyword">for</span> (Thread t : Thread.getAllStackTraces().keySet()) &#123;</span><br><span class="line">      StackTraceElement[] elements = t.getStackTrace();</span><br><span class="line">      List&lt;Map&lt;String, Object&gt;&gt; stackList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">      StringBuilder builder = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">      <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">      <span class="keyword">for</span> (StackTraceElement ele : elements) &#123;</span><br><span class="line">        i++;</span><br><span class="line">        Map&lt;String, Object&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        map.put(<span class="string">&quot;className&quot;</span>, ele.getClassName());</span><br><span class="line">        map.put(<span class="string">&quot;methodName&quot;</span>, ele.getMethodName());</span><br><span class="line">        map.put(<span class="string">&quot;lineNum&quot;</span>, ele.getLineNumber());</span><br><span class="line">        map.put(<span class="string">&quot;fileName&quot;</span>, ele.getFileName());</span><br><span class="line">        map.put(<span class="string">&quot;module&quot;</span>, ele.getModuleName());</span><br><span class="line">        stackList.add(map);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (i &lt; <span class="number">30</span>) &#123;</span><br><span class="line">          builder.append(ele.getClassName());</span><br><span class="line">          builder.append(ele.getMethodName());</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      String status = t.getState().toString().toLowerCase();</span><br><span class="line">      String key = builder.toString();</span><br><span class="line">      Map&lt;String, Object&gt; threadInfo = threadInfoByKey.get(key);</span><br><span class="line">      <span class="keyword">if</span> (threadInfo == <span class="keyword">null</span>) &#123;</span><br><span class="line">        threadInfo = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        threadInfo.put(<span class="string">&quot;stack&quot;</span>, stackList);</span><br><span class="line">        threadInfoByKey.put(key, threadInfo);</span><br><span class="line">        List&lt;Map&lt;String, Object&gt;&gt; list = result.get(status);</span><br><span class="line">        <span class="keyword">if</span> (list == <span class="keyword">null</span>) &#123;</span><br><span class="line">          list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">          result.put(status, list);</span><br><span class="line">        &#125;</span><br><span class="line">        list.add(threadInfo);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (threadInfo.containsKey(<span class="string">&quot;counter&quot;</span>)) &#123;</span><br><span class="line">        threadInfo.put(<span class="string">&quot;counter&quot;</span>, (Integer) threadInfo.get(<span class="string">&quot;counter&quot;</span>) + <span class="number">1</span>);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        threadInfo.put(<span class="string">&quot;counter&quot;</span>, <span class="number">1</span>);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (threadInfo.containsKey(<span class="string">&quot;names&quot;</span>)) &#123;</span><br><span class="line">        List&lt;String&gt; names = (List&lt;String&gt;) threadInfo.get(<span class="string">&quot;names&quot;</span>);</span><br><span class="line">        names.add(t.getName());</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        List&lt;String&gt; names = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        names.add(t.getName());</span><br><span class="line">        threadInfo.put(<span class="string">&quot;names&quot;</span>, names);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/outofmemoryerror/" rel="tag"># OutOfMemoryError</a>
+              <a href="/tags/thead/" rel="tag"># Thead</a>
+              <a href="/tags/stacktrace/" rel="tag"># StackTrace</a>
+              <a href="/tags/java/" rel="tag"># Java</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/12/07/spring-boot%E4%B8%AD%E8%8E%B7%E5%8F%96%E8%BF%9E%E6%8E%A5%E6%B1%A0%E4%BD%BF%E7%94%A8%E7%8A%B6%E5%86%B5%EF%BC%88%E5%BD%93%E5%89%8D%E6%B4%BB%E5%8A%A8%E8%BF%9E%E6%8E%A5%E6%95%B0%E7%AD%89%EF%BC%89/" rel="prev" title="spring boot中获取连接池使用状况（当前活动连接数等）">
+      <i class="fa fa-chevron-left"></i> spring boot中获取连接池使用状况（当前活动连接数等）
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%99%84%E5%BD%95%EF%BC%9A%E6%AD%A4%E6%AC%A1%E6%8E%92%E6%9F%A5%E4%B8%AD%E4%BD%BF%E7%94%A8%E7%9A%84%E5%AE%8C%E6%95%B4%E7%9A%84%E7%9B%91%E6%8E%A7%E4%BB%A3%E7%A0%81"><span class="nav-number">1.</span> <span class="nav-text">附录：此次排查中使用的完整的监控代码</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">GeXiangDong</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">99</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">140</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-gg"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">GeXiangDong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

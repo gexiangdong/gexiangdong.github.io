@@ -146,6 +146,134 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2015/09/23/%E6%AF%8F%E5%91%A8%E5%AE%9A%E6%9C%9F%E5%8F%91%E5%B8%83%E6%96%B0%E7%89%88%E6%9C%AC%E7%9A%84%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%E7%AD%96%E7%95%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2015/09/23/%E6%AF%8F%E5%91%A8%E5%AE%9A%E6%9C%9F%E5%8F%91%E5%B8%83%E6%96%B0%E7%89%88%E6%9C%AC%E7%9A%84%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%E7%AD%96%E7%95%A5/" class="post-title-link" itemprop="url">每周定期发布新版本的版本管理策略</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2015-09-23 14:10:44" itemprop="dateCreated datePublished" datetime="2015-09-23T14:10:44+08:00">2015-09-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-06-07 18:51:02" itemprop="dateModified" datetime="2019-06-07T18:51:02+08:00">2019-06-07</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>今年开始在团队内使用新的版本管理策略，以便达到每周定期发布的模式。以前按功能发布，经常有大功能需要几周开发，并行的小功能需要几天，而导致小功能需要等大功能开发测试完毕才能发布，拖延了一些重要功能，不适合互联网开发模式。新的版本策略每周定期发布新版本，只发布已经测试完毕的功能，未经过测试的留待以后发布。</p>
+<h1 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h1><ul>
+<li>使用git做版本管理 【必须】</li>
+<li>redmine作为开发+测试（不含测试用例管理）的日常工具 【可选】</li>
+<li>pmwiki管理文档 【可选】</li>
+</ul>
+<h1 id="分支策略"><a href="#分支策略" class="headerlink" title="分支策略"></a>分支策略</h1><p>下图是一个简单地分支模型，当多个项目有公共的部分时，master, prerelease分支要有对应的多份。</p>
+<p><img src="/images/version-branchs.png" alt="分支模型"> </p>
+<ul>
+<li><p>develop分支，开发的主干分支，所有开发以此分支为基础且只有开发完毕的功能才会提交到此分支。每天会自动从develop取出程序发布到测试服务器，形成nightly version，供提前测试发现问题。</p>
+</li>
+<li><p>master 是发布到生产环境的版本。</p>
+</li>
+<li><p>prerelease仅仅在测试开始时才创建，测试完成后删除。</p>
+</li>
+<li><p>feature_x在开发新功能时创建，功能开发完毕后删除。</p>
+</li>
+<li><p>当有新功能需要开发时：</p>
+<ol>
+<li>创建一个feature_xx分支，xx以功能的名字命名（注意不要用中文，中文会导致redmine出问题）</li>
+<li>其他开发人员checkout此分支，大家日常提交代码到此分支</li>
+<li>开发人员每日从feature_xx拉取其他人（共同开发此feature_xx功能的同事）提交的代码，也要从远程develop分支合并到本地（图中#1，合并后不提交到远程服务器），这是为了避免最后合并冲突麻烦。</li>
+<li>开发完成后，合并代码到develop分支，并删除feature_xx分支</li>
+</ol>
+</li>
+<li><p>需要发布新版本前</p>
+<ol>
+<li>确认需要发布的功能都已经提交到develop分支后，从develop分支创建prerelease分支</li>
+<li>测试prerelease分支</li>
+<li>如果有bug则在prerelease分支修改，改后合并到develop分支，注意千万不要在develop分支修改，改后合并到prerelease分支，这样会把其他人提交的东西也合并到prerelease分支；如果bug被允许在后续版本中修复，则bug另建feature分支修改</li>
+<li>测试通过后，提交prerelease分支到master分支，并打TAG标记（标签采用 前缀+日期+序号 形式）。之后删除prerelease分支<br>从master分支提取代码部署到生产环境</li>
+</ol>
+</li>
+<li><p>当生产环境发现重要bug，需要紧急修复时</p>
+<ol>
+<li>如上图#3红色节点</li>
+<li>从master分支checkout出对应的代码，修复后测试通过提交到对应的master分支，并形成下一个TAG和生产环境发型版本。</li>
+<li>提交修复到develop分支</li>
+<li>如果存在prerelease分支，则提交到prerelease分支。（不存在prerelease分支时，不需要此步骤）</li>
+</ol>
+</li>
+<li><p>测试组一般工作在prerelease分支上，开发组一般在feature（开发期间）和prerelease（测试期间）工作</p>
+</li>
+<li><p>紧急修复时测试和开发都在hotfix上工作</p>
+</li>
+</ul>
+<h1 id="Commit-Message"><a href="#Commit-Message" class="headerlink" title="Commit Message"></a>Commit Message</h1><ul>
+<li>每次提交都必须写Commit Message，不要写无意义的信息。</li>
+<li>提交内容和redmine有关联时，要关联redmine上对应的问题编号，例如：<ul>
+<li>修改了101号问题，耗时3个半小时，但没有全部完成则可按照如下格式写<code>refs #101 @3h 30m &#123;中文注释&#125;</code></li>
+<li>如果101号问题修改完毕，则用fixed关键字开头 <code>fixed #101 @2h &#123;中文注释&#125;</code></li>
+<li>时间只写此次提交内容花费的修改时间，redmine会自动累加。</li>
+<li>中文注释写解决问题的技术实现办法，不用描述问题本身，因为问题已经在redmine上有说明。</li>
+</ul>
+</li>
+</ul>
+<h1 id="开发测试日常工作流程"><a href="#开发测试日常工作流程" class="headerlink" title="开发测试日常工作流程"></a>开发测试日常工作流程</h1><ol>
+<li>周一确定一周开发内容</li>
+<li>周一~周二测试上周发布到release分支的内容，并修改bug</li>
+<li>周三发布到生产服务器</li>
+<li>开发人员在周五完成本周开发内容后提交到develop分支，周五下班前提交到release分支。</li>
+<li>release log，每周从周一开始记录直至发布</li>
+</ol>
+<p>注：上述流程看上去程序员会同时做很多事，开发、修改bug等等，其实大部分时间这些不是并行，因为每周要发布的内容中不是包含所有程序员的工作，可能一个程序员负责的部分2周甚至更长时间才有新功能发布一次。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2015/09/22/glusterfs%E5%90%8C%E6%AD%A5%E6%96%87%E4%BB%B6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -878,13 +1006,13 @@ Application root
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">98</span>
+          <span class="site-state-item-count">99</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">136</span>
+        <span class="site-state-item-count">140</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
