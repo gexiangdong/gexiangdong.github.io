@@ -146,6 +146,77 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/08/06/%E7%94%A8poi%E5%AF%BC%E5%87%BAexcel%E6%A0%BC%E5%BC%8F%E6%95%B0%E6%8D%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/08/06/%E7%94%A8poi%E5%AF%BC%E5%87%BAexcel%E6%A0%BC%E5%BC%8F%E6%95%B0%E6%8D%AE/" class="post-title-link" itemprop="url">用POI导出excel格式数据</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-08-06 14:42:15" itemprop="dateCreated datePublished" datetime="2018-08-06T14:42:15+08:00">2018-08-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-06-07 18:51:02" itemprop="dateModified" datetime="2019-06-07T18:51:02+08:00">2019-06-07</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="pom文件增加依赖"><a href="#pom文件增加依赖" class="headerlink" title="pom文件增加依赖"></a>pom文件增加依赖</h1><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.poi<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>poi<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.17<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.poi<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>poi-ooxml<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.17<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="做一个excel模板文件放到src-main-resources目录下"><a href="#做一个excel模板文件放到src-main-resources目录下" class="headerlink" title="做一个excel模板文件放到src/main/resources目录下"></a>做一个excel模板文件放到src/main/resources目录下</h1><p>最好再建个子目录，这样资源更方便管理。</p>
+<p>使用模板调格式会方便很多（宽度、字体、数字格式等等，节省代码，容易修改）</p>
+<h1 id="数据导出"><a href="#数据导出" class="headerlink" title="数据导出"></a>数据导出</h1><p>下面的例子是写在spring controller内的，如果不是controler，需要变化的只有只有最后返回的部分。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line"><span class="meta">@GetMapping(&quot;/export&quot;)</span></span><br><span class="line"><span class="keyword">public</span> ResponseEntity&lt;<span class="keyword">byte</span>[]&gt; exportExcel() <span class="keyword">throws</span> Exception&#123;</span><br><span class="line">    logger.trace(<span class="string">&quot;exportExcel&quot;</span>);</span><br><span class="line">    HttpHeaders responseHeaders = <span class="keyword">new</span> HttpHeaders();</span><br><span class="line">    responseHeaders.setContentDispositionFormData(<span class="string">&quot;attachment&quot;</span>,<span class="keyword">new</span> String(<span class="string">&quot;导出的文件名.xlsx&quot;</span>.getBytes(), <span class="string">&quot;ISO8859-1&quot;</span>));</span><br><span class="line">    responseHeaders.setContentType(MediaType.APPLICATION_OCTET_STREAM);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//中文文件名需要用iso8859-1编码</span></span><br><span class="line">    InputStream templateIs = <span class="keyword">this</span>.getClass().getResourceAsStream(<span class="string">&quot;/excel-templates/templet.xlsx&quot;</span>);</span><br><span class="line">    XSSFWorkbook workbook = <span class="keyword">new</span> XSSFWorkbook(templateIs);</span><br><span class="line">    XSSFSheet sheet = workbook.getSheetAt(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    List&lt;SampleItem&gt; list = getDataList();</span><br><span class="line"></span><br><span class="line">    CellStyle cellStyle = workbook.createCellStyle();</span><br><span class="line">    CreationHelper createHelper = workbook.getCreationHelper();</span><br><span class="line">    cellStyle.setDataFormat(createHelper.createDataFormat().getFormat(<span class="string">&quot;yyyy/mm/dd&quot;</span>));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;list.size(); i++) &#123;</span><br><span class="line">        SampleItem si = list.get(i);</span><br><span class="line"></span><br><span class="line">        XSSFRow row = sheet.createRow(i + <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">        Cell cell1 = row.createCell(<span class="number">0</span>);</span><br><span class="line">        cell1.setCellValue(si.getDate());</span><br><span class="line">        cell1.setCellStyle(cellStyle);</span><br><span class="line"></span><br><span class="line">        Cell cell2 = row.createCell(<span class="number">1</span>);</span><br><span class="line">        cell2.setCellValue(si.getName());</span><br><span class="line"></span><br><span class="line">        Cell cell3 = row.createCell(<span class="number">2</span>);</span><br><span class="line">        cell3.setCellValue(si.getScore());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ByteArrayOutputStream bos = <span class="keyword">new</span> ByteArrayOutputStream();</span><br><span class="line">    workbook.write(bos);</span><br><span class="line">    workbook.close();</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ResponseEntity&lt;<span class="keyword">byte</span>[]&gt;(bos.toByteArray(), responseHeaders, HttpStatus.OK);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/07/13/%E6%8A%8Aspring-boot%E9%A1%B9%E7%9B%AE%E7%BC%96%E8%AF%91%E6%88%90war/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -855,76 +926,6 @@ Caused by: java.security.InvalidAlgorithmParameterException: parameter object no
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/03/27/mybatis%E9%80%9A%E7%94%A8%E7%9A%84insert-update/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/03/27/mybatis%E9%80%9A%E7%94%A8%E7%9A%84insert-update/" class="post-title-link" itemprop="url">Mybatis通用的Insert/Update</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-03-27 10:45:39" itemprop="dateCreated datePublished" datetime="2018-03-27T10:45:39+08:00">2018-03-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-06-07 18:51:02" itemprop="dateModified" datetime="2019-06-07T18:51:02+08:00">2019-06-07</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Mybatis写mapper时，每个表都需要INSERT UPDATE写很长的语句比较麻烦，80%的表和java bean是简单的一一对应关系，因此考虑使用mybatis的SQLProvider注解减少这部分重复劳动。<br>SELECT和DELETE语句由于涉及字段较少，写起来还在可接收范围内，所以没做通用的。</p>
-<p>也可以把javabean增加写注解，类似JPA那样指定表名、字段名、主键等，但做得太多就失去了mybatis依赖SQL的灵活性了</p>
-<h2 id="InsertUpdateSqlProvider-java"><a href="#InsertUpdateSqlProvider-java" class="headerlink" title="InsertUpdateSqlProvider.java"></a>InsertUpdateSqlProvider.java</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.lang.reflect.Field;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.jdbc.SQL;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 使用此类有几个默认规则： 表名和类名相对应，属性名和字段名对应</span></span><br><span class="line"><span class="comment"> * java类内用驼峰命名法；数据库表和字段都用下划线</span></span><br><span class="line"><span class="comment"> * 类的属性定义的变量名和get/set方法名，以及set的参数类型一致，才会映射到数据库字段</span></span><br><span class="line"><span class="comment"> * 例如： private String name; 而且有 public void setName(String name) 和 public String getName()方法</span></span><br><span class="line"><span class="comment"> * 如果不是严格按照此规则定义的属性，不会被影射到数据库字段上</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InsertUpdateSqlProvider</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * id如果传入了值，会被insert使用；如果id为null，不会被insert的columns列出</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">insert</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        Map&lt;String, String&gt; map;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            map = getFieldsMap(obj, <span class="keyword">true</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IllegalArgumentException | IllegalAccessException e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(e);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> SQL() &#123;</span><br><span class="line">            &#123;</span><br><span class="line">                INSERT_INTO(getTableName(obj));</span><br><span class="line">                <span class="keyword">for</span> (String col : map.keySet()) &#123;</span><br><span class="line">                    VALUES(col, map.get(col));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;.toString();</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> String <span class="title">updateById</span><span class="params">(Object obj, <span class="keyword">boolean</span> includeNullValueField)</span> </span>&#123;</span><br><span class="line">        Map&lt;String, String&gt; map;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            map = getFieldsMap(obj, includeNullValueField);</span><br><span class="line">            map.remove(<span class="string">&quot;id&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IllegalArgumentException | IllegalAccessException e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(e);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> SQL() &#123;</span><br><span class="line">            &#123;</span><br><span class="line">                UPDATE(getTableName(obj));</span><br><span class="line">                <span class="keyword">for</span> (String col : map.keySet()) &#123;</span><br><span class="line">                    SET(col + <span class="string">&quot;=&quot;</span> + map.get(col));</span><br><span class="line">                &#125;</span><br><span class="line">                WHERE(<span class="string">&quot;id = #&#123;id&#125;&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;.toString();</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">updateById</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> updateById(obj, <span class="keyword">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">updateNonNullById</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> updateById(obj, <span class="keyword">false</span>);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Map&lt;String, String&gt; <span class="title">getFieldsMap</span><span class="params">(Object obj, <span class="keyword">boolean</span> includeNullValue)</span></span></span><br><span class="line"><span class="function">            <span class="keyword">throws</span> IllegalArgumentException, IllegalAccessException </span>&#123;</span><br><span class="line">        HashMap&lt;String, String&gt; result = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        Class&lt;?&gt; cls = obj.getClass();</span><br><span class="line">        Field[] fields = cls.getDeclaredFields(); <span class="comment">// getDeclaredFields</span></span><br><span class="line">        <span class="keyword">for</span> (Field f : fields) &#123;</span><br><span class="line">            String col = f.getName();</span><br><span class="line">            String colName = col.substring(<span class="number">0</span>, <span class="number">1</span>).toUpperCase() + col.substring(<span class="number">1</span>);</span><br><span class="line">            f.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                cls.getMethod(<span class="string">&quot;get&quot;</span> + colName);</span><br><span class="line">                cls.getMethod(<span class="string">&quot;set&quot;</span> + colName, f.getType());</span><br><span class="line">            &#125; <span class="keyword">catch</span> (NoSuchMethodException | SecurityException e) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> ((!<span class="string">&quot;id&quot;</span>.equals(col) &amp;&amp; includeNullValue) || f.get(obj) != <span class="keyword">null</span>) &#123;</span><br><span class="line">                result.put(camelCase2Underscore(col), <span class="string">&quot;#&#123;&quot;</span> + col + <span class="string">&quot;&#125;&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getTableName</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> camelCase2Underscore(obj.getClass().getSimpleName());</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">camelCase2Underscore</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        StringBuffer buf = <span class="keyword">new</span> StringBuffer();</span><br><span class="line">        <span class="keyword">for</span> (String w : s.split(<span class="string">&quot;(?&lt;!(^|[A-Z]))(?=[A-Z])|(?&lt;!^)(?=[A-Z][a-z])&quot;</span>)) &#123;</span><br><span class="line">            buf.append(<span class="string">&quot;_&quot;</span>).append(w.toLowerCase());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> buf.substring(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="使用通用provider的Mapper类"><a href="#使用通用provider的Mapper类" class="headerlink" title="使用通用provider的Mapper类"></a>使用通用provider的Mapper类</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.ibatis.annotations.InsertProvider;</span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.annotations.Options;</span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.annotations.UpdateProvider;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Repository;</span><br><span class="line"> </span><br><span class="line"><span class="meta">@Repository</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">GenericDao</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    <span class="meta">@UpdateProvider(type=InsertUpdateSqlProvider.class, method=&quot;updateById&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">updateById</span><span class="params">(Object bean)</span></span>;</span><br><span class="line">     </span><br><span class="line">    <span class="meta">@UpdateProvider(type=InsertUpdateSqlProvider.class, method=&quot;updateNonNullById&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">updateNonNullById</span><span class="params">(Object bean)</span></span>;</span><br><span class="line">     </span><br><span class="line">    <span class="meta">@Options(useGeneratedKeys=true, keyProperty=&quot;id&quot;, keyColumn=&quot;id&quot;)</span></span><br><span class="line">    <span class="meta">@InsertProvider(type=InsertUpdateSqlProvider.class, method=&quot;insert&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">insert</span><span class="params">(Object bean)</span></span>;</span><br><span class="line">     </span><br><span class="line">    <span class="meta">@InsertProvider(type=InsertUpdateSqlProvider.class, method=&quot;insert&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">insertWithoutGeneratedKey</span><span class="params">(Object bean)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -994,7 +995,7 @@ Caused by: java.security.InvalidAlgorithmParameterException: parameter object no
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">99</span>
+          <span class="site-state-item-count">100</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1027,7 +1028,7 @@ Caused by: java.security.InvalidAlgorithmParameterException: parameter object no
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-gg"></i>
   </span>

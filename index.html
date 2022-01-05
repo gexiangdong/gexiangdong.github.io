@@ -146,6 +146,90 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2022/01/05/postgresql-now-%E5%87%BD%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/01/05/postgresql-now-%E5%87%BD%E6%95%B0/" class="post-title-link" itemprop="url">PostgreSQL now()函数</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-01-05 17:08:10 / 修改时间：17:21:48" itemprop="dateCreated datePublished" datetime="2022-01-05T17:08:10+08:00">2022-01-05</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>now()函数是postgresql 中用来获取当前时间的函数，需要注意postgresql提供了多个获取当时时间的函数，now只是其中一个。</p>
+<table>
+<thead>
+<tr>
+<th align="left">函数</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">now()</td>
+<td align="left">事务的开始时间，等同于 transaction_timestamp()</td>
+</tr>
+<tr>
+<td align="left">transaction_timestamp()</td>
+<td align="left">事务的开始时间，等同于now()，同一事务内多次调用返回相同个结果</td>
+</tr>
+<tr>
+<td align="left">statement_timestamp()</td>
+<td align="left">语句的开始执行时间，同一语句内多次调用结果相同</td>
+</tr>
+<tr>
+<td align="left">clock_timestamp()</td>
+<td align="left">时钟时间，如果一个SQL语句多次调用（例如有子查询）返回结果可能不同</td>
+</tr>
+</tbody></table>
+<p>根据上述说明，如果需要用timestamp字段排序，且顺序非常重要，例如余额变化，然后一个事务中可能有多个insert，用now()就会造成混乱。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2021/12/31/%E4%B8%80%E6%AC%A1java-lang-outofmemoryerror%E5%BC%82%E5%B8%B8%E7%9A%84%E6%8E%92%E6%9F%A5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1070,88 +1154,6 @@ Caused by: java.security.InvalidKeyException: cannot identify XDH private key
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2020/07/05/jjwt-%E4%B8%8E-java-jwt-%E7%94%9F%E6%88%90%E7%9A%84jwt%E6%A0%BC%E5%BC%8Ftoken%E4%BA%92%E7%9B%B8%E8%A7%A3%E6%9E%90/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/05/jjwt-%E4%B8%8E-java-jwt-%E7%94%9F%E6%88%90%E7%9A%84jwt%E6%A0%BC%E5%BC%8Ftoken%E4%BA%92%E7%9B%B8%E8%A7%A3%E6%9E%90/" class="post-title-link" itemprop="url">jjwt 与 java-jwt 生成的jwt格式token互相解析</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-05 17:29:45" itemprop="dateCreated datePublished" datetime="2020-07-05T17:29:45+08:00">2020-07-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-23 13:15:48" itemprop="dateModified" datetime="2020-09-23T13:15:48+08:00">2020-09-23</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>有2个java的库可以生成jwt，maven依赖分别如下</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.jsonwebtoken<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jjwt<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.7.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.auth0<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>java-jwt<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.10.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>有在一个项目中用jjwt使用HS512方式做签名的token，使用同一个字符串作为key，但是在java-jwt中无法验证，出现错误：</p>
-<p>Exception in thread “main” com.auth0.jwt.exceptions.SignatureVerificationException: The Token’s Signature resulted invalid when verified using the Algorithm: HmacSHA512</p>
-<h2 id="出错的代码"><a href="#出错的代码" class="headerlink" title="出错的代码"></a>出错的代码</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Jwts.builder()</span><br><span class="line">           .setClaims(map)</span><br><span class="line">           .setExpiration(<span class="keyword">new</span> Date(t))</span><br><span class="line">           .signWith(SignatureAlgorithm.HS512, <span class="string">&quot;helloworld&quot;</span>)</span><br><span class="line">           .compact();</span><br><span class="line">           </span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Algorithm algorithm = Algorithm.HMAC512(<span class="string">&quot;helloworld&quot;</span>);</span><br><span class="line">JWTVerifier verifier =</span><br><span class="line">        JWT.require(algorithm).acceptExpiresAt(<span class="number">5</span>).build(); <span class="comment">// Reusable verifier instance</span></span><br><span class="line">    DecodedJWT jwt = verifier.verify(t2);</span><br></pre></td></tr></table></figure>
-
-<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>仔细查看代码后发现jjwt的签名参数传递错误导致，signWith的第二个参数时字符串，但是是需要的做base64后的字符串，在jjwt的源码中对传递进来的字符串参数做了base64 decode</p>
-<p>参照： <a target="_blank" rel="noopener" href="https://github.com/jwtk/jjwt/blob/master/impl/src/main/java/io/jsonwebtoken/impl/DefaultJwtBuilder.java">https://github.com/jwtk/jjwt/blob/master/impl/src/main/java/io/jsonwebtoken/impl/DefaultJwtBuilder.java</a></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> JwtBuilder <span class="title">signWith</span><span class="params">(SignatureAlgorithm alg, String base64EncodedSecretKey)</span> <span class="keyword">throws</span> InvalidKeyException </span>&#123;</span><br><span class="line">    Assert.hasText(base64EncodedSecretKey, <span class="string">&quot;base64-encoded secret key cannot be null or empty.&quot;</span>);</span><br><span class="line">    Assert.isTrue(alg.isHmac(), <span class="string">&quot;Base64-encoded key bytes may only be specified for HMAC signatures.  If using RSA or Elliptic Curve, use the signWith(SignatureAlgorithm, Key) method instead.&quot;</span>);</span><br><span class="line">    <span class="keyword">byte</span>[] bytes = Decoders.BASE64.decode(base64EncodedSecretKey);</span><br><span class="line">    <span class="keyword">return</span> signWith(alg, bytes);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>知道原因了就很容易解决了，最简单的方式两边加密解密的都用成 byte[] 做key，不会有base64 啥事。</p>
-<p>或者jjwt加密时先把明文密码字符串做base64.Encode</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">String t2 =</span><br><span class="line">    Jwts.builder()</span><br><span class="line">        .setClaims(buyerMap)</span><br><span class="line">        .setExpiration(<span class="keyword">new</span> Date(t))</span><br><span class="line">        .signWith(SignatureAlgorithm.HS512, Base64.encode(<span class="string">&quot;helloworld&quot;</span>.getBytes())) </span><br><span class="line">        .compact();</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1221,7 +1223,7 @@ Caused by: java.security.InvalidKeyException: cannot identify XDH private key
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">99</span>
+          <span class="site-state-item-count">100</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1254,7 +1256,7 @@ Caused by: java.security.InvalidKeyException: cannot identify XDH private key
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-gg"></i>
   </span>

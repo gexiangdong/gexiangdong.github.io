@@ -146,6 +146,88 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2020/07/05/jjwt-%E4%B8%8E-java-jwt-%E7%94%9F%E6%88%90%E7%9A%84jwt%E6%A0%BC%E5%BC%8Ftoken%E4%BA%92%E7%9B%B8%E8%A7%A3%E6%9E%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/07/05/jjwt-%E4%B8%8E-java-jwt-%E7%94%9F%E6%88%90%E7%9A%84jwt%E6%A0%BC%E5%BC%8Ftoken%E4%BA%92%E7%9B%B8%E8%A7%A3%E6%9E%90/" class="post-title-link" itemprop="url">jjwt 与 java-jwt 生成的jwt格式token互相解析</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-05 17:29:45" itemprop="dateCreated datePublished" datetime="2020-07-05T17:29:45+08:00">2020-07-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-23 13:15:48" itemprop="dateModified" datetime="2020-09-23T13:15:48+08:00">2020-09-23</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>有2个java的库可以生成jwt，maven依赖分别如下</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.jsonwebtoken<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jjwt<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.7.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.auth0<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>java-jwt<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.10.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>有在一个项目中用jjwt使用HS512方式做签名的token，使用同一个字符串作为key，但是在java-jwt中无法验证，出现错误：</p>
+<p>Exception in thread “main” com.auth0.jwt.exceptions.SignatureVerificationException: The Token’s Signature resulted invalid when verified using the Algorithm: HmacSHA512</p>
+<h2 id="出错的代码"><a href="#出错的代码" class="headerlink" title="出错的代码"></a>出错的代码</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Jwts.builder()</span><br><span class="line">           .setClaims(map)</span><br><span class="line">           .setExpiration(<span class="keyword">new</span> Date(t))</span><br><span class="line">           .signWith(SignatureAlgorithm.HS512, <span class="string">&quot;helloworld&quot;</span>)</span><br><span class="line">           .compact();</span><br><span class="line">           </span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Algorithm algorithm = Algorithm.HMAC512(<span class="string">&quot;helloworld&quot;</span>);</span><br><span class="line">JWTVerifier verifier =</span><br><span class="line">        JWT.require(algorithm).acceptExpiresAt(<span class="number">5</span>).build(); <span class="comment">// Reusable verifier instance</span></span><br><span class="line">    DecodedJWT jwt = verifier.verify(t2);</span><br></pre></td></tr></table></figure>
+
+<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>仔细查看代码后发现jjwt的签名参数传递错误导致，signWith的第二个参数时字符串，但是是需要的做base64后的字符串，在jjwt的源码中对传递进来的字符串参数做了base64 decode</p>
+<p>参照： <a target="_blank" rel="noopener" href="https://github.com/jwtk/jjwt/blob/master/impl/src/main/java/io/jsonwebtoken/impl/DefaultJwtBuilder.java">https://github.com/jwtk/jjwt/blob/master/impl/src/main/java/io/jsonwebtoken/impl/DefaultJwtBuilder.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> JwtBuilder <span class="title">signWith</span><span class="params">(SignatureAlgorithm alg, String base64EncodedSecretKey)</span> <span class="keyword">throws</span> InvalidKeyException </span>&#123;</span><br><span class="line">    Assert.hasText(base64EncodedSecretKey, <span class="string">&quot;base64-encoded secret key cannot be null or empty.&quot;</span>);</span><br><span class="line">    Assert.isTrue(alg.isHmac(), <span class="string">&quot;Base64-encoded key bytes may only be specified for HMAC signatures.  If using RSA or Elliptic Curve, use the signWith(SignatureAlgorithm, Key) method instead.&quot;</span>);</span><br><span class="line">    <span class="keyword">byte</span>[] bytes = Decoders.BASE64.decode(base64EncodedSecretKey);</span><br><span class="line">    <span class="keyword">return</span> signWith(alg, bytes);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>知道原因了就很容易解决了，最简单的方式两边加密解密的都用成 byte[] 做key，不会有base64 啥事。</p>
+<p>或者jjwt加密时先把明文密码字符串做base64.Encode</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">String t2 =</span><br><span class="line">    Jwts.builder()</span><br><span class="line">        .setClaims(buyerMap)</span><br><span class="line">        .setExpiration(<span class="keyword">new</span> Date(t))</span><br><span class="line">        .signWith(SignatureAlgorithm.HS512, Base64.encode(<span class="string">&quot;helloworld&quot;</span>.getBytes())) </span><br><span class="line">        .compact();</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2020/04/16/org-springframework-web-httpmediatypenotsupportedexception-content-type-application-json/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -962,78 +1044,6 @@ list-members                list all members of a group</code></pre>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2020/01/28/spring-security-5-x-%E7%9A%84%E9%BB%98%E8%AE%A4%E5%AF%86%E7%A0%81%E4%BF%9D%E5%AD%98%E6%96%B9%E5%BC%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/01/28/spring-security-5-x-%E7%9A%84%E9%BB%98%E8%AE%A4%E5%AF%86%E7%A0%81%E4%BF%9D%E5%AD%98%E6%96%B9%E5%BC%8F/" class="post-title-link" itemprop="url">Spring Security 5.x 的默认密码保存方式</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-01-28 10:25:10 / 修改时间：10:51:25" itemprop="dateCreated datePublished" datetime="2020-01-28T10:25:10+08:00">2020-01-28</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Spring Security 5.x 开始把密码机制升级了，使用DelegatingPasswordEncoder。 这是一种支持多种加密密码并存的方法，取代了以前只支持一种密码机制的方法。</p>
-<p>这种升级需要密码的密文增加一个前缀，来说明密文是通过那种办法加密的，例如之前用 BCryptPasswordEncoder 加密出来的密文 </p>
-<p>  $2a$10$H2z/oHZgviqC8srzsCZq/ObzTNRTfygC4N0NEZlm5trYPFrvdNHeS</p>
-<p>需要被存储为：</p>
-<p>  {bcrypt}$2a$10$H2z/oHZgviqC8srzsCZq/ObzTNRTfygC4N0NEZlm5trYPFrvdNHeS</p>
-<p>如果是从 spring security 4.x 升级过了，需要修改下数据库里保存的密文密码。</p>
-<p>在开发测试过程中可以使用 {noop}12345 这样的明文密码就比较方便了。</p>
-<h2 id="可能遇到的异常或警告"><a href="#可能遇到的异常或警告" class="headerlink" title="可能遇到的异常或警告"></a>可能遇到的异常或警告</h2><p>下面2种异常/警告 都是和密码加密有关的。</p>
-<p>  WARN  o.s.s.c.bcrypt.BCryptPasswordEncoder - Encoded password does not look like BCrypt</p>
-<p>这个警告是因为密文前缺少{bcypt}，用了BCryptPasswordEncoder去match，Spring 会给出这个警告。</p>
-<p>  java.lang.IllegalArgumentException: There is no PasswordEncoder mapped for the id “null”</p>
-<p>这也是因为密文没有指明加密方式的前缀，用了DelegatingPasswordEncoder去match这个password是否正确，密文的加密方法前缀是null，才出这个错。</p>
-<h3 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h3><p>另外需要注意的，除了WebSecurityConfigurerAdapter会涉及到登录用户的密码外，在oauth Authentication Server的 ClientDetail 里的 client_secret 也需要类似处理。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://spring.io/blog/2017/11/01/spring-security-5-0-0-rc1-released#password-encoding">https://spring.io/blog/2017/11/01/spring-security-5-0-0-rc1-released#password-encoding</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1103,7 +1113,7 @@ list-members                list all members of a group</code></pre>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">99</span>
+          <span class="site-state-item-count">100</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1136,7 +1146,7 @@ list-members                list all members of a group</code></pre>
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-gg"></i>
   </span>
