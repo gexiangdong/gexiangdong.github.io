@@ -28,7 +28,7 @@
 <meta property="og:description" content="now()函数是postgresql 中用来获取当前时间的函数，需要注意postgresql提供了多个获取当时时间的函数，now只是其中一个。    函数 说明    now() 事务的开始时间，等同于 transaction_timestamp()   transaction_timestamp() 事务的开始时间，等同于now()，同一事务内多次调用返回相同个结果   statement_ti">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-01-05T09:08:10.000Z">
-<meta property="article:modified_time" content="2022-01-05T09:21:48.760Z">
+<meta property="article:modified_time" content="2022-01-09T07:32:09.573Z">
 <meta property="article:author" content="GeXiangDong">
 <meta property="article:tag" content="postgresql">
 <meta name="twitter:card" content="summary">
@@ -174,10 +174,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2022-01-05 17:08:10 / 修改时间：17:21:48" itemprop="dateCreated datePublished" datetime="2022-01-05T17:08:10+08:00">2022-01-05</time>
+              <time title="创建时间：2022-01-05 17:08:10" itemprop="dateCreated datePublished" datetime="2022-01-05T17:08:10+08:00">2022-01-05</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-01-09 15:32:09" itemprop="dateModified" datetime="2022-01-09T15:32:09+08:00">2022-01-09</time>
+              </span>
 
           
 
@@ -216,6 +222,26 @@
 </tr>
 </tbody></table>
 <p>根据上述说明，如果需要用timestamp字段排序，且顺序非常重要，例如余额变化，然后一个事务中可能有多个insert，用now()就会造成混乱。</p>
+<p>可以通过sql测试下这几个函数</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">begin</span>;</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">now</span>(), pg_sleep(<span class="number">0.1</span>), transaction_timestamp() , pg_sleep(<span class="number">0.1</span>), statement_timestamp(),  pg_sleep(<span class="number">0.1</span>), clock_timestamp(), pg_sleep(<span class="number">0.1</span>), statement_timestamp(), clock_timestamp();</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">now</span>(), pg_sleep(<span class="number">0.1</span>), transaction_timestamp() , pg_sleep(<span class="number">0.1</span>), statement_timestamp(),  pg_sleep(<span class="number">0.1</span>), clock_timestamp(), pg_sleep(<span class="number">0.1</span>), statement_timestamp(), clock_timestamp();</span><br><span class="line"><span class="keyword">commit</span>;</span><br></pre></td></tr></table></figure>
+
+<p>在PSQL内执行上面的SQL，会得到如下结果，从结果中可以看到，一个事务内，多个sql的多次now() transaction_timestamp()返回的结果是完全相同的；同一事务内多个语句中的statement_timestamp()返回结果不同，而同一语句中的statement_timestamp()返回结果相同；任意一个clock_timestamp()返回结果都可能不同（pg_sleep(0.1)是让postgresql睡眠0.1秒后继续执行）</p>
+<pre><code>tempdb =# begin;
+BEGIN
+tempdb =*# select now(), pg_sleep(0.1), transaction_timestamp(), pg_sleep(0.1), statement_timestamp(),  pg_sleep(0.1), clock_timestamp(), pg_sleep(0.1), statement_timestamp(), clock_timestamp();
+              now              | pg_sleep |     transaction_timestamp     | pg_sleep |     statement_timestamp      | pg_sleep |        clock_timestamp        | pg_sleep |     statement_timestamp      |        clock_timestamp        
+-------------------------------+----------+-------------------------------+----------+------------------------------+----------+-------------------------------+----------+------------------------------+-------------------------------
+ 2022-01-09 15:27:28.976989+08 |          | 2022-01-09 15:27:28.976989+08 |          | 2022-01-09 15:27:34.43345+08 |          | 2022-01-09 15:27:34.737544+08 |          | 2022-01-09 15:27:34.43345+08 | 2022-01-09 15:27:34.838665+08
+(1 row)
+
+tempdb=*# select now(), pg_sleep(0.1), transaction_timestamp(), pg_sleep(0.1), statement_timestamp(),  pg_sleep(0.1), clock_timestamp(), pg_sleep(0.1), statement_timestamp(), clock_timestamp();
+              now              | pg_sleep |     transaction_timestamp     | pg_sleep |      statement_timestamp      | pg_sleep |       clock_timestamp        | pg_sleep |      statement_timestamp      |        clock_timestamp        
+-------------------------------+----------+-------------------------------+----------+-------------------------------+----------+------------------------------+----------+-------------------------------+-------------------------------
+ 2022-01-09 15:27:28.976989+08 |          | 2022-01-09 15:27:28.976989+08 |          | 2022-01-09 15:27:43.321314+08 |          | 2022-01-09 15:27:43.62673+08 |          | 2022-01-09 15:27:43.321314+08 | 2022-01-09 15:27:43.727897+08
+(1 row)
+
+tempdb=*# commit;
+COMMIT</code></pre>
 
     </div>
 
