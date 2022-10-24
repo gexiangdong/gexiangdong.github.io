@@ -686,7 +686,7 @@ pg_basebackup: base backup completed</code></pre>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/11/10/java-graphics2d-%E7%94%BB%E4%B8%80%E4%B8%AA%E9%80%8F%E6%98%8E%E7%9A%84%E5%9C%86/" class="post-title-link" itemprop="url">java Graphics2D 画一个透明的圆</a>
+            <a href="/2021/11/10/java-graphics2d-%E7%94%BB%E4%B8%80%E4%B8%AA%E9%80%8F%E6%98%8E%E7%9A%84%E5%9C%86/" class="post-title-link" itemprop="url">java Graphics2D 画一个透明的圆，在现有图片上镂空一部分</a>
         </h2>
 
         <div class="post-meta">
@@ -695,10 +695,16 @@ pg_basebackup: base backup completed</code></pre>
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-11-10 17:08:23 / 修改时间：17:31:20" itemprop="dateCreated datePublished" datetime="2021-11-10T17:08:23+08:00">2021-11-10</time>
+              <time title="创建时间：2021-11-10 17:08:23" itemprop="dateCreated datePublished" datetime="2021-11-10T17:08:23+08:00">2021-11-10</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-10-25 07:30:58" itemprop="dateModified" datetime="2022-10-25T07:30:58+08:00">2022-10-25</time>
+              </span>
 
           
 
@@ -712,10 +718,15 @@ pg_basebackup: base backup completed</code></pre>
 
       
           <p>首先这个标题不准确，需要的结果类似下图，注意中间圆形部分是透明的</p>
-<p><img src="https://raw.githubusercontent.com/gexiangdong/gexiangdong.github.io/master/images/c.png" alt="circle-transpant"></p>
+<h2 id="镂空一个圆形"><a href="#镂空一个圆形" class="headerlink" title="镂空一个圆形"></a>镂空一个圆形</h2><p><img src="https://raw.githubusercontent.com/gexiangdong/gexiangdong.github.io/master/images/c.png" alt="circle-transpant"></p>
 <p>Graphics2D提供方法clearRect，可以清除出一个矩形区域，但没有clearCircle或者clearArc, clearEllipse等，通过清除的来实现不太可能。</p>
 <p>实现思路可从描画部分入手，使用 Graphics2D 的 setClip 方法，在描画前把那个要剪出来的圆排除在外。 参照如下代码</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Area a = <span class="keyword">new</span> Area(<span class="keyword">new</span> Rectangle(<span class="number">0</span>, <span class="number">0</span>, <span class="number">1200</span>, <span class="number">1200</span>));</span><br><span class="line">Ellipse2D circle = <span class="keyword">new</span> Ellipse2D.Float(<span class="number">100</span>, <span class="number">100</span>, <span class="number">1000</span>, <span class="number">1000</span>);</span><br><span class="line">a.subtract(<span class="keyword">new</span> Area(circle));</span><br><span class="line">g.setClip(a);</span><br><span class="line">g.setColor(<span class="keyword">new</span> Color(<span class="number">255</span>, <span class="number">255</span>, <span class="number">192</span>));</span><br><span class="line">g.fillRect(<span class="number">0</span>, <span class="number">0</span>, <span class="number">1200</span>, <span class="number">1200</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="金保留文字部分，其余部分镂空"><a href="#金保留文字部分，其余部分镂空" class="headerlink" title="金保留文字部分，其余部分镂空"></a>金保留文字部分，其余部分镂空</h2><p>把一张图除文字外的部分剔除掉，实现如下图所示效果</p>
+<p><img src="https://raw.githubusercontent.com/gexiangdong/gexiangdong.github.io/master/images/d.png" alt="circle-transpant"></p>
+<p>也是利用 graphics2d 的 setClip 方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// g 是新图的graphics2D，目标图（对应上图右侧），bgImg是原图（对应上图左侧）</span></span><br><span class="line">FontRenderContext frc = g.getFontRenderContext();</span><br><span class="line">Font font = arial.deriveFont(Font.BOLD, <span class="number">260</span>);</span><br><span class="line">GlyphVector gv = font.createGlyphVector(frc, <span class="string">&quot;10&quot;</span>);</span><br><span class="line">Rectangle2D box = gv.getVisualBounds();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 计算文字轮廓放置位置（中央）</span></span><br><span class="line"><span class="keyword">int</span> xOff = (<span class="keyword">int</span>) (bgImg.getWidth() - box.getWidth()) / <span class="number">2</span>;</span><br><span class="line"><span class="keyword">int</span> yOff = (<span class="keyword">int</span>) (bgImg.getHeight() + box.getHeight()) / <span class="number">2</span>;</span><br><span class="line"><span class="comment">// xOff, yOff是文字轮廓左下角的坐标</span></span><br><span class="line">Shape shape = gv.getOutline(xOff, yOff);</span><br><span class="line">g.setClip(shape);</span><br><span class="line"></span><br><span class="line">g.drawImage(bgImg, <span class="number">0</span>, <span class="number">0</span>, <span class="keyword">null</span>);</span><br></pre></td></tr></table></figure>
 
       
     </div>
