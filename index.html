@@ -146,6 +146,104 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2023/02/19/postgresql-select-max-x-vs-select-x-order-by-x-desc-limit-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/02/19/postgresql-select-max-x-vs-select-x-order-by-x-desc-limit-1/" class="post-title-link" itemprop="url">PostgreSQL: select max(x) vs select x ... order by x desc limit 1</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-02-19 09:13:08 / 修改时间：10:11:49" itemprop="dateCreated datePublished" datetime="2023-02-19T09:13:08+08:00">2023-02-19</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在通常状况下（不利用索引），用max来查询一个字段的最大值是最佳选择，使用oder by这种方式相比max肯定是一个糟糕至极的选择。</p>
+<p>但是在恰当的利用索引的情况下，PostgreSQL order by  limit 1 这种方式给出了不同的结果。</p>
+<h2 id="比较-I（where中包含一个字段）"><a href="#比较-I（where中包含一个字段）" class="headerlink" title="比较 I（where中包含一个字段）"></a>比较 I（where中包含一个字段）</h2><h3 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h3><p>table</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> user_login_record(</span><br><span class="line">  user_id         <span class="built_in">char</span>(<span class="number">36</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">  login_date    <span class="built_in">timestamp</span>  <span class="keyword">not</span> <span class="literal">null</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>上面这个表（请忽略它并不符合实际的业务或者编码设计规范），有2个字段，我们根据user_id 来查询最后一个 login_date</p>
+<p>我们忽略掉无索引的状况（正如前文所说max在无索引时性能最佳），直接建立索引</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">index</span> user_login_date <span class="keyword">on</span> user_login_record (user_id, login_date <span class="keyword">desc</span>);</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="比较结果"><a href="#比较结果" class="headerlink" title="比较结果"></a>比较结果</h3><p>我们来比较2个SQL的性能</p>
+<h4 id="max"><a href="#max" class="headerlink" title="max"></a>max</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">explain</span> (<span class="keyword">analyze</span>, buffers, costs) </span><br><span class="line"><span class="keyword">select</span> <span class="keyword">max</span>(login_date) </span><br><span class="line"><span class="keyword">from</span> user_login_record </span><br><span class="line"><span class="keyword">where</span> user_id=<span class="string">&#x27;952bd155-06b3-4792-82ec-4b86d06c86a7&#x27;</span></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">                                                                        QUERY PLAN                                                                        </span><br><span class="line">----------------------------------------------------------------------------------------------------------------------------------------------------------</span><br><span class="line"> Result  (cost&#x3D;0.45..0.46 rows&#x3D;1 width&#x3D;8) (actual time&#x3D;0.074..0.075 rows&#x3D;1 loops&#x3D;1)</span><br><span class="line">   Buffers: shared hit&#x3D;4</span><br><span class="line">   InitPlan 1 (returns $0)</span><br><span class="line">     -&gt;  Limit  (cost&#x3D;0.41..0.45 rows&#x3D;1 width&#x3D;8) (actual time&#x3D;0.071..0.071 rows&#x3D;1 loops&#x3D;1)</span><br><span class="line">           Buffers: shared hit&#x3D;4</span><br><span class="line">           -&gt;  Index Only Scan using user_login_date on user_login_record  (cost&#x3D;0.41..32.76 rows&#x3D;1077 width&#x3D;8) (actual time&#x3D;0.070..0.070 rows&#x3D;1 loops&#x3D;1)</span><br><span class="line">                 Index Cond: ((user_id &#x3D; &#39;952bd155-06b3-4792-82ec-4b86d06c86a7&#39;::bpchar) AND (login_date IS NOT NULL))</span><br><span class="line">                 Heap Fetches: 0</span><br><span class="line">                 Buffers: shared hit&#x3D;4</span><br><span class="line"> Planning Time: 0.124 ms</span><br><span class="line"> Execution Time: 0.097 ms</span><br><span class="line">(11 rows)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="order-by-…-desc-limit-1"><a href="#order-by-…-desc-limit-1" class="headerlink" title="order by … desc limit 1"></a>order by … desc limit 1</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">explain</span> (<span class="keyword">analyze</span>, buffers, costs) </span><br><span class="line"><span class="keyword">select</span> login_date </span><br><span class="line"><span class="keyword">from</span> user_login_record </span><br><span class="line"><span class="keyword">where</span> user_id=<span class="string">&#x27;952bd155-06b3-4792-82ec-4b86d06c86a7&#x27;</span></span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> login_date <span class="keyword">desc</span> </span><br><span class="line"><span class="keyword">limit</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">                                                                    QUERY PLAN                                                                    </span><br><span class="line">--------------------------------------------------------------------------------------------------------------------------------------------------</span><br><span class="line"> Limit  (cost&#x3D;0.41..0.44 rows&#x3D;1 width&#x3D;8) (actual time&#x3D;0.036..0.036 rows&#x3D;1 loops&#x3D;1)</span><br><span class="line">   Buffers: shared hit&#x3D;4</span><br><span class="line">   -&gt;  Index Only Scan using user_login_date on user_login_record  (cost&#x3D;0.41..30.06 rows&#x3D;1077 width&#x3D;8) (actual time&#x3D;0.034..0.035 rows&#x3D;1 loops&#x3D;1)</span><br><span class="line">         Index Cond: (user_id &#x3D; &#39;952bd155-06b3-4792-82ec-4b86d06c86a7&#39;::bpchar)</span><br><span class="line">         Heap Fetches: 0</span><br><span class="line">         Buffers: shared hit&#x3D;4</span><br><span class="line"> Planning Time: 0.067 ms</span><br><span class="line"> Execution Time: 0.049 ms</span><br><span class="line">(8 rows)</span><br></pre></td></tr></table></figure>
+
+<h4 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h4><p>两个都利用了索引的 login_date 字段，只取了最后一条参与计算，但是max多了一个循环，速度略差。</p>
+<h3 id="比较-II（where中包含三个字段）"><a href="#比较-II（where中包含三个字段）" class="headerlink" title="比较 II（where中包含三个字段）"></a>比较 II（where中包含三个字段）</h3><p>两个字读的状况我也测试比较过，和一个字段情形相同，max 查询也利用了索引，只取了最后一条，也是多了一个循环。  单独拿出来3个字段，是因为3个字段的结果和1-2个字段不同。</p>
+<h3 id="环境-1"><a href="#环境-1" class="headerlink" title="环境"></a>环境</h3><p>table</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> user_login_record(</span><br><span class="line">  <span class="keyword">group_id</span>       <span class="built_in">char</span>(<span class="number">36</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">  user_id         <span class="built_in">char</span>(<span class="number">36</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">  machine_id   <span class="built_in">char</span>(<span class="number">32</span>) <span class="keyword">not</span> <span class="literal">null</span></span><br><span class="line">  login_date    <span class="built_in">timestamp</span>  <span class="keyword">not</span> <span class="literal">null</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>上面这个表有4个字段，相比之前多了group_id, machine_id，可以理解为用户在某个组内用某台机器登陆的记录。我们根据 group_id, user_id和machine_id 来查询最后一个 login_date</p>
+<p>依旧直接建立索引</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">index</span> user_login_date <span class="keyword">on</span> user_login_record (<span class="keyword">group_id</span>, user_id, machine_id, login_date <span class="keyword">desc</span>);</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="比较结果-1"><a href="#比较结果-1" class="headerlink" title="比较结果"></a>比较结果</h3><h4 id="max-1"><a href="#max-1" class="headerlink" title="max"></a>max</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">explain</span> (<span class="keyword">analyze</span>, buffers, costs) </span><br><span class="line"><span class="keyword">select</span> <span class="keyword">max</span>(login_date) </span><br><span class="line"><span class="keyword">from</span> user_login_record </span><br><span class="line"><span class="keyword">where</span> <span class="keyword">group_id</span>=<span class="string">&#x27;312bb069-fd27-4822-885d-c3ac67bfd8a1&#x27;</span> </span><br><span class="line">  <span class="keyword">and</span> user_id=<span class="string">&#x27;952bd155-06b3-4792-82ec-4b86d06c86a7&#x27;</span> </span><br><span class="line">  <span class="keyword">and</span> machine_id=<span class="string">&#x27;C635F8F44F1960778CE58869DF10150D&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">                                                                                                   QUERY PLAN                                                                                                   </span><br><span class="line">----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</span><br><span class="line"> Aggregate  (cost&#x3D;2.84..2.85 rows&#x3D;1 width&#x3D;8) (actual time&#x3D;0.143..0.143 rows&#x3D;1 loops&#x3D;1)</span><br><span class="line">   Buffers: shared hit&#x3D;72</span><br><span class="line">   -&gt;  Index Only Scan using user_login_date on user_login_record  (cost&#x3D;0.41..2.84 rows&#x3D;1 width&#x3D;8) (actual time&#x3D;0.050..0.126 rows&#x3D;98 loops&#x3D;1)</span><br><span class="line">         Index Cond: ((group_id &#x3D; &#39;312bb069-fd27-4822-885d-c3ac67bfd8a1&#39;::bpchar) AND (user_id &#x3D; &#39;952bd155-06b3-4792-82ec-4b86d06c86a7&#39;::bpchar) AND (machine_id &#x3D; &#39;C635F8F44F1960778CE58869DF10150D&#39;::bpchar))</span><br><span class="line">         Heap Fetches: 98</span><br><span class="line">         Buffers: shared hit&#x3D;72</span><br><span class="line"> Planning Time: 0.139 ms</span><br><span class="line"> Execution Time: 0.163 ms</span><br><span class="line">(8 rows)</span><br></pre></td></tr></table></figure>
+
+<h4 id="order-by-…-desc-limit-1-1"><a href="#order-by-…-desc-limit-1-1" class="headerlink" title="order by … desc limit 1"></a>order by … desc limit 1</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">explain</span> (<span class="keyword">analyze</span>, buffers, costs) </span><br><span class="line"><span class="keyword">select</span> login_date</span><br><span class="line"><span class="keyword">from</span> user_login_record </span><br><span class="line"><span class="keyword">where</span> <span class="keyword">group_id</span>=<span class="string">&#x27;312bb069-fd27-4822-885d-c3ac67bfd8a1&#x27;</span> </span><br><span class="line">  <span class="keyword">and</span> user_id=<span class="string">&#x27;952bd155-06b3-4792-82ec-4b86d06c86a7&#x27;</span> </span><br><span class="line">  <span class="keyword">and</span> machine_id=<span class="string">&#x27;C635F8F44F1960778CE58869DF10150D&#x27;</span></span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> login_date <span class="keyword">desc</span></span><br><span class="line"><span class="keyword">limit</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">                                                                                                 QUERY PLAN                                                                                                   </span><br><span class="line">----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</span><br><span class="line"> Limit  (cost&#x3D;0.41..2.84 rows&#x3D;1 width&#x3D;8) (actual time&#x3D;0.042..0.042 rows&#x3D;1 loops&#x3D;1)</span><br><span class="line">   Buffers: shared hit&#x3D;4</span><br><span class="line">   -&gt;  Index Only Scan using user_login_date on user_login_record  (cost&#x3D;0.41..2.84 rows&#x3D;1 width&#x3D;8) (actual time&#x3D;0.041..0.041 rows&#x3D;1 loops&#x3D;1)</span><br><span class="line">         Index Cond: ((group_id &#x3D; &#39;312bb069-fd27-4822-885d-c3ac67bfd8a1&#39;::bpchar) AND (user_id &#x3D; &#39;952bd155-06b3-4792-82ec-4b86d06c86a7&#39;::bpchar) AND (machine_id &#x3D; &#39;C635F8F44F1960778CE58869DF10150D&#39;::bpchar))</span><br><span class="line">         Heap Fetches: 1</span><br><span class="line">         Buffers: shared hit&#x3D;4</span><br><span class="line"> Planning Time: 0.124 ms</span><br><span class="line"> Execution Time: 0.057 ms</span><br><span class="line">(8 rows)</span><br></pre></td></tr></table></figure>
+
+<h4 id="结论-1"><a href="#结论-1" class="headerlink" title="结论"></a>结论</h4><p>两个都利用了索引，但利用方式有所不同，max没有利用login_date字段的排序，最后对符合条件的98条数据进行了筛选(rows=98 loops=1)；order by limit 1的sql则依旧利用了索引中的 login_date 字段，只取了一套数据(rows=1 loops=1)。<br>虽然这次max没多一次循环，但由于多了多条记录，相比另外一个sql性能降低了很多。</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>随着PostgreSQL的升级（我的测试环境12和14版）以及不同环境的数据库会对sql采取不同优化措施。本文中的测试结果也可能会不同。每个人应该在自己的环境中做实际的测试来选择用那个sql以获得最佳的性能。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2022/01/05/postgresql-now-%E5%87%BD%E6%95%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1028,173 +1126,10 @@ org.elasticsearch.cluster.block.ClusterBlockException: blocked by: [FORBIDDEN/12
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2020/09/23/%E8%AE%BF%E9%97%AEhttps%E6%9C%8D%E5%8A%A1%E5%87%BA%E9%94%99javax-net-ssl-sslhandshakeexception-could-not-generate-secret/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/09/23/%E8%AE%BF%E9%97%AEhttps%E6%9C%8D%E5%8A%A1%E5%87%BA%E9%94%99javax-net-ssl-sslhandshakeexception-could-not-generate-secret/" class="post-title-link" itemprop="url">访问https服务出错javax.net.ssl.SSLHandshakeException: Could not generate secret</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-09-23 10:40:40" itemprop="dateCreated datePublished" datetime="2020-09-23T10:40:40+08:00">2020-09-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-25 08:30:14" itemprop="dateModified" datetime="2020-09-25T08:30:14+08:00">2020-09-25</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h1><p>java程序调用https url的服务时，会出错，错误堆栈如下。 不论是使用spring resttemplate，还是自己用jdk里的httpsurlconnection 写段程序访问，都出现这个问题，而这个url在浏览器里调用是好的。</p>
-<pre><code>java.lang.RuntimeException: javax.net.ssl.SSLHandshakeException: Could not generate secret
-
-    at cn.devmgr.mall.mms.sync.CommonService.login(CommonService.java:64)
-    at cn.devmgr.mall.mms.test.AppTests.testSyncClerks(AppTests.java:40)
-    at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-    at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-    at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-    at java.base/java.lang.reflect.Method.invoke(Method.java:564)
-    at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:675)
-    at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
-    at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:125)
-    at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:132)
-    at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:124)
-    at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:74)
-    at org.junit.jupiter.engine.execution.ExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(ExecutableInvoker.java:115)
-    at org.junit.jupiter.engine.execution.ExecutableInvoker.lambda$invoke$0(ExecutableInvoker.java:105)
-    at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:104)
-    at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:62)
-    at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:43)
-    at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:35)
-    at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:104)
-    at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:98)
-    at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$6(TestMethodTestDescriptor.java:202)
-    at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-    at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:198)
-    at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:135)
-    at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:69)
-    at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:135)
-    at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-    at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125)
-    at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135)
-    at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123)
-    at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-    at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122)
-    at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80)
-    at java.base/java.util.ArrayList.forEach(ArrayList.java:1510)
-    at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38)
-    at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:139)
-    at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-    at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125)
-    at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135)
-    at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123)
-    at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-    at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122)
-    at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80)
-    at java.base/java.util.ArrayList.forEach(ArrayList.java:1510)
-    at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38)
-    at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:139)
-    at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-    at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125)
-    at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135)
-    at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123)
-    at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-    at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122)
-    at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80)
-    at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:32)
-    at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
-    at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:51)
-    at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:229)
-    at org.junit.platform.launcher.core.DefaultLauncher.lambda$execute$6(DefaultLauncher.java:197)
-    at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:211)
-    at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:191)
-    at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
-    at com.intellij.junit5.JUnit5IdeaTestRunner.startRunnerWithArgs(JUnit5IdeaTestRunner.java:71)
-    at com.intellij.rt.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:33)
-    at com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:220)
-    at com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:53)
-Caused by: javax.net.ssl.SSLHandshakeException: Could not generate secret
-    at java.base/sun.security.ssl.KAKeyDerivation.t12DeriveKey(KAKeyDerivation.java:91)
-    at java.base/sun.security.ssl.KAKeyDerivation.deriveKey(KAKeyDerivation.java:61)
-    at java.base/sun.security.ssl.ECDHClientKeyExchange$ECDHEClientKeyExchangeProducer.produce(ECDHClientKeyExchange.java:419)
-    at java.base/sun.security.ssl.ClientKeyExchange$ClientKeyExchangeProducer.produce(ClientKeyExchange.java:65)
-    at java.base/sun.security.ssl.SSLHandshake.produce(SSLHandshake.java:440)
-    at java.base/sun.security.ssl.ServerHelloDone$ServerHelloDoneConsumer.consume(ServerHelloDone.java:182)
-    at java.base/sun.security.ssl.SSLHandshake.consume(SSLHandshake.java:396)
-    at java.base/sun.security.ssl.HandshakeContext.dispatch(HandshakeContext.java:445)
-    at java.base/sun.security.ssl.HandshakeContext.dispatch(HandshakeContext.java:423)
-    at java.base/sun.security.ssl.TransportContext.dispatch(TransportContext.java:182)
-    at java.base/sun.security.ssl.SSLTransport.decode(SSLTransport.java:167)
-    at java.base/sun.security.ssl.SSLSocketImpl.decode(SSLSocketImpl.java:1462)
-    at java.base/sun.security.ssl.SSLSocketImpl.readHandshakeRecord(SSLSocketImpl.java:1370)
-    at java.base/sun.security.ssl.SSLSocketImpl.startHandshake(SSLSocketImpl.java:437)
-    at java.base/sun.net.www.protocol.https.HttpsClient.afterConnect(HttpsClient.java:567)
-    at java.base/sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.connect(AbstractDelegateHttpsURLConnection.java:171)
-    at java.base/sun.net.www.protocol.http.HttpURLConnection.getOutputStream0(HttpURLConnection.java:1370)
-    at java.base/sun.net.www.protocol.http.HttpURLConnection.getOutputStream(HttpURLConnection.java:1345)
-    at java.base/sun.net.www.protocol.https.HttpsURLConnectionImpl.getOutputStream(HttpsURLConnectionImpl.java:220)
-    at cn.devmgr.mall.mms.sync.CommonService.login(CommonService.java:51)
-    ... 64 more
-Caused by: java.security.InvalidKeyException: cannot identify XDH private key
-    at org.bouncycastle.jcajce.provider.asymmetric.edec.KeyAgreementSpi.engineDoPhase(Unknown Source)
-    at java.base/javax.crypto.KeyAgreement.doPhase(KeyAgreement.java:579)
-    at java.base/sun.security.ssl.KAKeyDerivation.t12DeriveKey(KAKeyDerivation.java:75)
-    ... 83 more</code></pre>
-<h1 id="排查"><a href="#排查" class="headerlink" title="排查"></a>排查</h1><p>单独用 HttpUrlConnection 来写main方法访问url，脱离项目环境，单独运行Java main方法，发现是好的。<br>因此可以排除是本地java环境和服务器证书问题，断定是堆栈中对应的org.bouncycastle导致的。</p>
-<p>通过 <code>mvn -X test</code> 运行项目，找到org.boundcycastle，找到使用它的上级jar，在pom里 exclusion 掉，再次运行，解决。</p>
-<h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><p>maven pom 中排除掉 org.bouncycastle:bcprov-jdk15on:jar:1.65</p>
-<p>如果你的项目需要这个包，升级到最新版。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1260,13 +1195,13 @@ Caused by: java.security.InvalidKeyException: cannot identify XDH private key
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">100</span>
+          <span class="site-state-item-count">101</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">140</span>
+        <span class="site-state-item-count">141</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1293,7 +1228,7 @@ Caused by: java.security.InvalidKeyException: cannot identify XDH private key
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-gg"></i>
   </span>

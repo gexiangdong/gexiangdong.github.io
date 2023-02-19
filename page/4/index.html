@@ -146,6 +146,89 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/09/14/brew-upgrade-postgresql-%E5%90%8E%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/09/14/brew-upgrade-postgresql-%E5%90%8E%E6%97%A0%E6%B3%95%E5%90%AF%E5%8A%A8/" class="post-title-link" itemprop="url">brew upgrade postgresql 后无法启动</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-09-14 09:46:33" itemprop="dateCreated datePublished" datetime="2019-09-14T09:46:33+08:00">2019-09-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-11-04 19:02:49" itemprop="dateModified" datetime="2020-11-04T19:02:49+08:00">2020-11-04</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>使用 <code>brew upgrade postgresql</code> 把 mac 上的 postgresql server 从10升级成11后，发现无法正常启动了</p>
+<p>查看 postgresql 的日志文件 /usr/local/var/log/postgres.log，发现如下两行说明了启动失败的原因</p>
+<pre><code>2019-09-14 09:39:57.355 CST [1586] FATAL:  database files are incompatible with server
+2019-09-14 09:39:57.355 CST [1586] DETAIL:  The data directory was initialized by PostgreSQL version 10, which is not compatible with this version 11.5.</code></pre>
+<p>用如下命令可以迁移老的数据文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew postgresql-upgrade-database</span><br></pre></td></tr></table></figure>
+
+<h2 id="创建无老数据的新服务器"><a href="#创建无老数据的新服务器" class="headerlink" title="创建无老数据的新服务器"></a>创建无老数据的新服务器</h2><p>也可以删除老数据库文件，重新建个干净的新数据库。</p>
+<p>先删除老数据库目录 /usr/local/var/postgres </p>
+<p>然后运行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">initdb -U 当前用户名 -A trust  -D /usr/<span class="built_in">local</span>/var/postgres </span><br></pre></td></tr></table></figure>
+
+<p>-U 后面跟的是当前用户的用户名，这样用psql 就不需要每次都加个 <code>-U </code>参数了<br>-A 后面的trust，表示信任登录，不用输入密码了</p>
+<p>之后</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">brew services stop postgresql</span><br><span class="line">brew services start postgresql</span><br></pre></td></tr></table></figure>
+<p>就可以启动起来了</p>
+<p>可以用 <code>createdb tempdb</code> 来创建一个名字为 tempdb 的数据库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">psql tempdb</span><br></pre></td></tr></table></figure>
+<p>就能直接进入psql </p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/09/09/spring-boot-websocket/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1074,85 +1157,10 @@ Caused by: java.lang.IllegalStateException: StandardEngine[Tomcat].StandardHost[
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/06/06/java%E6%89%93%E5%8D%B0%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/06/06/java%E6%89%93%E5%8D%B0%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">Java打印的三种方法</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-06-06 21:01:02" itemprop="dateCreated datePublished" datetime="2019-06-06T21:01:02+08:00">2019-06-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-06-07 18:51:02" itemprop="dateModified" datetime="2019-06-07T18:51:02+08:00">2019-06-07</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>实现Java打印功能有3种方式</p>
-<h1 id="javax-print-PrintService"><a href="#javax-print-PrintService" class="headerlink" title="javax.print.PrintService"></a>javax.print.PrintService</h1><p>使用javax.print包下的类来打印，可以打印文档，PDF等等文档</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Doc doc = <span class="keyword">new</span> SimpleDoc(<span class="keyword">new</span> FileInputStream(<span class="string">&quot;tobeprint.pdf&quot;</span>), DocFlavor.BYTE_ARRAY.PDF, <span class="keyword">null</span>);</span><br><span class="line">PrintService ps = PrintServiceLookup.lookupDefaultPrintService();</span><br><span class="line">DocPrintJob job = ps.createPrintJob();</span><br><span class="line">job.print(doc, <span class="keyword">null</span>);</span><br></pre></td></tr></table></figure>
-
-<h1 id="java-awt-PrinterJob"><a href="#java-awt-PrinterJob" class="headerlink" title="java.awt.PrinterJob"></a>java.awt.PrinterJob</h1><p>awt的实现，可以通过Printable 打印 Graphics，自己程序绘制要打印的内容。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.awt.*;</span><br><span class="line"><span class="keyword">import</span> java.awt.print.*;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PrintToPrinter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        Book book = <span class="keyword">new</span> Book();</span><br><span class="line">        PageFormat pf = <span class="keyword">new</span> PageFormat();</span><br><span class="line">        pf.setOrientation(PageFormat.PORTRAIT);</span><br><span class="line"></span><br><span class="line">        Paper p = <span class="keyword">new</span> Paper();</span><br><span class="line">        p.setSize(<span class="number">590</span>, <span class="number">840</span>);</span><br><span class="line">        p.setImageableArea(<span class="number">10</span>, <span class="number">10</span>, <span class="number">590</span>, <span class="number">840</span>);</span><br><span class="line">        pf.setPaper(p);</span><br><span class="line">        book.append(<span class="keyword">new</span> OneLabel(), pf);</span><br><span class="line"></span><br><span class="line">        PrinterJob job = PrinterJob.getPrinterJob();</span><br><span class="line">        job.setPageable(book);</span><br><span class="line">        job.print();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 实现Printable即可打印</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">OneLabel</span> <span class="keyword">implements</span> <span class="title">Printable</span> </span>&#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">print</span><span class="params">(Graphics graphics, PageFormat pageFormat, <span class="keyword">int</span> pageIndex)</span> <span class="keyword">throws</span> PrinterException </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (pageIndex != <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="comment">// 此例子只有一页；</span></span><br><span class="line">                <span class="keyword">return</span> NO_SUCH_PAGE;</span><br><span class="line">            &#125;</span><br><span class="line">            Graphics2D g2 = (Graphics2D) graphics;</span><br><span class="line">            <span class="keyword">double</span> scale = <span class="number">72.0</span> / <span class="number">300</span>; <span class="comment">//屏幕DPI是72；打印机DPI：300； 可以实现打印的更精细，特别是图片</span></span><br><span class="line">            g2.scale(scale, scale);</span><br><span class="line"></span><br><span class="line">            g2.setColor(Color.black);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">double</span> x = pageFormat.getImageableX();</span><br><span class="line">            <span class="keyword">double</span> y = pageFormat.getImageableY();</span><br><span class="line">            System.out.println(<span class="string">&quot;左上角：&quot;</span> + x + <span class="string">&quot;,&quot;</span> + y + <span class="string">&quot;  宽高: &quot;</span> + pageFormat.getWidth() + <span class="string">&quot;,&quot;</span> + pageFormat.getHeight());</span><br><span class="line"></span><br><span class="line">            String str = <span class="string">&quot;中文字符串&quot;</span>;</span><br><span class="line">            Font font = <span class="keyword">new</span> Font(<span class="string">&quot;微软雅黑&quot;</span>, Font.PLAIN, <span class="number">10</span>);</span><br><span class="line">            g2.setFont(font);</span><br><span class="line">            g2.drawString(str, (<span class="keyword">float</span>) x, (<span class="keyword">float</span>) (y + <span class="number">20</span>));</span><br><span class="line"></span><br><span class="line">            Font font2 = <span class="keyword">new</span> Font(<span class="string">&quot;微软雅黑&quot;</span>, Font.PLAIN, <span class="number">20</span>);</span><br><span class="line">            g2.setFont(font2);</span><br><span class="line">            g2.drawString(str, (<span class="keyword">float</span>) x, (<span class="keyword">float</span>) (y + <span class="number">80</span>));</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> PAGE_EXISTS;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="javafx-print-PrinterJob"><a href="#javafx-print-PrinterJob" class="headerlink" title="javafx.print.PrinterJob"></a>javafx.print.PrinterJob</h1><p>这是javafx的实现，可以打印Canvas，类似awt的功能</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> Canvas canvas = <span class="keyword">new</span> Canvas(<span class="number">250</span>,<span class="number">250</span>);</span><br><span class="line">GraphicsContext gc = canvas.getGraphicsContext2D();</span><br><span class="line">gc.fillText(<span class="string">&quot;hello, world.&quot;</span>, <span class="number">10</span>, <span class="number">10</span>);</span><br><span class="line">PrinterJob printerJob = PrinterJob.createPrinterJob();</span><br><span class="line">printerJob.printPage(canvas);</span><br></pre></td></tr></table></figure>
-
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1218,13 +1226,13 @@ Caused by: java.lang.IllegalStateException: StandardEngine[Tomcat].StandardHost[
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">100</span>
+          <span class="site-state-item-count">101</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">140</span>
+        <span class="site-state-item-count">141</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1251,7 +1259,7 @@ Caused by: java.lang.IllegalStateException: StandardEngine[Tomcat].StandardHost[
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-gg"></i>
   </span>

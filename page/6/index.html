@@ -146,6 +146,110 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/04/14/mac-commands/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/04/14/mac-commands/" class="post-title-link" itemprop="url">Mac 下几个实用命令</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-04-14 08:48:36" itemprop="dateCreated datePublished" datetime="2019-04-14T08:48:36+08:00">2019-04-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-06-07 19:22:52" itemprop="dateModified" datetime="2019-06-07T19:22:52+08:00">2019-06-07</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="查找某个命令-文件所在的位置"><a href="#查找某个命令-文件所在的位置" class="headerlink" title="查找某个命令/文件所在的位置"></a>查找某个命令/文件所在的位置</h1><h2 id="whereis"><a href="#whereis" class="headerlink" title="whereis"></a>whereis</h2><p>只查询标准的可执行路径内文件（默认只有 /usr/bin, /bin, /usr/sbin, /sbin 等四个目录）</p>
+<p>使用方法：  <code>whereis  filename</code></p>
+<h2 id="which"><a href="#which" class="headerlink" title="which"></a>which</h2><p>查询PATH环境变量中设置的所有目录。</p>
+<p>使用方法：  <code>which  filename</code> 或 <code>which -a filename</code> -a 参数表示查询并列出所有，不加此参数只列出第一个。</p>
+<h2 id="locate"><a href="#locate" class="headerlink" title="locate"></a>locate</h2><p>整个磁盘查询，但需要先建立索引数据库。 <code>sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.locate.plist</code> 用来建索引</p>
+<h2 id="find"><a href="#find" class="headerlink" title="find"></a>find</h2><p>整个硬盘查询，速度慢。</p>
+<p>使用方法： <code>find / -name filename</code></p>
+<h1 id="ls-的参数"><a href="#ls-的参数" class="headerlink" title="ls 的参数"></a>ls 的参数</h1><h2 id="显示完整日期"><a href="#显示完整日期" class="headerlink" title="显示完整日期"></a>显示完整日期</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ls --full-time</span><br><span class="line">ls -l --time-style=full</span><br><span class="line">ls -l --timestyle <span class="string">&#x27;+%Y%m%d %H:%M:%S&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>如果经常使用，也可以把TIME_STYLE设置到环境变量里，以后ls -l即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export TIME_STYLE&#x3D;&#39;+%Y%m%d %H:%M:%S&#39;</span><br><span class="line">ls -l</span><br></pre></td></tr></table></figure>
+
+<h2 id="ls排序"><a href="#ls排序" class="headerlink" title="ls排序"></a>ls排序</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ls --sort=extension</span><br><span class="line">ls --sort=size</span><br><span class="line">ls --sort=time</span><br><span class="line">ls --sort=version</span><br><span class="line">ls --sort=none</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>-t 按修改日期排序；DESC</li>
+<li>-S 按文件大小排序，DESC</li>
+<li>-r 反转排序，变成DESC</li>
+<li>-U 使用创建日期，不使用修改日期（显示和排序）</li>
+</ul>
+<h1 id="统计文件个数"><a href="#统计文件个数" class="headerlink" title="统计文件个数"></a>统计文件个数</h1><h2 id="统计某文件夹下文件的个数"><a href="#统计某文件夹下文件的个数" class="headerlink" title="统计某文件夹下文件的个数"></a>统计某文件夹下文件的个数</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -l |grep <span class="string">&quot;^-&quot;</span>|wc -l</span><br></pre></td></tr></table></figure>
+
+<h2 id="统计某文件夹下目录的个数"><a href="#统计某文件夹下目录的个数" class="headerlink" title="统计某文件夹下目录的个数"></a>统计某文件夹下目录的个数</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -l |grep <span class="string">&quot;^ｄ&quot;</span>|wc -l</span><br></pre></td></tr></table></figure>
+
+<h2 id="统计文件夹下文件的个数，包括子文件夹里的"><a href="#统计文件夹下文件的个数，包括子文件夹里的" class="headerlink" title="统计文件夹下文件的个数，包括子文件夹里的"></a>统计文件夹下文件的个数，包括子文件夹里的</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -lR|grep <span class="string">&quot;^-&quot;</span>|wc -l</span><br></pre></td></tr></table></figure>
+
+<p>如统计/home/temp 目录(包含子目录)下的所有文件包含java的文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -lR /home/temp | grep java | wc -l </span><br></pre></td></tr></table></figure>
+
+<p>统计文件夹下目录的个数，包括子文件夹里的</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -lR | grep <span class="string">&quot;^d&quot;</span> | wc -l</span><br></pre></td></tr></table></figure>
+
+<h1 id="查看目录下所有文件大小"><a href="#查看目录下所有文件大小" class="headerlink" title="查看目录下所有文件大小"></a>查看目录下所有文件大小</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">du -d 1 -h</span><br></pre></td></tr></table></figure>
+
+<p>命令查看当前目录下所有文件夹的大小 -d 指深度，后面加一个数值，表示统计到几级子目录。</p>
+<h1 id="修改文件创建-修改时间"><a href="#修改文件创建-修改时间" class="headerlink" title="修改文件创建/修改时间"></a>修改文件创建/修改时间</h1><h2 id="修改文件创建时间"><a href="#修改文件创建时间" class="headerlink" title="修改文件创建时间"></a>修改文件创建时间</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch -mt YYYYMMDDhhmm filename</span><br></pre></td></tr></table></figure>
+
+<h2 id="修改文件更新时间"><a href="#修改文件更新时间" class="headerlink" title="修改文件更新时间"></a>修改文件更新时间</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch -t  YYYYMMDDhhmm filename</span><br></pre></td></tr></table></figure>
+
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/03/31/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BC%A0%E7%BB%99%E5%90%8E%E7%AB%AF%E7%9A%84iv%E5%8F%AA%E6%9C%8915%E4%B8%AAbyte%E7%9A%84%E9%97%AE%E9%A2%98/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -803,81 +907,10 @@ Date: Tue, 04 Sep 2018 05:46:48 GMT</code></pre>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2018/08/06/%E4%BD%BF%E7%94%A8activemq-%E5%8F%91%E9%80%81%E6%8E%A5%E6%94%B6%E6%B6%88%E6%81%AF%E7%9A%84%E4%BE%8B%E5%AD%90/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/08/06/%E4%BD%BF%E7%94%A8activemq-%E5%8F%91%E9%80%81%E6%8E%A5%E6%94%B6%E6%B6%88%E6%81%AF%E7%9A%84%E4%BE%8B%E5%AD%90/" class="post-title-link" itemprop="url">使用ActiveMQ 发送接收消息的例子</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-08-06 19:05:37" itemprop="dateCreated datePublished" datetime="2018-08-06T19:05:37+08:00">2018-08-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-06-07 18:51:02" itemprop="dateModified" datetime="2019-06-07T18:51:02+08:00">2019-06-07</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>不用spring，仅仅jms和activeMQ</p>
-<h1 id="pom-xml"><a href="#pom-xml" class="headerlink" title="pom.xml"></a>pom.xml</h1><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>cn.devmgr.activemqlistener<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>activemq-listener<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.jms<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jms<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.activemq<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>activemq-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.7.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="发送端-JmsMessageSender-java"><a href="#发送端-JmsMessageSender-java" class="headerlink" title="发送端 JmsMessageSender.java"></a>发送端 JmsMessageSender.java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.devmgr.activemqlistener;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.activemq.ActiveMQConnectionFactory;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.jms.Connection;</span><br><span class="line"><span class="keyword">import</span> javax.jms.ConnectionFactory;</span><br><span class="line"><span class="keyword">import</span> javax.jms.Message;</span><br><span class="line"><span class="keyword">import</span> javax.jms.MessageProducer;</span><br><span class="line"><span class="keyword">import</span> javax.jms.Queue;</span><br><span class="line"><span class="keyword">import</span> javax.jms.Session;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JmsMessageSender</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] argvs)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        ConnectionFactory connectionFactory = <span class="keyword">new</span> ActiveMQConnectionFactory(<span class="string">&quot;tcp://localhost:61616&quot;</span>);</span><br><span class="line">        Connection connection = connectionFactory.createConnection();</span><br><span class="line">        Session session = connection.createSession(<span class="keyword">false</span>, Session.AUTO_ACKNOWLEDGE);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 消息生产者；发送消息</span></span><br><span class="line">        Queue queue = session.createQueue(<span class="string">&quot;print-queue&quot;</span>);</span><br><span class="line">        String payload = <span class="string">&quot;需要打印了&quot;</span>;</span><br><span class="line">        Message msg = session.createTextMessage(payload);</span><br><span class="line">        MessageProducer producer = session.createProducer(queue);</span><br><span class="line">        System.out.println(<span class="string">&quot;Sending text &#x27;&quot;</span> + payload + <span class="string">&quot;&#x27;&quot;</span>);</span><br><span class="line">        producer.send(msg);</span><br><span class="line"></span><br><span class="line">        session.close();</span><br><span class="line">        connection.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="接收端-JmsMessageReceiver-java"><a href="#接收端-JmsMessageReceiver-java" class="headerlink" title="接收端 JmsMessageReceiver.java"></a>接收端 JmsMessageReceiver.java</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.devmgr.activemqlistener;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.activemq.ActiveMQConnectionFactory;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.jms.Connection;</span><br><span class="line"><span class="keyword">import</span> javax.jms.ConnectionFactory;</span><br><span class="line"><span class="keyword">import</span> javax.jms.JMSException;</span><br><span class="line"><span class="keyword">import</span> javax.jms.Message;</span><br><span class="line"><span class="keyword">import</span> javax.jms.MessageConsumer;</span><br><span class="line"><span class="keyword">import</span> javax.jms.Queue;</span><br><span class="line"><span class="keyword">import</span> javax.jms.Session;</span><br><span class="line"><span class="keyword">import</span> javax.jms.TextMessage;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JmsMessageReceiver</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] argvs)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        ConnectionFactory connectionFactory = <span class="keyword">new</span> ActiveMQConnectionFactory(<span class="string">&quot;tcp://localhost:61616&quot;</span>);</span><br><span class="line">        Connection connection = connectionFactory.createConnection();</span><br><span class="line">        Session session = connection.createSession(<span class="keyword">false</span>, Session.AUTO_ACKNOWLEDGE);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 消息消费者： 接收消息</span></span><br><span class="line">        Queue queue = session.createQueue(<span class="string">&quot;print-queue&quot;</span>);</span><br><span class="line">        MessageConsumer consumer = session.createConsumer(queue);</span><br><span class="line">        consumer.setMessageListener(<span class="keyword">new</span> ConsumerMessageListener(<span class="string">&quot;print-queue&quot;</span>));</span><br><span class="line">        connection.start();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//60秒后退出</span></span><br><span class="line">        Thread.sleep(<span class="number">60000</span>);</span><br><span class="line">        session.close();</span><br><span class="line"></span><br><span class="line">        connection.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">ConsumerMessageListener</span> <span class="keyword">implements</span> <span class="title">javax</span>.<span class="title">jms</span>.<span class="title">MessageListener</span> </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> String consumerName;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">ConsumerMessageListener</span><span class="params">(String consumerName)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.consumerName = consumerName;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onMessage</span><span class="params">(Message message)</span> </span>&#123;</span><br><span class="line">            TextMessage textMessage = (TextMessage) message;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                System.out.println(consumerName + <span class="string">&quot; received &quot;</span> + textMessage.getText());</span><br><span class="line">            &#125; <span class="keyword">catch</span> (JMSException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -943,13 +976,13 @@ Date: Tue, 04 Sep 2018 05:46:48 GMT</code></pre>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">100</span>
+          <span class="site-state-item-count">101</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">140</span>
+        <span class="site-state-item-count">141</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -976,7 +1009,7 @@ Date: Tue, 04 Sep 2018 05:46:48 GMT</code></pre>
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-gg"></i>
   </span>
