@@ -146,6 +146,108 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2020/02/04/gitolite%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/04/gitolite%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">gitolite的安装和使用</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-04 17:36:46" itemprop="dateCreated datePublished" datetime="2020-02-04T17:36:46+08:00">2020-02-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-05 19:40:11" itemprop="dateModified" datetime="2020-02-05T19:40:11+08:00">2020-02-05</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>git用起来很方便，小型团队不需要权限区分时，仅仅使用git就够了。</p>
+<p>需要权限区分时，可以使用gitolite来做权限控制。</p>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>首先安装好 git openssh 等，这里不再累述。</p>
+<p>ssh到安装好git的服务器上，</p>
+<p>切换到git用户 <code>sudo su - git</code> ，之后确认下 .ssh 目录下没有 authorization_keys 文件或改文件为空。（以下这些命令都在git用户下执行）</p>
+<p>运行下面的命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/sitaramc/gitolite</span><br><span class="line">mkdir -p <span class="variable">$HOME</span>/bin</span><br><span class="line">gitolite/install -to <span class="variable">$HOME</span>/bin</span><br></pre></td></tr></table></figure>
+<p>这三个命令的作用是，从github.com克隆gitolite的安装仓库，在当前用户(git)的用户目录下创建一个bin目录，并且把gitolite安装到这个目录。</p>
+<p>安装到这个目录后，由于path里没有这个目录，调用此目录下新安装的命令时，需要写全路径，不过这影响不大，因为这几个命令不会经常用。</p>
+<p><strong>下面这个很关键，不要错</strong>，把自己用的客户机上的公钥（.ssh目录下的id_rsa.pub）文件拷贝到服务器上git用户目录下，并且命名为admin.pub，之后再运行下面的命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;home&#x2F;git&#x2F;bin&#x2F;gitolite setup -pk admin.pub</span><br></pre></td></tr></table></figure>
+<p>此命令运行成功后，会出现如下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Initialized empty Git repository in &#x2F;home&#x2F;git&#x2F;repositories&#x2F;gitolite-admin.git&#x2F;</span><br><span class="line">Initialized empty Git repository in &#x2F;home&#x2F;git&#x2F;repositories&#x2F;testing.git&#x2F;</span><br></pre></td></tr></table></figure>
+<p>而且会在git用户目录下创建 repository目录和projects.list文件。<br>如果用的公钥不正确，可以删除这2个目录/文件，然后重新来过。</p>
+<p>此时gitolite已经安装好了，要设置仓库、用户和权限，都需要在客户端（就是前面生成admin.pub的机器）上进行了</p>
+<h1 id="日常管理"><a href="#日常管理" class="headerlink" title="日常管理"></a>日常管理</h1><p>首先把gitolite-admin这个仓库克隆到本地，所有管理工作都由这个仓库进行。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> ssh://git@host/gitolite-admin</span><br></pre></td></tr></table></figure>
+<p>如果出错，请首先检查客户端电脑的用户公钥是否就是安装过程中使用的admin.pub。</p>
+<p>克隆下 gitolite-admin 这个仓库后，会发现有2个目录 conf 和 keydir，</p>
+<ul>
+<li>conf是仓库和用户的配置目录，内有一个gitolite.conf 文件，存储用户和仓库的对应权限</li>
+<li>keydir 是保存的用户的公钥，按照上述安装步骤进行的，应该已经有一个 admin.pub 文件了</li>
+</ul>
+<h2 id="创建仓库"><a href="#创建仓库" class="headerlink" title="创建仓库"></a>创建仓库</h2><p>不需要手工创建仓库，在 conf/gitolite.conf 文件中配置的仓库名，在commit并push后，会自动被创建。</p>
+<h2 id="仓库的URL"><a href="#仓库的URL" class="headerlink" title="仓库的URL"></a>仓库的URL</h2><p>仓库的URL是</p>
+<p>   ssh://git@host/repo-name</p>
+<p>例如：</p>
+<p>  ssh://git@192.168.1.2/testing</p>
+<p>仓库名后面有或没有.git都可以。</p>
+<h2 id="gitolite-命令"><a href="#gitolite-命令" class="headerlink" title="gitolite 命令"></a>gitolite 命令</h2><p>除了安装时使用gitolite命令的setup参数初始化了 gitolite-admin 和 testing 两个仓库外，这个命令还可以接收以下这些参数</p>
+<pre><code>list-groups                 list all group names in conf
+list-users                  list all users/user groups in conf
+list-repos                  list all repos/repo groups in conf
+list-phy-repos              list all repos actually on disk
+list-memberships            list all groups a name is a member of
+list-members                list all members of a group</code></pre>
+<p>这可以帮助我们确认服务器上到底有哪些仓库/用户等。   </p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://github.com/sitaramc/gitolite">gitolite github网址：https://github.com/sitaramc/gitolite</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2020/02/03/vue-js%E9%A1%B9%E7%9B%AE%E5%8F%91%E5%B8%83%E6%97%B6%E8%87%AA%E5%8A%A8%E5%89%94%E9%99%A4console-log/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -973,67 +1075,6 @@ javax.servlet.ServletException: Circular view path []: would dispatch back to th
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/09/28/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E4%B8%AD%E9%81%87%E5%88%B0%E7%9A%84%E4%B8%A4%E4%B8%AA%E6%80%AA%E5%BC%82%E9%97%AE%E9%A2%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/09/28/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E4%B8%AD%E9%81%87%E5%88%B0%E7%9A%84%E4%B8%A4%E4%B8%AA%E6%80%AA%E5%BC%82%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">微信开发者工具使用中遇到的两个怪异问题</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2019-09-28 09:40:07 / 修改时间：09:48:49" itemprop="dateCreated datePublished" datetime="2019-09-28T09:40:07+08:00">2019-09-28</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>在使用微信开发者工具开发小程序时遇到两个怪异问题，记录于此。</p>
-<h2 id="websocket-不往服务器端发送-header-信息"><a href="#websocket-不往服务器端发送-header-信息" class="headerlink" title="websocket 不往服务器端发送 header 信息"></a>websocket 不往服务器端发送 header 信息</h2><p>某天，突然开始看到报错，小程序的websocket连接不上了，服务端的验证一直通过不，想着没改小程序端，于是一直各种跟踪调试服务端的websocket配置，发现没有收到用于传递身份信息的头导致的。思前想后百思不解，为啥这个头消失了。后来想到电脑有几天没重启过了，之间也没退出过微信开发者工具，尝试退出微信开发者工具，重新进入，问题得以解决。</p>
-<h2 id="模拟器中小程序保存图片到相册后自动返回首页"><a href="#模拟器中小程序保存图片到相册后自动返回首页" class="headerlink" title="模拟器中小程序保存图片到相册后自动返回首页"></a>模拟器中小程序保存图片到相册后自动返回首页</h2><p>在模拟器中有一个保存图片的功能（把canvas上的图存入相册），保存后，模拟器会弹出一个对话框，选择文件的存储位置，然后保存。有几次没注意文件的位置就存了，存了后，发现小程序自动跳转到了首页，而且console的日志也消失了，好像重启了小程序。原因是弹出的对话框默认是小程序的路径，文件存在了小程序项目目录下，开发者工具检测到了文件变化会重启模拟器内小程序已变反应变化。 换个路径保存就好了。这也不能算开发者工具的bug，只是没注意到这点时，会很麻烦。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1103,13 +1144,13 @@ javax.servlet.ServletException: Circular view path []: would dispatch back to th
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">102</span>
+          <span class="site-state-item-count">103</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">142</span>
+        <span class="site-state-item-count">144</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1136,7 +1177,7 @@ javax.servlet.ServletException: Circular view path []: would dispatch back to th
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-gg"></i>
   </span>

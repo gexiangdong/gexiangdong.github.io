@@ -146,6 +146,76 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2021/03/31/spring-gateway-%E5%BC%82%E5%B8%B8-org-springframework-core-io-buffer-databufferlimitexception-exceeded-limit-on-max-bytes-to-buffer-262144/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/03/31/spring-gateway-%E5%BC%82%E5%B8%B8-org-springframework-core-io-buffer-databufferlimitexception-exceeded-limit-on-max-bytes-to-buffer-262144/" class="post-title-link" itemprop="url">Spring Gateway 异常 org.springframework.core.io.buffer.DataBufferLimitException: Exceeded limit on max bytes to buffer : 262144</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-03-31 15:21:37 / 修改时间：15:45:15" itemprop="dateCreated datePublished" datetime="2021-03-31T15:21:37+08:00">2021-03-31</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Spring Gateway 遇到异常 org.springframework.core.io.buffer.DataBufferLimitException:<br>  Exceeded limit on max bytes to buffer : 262144<br>  堆栈如下【似乎没啥意义】</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">org.springframework.core.io.buffer.DataBufferLimitException: Exceeded limit on max bytes to buffer : 262144</span><br><span class="line">	at org.springframework.core.io.buffer.LimitedDataBufferList.raiseLimitException(LimitedDataBufferList.java:101)</span><br><span class="line">	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: </span><br><span class="line">Error has been observed at the following site(s):</span><br><span class="line">	|_ checkpoint ⇢ Body from GET http:&#x2F;&#x2F;192.168.0.141:8042&#x2F;companies&#x2F;62bd6601-7139-4182-aa11-03c7cf304326&#x2F;orders&#x2F;summary&#x2F;cashierjournal?withDetails&#x3D;true&amp;beginDate&#x3D;1580572800000&amp;endDate&#x3D;1617119999000 [DefaultClientResponse]</span><br><span class="line">	|_ checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]</span><br><span class="line">	|_ checkpoint ⇢ org.springframework.security.web.server.authentication.logout.LogoutWebFilter [DefaultWebFilterChain]</span><br><span class="line">	|_ checkpoint ⇢ org.springframework.security.web.server.savedrequest.ServerRequestCacheWebFilter [DefaultWebFilterChain]</span><br><span class="line">	|_ checkpoint ⇢ org.springframework.security.web.server.context.SecurityContextServerWebExchangeWebFilter [DefaultWebFilterChain]</span><br><span class="line">	|_ checkpoint ⇢ org.springframework.security.web.server.context.ReactorContextWebFilter [DefaultWebFilterChain]</span><br><span class="line">	|_ checkpoint ⇢ org.springframework.security.web.server.header.HttpHeaderWriterWebFilter [DefaultWebFilterChain]</span><br><span class="line">	|_ checkpoint ⇢ org.springframework.security.config.web.server.ServerHttpSecurity$ServerWebExchangeReactorContextWebFilter [DefaultWebFilterChain]</span><br><span class="line">	|_ checkpoint ⇢ org.springframework.security.web.server.WebFilterChainProxy [DefaultWebFilterChain]</span><br><span class="line">	|_ checkpoint ⇢ org.springframework.boot.actuate.metrics.web.reactive.server.MetricsWebFilter [DefaultWebFilterChain]</span><br><span class="line">	|_ checkpoint ⇢ HTTP GET &quot;&#x2F;web&#x2F;companies&#x2F;62bd6601-7139-4182-aa11-03c7cf304326&#x2F;journal&#x2F;cashier?withDetails&#x3D;true&amp;beginDate&#x3D;1580572800000&amp;endDate&#x3D;1617119999000&quot; [ExceptionHandlingWebHandler]</span><br><span class="line">Stack trace:</span><br><span class="line">		at org.springframework.core.io.buffer.LimitedDataBufferList.raiseLimitException(LimitedDataBufferList.java:101)</span><br><span class="line">		at org.springframework.core.io.buffer.LimitedDataBufferList.updateCount(LimitedDataBufferList.java:94)</span><br><span class="line">		at org.springframework.core.io.buffer.LimitedDataBufferList.add(LimitedDataBufferList.java:59)</span><br><span class="line">		at reactor.core.publisher.MonoCollect$CollectSubscriber.onNext(MonoCollect.java:119)</span><br><span class="line">		at reactor.core.publisher.FluxMap$MapSubscriber.onNext(FluxMap.java:114)</span><br><span class="line">		at reactor.core.publisher.FluxPeek$PeekSubscriber.onNext(FluxPeek.java:192)</span><br><span class="line">		at reactor.core.publisher.FluxPeek$PeekSubscriber.onNext(FluxPeek.java:192)</span><br><span class="line">		at reactor.core.publisher.FluxMap$MapSubscriber.onNext(FluxMap.java:114)</span><br><span class="line">		at reactor.netty.channel.FluxReceive.drainReceiver(FluxReceive.java:213)</span><br><span class="line">		at reactor.netty.channel.FluxReceive.onInboundNext(FluxReceive.java:346)</span><br><span class="line">		at reactor.netty.channel.ChannelOperations.onInboundNext(ChannelOperations.java:348)</span><br><span class="line">		at reactor.netty.http.client.HttpClientOperations.onInboundNext(HttpClientOperations.java:572)</span><br><span class="line">		at reactor.netty.channel.ChannelOperationsHandler.channelRead(ChannelOperationsHandler.java:93)</span><br><span class="line">		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:374)</span><br><span class="line">		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:360)</span><br><span class="line">		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:352)</span><br><span class="line">		at io.netty.handler.codec.MessageToMessageDecoder.channelRead(MessageToMessageDecoder.java:102)</span><br></pre></td></tr></table></figure>
+<p>这个异常的原因很明确，返回内容超过了默认能解析的256k的大小，怎么增加这个buffer？</p>
+<p>网上搜索大多是说可以在 application.yml 配置</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">codec:</span></span><br><span class="line">    <span class="attr">max-in-memory-size:</span> <span class="string">5MB</span></span><br></pre></td></tr></table></figure>
+
+<p>按照这个修改后，不起作用。网上还有说是spring版本问题…</p>
+<p>这个是我自己的GatewayFilter问题，访问到了自定义的一个Filter， 这个filter创建的请求使用了默认值，没有用 application.yml中的配置</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">WebClient.builder()</span><br><span class="line">        .build()</span><br><span class="line">        <span class="comment">// ...</span></span><br></pre></td></tr></table></figure>
+<p>改成如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">WebClient.builder()</span><br><span class="line">        .exchangeStrategies(</span><br><span class="line">            ExchangeStrategies.builder()</span><br><span class="line">                .codecs(c -&gt; c.defaultCodecs().maxInMemorySize(<span class="number">10</span> * <span class="number">1024</span> * <span class="number">1024</span>)) <span class="comment">// 10M json解析</span></span><br><span class="line">                .build())</span><br><span class="line">        .build()</span><br><span class="line">        <span class="comment">// ...</span></span><br></pre></td></tr></table></figure>
+<p>这里写死了10M，也可以优雅一点，从application.yml中读取配置值。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2020/11/07/elasticsearch%E8%BF%9B%E5%85%A5%E5%8F%AA%E8%AF%BB%E6%A8%A1%E5%BC%8F%EF%BC%8Cjava%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%BC%82%E5%B8%B8-org-elasticsearch-cluster-block-clusterblockexception-blocked-by-forbidden-12-index-read-only-allow-delete-api/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1094,108 +1164,6 @@ Caused by: org.springframework.context.ApplicationContextException: Unable to st
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2020/02/04/gitolite%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/02/04/gitolite%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">gitolite的安装和使用</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-02-04 17:36:46" itemprop="dateCreated datePublished" datetime="2020-02-04T17:36:46+08:00">2020-02-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-05 19:40:11" itemprop="dateModified" datetime="2020-02-05T19:40:11+08:00">2020-02-05</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>git用起来很方便，小型团队不需要权限区分时，仅仅使用git就够了。</p>
-<p>需要权限区分时，可以使用gitolite来做权限控制。</p>
-<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>首先安装好 git openssh 等，这里不再累述。</p>
-<p>ssh到安装好git的服务器上，</p>
-<p>切换到git用户 <code>sudo su - git</code> ，之后确认下 .ssh 目录下没有 authorization_keys 文件或改文件为空。（以下这些命令都在git用户下执行）</p>
-<p>运行下面的命令</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/sitaramc/gitolite</span><br><span class="line">mkdir -p <span class="variable">$HOME</span>/bin</span><br><span class="line">gitolite/install -to <span class="variable">$HOME</span>/bin</span><br></pre></td></tr></table></figure>
-<p>这三个命令的作用是，从github.com克隆gitolite的安装仓库，在当前用户(git)的用户目录下创建一个bin目录，并且把gitolite安装到这个目录。</p>
-<p>安装到这个目录后，由于path里没有这个目录，调用此目录下新安装的命令时，需要写全路径，不过这影响不大，因为这几个命令不会经常用。</p>
-<p><strong>下面这个很关键，不要错</strong>，把自己用的客户机上的公钥（.ssh目录下的id_rsa.pub）文件拷贝到服务器上git用户目录下，并且命名为admin.pub，之后再运行下面的命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;home&#x2F;git&#x2F;bin&#x2F;gitolite setup -pk admin.pub</span><br></pre></td></tr></table></figure>
-<p>此命令运行成功后，会出现如下内容：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Initialized empty Git repository in &#x2F;home&#x2F;git&#x2F;repositories&#x2F;gitolite-admin.git&#x2F;</span><br><span class="line">Initialized empty Git repository in &#x2F;home&#x2F;git&#x2F;repositories&#x2F;testing.git&#x2F;</span><br></pre></td></tr></table></figure>
-<p>而且会在git用户目录下创建 repository目录和projects.list文件。<br>如果用的公钥不正确，可以删除这2个目录/文件，然后重新来过。</p>
-<p>此时gitolite已经安装好了，要设置仓库、用户和权限，都需要在客户端（就是前面生成admin.pub的机器）上进行了</p>
-<h1 id="日常管理"><a href="#日常管理" class="headerlink" title="日常管理"></a>日常管理</h1><p>首先把gitolite-admin这个仓库克隆到本地，所有管理工作都由这个仓库进行。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> ssh://git@host/gitolite-admin</span><br></pre></td></tr></table></figure>
-<p>如果出错，请首先检查客户端电脑的用户公钥是否就是安装过程中使用的admin.pub。</p>
-<p>克隆下 gitolite-admin 这个仓库后，会发现有2个目录 conf 和 keydir，</p>
-<ul>
-<li>conf是仓库和用户的配置目录，内有一个gitolite.conf 文件，存储用户和仓库的对应权限</li>
-<li>keydir 是保存的用户的公钥，按照上述安装步骤进行的，应该已经有一个 admin.pub 文件了</li>
-</ul>
-<h2 id="创建仓库"><a href="#创建仓库" class="headerlink" title="创建仓库"></a>创建仓库</h2><p>不需要手工创建仓库，在 conf/gitolite.conf 文件中配置的仓库名，在commit并push后，会自动被创建。</p>
-<h2 id="仓库的URL"><a href="#仓库的URL" class="headerlink" title="仓库的URL"></a>仓库的URL</h2><p>仓库的URL是</p>
-<p>   ssh://git@host/repo-name</p>
-<p>例如：</p>
-<p>  ssh://git@192.168.1.2/testing</p>
-<p>仓库名后面有或没有.git都可以。</p>
-<h2 id="gitolite-命令"><a href="#gitolite-命令" class="headerlink" title="gitolite 命令"></a>gitolite 命令</h2><p>除了安装时使用gitolite命令的setup参数初始化了 gitolite-admin 和 testing 两个仓库外，这个命令还可以接收以下这些参数</p>
-<pre><code>list-groups                 list all group names in conf
-list-users                  list all users/user groups in conf
-list-repos                  list all repos/repo groups in conf
-list-phy-repos              list all repos actually on disk
-list-memberships            list all groups a name is a member of
-list-members                list all members of a group</code></pre>
-<p>这可以帮助我们确认服务器上到底有哪些仓库/用户等。   </p>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://github.com/sitaramc/gitolite">gitolite github网址：https://github.com/sitaramc/gitolite</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1265,13 +1233,13 @@ list-members                list all members of a group</code></pre>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">102</span>
+          <span class="site-state-item-count">103</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">142</span>
+        <span class="site-state-item-count">144</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1298,7 +1266,7 @@ list-members                list all members of a group</code></pre>
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-gg"></i>
   </span>
