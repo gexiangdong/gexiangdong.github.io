@@ -146,6 +146,165 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2020/02/08/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%92%8Cvue-js%E8%AF%AD%E6%B3%95%E5%B7%AE%E5%BC%82/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="GeXiangDong">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="GeXiangDong">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/08/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%92%8Cvue-js%E8%AF%AD%E6%B3%95%E5%B7%AE%E5%BC%82/" class="post-title-link" itemprop="url">小程序和VUE.js语法差异</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-08 08:31:35" itemprop="dateCreated datePublished" datetime="2020-02-08T08:31:35+08:00">2020-02-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-04 10:43:40" itemprop="dateModified" datetime="2020-03-04T10:43:40+08:00">2020-03-04</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>本文不是为了比较双方优劣，是因为我经常在两类项目中切换，有时搞混，列出来方便自己记忆和速查。</p>
+<table>
+<thead>
+<tr>
+<th align="center">对比项目</th>
+<th align="center">微信小程序</th>
+<th align="center">VUE.js</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">模版内显示变量</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">模版中元素属性使用变量</td>
+<td align="center">view class=”“</td>
+<td align="center">div :class=”var”</td>
+</tr>
+<tr>
+<td align="center">元素事件捕获</td>
+<td align="center">bindtap=”userClicked”</td>
+<td align="center">@click=”userClicked”</td>
+</tr>
+<tr>
+<td align="center">给事件处理函数传递变量</td>
+<td align="center">在元素上写 data-varname=”“, js中用 event.target.dataset.varname获取</td>
+<td align="center">@click=”userClicked(var1, var2)”，直接写在方法名后，和调用相同</td>
+</tr>
+<tr>
+<td align="center">事件处理函数中获取event</td>
+<td align="center">方法可接收的唯一参数就是event</td>
+<td align="center">@click=”userClicked($event)” 在模版中写上特殊变量 $event</td>
+</tr>
+<tr>
+<td align="center">阻止事件向父级元素传递</td>
+<td align="center">bindXxx改为catchXXX，例如：catchtap=”userclicked”</td>
+<td align="center">用.stop 例如： @click.stop=”userClicked” 或者@clicked.stop表明不处理直接阻止</td>
+</tr>
+<tr>
+<td align="center">模版内调用JS方法</td>
+<td align="center">只能调用wxs内声明的方法</td>
+<td align="center">可以直接调用vue内method段声明的方法</td>
+</tr>
+<tr>
+<td align="center">页面生命周期事件</td>
+<td align="center">onLoad</td>
+<td align="center">created</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">onShow</td>
+<td align="center">mounted</td>
+</tr>
+<tr>
+<td align="center">script部分方法</td>
+<td align="center">直接写在Page内和onload同级</td>
+<td align="center">写在methods部分下，methods和created同级</td>
+</tr>
+<tr>
+<td align="center">script部分对data的访问</td>
+<td align="center">this.data.xxx</td>
+<td align="center">this.xxx</td>
+</tr>
+<tr>
+<td align="center">component中对props内属性访问</td>
+<td align="center">this.properties.xxx</td>
+<td align="center">this.xxx</td>
+</tr>
+<tr>
+<td align="center">data 部分</td>
+<td align="center">可在程序中随时增加</td>
+<td align="center">先在data中声明，不声明的，动态增加 模版部分也不能使用</td>
+</tr>
+<tr>
+<td align="center">模版引用data遇到null</td>
+<td align="center">无显示或显示NULL</td>
+<td align="center">异常出错</td>
+</tr>
+<tr>
+<td align="center">模版内循环</td>
+<td align="center">wx:for=”array” wx:key=”index” wx:item=”item”</td>
+<td align="center">v-for=”(item, index) in array” :key=”index”</td>
+</tr>
+<tr>
+<td align="center">模版内虚拟元素</td>
+<td align="center">block</td>
+<td align="center">template  在v-for上应用时，需要把:key 应用与所有一级子元素并保持key唯一</td>
+</tr>
+<tr>
+<td align="center">自定义组件</td>
+<td align="center">created 方法不能调用 setData，（可用attached事件替代部分）</td>
+<td align="center">created 方法可以使用this ，能改变data内数据</td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2020/02/04/gitolite%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -874,207 +1033,6 @@ javax.servlet.ServletException: Circular view path []: would dispatch back to th
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.devmgr.cn/2019/10/14/%E5%AD%97%E4%BD%93%E7%9A%84%E5%8D%95%E4%BD%8D/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="GeXiangDong">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="GeXiangDong">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/10/14/%E5%AD%97%E4%BD%93%E7%9A%84%E5%8D%95%E4%BD%8D/" class="post-title-link" itemprop="url">字体的单位</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-10-14 11:46:04" itemprop="dateCreated datePublished" datetime="2019-10-14T11:46:04+08:00">2019-10-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-19 13:37:10" itemprop="dateModified" datetime="2019-10-19T13:37:10+08:00">2019-10-19</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>字体的大小，在网页中常见单位是px，印刷和word中，常用五号、四号等形式。</p>
-<h1 id="印刷常用字号和毫米对应关系"><a href="#印刷常用字号和毫米对应关系" class="headerlink" title="印刷常用字号和毫米对应关系"></a>印刷常用字号和毫米对应关系</h1><p>1英寸=72磅=2.54厘米；显示器的 </p>
-<p>px和pt（磅）之间的换算和DPI有关，DPI有些地方也称作PPI</p>
-<p>1pt = DPI / 72 px</p>
-<ul>
-<li>Windows 的默认DPI是 96 （用户可以修改）；</li>
-<li>Mac 的DPI是72</li>
-</ul>
-<p>DPI=72时 1英寸显示72px， 1pt = 1px<br>DPI=96时 1英寸显示96个px, 1pt = 96 / 72 = 1.333px (9pt = 12px) </p>
-<p>根据字号对应的磅值，可以得到下表的换算后数值</p>
-<table>
-<thead>
-<tr>
-<th align="center">字号</th>
-<th align="center">磅 (pt)</th>
-<th align="center">毫米 (mm)</th>
-<th align="center">像素 (px) DPI=72</th>
-<th align="center">像素 (px) DPI=96</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">八号</td>
-<td align="center">4.5</td>
-<td align="center">1.581</td>
-<td align="center">5</td>
-<td align="center">6</td>
-</tr>
-<tr>
-<td align="center">七号</td>
-<td align="center">5.25</td>
-<td align="center">1.845</td>
-<td align="center">5</td>
-<td align="center">7</td>
-</tr>
-<tr>
-<td align="center">小六</td>
-<td align="center">6.875</td>
-<td align="center">2.416</td>
-<td align="center">7</td>
-<td align="center">9</td>
-</tr>
-<tr>
-<td align="center">六号</td>
-<td align="center">8</td>
-<td align="center">2.812</td>
-<td align="center">8</td>
-<td align="center">11</td>
-</tr>
-<tr>
-<td align="center">小五</td>
-<td align="center">9</td>
-<td align="center">3.163</td>
-<td align="center">9</td>
-<td align="center">12</td>
-</tr>
-<tr>
-<td align="center">五号</td>
-<td align="center">10.5</td>
-<td align="center">3.690</td>
-<td align="center">11</td>
-<td align="center">14</td>
-</tr>
-<tr>
-<td align="center">小四</td>
-<td align="center">12</td>
-<td align="center">4.218</td>
-<td align="center">12</td>
-<td align="center">16</td>
-</tr>
-<tr>
-<td align="center">四号</td>
-<td align="center">14</td>
-<td align="center">4.920</td>
-<td align="center">14</td>
-<td align="center">19</td>
-</tr>
-<tr>
-<td align="center">三号</td>
-<td align="center">16</td>
-<td align="center">5.623</td>
-<td align="center">16</td>
-<td align="center">21</td>
-</tr>
-<tr>
-<td align="center">小二</td>
-<td align="center">18</td>
-<td align="center">6.326</td>
-<td align="center">17</td>
-<td align="center">24</td>
-</tr>
-<tr>
-<td align="center">二号</td>
-<td align="center">21</td>
-<td align="center">7.381</td>
-<td align="center">21</td>
-<td align="center">28</td>
-</tr>
-<tr>
-<td align="center">一号</td>
-<td align="center">28</td>
-<td align="center">9.841</td>
-<td align="center">28</td>
-<td align="center">37</td>
-</tr>
-<tr>
-<td align="center">小初</td>
-<td align="center">36</td>
-<td align="center">12.653</td>
-<td align="center">36</td>
-<td align="center">48</td>
-</tr>
-<tr>
-<td align="center">初号</td>
-<td align="center">42</td>
-<td align="center">14.761</td>
-<td align="center">42</td>
-<td align="center">56</td>
-</tr>
-</tbody></table>
-<h1 id="网页中常用的单位"><a href="#网页中常用的单位" class="headerlink" title="网页中常用的单位"></a>网页中常用的单位</h1><p>网页中除了px外，还会用到pt、rem, em, </p>
-<ul>
-<li>em 是指一个字母的宽度（最初指定的是字母M），因为网页默认字体是16px，所以 1em=16px；后来就固定下来了。这个单位会随着浏览器/操作系统放大字号而放大。（px指定的字体在早期IE下不会随着缩放字体而缩放），现在浏览器的缩放功能，都是对整个网页的放大缩小，已经不存在这个问题了。</li>
-<li>% 字体也可以用百分比指定大小，100% = 16px</li>
-<li>pt （win 1pt ≈ 1.333px; max 1pt = 1px)</li>
-<li>cm / mm / in in是inch英寸的缩写， cm是厘米mm是毫米和生活中用到厘米毫米没区别，1in = 2.54cm，这三个单位到px又和DPI相关了。 1in = DPI * 1px；</li>
-<li>ex 和em类似，用的是字母X的高度，很少有人用</li>
-</ul>
-<p>CSS3中新增了几个长度单位</p>
-<ul>
-<li>ch字符0的宽度</li>
-<li>rem HTML标签元素的em数</li>
-<li>vm (viewpoint width), 1vm = viewpointwidth * 1%</li>
-<li>vh (viewpoint height), 1vh = viewpointheight * 1%</li>
-<li>vmin = min(viewpoint width, viewpoint height)</li>
-<li>calc(100% - 5px) 表达式，可以做点简单运算 </li>
-</ul>
-<p>viewpoint在做手机端网页时会用到</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1144,7 +1102,7 @@ javax.servlet.ServletException: Circular view path []: would dispatch back to th
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">103</span>
+          <span class="site-state-item-count">104</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1177,7 +1135,7 @@ javax.servlet.ServletException: Circular view path []: would dispatch back to th
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2024</span>
+  <span itemprop="copyrightYear">2025</span>
   <span class="with-love">
     <i class="fa fa-gg"></i>
   </span>
